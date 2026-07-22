@@ -1,7 +1,7 @@
 ---
 description: Performs publication-level reviews of the entire "Building a Terminal Text Editor" manuscript by coordinating repository-wide specialist reviewers.
 mode: subagent
-model: deepseek/deepseek-v4-pro
+model: opencode-go/deepseek-v4-pro
 temperature: 0.2
 permission:
   edit: deny

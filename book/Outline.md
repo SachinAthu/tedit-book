@@ -4,10 +4,10 @@ Learn what actually happens before your program even starts.
 
 ## **Chapter 1 — Introduction**
 
+- What you'll learn
 - Why build a text editor?
 - Learning objectives
 - Final product
-- What you'll learn
 - Project roadmap
 - Development methodology
 - Recommended environment

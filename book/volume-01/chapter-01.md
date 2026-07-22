@@ -6,7 +6,7 @@
 
 ---
 
-# 1.1 Welcome
+## 1.1 Welcome
 
 Whether you're writing a simple script, developing a web application, or contributing to an operating system, one tool remains at the center of your workflow: the **text editor**.
 
@@ -23,13 +23,71 @@ Questions such as these often go unanswered:
 
 Most programming books teach _how to use_ an editor. Very few teach _how to build one_.
 
-This guide aims to change that.
+This book aims to change that.
 
 By building a terminal text editor from the ground up, you'll gain a practical understanding of computer systems, software architecture, data structures, operating systems, and terminal programming—all through a single, cohesive project.
 
 ---
 
-# 1.2 Why Build a Text Editor?
+## 1.2 What You Will Learn
+
+This project teaches far more than editor development.
+
+Along the way, you will gain experience with:
+
+### Operating Systems
+
+- Processes
+- File descriptors
+- Standard input/output
+- Terminal devices
+- Process communication
+
+### Terminal Programming
+
+- ANSI escape sequences
+- Cursor positioning
+- Screen management
+- Raw terminal mode
+- Keyboard input parsing
+
+### Software Architecture
+
+- Modular design
+- State management
+- Separation of concerns
+- Layered architecture
+- Event loops
+
+### Data Structures
+
+- Dynamic arrays
+- Strings
+- Gap buffers
+- Piece tables
+- Rope data structures
+
+### Algorithms
+
+- Cursor movement
+- Text insertion
+- Searching
+- Scrolling
+- Rendering optimization
+
+### File Systems
+
+- Loading files
+- Saving files
+- Line endings
+- Character encodings
+- Safe write operations
+
+By the end, you'll have practical experience with concepts that extend far beyond text editors.
+
+---
+
+## 1.3 Why Build a Text Editor?
 
 At first glance, creating a text editor may seem like reinventing the wheel.
 
@@ -52,11 +110,11 @@ A text editor is one of the rare projects that naturally combines multiple areas
 
 Unlike many toy projects, a text editor exposes you to problems that real-world software engineers solve every day.
 
-By the time you complete this guide, you will have built a fully functional terminal editor and developed a much deeper understanding of how interactive software operates.
+By the time you complete this book, you will have built a fully functional terminal editor and developed a much deeper understanding of how interactive software operates.
 
 ---
 
-# 1.3 Why a Terminal Editor Instead of a GUI Editor?
+## 1.4 Why a Terminal Editor Instead of a GUI Editor?
 
 Modern graphical editors are incredibly sophisticated.
 
@@ -80,7 +138,7 @@ Once you understand how a terminal editor works, transitioning to graphical edit
 
 ---
 
-# 1.4 Our Philosophy: Learn the "Why"
+## 1.5 Our Philosophy: Learn the "Why"
 
 Many programming tutorials follow a recipe-like approach:
 
@@ -88,7 +146,7 @@ Many programming tutorials follow a recipe-like approach:
 
 While this can produce working software, it rarely produces deep understanding.
 
-This guide follows a different philosophy.
+This book follows a different philosophy.
 
 Every design decision will answer three questions:
 
@@ -112,9 +170,9 @@ This approach mirrors how professional software engineers design systems.
 
 ---
 
-# 1.5 What We Will Build
+## 1.6 What We Will Build
 
-By the end of this guide, you will have created a functional terminal text editor with features such as:
+By the end of this book, you will have created a functional terminal text editor with features such as:
 
 - Opening existing files
 - Creating new files
@@ -134,13 +192,13 @@ While intentionally simple compared to modern IDEs, it will contain all of the a
 
 ---
 
-# 1.6 What We Will Not Build (Initially)
+## 1.7 What We Will Not Build (Initially)
 
 Professional editors include hundreds of advanced features.
 
 Implementing everything at once would make the project unnecessarily complex.
 
-Throughout most of this guide, we will intentionally avoid features such as:
+Throughout most of this book, we will intentionally avoid features such as:
 
 - Syntax highlighting
 - Auto-completion
@@ -159,67 +217,9 @@ This incremental approach keeps the project manageable while ensuring every new 
 
 ---
 
-# 1.7 What You Will Learn
+## 1.8 Who This Book Is For
 
-This project teaches far more than editor development.
-
-Along the way, you will gain experience with:
-
-## Operating Systems
-
-- Processes
-- File descriptors
-- Standard input/output
-- Terminal devices
-- Process communication
-
-## Terminal Programming
-
-- ANSI escape sequences
-- Cursor positioning
-- Screen management
-- Raw terminal mode
-- Keyboard input parsing
-
-## Software Architecture
-
-- Modular design
-- State management
-- Separation of concerns
-- Layered architecture
-- Event loops
-
-## Data Structures
-
-- Dynamic arrays
-- Strings
-- Gap buffers
-- Piece tables
-- Rope data structures
-
-## Algorithms
-
-- Cursor movement
-- Text insertion
-- Searching
-- Scrolling
-- Rendering optimization
-
-## File Systems
-
-- Loading files
-- Saving files
-- Line endings
-- Character encodings
-- Safe write operations
-
-By the end, you'll have practical experience with concepts that extend far beyond text editors.
-
----
-
-# 1.8 Who This Book Is For
-
-This guide is intended for readers who:
+This book is intended for readers who:
 
 - Have basic programming experience in C
 - Want to understand systems programming
@@ -233,9 +233,9 @@ Every concept will be introduced from first principles.
 
 ---
 
-# 1.9 Recommended Prerequisites
+## 1.9 Recommended Prerequisites
 
-To get the most from this guide, you should already be comfortable with:
+To get the most from this book, you should already be comfortable with:
 
 - Variables
 - Functions
@@ -251,9 +251,9 @@ If you have completed a beginner-level C programming course, you are ready.
 
 ---
 
-# 1.10 Development Environment
+## 1.10 Development Environment
 
-Throughout this guide, we assume a POSIX-compatible operating system.
+Throughout this book, we assume a POSIX-compatible operating system.
 
 Recommended platforms:
 
@@ -273,9 +273,9 @@ Although many concepts are portable, some terminal APIs differ across operating 
 
 ---
 
-# 1.11 How This Guide Is Organized
+## 1.11 How This book Is Organized
 
-The guide is divided into ten progressively deeper volumes.
+The book is divided into ten progressively deeper volumes.
 
 Rather than mixing theory and implementation, we adopt a **theory-first** approach:
 
@@ -291,7 +291,7 @@ Instead of copying code mechanically, you will understand the engineering decisi
 
 ---
 
-# 1.12 The Journey Ahead
+## 1.12 The Journey Ahead
 
 Building a text editor is not merely an exercise in writing software.
 
@@ -309,7 +309,7 @@ Understanding computer systems is the real journey.
 
 ---
 
-# Chapter Summary
+## Chapter Summary
 
 In this chapter, we:
 
@@ -317,7 +317,7 @@ In this chapter, we:
 - Discussed why building a text editor is an exceptional systems programming exercise.
 - Defined the goals and limitations of our editor.
 - Outlined the concepts and technologies that will be covered.
-- Explained the learning philosophy and roadmap for the rest of the guide.
+- Explained the learning philosophy and roadmap for the rest of the book.
 
 With the destination clearly defined, we are now ready to begin exploring the first fundamental question:
 
