@@ -86,6 +86,60 @@ Volume I, Chapter 5
 
 ---
 
+## Console
+
+**Definition**
+
+A hardware device or software application that provides a text-based interface to a computer system. In modern usage, "console" typically refers to the physical terminal hardware, while "terminal emulator" refers to the software that mimics it.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Terminal Emulator
+- Terminal
+
+---
+
+## Control Sequence
+
+**Definition**
+
+A sequence of bytes sent to a terminal that is interpreted as a command rather than displayed as text. Control sequences include ANSI escape sequences and other special codes.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- Terminal Emulator
+
+---
+
+## CPU (Central Processing Unit)
+
+**Definition**
+
+The component responsible for executing instructions and performing computations. The CPU fetches, decodes, and executes machine instructions in a continuous cycle while using registers to hold temporary data and the program counter to track the next instruction.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Machine Instruction
+- Instruction Cycle
+- Register
+- Program Counter
+- Main Memory
+
+---
+
 ## Cursor
 
 **Definition**
@@ -185,6 +239,26 @@ Volume IV, Chapter 17
 
 ---
 
+# G
+
+## Glyph
+
+**Definition**
+
+The visual representation of a character. While a character is an abstract piece of information, a glyph is the specific shape used to display that character in a given font.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Character
+- Font
+- Unicode
+
+---
+
 # I
 
 ## Input Handler
@@ -203,6 +277,99 @@ Volume III, Chapter 15
 
 - Command Engine
 - Event Loop
+
+---
+
+## Instruction Cycle
+
+**Definition**
+
+The continuous process by which a CPU executes programs, consisting of three stages: fetch the next instruction from memory, decode the instruction to determine what operation to perform, and execute the operation. Also known as the fetch-decode-execute cycle.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- CPU
+- Program Counter
+- Machine Instruction
+
+---
+
+# M
+
+## Machine Instruction
+
+**Definition**
+
+A single operation that a CPU can execute, encoded as binary data. Machine instructions are the lowest-level commands understood by the processor, such as adding two numbers, copying data, or jumping to another instruction.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- CPU
+- Instruction Cycle
+- Program Counter
+
+---
+
+## Main Memory (RAM)
+
+**Definition**
+
+The computer's primary working area that stores both the instructions the CPU executes and the data those instructions manipulate. Main memory is volatile, meaning its contents are lost when power is removed.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- CPU
+- Register
+- Process
+
+---
+
+# P
+
+## Process
+
+**Definition**
+
+An instance of a running program managed by the operating system. Each process has its own address space, file descriptors, and execution context.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Operating System
+- File Descriptor
+
+---
+
+## Program Counter (PC)
+
+**Definition**
+
+A special register within the CPU that stores the memory address of the next instruction to be executed. The program counter is updated after each instruction, enabling sequential execution as well as jumps, loops, and function calls.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- CPU
+- Instruction Cycle
+- Machine Instruction
 
 ---
 
@@ -239,6 +406,60 @@ Volume IV, Chapter 19
 
 - Frame
 - Viewport
+
+---
+
+## Register
+
+**Definition**
+
+A tiny storage location built directly into the CPU used to hold temporary data during instruction execution. Registers are extremely fast but limited in number and capacity.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- CPU
+- Main Memory
+- Instruction Cycle
+
+---
+
+# S
+
+## Standard Input (stdin)
+
+**Definition**
+
+The default input stream from which a program reads data, typically connected to the keyboard in a terminal environment.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Standard Output
+- Terminal
+
+---
+
+## Standard Output (stdout)
+
+**Definition**
+
+The default output stream to which a program writes data, typically connected to the terminal in a terminal environment.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Standard Input
+- Terminal
 
 ---
 
@@ -372,7 +593,6 @@ The following concepts are expected to be added as the manuscript develops:
 - UTF-8 Code Point
 - UTF-8 Code Unit
 - File Descriptor
-- Process
 - Shell
 - PTY
 - termios

@@ -1,0 +1,16 @@
+chapter: 2
+title: How Computers Display Text
+volume: 1
+
+sections:
+  - 2.1 The Journey of a Character — 01-journey-character.md
+  - 2.2 The CPU — 02-cpu.md
+  - 2.3 Main Memory (RAM) — 03-ram.md
+  - 2.4 Processes —
+  - 2.5 Standard Input and Standard Output —
+  - 2.6 From stdout to the Terminal —
+  - 2.7 Terminal Emulator —
+  - 2.8 Console vs Terminal —
+  - 2.9 Character Rendering —
+  - 2.10 Character Encoding —
+  - 2.11 Following One Character —

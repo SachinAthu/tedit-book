@@ -138,7 +138,7 @@ Once you understand how a terminal editor works, transitioning to graphical edit
 
 ---
 
-## 1.5 Our Philosophy: Learn the "Why"
+## 1.5 Our Philosophy - Learn the "Why"
 
 Many programming tutorials follow a recipe-like approach:
 

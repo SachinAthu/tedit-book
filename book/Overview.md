@@ -32,6 +32,8 @@ Developers with basic C programming knowledge who want to deepen their understan
 - `volume-*` — Book chapters organized by volume.
 - `appendices/` — Reference material and supporting content.
 
+Each chapter folder contain a chapter.yaml, with chapter title, volume number, chapter number, and included sections.
+
 ## Guiding Principles
 
 - Explain concepts before implementation.
