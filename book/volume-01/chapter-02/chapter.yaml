@@ -3,14 +3,14 @@ title: How Computers Display Text
 volume: 1
 
 sections:
-  - 2.1 The Journey of a Character — 01-journey-character.md
-  - 2.2 The CPU — 02-cpu.md
-  - 2.3 Main Memory (RAM) — 03-ram.md
-  - 2.4 Processes —
-  - 2.5 Standard Input and Standard Output —
-  - 2.6 From stdout to the Terminal —
-  - 2.7 Terminal Emulator —
-  - 2.8 Console vs Terminal —
-  - 2.9 Character Rendering —
-  - 2.10 Character Encoding —
-  - 2.11 Following One Character —
+  - 2.1 The Journey of a Character —> 01-journey-character.md
+  - 2.2 The CPU —> 02-cpu.md
+  - 2.3 Main Memory (RAM) —> 03-ram.md
+  - 2.4 Processes —> 04-process.md
+  - 2.5 Standard Input and Standard Output —> 05-stdin-stdout.md
+  - 2.6 From stdout to the Terminal —> 06-stdout-terminal.md
+  - 2.7 Terminal Emulator —> 07-terminal-emulator.md
+  - 2.8 Console vs Terminal —> 08-console-vs-terminal.md
+  - 2.9 Character Rendering —> 09-character-rendering.md
+  - 2.10 Character Encoding —> 10-character-encoding.md
+  - 2.11 Following One Character —> 11-following-one-character.md

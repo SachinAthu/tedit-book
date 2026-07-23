@@ -66,6 +66,43 @@ Volume I, Chapter 4
 
 ---
 
+## ASCII
+
+**Definition**
+
+The American Standard Code for Information Interchange, a character encoding that assigns numeric values to English letters, digits, punctuation, and control characters. ASCII was one of the first widely adopted character encoding standards and remains the foundation of modern encodings such as UTF-8.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Character Encoding
+- Unicode
+- UTF-8
+
+---
+
+# B
+
+## Buffer
+
+**Definition**
+
+A temporary storage area that accumulates data before it is transmitted or processed. Buffering improves efficiency by reducing the number of communication operations between components, such as between a program and the operating system.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Standard Output
+- Kernel
+
+---
+
 # C
 
 ## Canonical Mode
@@ -86,11 +123,47 @@ Volume I, Chapter 5
 
 ---
 
+## Character Cell
+
+**Definition**
+
+A fixed area of the screen reserved for displaying one character. The terminal emulator maintains a grid of character cells, each containing information such as the character to display, its foreground and background colors, and display attributes.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Monospaced Font
+- Font
+- Terminal Emulator
+
+---
+
+## Character Encoding
+
+**Definition**
+
+A system that defines the mapping between characters and the numeric values computers store and transmit. Character encodings enable software to exchange textual information reliably across different systems.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- ASCII
+- Unicode
+- UTF-8
+
+---
+
 ## Console
 
 **Definition**
 
-A hardware device or software application that provides a text-based interface to a computer system. In modern usage, "console" typically refers to the physical terminal hardware, while "terminal emulator" refers to the software that mimics it.
+Originally, a physical hardware device connected directly to a computer for system control. In modern usage, the term is sometimes used interchangeably with "terminal emulator," though this book distinguishes them: a console is the historical hardware device, while the terminal emulator is the software application that provides a text-based interface on a modern desktop.
 
 **First Introduced**
 
@@ -220,6 +293,24 @@ Volume II, Chapter 9
 
 # F
 
+## Font
+
+**Definition**
+
+A set of glyphs that defines the visual appearance of characters. A font specifies details such as shape, size, weight, spacing, and style, and is used by the terminal emulator to determine how characters should be rendered on the screen.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Glyph
+- Monospaced Font
+- Terminal Emulator
+
+---
+
 ## Frame
 
 **Definition**
@@ -256,6 +347,26 @@ Volume I, Chapter 2
 - Character
 - Font
 - Unicode
+
+---
+
+# H
+
+## Heap
+
+**Definition**
+
+The region of a process's memory used for dynamically allocated data. Memory on the heap is explicitly requested and released by the program during execution, typically through functions such as `malloc()` and `free()`.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Stack
+- Process
+- Main Memory
 
 ---
 
@@ -336,6 +447,24 @@ Volume I, Chapter 2
 
 ---
 
+## Monospaced Font
+
+**Definition**
+
+A font in which every character occupies the same amount of horizontal space. Monospaced fonts are used by terminal emulators to ensure that text columns remain aligned, making cursor positioning and layout predictable.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Font
+- Character Cell
+- Terminal Emulator
+
+---
+
 # P
 
 ## Process
@@ -352,6 +481,23 @@ Volume I, Chapter 2
 
 - Operating System
 - File Descriptor
+
+---
+
+## Process ID (PID)
+
+**Definition**
+
+A unique numeric identifier assigned by the operating system to each running process. The operating system uses the PID to track, manage, and communicate with individual processes.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Process
+- Operating System
 
 ---
 
@@ -428,6 +574,60 @@ Volume I, Chapter 2
 ---
 
 # S
+
+## Shell
+
+**Definition**
+
+A command-line interpreter that reads user commands and launches programs. The shell itself does not render output—it starts processes and communicates with them through standard streams, while the terminal emulator handles display.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Terminal Emulator
+- Process
+- Standard Input
+
+---
+
+## Stack
+
+**Definition**
+
+The region of a process's memory that stores information related to function calls, including local variables, function parameters, and return addresses. The stack grows and shrinks automatically as functions are called and return.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Heap
+- Process
+- Main Memory
+
+---
+
+## Standard Error (stderr)
+
+**Definition**
+
+The third standard stream provided to every process, used specifically for error messages and diagnostic output. Unlike stdout, stderr is not typically redirected when normal output is sent to a file, ensuring errors remain visible to the user.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Standard Input
+- Standard Output
+- Process
+
+---
 
 ## Standard Input (stdin)
 
@@ -541,6 +741,44 @@ Volume I, Chapter 3
 
 ---
 
+# U
+
+## Unicode
+
+**Definition**
+
+A universal character standard that assigns a unique numeric identifier—called a code point—to virtually every character used in modern writing systems, including alphabets, ideographs, mathematical symbols, and emoji.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- UTF-8
+- ASCII
+- Character Encoding
+
+---
+
+## UTF-8
+
+**Definition**
+
+The dominant character encoding used on modern Unix-like systems and the Internet. UTF-8 uses a variable-length encoding where common ASCII characters occupy one byte while other characters may require multiple bytes. It is fully backward compatible with ASCII.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- Unicode
+- ASCII
+- Character Encoding
+
+---
+
 # V
 
 ## Viewport
@@ -587,13 +825,9 @@ Project Documentation
 
 The following concepts are expected to be added as the manuscript develops:
 
-- ASCII
-- UTF-8
-- Unicode
 - UTF-8 Code Point
 - UTF-8 Code Unit
 - File Descriptor
-- Shell
 - PTY
 - termios
 - Gap Buffer

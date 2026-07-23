@@ -44,7 +44,7 @@ Consider what would happen if a text editor modified the file directly on the di
 
 Suppose you type the word:
 
-```text id="1p7swd"
+```text
 Hello
 ```
 
@@ -86,7 +86,7 @@ It also needs memory for variables, temporary calculations, open files, and many
 
 Conceptually, the memory used by a program contains several different kinds of data.
 
-```text id="u5xw91"
+```text
 +--------------------------------+
 | Program Instructions           |
 +--------------------------------+
@@ -112,14 +112,14 @@ When our editor opens a file, the file is first copied into memory.
 
 For example, suppose the file contains:
 
-```text id="4kp6ns"
+```text
 Hello
 World
 ```
 
 On the disk, this is simply a sequence of bytes.
 
-```text id="hw5t8j"
+```text
 Storage
 
 +----------------------+
@@ -131,7 +131,7 @@ After loading the file, the editor creates an in-memory representation.
 
 Conceptually, it might look like this:
 
-```text id="tf9o7v"
+```text
 RAM
 
 Line 1 ──► "Hello"
@@ -145,7 +145,7 @@ The editor is working entirely with the copy stored in memory.
 
 If the user inserts another line,
 
-```text id="wqj83m"
+```text
 Hello
 
 Beautiful
@@ -199,7 +199,7 @@ Each program receives its own portion of memory.
 
 Conceptually, the operating system keeps them separate.
 
-```text id="j9y4nl"
+```text
 +------------------------------+
 | Process A Memory             |
 +------------------------------+
@@ -219,7 +219,7 @@ We'll learn more about this when we discuss processes in the next section.
 
 The complete life cycle of a document inside a text editor looks like this:
 
-```text id="m6d8rp"
+```text
         Storage Device
               │
          Open File

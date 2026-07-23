@@ -1,6 +1,6 @@
 # Volume I — Computing Foundations
 
-# Chapter 1 — How Computers Display Text
+# Chapter 2 — How Computers Display Text
 
 ## Introduction
 
