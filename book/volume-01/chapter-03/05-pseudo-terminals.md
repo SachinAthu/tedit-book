@@ -98,7 +98,7 @@ Anything written to one side becomes available on the other.
 PTY Master  ◄────────────►  PTY Slave
 ```
 
-The names **master** and **slave** come from historical Unix terminology. In modern documentation, you may also encounter terms such as **controller** and **endpoint**, but the traditional names remain common in operating system APIs and existing software.
+The names **master** and **slave** come from historical Unix terminology. In modern documentation, you may also encounter the terms **PTM** (pseudo-terminal master) and **PTS** (pseudo-terminal slave), but the traditional names remain common in operating system APIs and existing software.
 
 The two ends have different responsibilities.
 

@@ -348,7 +348,7 @@ the emulator detects the new size and informs the application.
 
 Programs can then adjust their layout accordingly.
 
-Our editor will eventually respond to these resize events by redrawing the visible portion of the document.
+Our editor will eventually respond to these resize events by redrawing the visible portion of the document. When a resize occurs, the kernel delivers a `SIGWINCH` signal to the foreground process group, which we will discuss further in Chapter 5.
 
 ---
 

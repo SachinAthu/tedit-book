@@ -212,9 +212,9 @@ Some keyboard shortcuts are **not** ordinary characters.
 
 For example:
 
-- **Ctrl+C**
-- **Ctrl+Z**
-- \*\*Ctrl+\*\*
+- **Ctrl+C** (generates SIGINT, typically terminates the program)
+- **Ctrl+Z** (generates SIGTSTP, suspends the program)
+- **Ctrl+\\** (generates SIGQUIT, terminates the program and may produce a core dump)
 
 These combinations are interpreted by the terminal rather than being passed directly to the application.
 
