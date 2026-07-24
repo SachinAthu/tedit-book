@@ -7,11 +7,11 @@ sections:
   - 3.2 A Brief History of Terminals —> 02-history-of-terminals.md
   - 3.3 What is a TTY —> 03-what-is-tty.md
   - 3.4 Virtual Consoles —> 04-virtual-consoles.md
-  - 3.5 Pseudo Terminals (PTYs) —> 05.md
-  - 3.6 Terminal Emulator —> 06.md
-  - 3.7 The Shell —> 07.md
-  - 3.8 Terminal Sessions —> 08.md
-  - 3.9 Standard File Descriptors —> 09.md
-  - 3.10 Controlling Terminal —> 10.md
-  - 3.11 Process Groups —> 11.md
-  - 3.12 Putting Everything Together —> 12.md
+  - 3.5 Pseudo Terminals (PTYs) —> 05-pseudo-terminals.md
+  - 3.6 Terminal Emulator —> 06-terminal-emulator.md
+  - 3.7 The Shell —> 07-shell.md
+  - 3.8 Terminal Sessions —> 08-terminal-sessions.md
+  - 3.9 Standard File Descriptors —> 09-file-descriptors.md
+  - 3.10 Controlling Terminal —> 10-controlling-terminal.md
+  - 3.11 Process Groups —> 11-process-groups.md
+  - 3.12 Putting Everything Together —> 12-everything-together.md

@@ -193,6 +193,25 @@ Volume I, Chapter 2
 
 ---
 
+## Controlling Terminal
+
+**Definition**
+
+The terminal device associated with an interactive process or process group. It serves as the primary communication channel between the user and the process, delivering keyboard input, routing output, and generating terminal signals such as those triggered by Ctrl+C and Ctrl+Z.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- Terminal Session
+- Process Group
+- PTY
+- Signal
+
+---
+
 ## CPU (Central Processing Unit)
 
 **Definition**
@@ -308,6 +327,26 @@ Volume I, Chapter 2
 - Glyph
 - Monospaced Font
 - Terminal Emulator
+
+---
+
+## File Descriptor
+
+**Definition**
+
+A small non-negative integer that identifies an open file or I/O resource within a process. Despite the name, a file descriptor can refer to a regular file, a terminal, a pipe, a socket, or many other input/output resources. Every process begins with three standard file descriptors: 0 (stdin), 1 (stdout), and 2 (stderr).
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- Standard Input
+- Standard Output
+- Standard Error
+- Process
+- PTY
 
 ---
 
@@ -501,6 +540,26 @@ Volume I, Chapter 2
 
 ---
 
+## Process Group
+
+**Definition**
+
+A collection of one or more related processes that the operating system manages as a single unit for the purposes of signal delivery, terminal management, and job control. Every controlling terminal has one foreground process group, which has exclusive access to keyboard input and terminal-generated signals. Other process groups may run in the background but do not receive interactive input.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- Controlling Terminal
+- Foreground Process Group
+- Job Control
+- Signal
+- Shell
+
+---
+
 ## Program Counter (PC)
 
 **Definition**
@@ -516,6 +575,26 @@ Volume I, Chapter 2
 - CPU
 - Instruction Cycle
 - Machine Instruction
+
+---
+
+## Pseudo Terminal (PTY)
+
+**Definition**
+
+A pair of virtual devices that emulate a real terminal entirely in software. The PTY consists of two connected ends: the master, controlled by the terminal emulator, and the slave, which behaves like a real terminal device for shells and applications. PTYs allow graphical terminal emulators to provide a terminal environment without dedicated hardware. Their device files typically appear under `/dev/pts/`.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- TTY
+- Terminal Emulator
+- Controlling Terminal
+- File Descriptor
+- Virtual Console
 
 ---
 
@@ -575,6 +654,23 @@ Volume I, Chapter 2
 
 # S
 
+## Scrollback Buffer
+
+**Definition**
+
+A buffer maintained by the terminal emulator that stores output that has scrolled beyond the visible portion of the window. The user can view this history by scrolling upward, but the application itself is not involved in retrieving or rendering scrollback content.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- Terminal Emulator
+- Viewport
+
+---
+
 ## Shell
 
 **Definition**
@@ -590,6 +686,25 @@ Volume I, Chapter 2
 - Terminal Emulator
 - Process
 - Standard Input
+
+---
+
+## Signal
+
+**Definition**
+
+A notification delivered by the operating system to a process or process group in response to an event. Terminal-generated signals are triggered by keyboard shortcuts such as Ctrl+C (SIGINT) and Ctrl+Z (SIGTSTP) and are delivered to the foreground process group. Signals allow the user to interrupt, suspend, or terminate running programs without the application needing to poll for these events.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- Controlling Terminal
+- Process Group
+- Foreground Process Group
+- Job Control
 
 ---
 
@@ -665,6 +780,24 @@ Volume I, Chapter 2
 
 # T
 
+## Teletype (TTY)
+
+**Definition**
+
+An electromechanical terminal device consisting of a keyboard and a paper printer, originally developed for telegraph networks and later connected directly to computers. Teletypes printed every character onto paper as it was received, creating a permanent record of each session. Although these machines have long disappeared, Unix retained their name: the term TTY still refers to terminal devices managed by the operating system.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- TTY
+- Terminal
+- Video Terminal
+
+---
+
 ## Terminal
 
 **Definition**
@@ -702,6 +835,26 @@ Volume I, Chapter 2
 - Terminal
 - ANSI Escape Sequence
 - TTY
+
+---
+
+## Terminal Session
+
+**Definition**
+
+The complete interactive conversation between a user and the operating system through a terminal, encompassing the terminal emulator, the PTY, the shell, and any programs launched from that shell. A terminal session begins when the terminal emulator starts and creates a PTY, and ends when the shell exits and the terminal window closes.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- Terminal Emulator
+- PTY
+- Shell
+- Controlling Terminal
+- Process Group
 
 ---
 
@@ -781,6 +934,25 @@ Volume I, Chapter 2
 
 # V
 
+## Video Terminal
+
+**Definition**
+
+A hardware terminal that replaced paper printers with a cathode-ray tube (CRT) display. Video terminals allowed users to move the cursor, edit text on the screen, clear parts of the display, and create full-screen interactive applications for the first time. The control sequences developed for these terminals eventually became standardized as ANSI escape sequences.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- Terminal
+- Teletype
+- Terminal Emulator
+
+---
+
 ## Viewport
 
 **Definition**
@@ -797,6 +969,25 @@ Volume IV, Chapter 20
 
 - Renderer
 - Cursor
+
+---
+
+## Virtual Console
+
+**Definition**
+
+A software-created terminal that provides an independent login session using the same physical keyboard and monitor as other virtual consoles. Managed directly by the Linux kernel and accessed via Ctrl+Alt+Fn shortcuts, each virtual console has its own TTY device (e.g., `/dev/tty1`) and runs independently of graphical terminal emulators.
+
+**First Introduced**
+
+Volume I, Chapter 3
+
+**Related Terms**
+
+- TTY
+- PTY
+- Terminal Emulator
+- Console
 
 ---
 
@@ -827,8 +1018,6 @@ The following concepts are expected to be added as the manuscript develops:
 
 - UTF-8 Code Point
 - UTF-8 Code Unit
-- File Descriptor
-- PTY
 - termios
 - Gap Buffer
 - Piece Table
