@@ -1,14 +1,10 @@
-### 4.1 The Problem with Plain Text
-
-## Introduction
+# 4.1 The Problem with Plain Text
 
 In the previous chapters, we learned how a character travels from a program to the screen. A program writes bytes to **stdout**, the operating system passes those bytes through a terminal device, and the terminal emulator interprets them before finally drawing text on the display.
 
 So far, every example has simply **printed text**. This is sufficient for many command-line programs, but it is not enough for building an interactive application such as a text editor.
 
 Before we learn how terminals can be controlled, we must first understand the limitations of plain text output.
-
----
 
 ## Printing Text Is a One-Way Operation
 
@@ -46,8 +42,6 @@ World
 
 Once the characters have been displayed, the program simply continues executing. There is no concept of selecting previously printed text or modifying it.
 
----
-
 ## Text Only Moves Forward
 
 When we use `printf()`, the terminal maintains an internal **cursor position**, which indicates where the next character will be drawn.
@@ -81,8 +75,6 @@ World|
 Each character advances the cursor. A newline moves it to the beginning of the next line.
 
 The important observation is that **output always moves forward**.
-
----
 
 ## You Cannot Edit Existing Output
 
@@ -126,8 +118,6 @@ in the C standard library.
 
 Once text has been written, `printf()` provides no mechanism to modify what has already been displayed.
 
----
-
 ## Why This Is a Problem
 
 Imagine implementing even the simplest text editor.
@@ -162,8 +152,6 @@ because the cursor is already positioned after the word _Hello_.
 
 The terminal faithfully prints the next character at the current cursor position. It has no knowledge of editing, insertion, or replacement.
 
----
-
 ## More Problems
 
 The limitations become even more obvious when considering common editor operations.
@@ -189,8 +177,6 @@ World
 ```
 
 Plain text output provides no way to reposition the cursor.
-
----
 
 ### Clearing the Screen
 
@@ -226,8 +212,6 @@ This merely pushes the previous contents upward:
 
 The screen has not actually been cleared. We have simply scrolled the terminal.
 
----
-
 ### Updating a Status Bar
 
 Many editors display information such as:
@@ -247,8 +231,6 @@ example.txt    Line 3, Column 8
 ```
 
 Clearly, this is not the intended behavior.
-
----
 
 ## Plain Text Is Designed for Documents, Not Interfaces
 
@@ -280,17 +262,13 @@ Interactive applications have different requirements. They need to update parts 
 
 Plain text alone cannot provide these capabilities.
 
----
-
-### Engineering Insight
+## Engineering Insight
 
 The terminal does not remember your application's user interface.
 
 Once characters have been displayed, the terminal treats them as ordinary output. If a program wants to change what the user sees, it must explicitly instruct the terminal how to modify the display.
 
 This is a fundamental difference between a terminal and a graphical user interface. A GUI toolkit provides buttons, windows, and editable text fields as reusable components. A terminal provides only a stream of characters unless the program uses additional control commands.
-
----
 
 ## Summary
 

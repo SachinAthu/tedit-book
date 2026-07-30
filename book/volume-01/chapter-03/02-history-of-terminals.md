@@ -123,7 +123,7 @@ Even today, the term **TTY** is still used throughout Unix-like operating system
 
 ---
 
-### Historical Note
+## Historical Note
 
 The word **TTY** originally stood for **Teletype**.
 
@@ -228,7 +228,7 @@ This commitment to backward compatibility is one of the reasons Unix systems rem
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 One of Unix's greatest strengths is its emphasis on stable interfaces.
 

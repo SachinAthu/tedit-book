@@ -282,7 +282,7 @@ We will return to this topic in greater depth when discussing text storage and c
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 One of UTF-8's greatest strengths is that it balanced innovation with compatibility.
 
@@ -292,7 +292,7 @@ This careful attention to backward compatibility is one reason UTF-8 became the 
 
 ---
 
-### Common Mistakes
+## Common Mistakes
 
 **Assuming computers store characters directly**
 

@@ -1,7 +1,5 @@
 # 4.3 Anatomy of an Escape Sequence
 
-## Introduction
-
 In the previous section, we learned that every ANSI escape sequence begins with the **Escape (ESC)** character, which tells the terminal that the following bytes should be interpreted as a command rather than ordinary text.
 
 However, not all escape sequences are the same. Some move the cursor, others clear the screen, while others change text colors or formatting.
@@ -11,8 +9,6 @@ How does the terminal distinguish between these different commands?
 The answer is that ANSI escape sequences follow a well-defined structure, much like the syntax of a programming language. Each part of the sequence has a specific purpose, allowing the terminal to interpret the command correctly.
 
 In this section, we will examine that structure one piece at a time.
-
----
 
 ## Escape Sequences Have a Grammar
 
@@ -41,8 +37,6 @@ Although it appears to be just four characters, each part has a specific meaning
 Each component plays a different role.
 
 Rather than memorizing hundreds of escape sequences, it is far more useful to understand this general pattern.
-
----
 
 ## Part 1 — The Escape Character (ESC)
 
@@ -87,8 +81,6 @@ produces:
 ```
 
 because there is no leading Escape character.
-
----
 
 ## Part 2 — The Control Sequence Introducer (CSI)
 
@@ -139,8 +131,6 @@ This is a CSI command
 ```
 
 Most of the terminal commands used in this book are CSI sequences.
-
----
 
 ## Part 3 — Parameters
 
@@ -196,8 +186,6 @@ contains a single parameter:
 
 Again, the meaning of the parameter depends on the final command character.
 
----
-
 ## Multiple Parameters
 
 Many escape sequences accept more than one parameter.
@@ -234,8 +222,6 @@ Parameter 3
 ```
 
 The terminal reads each parameter individually before executing the command.
-
----
 
 ## Part 4 — The Final Command Character
 
@@ -293,8 +279,6 @@ H
 which instructs the terminal to move the cursor.
 
 Notice that the terminal cannot determine the command until it reaches this final character.
-
----
 
 ## How the Terminal Parses a Sequence
 
@@ -357,8 +341,6 @@ Execute command
 The terminal buffers the incoming bytes until it encounters the final command character.
 
 Only then does it know enough information to execute the instruction.
-
----
 
 ## A Real Example
 
@@ -433,8 +415,6 @@ Hello
 
 appears on the screen, but it is rendered using the attributes established by the preceding command.
 
----
-
 ## Not Every Escape Sequence Uses CSI
 
 Although CSI sequences are by far the most common, they are not the only type of escape sequence.
@@ -465,17 +445,13 @@ These sequences do not contain the `[` character.
 
 Fortunately, for building our editor, we will primarily work with **CSI sequences**, so understanding their structure will cover nearly everything we need.
 
----
-
-### Historical Note
+## Historical Note
 
 The CSI format originated with the **ANSI X3.64** standard and became widely adopted through Digital Equipment Corporation's **VT100** terminal. Over time, this grammar became the de facto language for terminal control, and nearly all modern terminal emulators continue to support it.
 
 This long-standing compatibility is one reason why programs written decades ago can still run correctly in today's terminals.
 
----
-
-### Engineering Insight
+## Engineering Insight
 
 Notice how ANSI escape sequences resemble the syntax of a programming language.
 
@@ -487,8 +463,6 @@ Each command contains:
 - and an operation (the final character).
 
 This design makes the protocol both **compact** and **extensible**. Instead of inventing a new byte for every possible operation, the terminal reuses the same grammar with different parameters and final command characters. This is similar to how a function call combines a function name with its arguments.
-
----
 
 ## Summary
 

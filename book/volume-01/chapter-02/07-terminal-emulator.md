@@ -265,7 +265,7 @@ This shared "language" between applications and terminal emulators is one of the
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 A terminal emulator is best viewed as a specialized rendering engine rather than a command interpreter.
 
@@ -273,7 +273,7 @@ Its primary responsibility is to translate incoming character streams into a vis
 
 ---
 
-### Common Mistakes
+## Common Mistakes
 
 **Confusing the shell with the terminal emulator**
 

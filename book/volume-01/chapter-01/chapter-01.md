@@ -4,8 +4,6 @@
 
 > _Every programmer uses a text editor. Few programmers understand how one actually works._
 
----
-
 ## 1.1 Welcome
 
 Whether you're writing a simple script, developing a web application, or contributing to an operating system, one tool remains at the center of your workflow: the **text editor**.
@@ -26,8 +24,6 @@ Most programming books teach _how to use_ an editor. Very few teach _how to buil
 This book aims to change that.
 
 By building a terminal text editor from the ground up, you'll gain a practical understanding of computer systems, software architecture, data structures, operating systems, and terminal programming—all through a single, cohesive project.
-
----
 
 ## 1.2 What You Will Learn
 
@@ -85,8 +81,6 @@ Along the way, you will gain experience with:
 
 By the end, you'll have practical experience with concepts that extend far beyond text editors.
 
----
-
 ## 1.3 Why Build a Text Editor?
 
 At first glance, creating a text editor may seem like reinventing the wheel.
@@ -112,8 +106,6 @@ Unlike many toy projects, a text editor exposes you to problems that real-world 
 
 By the time you complete this book, you will have built a fully functional terminal editor and developed a much deeper understanding of how interactive software operates.
 
----
-
 ## 1.4 Why a Terminal Editor Instead of a GUI Editor?
 
 Modern graphical editors are incredibly sophisticated.
@@ -135,8 +127,6 @@ Instead of worrying about windows, buttons, or graphics rendering, you can focus
 This separation allows us to study the editor itself rather than the graphical framework surrounding it.
 
 Once you understand how a terminal editor works, transitioning to graphical editors becomes far easier because the underlying architecture remains surprisingly similar.
-
----
 
 ## 1.5 Our Philosophy - Learn the "Why"
 
@@ -168,8 +158,6 @@ Only then will we implement it.
 
 This approach mirrors how professional software engineers design systems.
 
----
-
 ## 1.6 What We Will Build
 
 By the end of this book, you will have created a functional terminal text editor with features such as:
@@ -189,8 +177,6 @@ By the end of this book, you will have created a functional terminal text editor
 The completed application will resemble lightweight terminal editors such as Nano.
 
 While intentionally simple compared to modern IDEs, it will contain all of the architectural building blocks used by much larger editors.
-
----
 
 ## 1.7 What We Will Not Build (Initially)
 
@@ -215,8 +201,6 @@ These topics will be discussed later after the core editor architecture is compl
 
 This incremental approach keeps the project manageable while ensuring every new feature builds upon a solid foundation.
 
----
-
 ## 1.8 Who This Book Is For
 
 This book is intended for readers who:
@@ -230,8 +214,6 @@ This book is intended for readers who:
 You do **not** need prior experience with terminal programming, POSIX APIs, or editor internals.
 
 Every concept will be introduced from first principles.
-
----
 
 ## 1.9 Recommended Prerequisites
 
@@ -248,8 +230,6 @@ To get the most from this book, you should already be comfortable with:
 - Basic compilation using GCC or Clang
 
 If you have completed a beginner-level C programming course, you are ready.
-
----
 
 ## 1.10 Development Environment
 
@@ -271,8 +251,6 @@ Recommended tools:
 
 Although many concepts are portable, some terminal APIs differ across operating systems. We will discuss portability where appropriate.
 
----
-
 ## 1.11 How This book Is Organized
 
 The book is divided into ten progressively deeper volumes.
@@ -288,8 +266,6 @@ Rather than mixing theory and implementation, we adopt a **theory-first** approa
 This progression ensures that every line of code has a clear purpose.
 
 Instead of copying code mechanically, you will understand the engineering decisions behind it.
-
----
 
 ## 1.12 The Journey Ahead
 
@@ -307,9 +283,7 @@ The editor is our destination.
 
 Understanding computer systems is the real journey.
 
----
-
-## Chapter Summary
+## Summary
 
 In this chapter, we:
 

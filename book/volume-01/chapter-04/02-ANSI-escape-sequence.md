@@ -1,7 +1,5 @@
 # 4.2 What Is an ANSI Escape Sequence?
 
-## Introduction
-
 In the previous section, we discovered that plain text output is inherently limited. A program can print characters, but it cannot move the cursor, clear the screen, or update text that has already been displayed.
 
 Yet applications like **Vim**, **Nano**, **htop**, and **less** perform these operations effortlessly. They move the cursor, redraw the screen, change colors, and create interactive user interfaces—all within an ordinary terminal window.
@@ -11,8 +9,6 @@ How is this possible?
 The answer lies in **ANSI Escape Sequences**.
 
 Rather than printing only text, a program can also send **commands** to the terminal. These commands are encoded as special sequences of characters known as **ANSI Escape Sequences**.
-
----
 
 ## The Terminal Understands More Than Text
 
@@ -62,8 +58,6 @@ These are examples of **control characters**.
 
 ANSI escape sequences extend this idea much further.
 
----
-
 ## The Escape Character
 
 Every ANSI escape sequence begins with a special ASCII control character called **Escape**.
@@ -98,8 +92,6 @@ Both represent the same byte:
 
 Unlike ordinary characters such as `'A'` or `'B'`, the Escape character is **not printed**. Instead, it signals that what follows should be interpreted as a command rather than ordinary text.
 
----
-
 ## Switching from Text to Commands
 
 You can think of the Escape character as telling the terminal:
@@ -131,8 +123,6 @@ The terminal normally remains in **text mode**, printing every printable charact
 When it encounters the Escape character, it temporarily switches to interpreting a command.
 
 After the command is complete, it resumes treating incoming bytes as ordinary text.
-
----
 
 ## An Example Escape Sequence
 
@@ -194,8 +184,6 @@ Instead, it simply writes a sequence of bytes to `stdout`.
 
 The terminal receives those bytes, recognizes them as a command, and performs the requested action.
 
----
-
 ## The Terminal Is the Interpreter
 
 One common misconception is that the operating system understands ANSI escape sequences.
@@ -256,8 +244,6 @@ the program sends exactly the same bytes.
 
 Each terminal emulator interprets those bytes according to the ANSI standard (or a compatible extension) and updates its display accordingly.
 
----
-
 ## Escape Sequences Are Still Just Text
 
 One of the most elegant aspects of ANSI escape sequences is that they require no special communication channel.
@@ -298,8 +284,6 @@ Clear the screen
 
 This simple design has made ANSI escape sequences portable across many operating systems and terminal emulators for decades.
 
----
-
 ## Why Use Escape Sequences?
 
 Imagine implementing a text editor without them.
@@ -318,17 +302,13 @@ ANSI escape sequences give programs the ability to control the terminal in ways 
 
 They transform the terminal from a simple text printer into a programmable display.
 
----
-
-### Historical Note
+## Historical Note
 
 The name **ANSI escape sequence** comes from the **American National Standards Institute (ANSI)**, which standardized a set of terminal control codes in the late 1970s. The standard built upon earlier work from Digital Equipment Corporation's VT-series terminals, particularly the VT100, whose control sequences became widely adopted.
 
 Today, most modern terminal emulators support the ANSI standard along with many VT100-compatible extensions, allowing programs written decades ago to continue working on modern systems.
 
----
-
-### Engineering Insight
+## Engineering Insight
 
 Notice that ANSI escape sequences are **not operating system APIs**. There is no POSIX function named `move_cursor()` or `clear_screen()`.
 
@@ -339,8 +319,6 @@ Instead, terminal control follows a simple philosophy:
 The operating system faithfully delivers those bytes to the terminal. The intelligence lies in the terminal emulator, which interprets certain byte sequences as commands rather than printable text.
 
 This design keeps the interface between programs and terminals remarkably simple and has contributed to its longevity and portability.
-
----
 
 ## Summary
 

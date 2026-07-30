@@ -416,7 +416,7 @@ Understanding this separation of responsibilities will make the implementation m
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 A terminal session demonstrates another important Unix design principle:
 

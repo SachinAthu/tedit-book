@@ -102,7 +102,7 @@ Together, these chapters will provide everything we need before writing the firs
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 Many beginners learn terminal programming by copying code that configures `termios`, prints ANSI escape sequences, and reads bytes from `stdin`. While this approach can produce a working program, it often leaves important questions unanswered:
 

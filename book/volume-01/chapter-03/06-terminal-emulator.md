@@ -383,7 +383,7 @@ Those responsibilities belong to applications such as Nano, Vim, or the editor w
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 The terminal emulator follows an important software engineering principle:
 

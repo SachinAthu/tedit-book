@@ -271,7 +271,7 @@ Because our editor uses these standard interfaces, it automatically works inside
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 One of Unix's greatest design decisions was treating input and output as generic streams rather than special terminal operations.
 

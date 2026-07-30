@@ -425,7 +425,7 @@ This separation of concerns is one of the most powerful architectural principles
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 One of the remarkable aspects of modern computing is how many independent technologies cooperate to display a single character. The C Standard Library, the operating system kernel, terminal protocols, font engines, graphics APIs, GPU drivers, and display hardware are often developed by entirely different organizations. They interoperate successfully because they communicate through standardized interfaces rather than relying on knowledge of each other's internal implementations.
 
@@ -433,7 +433,7 @@ This principle—building complex systems from loosely coupled components—is a
 
 ---
 
-### Common Mistakes
+## Common Mistakes
 
 **Thinking `printf()` displays text directly**
 

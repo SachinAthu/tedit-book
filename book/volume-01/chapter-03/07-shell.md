@@ -438,7 +438,7 @@ Although they work closely together, they solve completely different problems.
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 Unix deliberately separates the **user interface** from the **command interpreter**.
 

@@ -10,8 +10,6 @@ Yet they somehow behave exactly like a real terminal.
 
 The solution is one of Unix's most elegant abstractions: the **Pseudo Terminal**, or **PTY**.
 
----
-
 ## The Problem
 
 Suppose you launch a terminal emulator from your desktop.
@@ -297,7 +295,7 @@ The operating system hides the implementation details behind the PTY abstraction
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 The PTY demonstrates a classic software engineering principle:
 

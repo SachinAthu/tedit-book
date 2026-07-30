@@ -326,7 +326,7 @@ This layered design makes the system easier to maintain, extend, and replace.
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 A well-designed program communicates through standard streams rather than interacting directly with hardware.
 
@@ -345,7 +345,7 @@ This philosophy—writing to an abstract stream instead of a specific device—i
 
 ---
 
-### Common Mistakes
+## Common Mistakes
 
 **Assuming `printf()` writes directly to the screen**
 

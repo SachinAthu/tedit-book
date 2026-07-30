@@ -412,7 +412,7 @@ It is now time to discover what they really are.
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 A remarkable aspect of the Unix terminal architecture is that none of its major components needs to understand the internal implementation of the others.
 

@@ -304,7 +304,7 @@ Everything—from the status bar to the cursor and the document itself—will ul
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 The character grid is one of the reasons terminal applications remain remarkably efficient.
 
@@ -314,7 +314,7 @@ This abstraction allows terminal applications to remain lightweight while still 
 
 ---
 
-### Common Mistakes
+## Common Mistakes
 
 **Thinking the application draws letters itself**
 

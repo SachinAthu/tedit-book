@@ -213,7 +213,7 @@ Fortunately, applications rarely need to care about the difference because both 
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 Virtual consoles illustrate an important operating system principle:
 

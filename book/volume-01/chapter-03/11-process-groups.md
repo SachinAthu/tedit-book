@@ -370,7 +370,7 @@ Notice how the editor never needs to know how any of these components are implem
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 Process groups demonstrate one of Unix's most powerful design principles:
 

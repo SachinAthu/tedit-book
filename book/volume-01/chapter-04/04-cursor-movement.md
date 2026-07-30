@@ -1,7 +1,5 @@
 # 4.4 Cursor Movement
 
-## Introduction
-
 Imagine using a text editor where the cursor never moves.
 
 Every character you type would simply appear at the end of the document. You could never return to a previous line, insert text in the middle of a sentence, or correct a mistake.
@@ -11,8 +9,6 @@ Clearly, a text editor must be able to position the cursor anywhere on the scree
 Fortunately, cursor movement is one of the most fundamental capabilities provided by ANSI escape sequences.
 
 In this section, we will learn how programs instruct the terminal to move the cursor, laying the foundation for building our editor's rendering system.
-
----
 
 ## The Cursor Is Controlled by the Terminal
 
@@ -43,8 +39,6 @@ The program does not explicitly move the cursor.
 The terminal automatically updates its position after drawing each character.
 
 ANSI escape sequences allow us to override this automatic behavior and place the cursor wherever we want.
-
----
 
 ## Moving the Cursor to an Absolute Position
 
@@ -96,8 +90,6 @@ produces something conceptually like:
 ```
 
 The terminal first moves the cursor, then prints the character.
-
----
 
 ## Coordinates Start at One
 
@@ -153,8 +145,6 @@ This is important to remember when converting your editor's internal coordinates
 >
 > Later in the book, our editor will likely store cursor positions using zero-based indexing because it aligns naturally with C arrays. Whenever we communicate with the terminal, we will convert those values to one-based coordinates.
 
----
-
 ## Relative Cursor Movement
 
 Sometimes we do not know the cursor's exact destination.
@@ -177,8 +167,6 @@ ESC [ 3 A
 
 moves the cursor up three rows.
 
----
-
 ### Move Down
 
 ```text
@@ -192,8 +180,6 @@ ESC [ 2 B
 ```
 
 moves the cursor down two rows.
-
----
 
 ### Move Right
 
@@ -209,8 +195,6 @@ ESC [ 5 C
 
 moves the cursor five columns to the right.
 
----
-
 ### Move Left
 
 ```text
@@ -224,8 +208,6 @@ ESC [ 4 D
 ```
 
 moves the cursor four columns to the left.
-
----
 
 ## Visualizing Relative Movement
 
@@ -266,8 +248,6 @@ The text itself does not change.
 
 Only the cursor position changes.
 
----
-
 ## Home Position
 
 Moving to the upper-left corner of the screen is so common that it deserves special attention.
@@ -300,8 +280,6 @@ printf("\x1b[H");
 ```
 
 moves the cursor to the beginning of the terminal without printing anything.
-
----
 
 ## Saving and Restoring the Cursor
 
@@ -359,8 +337,6 @@ ESC [ u
 
 These commands are useful when displaying temporary information without disturbing the user's current cursor position.
 
----
-
 ## Cursor Movement Does Not Modify Text
 
 An important point is that moving the cursor **does not erase or overwrite anything**.
@@ -398,8 +374,6 @@ The terminal replaces the character at the cursor position because that is where
 
 The cursor movement command itself performs no drawing.
 
----
-
 ## Why Cursor Movement Matters
 
 Nearly every screen update performed by a text editor depends on cursor movement.
@@ -432,17 +406,13 @@ Without cursor movement, the editor would have no way to redraw the screen or po
 
 Cursor positioning is therefore one of the core building blocks of terminal-based user interfaces.
 
----
-
-### Historical Note
+## Historical Note
 
 Early video terminals had hardware cursors that physically tracked where the next character would appear. ANSI cursor movement commands provided a standardized way for software to control these cursors, allowing the same applications to run on different terminal models without knowing their hardware details.
 
 Although today's terminal emulators are software running inside graphical windows, they continue to emulate this behavior for compatibility with decades of existing software.
 
----
-
-### Engineering Insight
+## Engineering Insight
 
 Notice that there are two different notions of a cursor:
 
@@ -456,8 +426,6 @@ For example, if a document has been scrolled, the editor's cursor might be on li
 One of the renderer's responsibilities is to translate the editor's logical cursor position into the appropriate terminal screen coordinates before issuing the cursor movement command.
 
 This distinction will become increasingly important when we implement scrolling in later chapters.
-
----
 
 ## Summary
 

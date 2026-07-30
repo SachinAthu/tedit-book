@@ -335,7 +335,7 @@ To keep the discussion simple, we have focused on the process level here. In the
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 The controlling terminal is another example of Unix's emphasis on **separation of concerns**.
 

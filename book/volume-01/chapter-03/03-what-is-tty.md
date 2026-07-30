@@ -197,7 +197,7 @@ This is one reason software written many years ago can often run on modern syste
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 The TTY is an excellent example of **abstraction** in software engineering.
 

@@ -1,7 +1,5 @@
 # 4.5 Clearing the Screen
 
-## Introduction
-
 In the previous section, we learned how to move the cursor to any position on the screen. Cursor movement allows us to decide **where** the next character will be drawn.
 
 However, moving the cursor alone is not enough.
@@ -27,8 +25,6 @@ If we simply move the cursor to the beginning and print the new text, remnants o
 To produce a clean, consistent interface, we must first remove the previous contents.
 
 This is the purpose of **screen clearing**.
-
----
 
 ## Why Printing Blank Lines Doesn't Work
 
@@ -96,8 +92,6 @@ World
 
 Printing blank lines does not erase anything—it only moves the viewport.
 
----
-
 ## Clearing Is Different from Scrolling
 
 A true screen clear tells the terminal:
@@ -135,8 +129,6 @@ Screen becomes empty
 ```
 
 The second approach is what interactive applications use.
-
----
 
 ## The Clear Screen Command
 
@@ -192,8 +184,6 @@ Notice that nothing is printed.
 
 Instead, the terminal performs an action.
 
----
-
 ## What Does the Parameter Mean?
 
 The `J` command can behave differently depending on its parameter.
@@ -221,8 +211,6 @@ Hello|
 
 Everything after the cursor is removed.
 
----
-
 ### Parameter 1
 
 ```text
@@ -247,8 +235,6 @@ rld
 
 Everything before the cursor disappears.
 
----
-
 ### Parameter 2
 
 ```text
@@ -258,8 +244,6 @@ ESC [ 2 J
 Erases the **entire visible screen**.
 
 This is the command most frequently used by terminal applications.
-
----
 
 ## Clearing the Screen Does Not Move the Cursor
 
@@ -300,8 +284,6 @@ Clear Screen
 ```
 
 The display is empty, but the cursor has not returned to the upper-left corner.
-
----
 
 ## Returning to the Home Position
 
@@ -346,8 +328,6 @@ Begin Drawing
 
 This combination ensures that rendering starts from the upper-left corner of the terminal.
 
----
-
 ## How a Text Editor Uses Screen Clearing
 
 Imagine the user types a single character.
@@ -390,8 +370,6 @@ This approach is surprisingly common because it greatly simplifies the rendering
 
 Later in the book, we will adopt the same strategy for our editor.
 
----
-
 ## Clearing Individual Lines
 
 Sometimes a program only needs to redraw one line rather than the entire screen.
@@ -414,8 +392,6 @@ ESC [ 0 K
 
 Erase from the cursor to the end of the line.
 
----
-
 ### Parameter 1
 
 ```text
@@ -423,8 +399,6 @@ ESC [ 1 K
 ```
 
 Erase from the beginning of the line to the cursor.
-
----
 
 ### Parameter 2
 
@@ -435,8 +409,6 @@ ESC [ 2 K
 Erase the entire current line.
 
 These commands are useful for updating status bars, progress indicators, and other single-line interfaces.
-
----
 
 ## What About the Scrollback Buffer?
 
@@ -464,15 +436,11 @@ However, this behavior is **not standardized** and is not supported by every ter
 
 Since our editor uses the **alternate screen buffer** (introduced later in this chapter), we generally do not need to worry about clearing the user's scrollback history.
 
----
-
-### Historical Note
+## Historical Note
 
 On early hardware terminals, clearing the screen was a relatively expensive operation because the terminal had to erase every character stored in its display memory. Modern terminal emulators perform the same operation in software, making full-screen redraws much faster than they once were.
 
----
-
-### Engineering Insight
+## Engineering Insight
 
 Many beginners assume that efficient terminal applications update only the parts of the screen that have changed.
 
@@ -499,8 +467,6 @@ Display frame
 This is known as a **full redraw** strategy. It keeps the renderer simple, predictable, and easy to reason about. On modern hardware, redrawing an ordinary terminal window is typically fast enough that users perceive the interface as instantaneous.
 
 This design choice aligns with **ADR-002: Rendering Strategy**, where we intentionally choose **full redraw** over incremental updates because simplicity is more valuable than premature optimization.
-
----
 
 ## Summary
 

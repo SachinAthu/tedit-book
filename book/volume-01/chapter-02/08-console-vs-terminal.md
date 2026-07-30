@@ -139,7 +139,7 @@ Maintaining this distinction helps avoid confusion as we explore more advanced t
 
 ---
 
-### Engineering Insight
+## Engineering Insight
 
 Precise terminology becomes increasingly valuable as systems grow more complex.
 
@@ -149,7 +149,7 @@ For this reason, professional systems programmers tend to use the more specific 
 
 ---
 
-### Common Mistakes
+## Common Mistakes
 
 **Assuming a console is just another name for a terminal emulator**
 
