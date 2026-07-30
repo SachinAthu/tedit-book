@@ -22,8 +22,6 @@ In the closing section, we followed a single character—the letter **A**—thro
 
 This layered architecture is the foundation on which our text editor will be built. Rather than drawing pixels directly, our editor will participate in this same pipeline by producing carefully structured character streams that the terminal environment can interpret and render.
 
----
-
 ## Exercises
 
 ### Review Questions
@@ -42,8 +40,6 @@ Suppose your terminal emulator crashes while your program is still running.
 - What part of the display pipeline has failed?
 
 Explain your reasoning.
-
----
 
 ## Preview of the Next Chapter
 

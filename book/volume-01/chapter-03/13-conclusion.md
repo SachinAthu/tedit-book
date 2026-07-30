@@ -18,8 +18,6 @@ Throughout this layered environment, communication happens through **file descri
 
 The most important lesson of this chapter is that our text editor will be only **one component** in a much larger system. It does not create the terminal, establish the PTY, launch the shell, or manage process groups. It simply reads input from `stdin`, updates an internal buffer, and writes output to `stdout`. Everything else is handled by the operating system and the terminal environment.
 
----
-
 ## Exercises
 
 ### Review Questions
@@ -37,8 +35,6 @@ Imagine you are writing a program that must work correctly both in an interactiv
 - How would your program detect whether it is connected to a terminal?
 - What features might you enable or disable depending on the result?
 - How do standard streams and the TTY abstraction make this possible without duplicating code?
-
----
 
 ## Preview of the Next Chapter
 

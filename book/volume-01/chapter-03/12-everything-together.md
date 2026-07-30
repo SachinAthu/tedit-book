@@ -1,4 +1,4 @@
-# 3.12 Putting Everything Together
+﻿# 3.12 Putting Everything Together
 
 Over the course of this chapter, we have examined the individual components that make up a modern terminal environment.
 
@@ -18,7 +18,6 @@ Each topic explained one piece of the puzzle.
 
 In this final section, we will connect those pieces together and follow the complete lifecycle of a terminal application—from the moment the user opens a terminal until a character finally appears on the screen.
 
----
 
 ## Opening a Terminal Window
 
@@ -46,7 +45,6 @@ There is no editor.
 
 The window is empty.
 
----
 
 ## Creating the Terminal Environment
 
@@ -68,7 +66,6 @@ PTY Master ◄────────────► PTY Slave
 
 This PTY pair becomes the communication channel for the entire terminal session.
 
----
 
 ## Starting the Shell
 
@@ -98,7 +95,6 @@ $
 
 The terminal session has officially begun.
 
----
 
 ## Launching Our Editor
 
@@ -147,7 +143,6 @@ From this point onward, the editor communicates directly with the terminal.
 
 The shell simply waits.
 
----
 
 ## The Journey of a Keystroke
 
@@ -186,7 +181,6 @@ At this point, nothing has appeared on the screen yet.
 
 The editor has only received the user's input.
 
----
 
 ## Updating the Editor
 
@@ -222,7 +216,6 @@ The screen has not yet been updated.
 
 As we learned in Chapter 2, the editor always modifies its in-memory representation first.
 
----
 
 ## Rendering the Screen
 
@@ -248,7 +241,6 @@ Write to stdout
 
 Everything that should appear on the screen is written to **standard output**.
 
----
 
 ## The Journey of Program Output
 
@@ -292,7 +284,6 @@ Hello
 
 One keystroke has completed a full round trip through the entire terminal environment.
 
----
 
 ## The Complete Lifecycle
 
@@ -354,7 +345,6 @@ We can now combine everything we have learned into one comprehensive diagram.
 
 This diagram brings together nearly every concept introduced in **Volume I** so far.
 
----
 
 ## What Our Editor Does—and Does Not Do
 
@@ -387,7 +377,6 @@ This separation of responsibilities is one of the reasons Unix systems remain si
 
 Each component focuses on doing one job well.
 
----
 
 ## Looking Ahead
 
@@ -410,7 +399,6 @@ We have treated these as magical commands.
 
 It is now time to discover what they really are.
 
----
 
 ## Engineering Insight
 
@@ -426,7 +414,6 @@ Instead, each communicates through standardized interfaces—PTYs, file descript
 
 This loose coupling has allowed terminal software written decades apart to work together seamlessly. It is a textbook example of modular system design, where independently developed components cooperate through stable, well-defined interfaces.
 
----
 
 ## Chapter Summary
 

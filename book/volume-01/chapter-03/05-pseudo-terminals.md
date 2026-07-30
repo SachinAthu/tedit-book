@@ -1,4 +1,4 @@
-# 3.5 Pseudo Terminals (PTYs)
+﻿# 3.5 Pseudo Terminals (PTYs)
 
 In the previous section, we learned that Linux provides **virtual consoles**, each represented by a device such as `/dev/tty1` or `/dev/tty2`. These virtual consoles are managed directly by the kernel and are connected to the computer's physical keyboard and display.
 
@@ -47,7 +47,6 @@ The operating system must provide something that behaves exactly like one.
 
 That is the role of a **pseudo-terminal**.
 
----
 
 ## What Is a Pseudo Terminal?
 
@@ -79,7 +78,6 @@ Neither side needs to know how the other is implemented.
 
 The PTY provides a clean communication channel between them.
 
----
 
 ## Why Two Ends?
 
@@ -114,7 +112,6 @@ Its responsibilities include:
 
 Whenever you type a key, the terminal emulator writes that character to the PTY master.
 
----
 
 ### The PTY Slave
 
@@ -132,7 +129,6 @@ From the program's perspective, it is simply talking to a terminal.
 
 The application has no idea that a graphical window exists on the other side.
 
----
 
 ## Following a Keystroke
 
@@ -163,7 +159,6 @@ The shell reads the character from its standard input exactly as if it had arriv
 
 Nothing special is required inside the shell.
 
----
 
 ## Following Program Output
 
@@ -203,7 +198,6 @@ This should look familiar.
 
 It is the same journey we explored in **Chapter 2**, except we can now see where the PTY fits into the communication path.
 
----
 
 ## Creating Multiple Terminal Windows
 
@@ -238,7 +232,6 @@ As a result:
 
 This is why closing one terminal window does not affect programs running in another.
 
----
 
 ## PTY Device Files
 
@@ -272,7 +265,6 @@ This tells you that your shell is connected to the third pseudo-terminal current
 
 The numbering itself has no special meaning beyond identifying individual PTY devices.
 
----
 
 ## Why Applications Don't Know the Difference
 
@@ -293,7 +285,6 @@ This is why terminal-based programs written decades ago continue to run inside m
 
 The operating system hides the implementation details behind the PTY abstraction.
 
----
 
 ## Engineering Insight
 
@@ -307,7 +298,6 @@ Existing programs continued working unchanged because they still communicated wi
 
 This decision preserved decades of software investment while allowing terminal technology to evolve from dedicated hardware to graphical applications.
 
----
 
 ## Summary
 

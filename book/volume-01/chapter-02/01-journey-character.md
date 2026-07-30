@@ -1,4 +1,4 @@
-# 2.1 The Journey of a Character
+﻿# 2.1 The Journey of a Character
 
 Imagine the following line of C code:
 
@@ -19,7 +19,6 @@ A terminal text editor relies entirely on this process. Every time our editor di
 
 Before we learn how to build an editor, we must first understand this journey.
 
----
 
 ## A High-Level Overview
 
@@ -57,7 +56,6 @@ Let's begin by looking at the entire path a character follows from your program 
 
 At first glance, this diagram may seem intimidating. Fortunately, each component has a single, well-defined responsibility. By the end of this chapter, every box in this diagram will make sense.
 
----
 
 ## Step 1 — Your Program Creates the Character
 
@@ -98,7 +96,6 @@ the character will be written into a file instead of appearing on the screen.
 
 This flexibility is one of the strengths of Unix-like operating systems and is made possible because programs write to **stdout**, not directly to the display.
 
----
 
 ## Step 2 — The Operating System Receives the Output
 
@@ -116,7 +113,6 @@ This separation is extremely important.
 
 Imagine hundreds of programs trying to write directly to the screen at the same time. The result would be complete chaos. By placing the operating system in the middle, multiple programs can safely share the same hardware.
 
----
 
 ## Step 3 — The Terminal Receives the Characters
 
@@ -138,7 +134,6 @@ In later chapters, we'll learn that the terminal can also receive special contro
 
 For now, it is enough to understand that the terminal receives a stream of characters—not drawing commands.
 
----
 
 ## Step 4 — The Terminal Renders the Character
 
@@ -164,7 +159,6 @@ Although the appearance changes, the character itself remains the same.
 
 This distinction between **characters** and **glyphs** becomes increasingly important when working with Unicode and international text.
 
----
 
 ## Step 5 — The Graphics System Draws the Character
 
@@ -190,7 +184,6 @@ This grid-based layout is one of the defining characteristics of terminal applic
 
 Our text editor will eventually take advantage of this structure when positioning the cursor and rendering text.
 
----
 
 ## Step 6 — The Monitor Displays the Result
 
@@ -211,7 +204,6 @@ For example:
 
 The answers all lie in the separation of responsibilities throughout this pipeline.
 
----
 
 ## Separation of Responsibilities
 
@@ -256,7 +248,6 @@ Instead, each layer specializes in one responsibility and passes the work to the
 
 This layered design makes computer systems easier to build, maintain, and extend.
 
----
 
 ## Engineering Insight
 
@@ -268,7 +259,6 @@ A terminal application merely produces a stream of bytes. Another program—the 
 
 This distinction is the reason why the same text editor can run inside GNOME Terminal, Windows Terminal, Kitty, Alacritty, or many other terminal emulators without changing its source code.
 
----
 
 ## Common Mistakes
 
@@ -284,7 +274,6 @@ The terminal emulator is a completely separate application. Your program communi
 
 Characters are abstract pieces of information. Pixels are the colored dots displayed on your monitor. Converting characters into pixels is the terminal's responsibility.
 
----
 
 ## Summary
 

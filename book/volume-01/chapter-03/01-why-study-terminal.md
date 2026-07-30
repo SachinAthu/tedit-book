@@ -1,4 +1,4 @@
-# 3.1 Why Study the Terminal?
+﻿# 3.1 Why Study the Terminal?
 
 Imagine opening your favorite text editor, such as Nano, Vim, or Helix. You type a character, move the cursor, save a file, and exit the program. These actions feel simple and immediate, but behind each one is a complex chain of interactions between your application, the operating system, and the terminal.
 
@@ -6,7 +6,6 @@ As programmers, it is easy to think of a terminal as merely a black window where
 
 This chapter explores the Unix terminal environment from first principles. Before we begin controlling the terminal with ANSI escape sequences or reading keyboard input in raw mode, we must understand the environment in which our editor will run.
 
----
 
 ## The Terminal Is Part of Your Application's Environment
 
@@ -20,7 +19,6 @@ Likewise, keyboard input does not arrive directly from the keyboard. It passes t
 
 Understanding these interactions is just as important as understanding the code we will eventually write.
 
----
 
 ## Why This Knowledge Matters
 
@@ -36,7 +34,6 @@ For example:
 
 Without this foundation, these features can appear to be collections of mysterious API calls. With the proper understanding, each one becomes a logical consequence of how terminals were designed.
 
----
 
 ## Building on Chapter 2
 
@@ -76,7 +73,6 @@ This chapter answers a different question:
 
 To answer that question, we need to understand concepts such as terminals, terminal emulators, TTYs, pseudo-terminals (PTYs), shells, and terminal sessions.
 
----
 
 ## Looking Ahead
 
@@ -100,7 +96,6 @@ These concepts form the foundation for the next three chapters:
 
 Together, these chapters will provide everything we need before writing the first lines of our editor.
 
----
 
 ## Engineering Insight
 
@@ -113,7 +108,6 @@ Many beginners learn terminal programming by copying code that configures `termi
 
 This book takes a different approach. Rather than treating terminal programming as a collection of recipes, we will first understand the architecture of the Unix terminal. Once that foundation is in place, the APIs and code will feel natural instead of mysterious.
 
----
 
 ## Summary
 

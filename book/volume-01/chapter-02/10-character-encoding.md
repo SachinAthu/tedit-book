@@ -1,4 +1,4 @@
-# 2.10 Character Encoding
+﻿# 2.10 Character Encoding
 
 In the previous section, we learned how a terminal emulator displays characters using fonts, glyphs, and a character grid.
 
@@ -24,7 +24,6 @@ Without a standard encoding, one program might interpret a number as the letter 
 
 Character encoding provides a common language that allows software to exchange textual information reliably.
 
----
 
 ## ASCII: The First Widely Adopted Standard
 
@@ -70,7 +69,6 @@ For example:
 
 Although users think in terms of letters and symbols, computers ultimately manipulate numbers.
 
----
 
 ## More Than Letters
 
@@ -106,7 +104,6 @@ It represents the newline character, which in ASCII is assigned the value 10 (he
 
 When interpreted by the terminal emulator, it causes the cursor to move to the beginning of the next line rather than displaying a visible symbol.
 
----
 
 ## Why ASCII Was Not Enough
 
@@ -156,7 +153,6 @@ This lack of a universal standard made exchanging text increasingly difficult.
 
 A better solution was needed.
 
----
 
 ## Unicode
 
@@ -186,7 +182,6 @@ The key idea is that every character has a unique identity, allowing software on
 
 For modern software, Unicode is the foundation of international text processing.
 
----
 
 ## Unicode and Character Encoding
 
@@ -204,7 +199,6 @@ Several Unicode encodings exist.
 
 The most widely used today is **UTF-8**.
 
----
 
 ## UTF-8
 
@@ -257,7 +251,6 @@ For this reason, our text editor will assume that text is encoded using UTF-8.
 
 Although later chapters will discuss some practical implications of UTF-8 for cursor movement and text editing, we will continue to treat characters conceptually for now.
 
----
 
 ## Why This Matters for a Text Editor
 
@@ -280,7 +273,6 @@ For this reason, professional text editors are designed with modern character en
 
 We will return to this topic in greater depth when discussing text storage and cursor movement later in the book.
 
----
 
 ## Engineering Insight
 
@@ -290,7 +282,6 @@ Instead of replacing ASCII entirely, UTF-8 preserved every existing ASCII byte e
 
 This careful attention to backward compatibility is one reason UTF-8 became the dominant text encoding worldwide.
 
----
 
 ## Common Mistakes
 
@@ -310,7 +301,6 @@ UTF-8 is backward compatible with ASCII. Every valid ASCII document is also vali
 
 While ASCII characters use a single byte in UTF-8, many other characters require multiple bytes. Modern software must account for this when processing text.
 
----
 
 ## Summary
 

@@ -1,4 +1,4 @@
-# 3.2 A Brief History of Terminals
+﻿# 3.2 A Brief History of Terminals
 
 To understand modern terminals, we must first understand their history.
 
@@ -8,7 +8,6 @@ The story of terminals is one of continuous evolution. Each generation solved th
 
 In this section, we will trace that evolution from punch cards to today's terminal emulators.
 
----
 
 ## Before Interactive Computing
 
@@ -60,7 +59,6 @@ If the program contained a single mistake, the programmer often had to correct t
 
 This process was slow, expensive, and unsuitable for interactive work.
 
----
 
 ## The Birth of Interactive Terminals
 
@@ -81,7 +79,6 @@ Its primary responsibilities were simple:
 
 This interaction feels familiar today because it closely resembles how modern terminal applications operate.
 
----
 
 ## Teletypes (TTYs)
 
@@ -121,7 +118,6 @@ Although these machines have long disappeared, Unix retained their name.
 
 Even today, the term **TTY** is still used throughout Unix-like operating systems.
 
----
 
 ## Historical Note
 
@@ -131,7 +127,6 @@ Modern Linux systems still use names such as `/dev/tty`, even though no physical
 
 This is an example of **historical compatibility**—software often preserves old terminology because changing widely used interfaces would break existing programs and documentation.
 
----
 
 ## Video Terminals
 
@@ -178,7 +173,6 @@ This transition transformed the user experience. Applications were no longer lim
 
 Many of the control sequences used by these terminals eventually became standardized as **ANSI escape sequences**, which we will explore in Chapter 4.
 
----
 
 ## Terminal Emulators
 
@@ -203,7 +197,6 @@ Although the implementation is completely different from a physical terminal, th
 
 To a terminal-based program, there is little difference between communicating with a dedicated hardware terminal from decades ago and communicating with a modern terminal emulator.
 
----
 
 ## The Evolution of Terminals
 
@@ -226,7 +219,6 @@ Each new generation improved the user experience while preserving many of the co
 
 This commitment to backward compatibility is one of the reasons Unix systems remain so consistent across decades of technological change.
 
----
 
 ## Engineering Insight
 
@@ -236,7 +228,6 @@ A terminal application written decades ago can often run successfully in a moder
 
 This stability has allowed terminal-based software to remain useful across generations of computing platforms.
 
----
 
 ## Summary
 

@@ -1,4 +1,4 @@
-# 3.10 Controlling Terminal
+﻿# 3.10 Controlling Terminal
 
 By now, we understand how a terminal session is created.
 
@@ -34,7 +34,6 @@ Each program should receive keyboard input only from its own terminal.
 
 The operating system solves this problem using the concept of a **controlling terminal**.
 
----
 
 ## What Is a Controlling Terminal?
 
@@ -68,7 +67,6 @@ You can visualize it like this:
 
 The shell and the editor are both associated with the same controlling terminal.
 
----
 
 ## Every Terminal Session Has One
 
@@ -114,7 +112,6 @@ Notice that the controlling terminal does **not** change.
 
 Both programs communicate through the same terminal.
 
----
 
 ## Why Is This Important?
 
@@ -144,7 +141,6 @@ Similarly, if Terminal B has focus, keyboard input should go only to `top`.
 
 The controlling terminal ensures that each process communicates with the correct terminal.
 
----
 
 ## Following a Keystroke
 
@@ -174,7 +170,6 @@ It does not need to know which terminal emulator generated the event.
 
 The operating system has already connected everything together.
 
----
 
 ## Following Program Output
 
@@ -202,7 +197,6 @@ Again, the editor simply writes to `stdout`.
 
 The operating system ensures that the output reaches the correct terminal.
 
----
 
 ## Terminal-Generated Signals
 
@@ -254,7 +248,6 @@ Others, including text editors, may intercept the signal and perform cleanup bef
 
 We will study signals in greater detail when discussing raw terminal mode.
 
----
 
 ## Losing the Controlling Terminal
 
@@ -281,7 +274,6 @@ Since these programs do not interact directly with users, they have no need for 
 
 This distinction allows Unix to support both interactive and non-interactive applications using the same process model.
 
----
 
 ## The Shell's Role
 
@@ -323,7 +315,6 @@ the shell regains control and displays another prompt.
 
 This handoff happens automatically and is one of the reasons interactive terminal applications work so smoothly.
 
----
 
 ### Note
 
@@ -333,7 +324,6 @@ This distinction becomes important for job control and signal delivery.
 
 To keep the discussion simple, we have focused on the process level here. In the next section, we will introduce **process groups**, which explain the complete picture.
 
----
 
 ## Engineering Insight
 
@@ -343,7 +333,6 @@ A program does not need to discover which keyboard the user is typing on or whic
 
 This abstraction allows the same application to run in a local terminal emulator, a virtual console, or an SSH session without any changes to its code.
 
----
 
 ## Summary
 

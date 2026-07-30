@@ -1,4 +1,4 @@
-# 2.8 Console vs Terminal
+﻿# 2.8 Console vs Terminal
 
 As you read books, documentation, or online discussions about command-line programming, you will frequently encounter the words **console** and **terminal**.
 
@@ -10,7 +10,6 @@ Understanding the historical difference helps explain why both terms continue to
 
 Fortunately, the distinction is simpler than it might first seem.
 
----
 
 ## The Original Console
 
@@ -48,7 +47,6 @@ System administrators could log in, issue commands, observe system messages, and
 
 In its original meaning, **console referred to hardware**, not software.
 
----
 
 ## The Evolution to Software Terminals
 
@@ -78,7 +76,6 @@ Today, when you open a terminal window on Linux, macOS, or Windows, you are not 
 
 You are running a software application that emulates one.
 
----
 
 ## Console vs. Terminal Emulator
 
@@ -96,7 +93,6 @@ The console was a physical device.
 
 The terminal emulator is software that recreates the same style of interaction inside a graphical operating system.
 
----
 
 ## Why the Terms Are Often Interchangeable
 
@@ -123,7 +119,6 @@ For example, developers often describe a command-line application as a **console
 
 The terminology persists because the role remains largely the same, even though the underlying technology has changed.
 
----
 
 ## Which Term Should We Use?
 
@@ -137,7 +132,6 @@ When discussing concepts that apply generally to text-based interaction—such a
 
 Maintaining this distinction helps avoid confusion as we explore more advanced topics such as TTYs, PTYs, and terminal sessions in the next chapter.
 
----
 
 ## Engineering Insight
 
@@ -147,7 +141,6 @@ In everyday conversation, using _console_ and _terminal_ interchangeably rarely 
 
 For this reason, professional systems programmers tend to use the more specific term whenever the distinction matters.
 
----
 
 ## Common Mistakes
 
@@ -163,7 +156,6 @@ Most terminal emulators are ordinary desktop applications. They run like any oth
 
 In modern computing, the two terms are often used interchangeably. Understanding the original meanings helps interpret technical literature, but most day-to-day discussions do not depend on the distinction.
 
----
 
 ## Summary
 

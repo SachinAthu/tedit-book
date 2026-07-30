@@ -1,4 +1,4 @@
-# 3.6 Terminal Emulator
+﻿# 3.6 Terminal Emulator
 
 By now, we have encountered the term **terminal emulator** several times.
 
@@ -8,7 +8,6 @@ Many beginners think a terminal emulator is simply a window that displays text. 
 
 Without a terminal emulator, programs such as Bash, Vim, Nano, or our future text editor would have no way to interact with users in a graphical environment.
 
----
 
 ## What Is a Terminal Emulator?
 
@@ -29,7 +28,6 @@ Although these programs have different features and user interfaces, they all pe
 
 > They emulate a terminal.
 
----
 
 ## Why Is It Called an Emulator?
 
@@ -67,7 +65,6 @@ Window on Desktop
 
 From the application's point of view, very little has changed.
 
----
 
 ## The Terminal Emulator Is Not the Shell
 
@@ -101,7 +98,6 @@ The **shell** provides:
 
 When you close the terminal window, you are closing the **terminal emulator**, which usually causes the shell running inside it to terminate as well.
 
----
 
 ## What Does a Terminal Emulator Do?
 
@@ -122,7 +118,6 @@ The first responsibility is obvious—it creates a window on the desktop.
 
 Unlike old hardware terminals, this window can be resized, minimized, maximized, and moved like any other graphical application.
 
----
 
 ### 2. Creates a Pseudo Terminal
 
@@ -143,7 +138,6 @@ It then starts a shell attached to the PTY slave.
 
 From that moment onward, all communication passes through the PTY.
 
----
 
 ### 3. Launches the Shell
 
@@ -176,7 +170,6 @@ Depending on your system, this might be:
 
 We'll discuss the shell in detail in the next section.
 
----
 
 ### 4. Receives Keyboard Input
 
@@ -208,7 +201,6 @@ The application does **not** communicate directly with the keyboard.
 
 Instead, the terminal emulator forwards the input through the PTY.
 
----
 
 ### 5. Displays Program Output
 
@@ -229,7 +221,6 @@ The emulator must then:
 
 This process occurs every time a terminal application produces output.
 
----
 
 ### 6. Interprets ANSI Escape Sequences
 
@@ -250,7 +241,6 @@ Our editor will eventually rely heavily on these escape sequences.
 
 We will study them in the next chapter.
 
----
 
 ### 7. Renders Characters
 
@@ -293,7 +283,6 @@ GPU
 Monitor
 ```
 
----
 
 ### 8. Maintains Scrollback History
 
@@ -322,7 +311,6 @@ When you scroll upward with the mouse wheel or keyboard, you are viewing the emu
 
 This distinction becomes important later when we implement scrolling inside our editor.
 
----
 
 ### 9. Handles Window Resizing
 
@@ -350,7 +338,6 @@ Programs can then adjust their layout accordingly.
 
 Our editor will eventually respond to these resize events by redrawing the visible portion of the document. When a resize occurs, the kernel delivers a `SIGWINCH` signal to the foreground process group, which we will discuss further in Chapter 5.
 
----
 
 ## Responsibilities at a Glance
 
@@ -381,7 +368,6 @@ It does **not** implement editor commands.
 
 Those responsibilities belong to applications such as Nano, Vim, or the editor we will build.
 
----
 
 ## Engineering Insight
 
@@ -393,7 +379,6 @@ Its job is to present a terminal interface to the user and to relay information 
 
 Whether the program running inside is a shell, a text editor, a debugger, a database client, or a game, the terminal emulator treats them all the same. This separation of responsibilities keeps both the emulator and terminal applications simpler and more reusable.
 
----
 
 ## Summary
 

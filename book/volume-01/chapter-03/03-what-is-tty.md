@@ -1,4 +1,4 @@
-# 3.3 What Is a TTY?
+﻿# 3.3 What Is a TTY?
 
 In the previous section, we learned that the earliest computer terminals were **teletypes**—electromechanical machines that allowed users to communicate directly with a computer. Although these machines disappeared many decades ago, their influence remains visible throughout Unix-like operating systems.
 
@@ -6,7 +6,6 @@ One of the most enduring examples is the term **TTY**.
 
 If you spend any time working on Linux or macOS, you will encounter TTYs in commands, file names, API documentation, and error messages. Understanding what a TTY is will make many other concepts—such as pseudo-terminals (PTYs) and raw mode—much easier to understand.
 
----
 
 ## From Teletype to TTY
 
@@ -34,7 +33,6 @@ From the computer's perspective, a teletype was simply a device for receiving in
 
 This abstraction turned out to be so useful that Unix kept it even after physical teletypes disappeared.
 
----
 
 ## A TTY Is an Abstraction
 
@@ -68,7 +66,6 @@ It simply communicates with a TTY.
 
 This separation between **interface** and **implementation** is a recurring theme in operating system design.
 
----
 
 ## TTY Device Files
 
@@ -103,7 +100,6 @@ always refers to **the controlling terminal of the current process**.
 
 We will discuss the concept of a controlling terminal later in this chapter.
 
----
 
 ## Finding Your Current TTY
 
@@ -133,7 +129,6 @@ We will explain that distinction in the next two sections when we discuss virtua
 
 For now, the important idea is that **every interactive terminal session has an associated TTY device**.
 
----
 
 ## Why Applications Care About TTYs
 
@@ -167,7 +162,6 @@ Many command-line programs check whether their standard input or standard output
 
 This allows the same program to work correctly in both interactive and automated environments.
 
----
 
 ## Why the Name Never Changed
 
@@ -195,7 +189,6 @@ Instead of replacing the interface, Unix preserved the familiar terminology whil
 
 This is one reason software written many years ago can often run on modern systems with little or no modification.
 
----
 
 ## Engineering Insight
 
@@ -205,7 +198,6 @@ Applications communicate with a terminal through a well-defined interface rather
 
 This stability allowed operating systems and applications to evolve independently. Programs continued using the same TTY interface while the operating system adapted to new hardware behind the scenes.
 
----
 
 ## Summary
 

@@ -1,4 +1,4 @@
-# 2.7 Terminal Emulators
+﻿# 2.7 Terminal Emulators
 
 In the previous section, we followed the journey of text as it traveled from `stdout` through the operating system toward the user's terminal.
 
@@ -12,7 +12,6 @@ Every time you open a terminal window on your desktop, you are launching a termi
 
 Our text editor will run _inside_ a terminal emulator. Understanding its role is therefore essential before we begin exploring the Unix terminal system in the next chapter.
 
----
 
 ## What Is a Terminal Emulator?
 
@@ -61,7 +60,6 @@ Hello, World!
 
 From the user's perspective, the program appears to have written directly onto the screen. In reality, the terminal emulator performed the rendering.
 
----
 
 ## Why Does a Terminal Emulator Exist?
 
@@ -84,7 +82,6 @@ A terminal emulator therefore serves as a bridge between two different worlds:
 
 It provides a window on the desktop while preserving the behavior expected by traditional terminal software.
 
----
 
 ## The Terminal Emulator Is Not the Application
 
@@ -147,7 +144,6 @@ The terminal emulator is responsible only for communication and rendering. It do
 
 This distinction becomes especially important when we begin writing our own editor. Our program will simply produce output; it will not concern itself with how that output is drawn on the screen.
 
----
 
 ## Interpreting Character Streams
 
@@ -187,7 +183,6 @@ We will study these control sequences in detail in Chapter 4 when we introduce A
 
 For now, it is enough to understand that the terminal emulator is constantly interpreting an incoming stream of bytes—some representing text, others representing display instructions.
 
----
 
 ## Common Terminal Emulators
 
@@ -201,7 +196,6 @@ Many terminal emulators are available today. Although they differ in appearance,
 
 It integrates closely with the desktop, supports multiple tabs, profiles, Unicode, colors, and modern terminal features, making it a common choice for Linux users.
 
----
 
 ### Windows Terminal
 
@@ -211,7 +205,6 @@ It integrates closely with the desktop, supports multiple tabs, profiles, Unicod
 
 Unlike the older Windows Console, it supports multiple tabs, Unicode, customizable themes, GPU-accelerated rendering, and multiple command-line environments such as PowerShell, Command Prompt, and the Windows Subsystem for Linux (WSL).
 
----
 
 ### Alacritty
 
@@ -223,7 +216,6 @@ It uses GPU acceleration for rendering and intentionally keeps its feature set r
 
 Many developers choose Alacritty because of its responsiveness.
 
----
 
 ### Kitty
 
@@ -233,7 +225,6 @@ Many developers choose Alacritty because of its responsiveness.
 
 In addition to high performance, it provides advanced capabilities such as image display, sophisticated window management, and an extended terminal protocol beyond traditional ANSI functionality.
 
----
 
 ### iTerm2
 
@@ -243,7 +234,6 @@ In addition to high performance, it provides advanced capabilities such as image
 
 It offers features such as split panes, search, session restoration, extensive customization, and powerful automation while remaining compatible with standard terminal applications.
 
----
 
 ## Different Programs, Same Language
 
@@ -263,7 +253,6 @@ The application simply produces a stream of characters and terminal control sequ
 
 This shared "language" between applications and terminal emulators is one of the reasons terminal software has remained remarkably portable for decades.
 
----
 
 ## Engineering Insight
 
@@ -271,7 +260,6 @@ A terminal emulator is best viewed as a specialized rendering engine rather than
 
 Its primary responsibility is to translate incoming character streams into a visual representation. The shell executes commands, the operating system manages processes, and applications generate output. By keeping these responsibilities separate, Unix-like systems allow each component to evolve independently while maintaining compatibility with existing software.
 
----
 
 ## Common Mistakes
 
@@ -291,7 +279,6 @@ Applications send bytes and control sequences. The terminal emulator decides how
 
 While they vary in features and performance, they all perform the same essential role: interpreting character streams and rendering a terminal interface.
 
----
 
 ## Summary
 

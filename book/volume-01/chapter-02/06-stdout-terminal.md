@@ -1,4 +1,4 @@
-# 2.6 From `stdout` to the Terminal
+﻿# 2.6 From `stdout` to the Terminal
 
 In the previous section, we learned that `stdout` is the standard output stream through which a program sends textual output. However, a question remains unanswered:
 
@@ -16,7 +16,6 @@ Understanding this journey is essential because our text editor will spend most 
 
 This section provides a conceptual overview of that journey. We intentionally avoid the internal details of pseudo-terminals (PTYs), terminal drivers, and terminal sessions, as those topics belong to the next chapter. For now, our goal is to understand the overall flow of data.
 
----
 
 ## Output Begins as Bytes
 
@@ -43,7 +42,6 @@ The important observation is that `stdout` does not transmit "words" or "sentenc
 
 From the operating system's perspective, output is simply data flowing from one component to another.
 
----
 
 ## A Stream of Data
 
@@ -72,7 +70,6 @@ Unlike an array, a stream does not require all of its data to exist at once. New
 
 This model allows programs to produce output continuously rather than waiting until every piece of information has been generated.
 
----
 
 ## Writing to `stdout`
 
@@ -97,7 +94,6 @@ It does not decide how the text reaches the screen. Instead, it hands the bytes 
 
 This separation of responsibilities is a recurring theme throughout operating systems. Programs request services, while the operating system performs the work.
 
----
 
 ## The Operating System Takes Over
 
@@ -136,7 +132,6 @@ This flexibility is one of the strengths of Unix-like operating systems. A progr
 
 We will revisit this idea when discussing redirection and pipes in later chapters.
 
----
 
 ## Buffering: Output Does Not Always Leave Immediately
 
@@ -195,7 +190,6 @@ The result is generally more efficient.
 
 For now, it is enough to understand that buffering is an optimization technique that temporarily stores output before forwarding it. We will examine buffering behavior in more detail when discussing interactive terminal programs.
 
----
 
 ## Forwarding the Output
 
@@ -239,7 +233,6 @@ At this stage, you do not need to understand how a PTY works internally. It is s
 
 The complete architecture of TTYs and PTYs will be explored in Chapter 3.
 
----
 
 ## The Terminal Emulator Draws the Characters
 
@@ -277,7 +270,6 @@ Instead, it sends bytes that describe what should appear, and the terminal emula
 
 This abstraction makes terminal applications portable. The same program can run inside GNOME Terminal, Konsole, Alacritty, xterm, Windows Terminal, or many other terminal emulators without modification.
 
----
 
 ## A Complete Journey
 
@@ -324,7 +316,6 @@ No single component performs the entire job.
 
 This layered design makes the system easier to maintain, extend, and replace.
 
----
 
 ## Engineering Insight
 
@@ -343,7 +334,6 @@ without requiring any changes to its source code.
 
 This philosophy—writing to an abstract stream instead of a specific device—is one of the fundamental design principles behind Unix and POSIX systems.
 
----
 
 ## Common Mistakes
 
@@ -363,7 +353,6 @@ Output may be buffered before being forwarded. A call to `printf()` does not nec
 
 Standard output can be redirected to many destinations. A terminal window is only one possible receiver.
 
----
 
 ## Summary
 

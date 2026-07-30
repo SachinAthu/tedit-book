@@ -8,8 +8,6 @@ Introduce the terminal as more than a window for running commands. Explain that 
 
 By the end of the chapter, readers should understand exactly what their text editor is connected to when it starts.
 
----
-
 ## Learning Objectives
 
 After completing this chapter, readers will be able to:

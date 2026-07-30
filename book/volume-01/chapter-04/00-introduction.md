@@ -8,8 +8,6 @@
 - The terminal as a command interpreter
 - Why ANSI escape sequences are the terminal's language
 
----
-
 ## Learning Objectives
 
 By the end of this chapter, readers will be able to:

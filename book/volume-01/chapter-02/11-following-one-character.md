@@ -1,4 +1,4 @@
-# 2.11 Following One Character
+﻿# 2.11 Following One Character
 
 Throughout this chapter, we have examined many individual components of a terminal-based application.
 
@@ -21,7 +21,6 @@ In this final section, we will follow the complete journey of a single character
 
 Although the journey involves many components, each one performs a simple, well-defined responsibility.
 
----
 
 ## The Journey Begins
 
@@ -85,7 +84,6 @@ Monitor
 
 Let us examine each stage.
 
----
 
 ## Step 1 — The CPU Executes the Program
 
@@ -107,7 +105,6 @@ At this point, nothing has appeared on the screen.
 
 The CPU is simply executing instructions.
 
----
 
 ## Step 2 — `printf()` Produces Output
 
@@ -137,7 +134,6 @@ From this point onward, the program is dealing with bytes rather than visible le
 
 The application has transformed a human-readable character into data that can be transmitted.
 
----
 
 ## Step 3 — Writing to `stdout`
 
@@ -165,7 +161,6 @@ Rather than worrying about windows, fonts, or displays, it simply writes data to
 
 This abstraction allows the same program to work whether its output is displayed on a terminal, redirected into a file, or sent through a pipe to another program.
 
----
 
 ## Step 4 — The Kernel Receives the Output
 
@@ -193,7 +188,6 @@ Instead, the kernel acts as an intermediary, forwarding the output to the approp
 
 This separation allows applications to remain independent of the environment in which they are running.
 
----
 
 ## Step 5 — The PTY Forwards the Character Stream
 
@@ -223,7 +217,6 @@ The architecture of TTYs and PTYs is the subject of the next chapter.
 
 For now, it is enough to understand that the PTY carries the character stream from the operating system to the terminal emulator.
 
----
 
 ## Step 6 — The Terminal Emulator Interprets the Stream
 
@@ -261,7 +254,6 @@ The terminal emulator now knows _what_ should be displayed.
 
 The next question is _how_ it should look.
 
----
 
 ## Step 7 — The Font Provides a Glyph
 
@@ -291,7 +283,6 @@ The glyph describes the visual appearance of the letter.
 
 Different fonts may produce slightly different glyphs, but they all represent the same underlying character.
 
----
 
 ## Step 8 — Rendering the Glyph
 
@@ -315,7 +306,6 @@ The GPU converts the glyph into pixels that can be displayed within the terminal
 
 Although our text editor never communicates directly with the GPU, understanding its role completes the picture of how text eventually reaches the display.
 
----
 
 ## Step 9 — The Monitor Displays the Result
 
@@ -331,7 +321,6 @@ From the user's perspective, this process appears instantaneous.
 
 In reality, numerous software and hardware components have cooperated to produce that single visible character.
 
----
 
 ## Seeing the Entire Pipeline
 
@@ -399,7 +388,6 @@ This layered architecture is a hallmark of modern operating systems.
 
 Each layer can evolve independently while continuing to work with the others through well-defined interfaces.
 
----
 
 ## Why Understanding This Journey Matters
 
@@ -423,7 +411,6 @@ Because every layer has a clearly defined responsibility, each component can be 
 
 This separation of concerns is one of the most powerful architectural principles in software engineering, and it appears repeatedly throughout the design of operating systems.
 
----
 
 ## Engineering Insight
 
@@ -431,7 +418,6 @@ One of the remarkable aspects of modern computing is how many independent techno
 
 This principle—building complex systems from loosely coupled components—is a recurring theme throughout this book and professional software engineering in general.
 
----
 
 ## Common Mistakes
 
@@ -451,7 +437,6 @@ Terminal applications typically never communicate with the GPU. Rendering is han
 
 Displaying text is a pipeline involving multiple software and hardware components, each responsible for a specific stage.
 
----
 
 ## Summary
 

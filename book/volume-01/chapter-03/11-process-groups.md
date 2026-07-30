@@ -1,4 +1,4 @@
-# 3.11 Process Groups
+﻿# 3.11 Process Groups
 
 In the previous section, we learned that every interactive process is associated with a **controlling terminal**. We also saw that pressing **Ctrl+C** sends a signal to the program currently running in the terminal.
 
@@ -10,7 +10,6 @@ For example, a shell may start an editor, which in turn might launch another pro
 
 Unix answers this question with **process groups**.
 
----
 
 ## Why Process Groups Exist
 
@@ -50,7 +49,6 @@ Managing each process individually would quickly become complicated.
 
 Instead, Unix groups related processes together.
 
----
 
 ## What Is a Process Group?
 
@@ -72,7 +70,6 @@ For example:
 
 From the operating system's perspective, the entire group can be treated as one interactive job.
 
----
 
 ## Foreground and Background Process Groups
 
@@ -103,7 +100,6 @@ Only the **foreground process group**:
 
 Background process groups continue running, but they do not receive keyboard input from the terminal.
 
----
 
 ## A Simple Example
 
@@ -159,7 +155,6 @@ Shell
 
 The shell once again becomes the foreground process.
 
----
 
 ## Keyboard Input Goes to the Foreground Group
 
@@ -191,7 +186,6 @@ Only the foreground process group receives interactive input.
 
 This is why you cannot type shell commands while an interactive program is running.
 
----
 
 ## Signals Also Follow the Foreground Group
 
@@ -225,7 +219,6 @@ This allows related processes to respond together.
 
 For example, if an editor launches a helper program, both processes can be interrupted at the same time.
 
----
 
 ## Background Processes
 
@@ -265,7 +258,6 @@ The background process continues executing, but it does not receive keyboard inp
 
 The shell remains available for additional commands.
 
----
 
 ## Job Control
 
@@ -301,7 +293,6 @@ allow the shell to move jobs between the foreground and background.
 
 We will not explore job control in detail because it is beyond the scope of this book, but it is built directly on process groups.
 
----
 
 ## Where Our Editor Fits
 
@@ -330,7 +321,6 @@ While the editor is running:
 
 When the editor exits, the shell becomes the foreground process again and displays another prompt.
 
----
 
 ## The Big Picture
 
@@ -368,7 +358,6 @@ Every layer has a well-defined responsibility.
 
 Notice how the editor never needs to know how any of these components are implemented. It simply communicates through the standard Unix interfaces provided by the operating system.
 
----
 
 ## Engineering Insight
 
@@ -380,7 +369,6 @@ Instead of tracking every process individually, the operating system organizes r
 
 The shell takes advantage of this abstraction to provide features such as foreground jobs, background jobs, suspension, and resumption—all without requiring individual applications to implement these mechanisms themselves.
 
----
 
 ## Summary
 

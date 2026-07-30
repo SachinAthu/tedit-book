@@ -1,4 +1,4 @@
-# 2.5 Standard Input and Standard Output
+﻿# 2.5 Standard Input and Standard Output
 
 Imagine writing the following program:
 
@@ -38,7 +38,6 @@ Rather than communicating directly with the keyboard or the monitor, programs co
 
 Understanding these channels is essential because our text editor will receive keyboard input and send screen updates through them.
 
----
 
 ## Why Do We Need Standard Streams?
 
@@ -62,7 +61,6 @@ The program communicates with these channels, and the operating system takes car
 
 This design allows the same program to work on many different computers without modification.
 
----
 
 ## The Three Standard Streams
 
@@ -106,7 +104,6 @@ Instead, it communicates through the three standard streams.
 
 The operating system decides where each stream is connected.
 
----
 
 ## Standard Input (`stdin`)
 
@@ -148,7 +145,6 @@ It is reading from `stdin`.
 
 This distinction allows the operating system to redirect input from other sources.
 
----
 
 ## Redirecting Standard Input
 
@@ -186,7 +182,6 @@ From its perspective, it simply reads from `stdin`.
 
 This is one of the reasons Unix programs are so flexible.
 
----
 
 ## Standard Output (`stdout`)
 
@@ -231,7 +226,6 @@ It writes to `stdout`.
 
 The operating system determines where `stdout` ultimately goes.
 
----
 
 ## Redirecting Standard Output
 
@@ -264,7 +258,6 @@ It has no idea that its output is being written into a file instead of displayed
 
 This design keeps programs simple and makes them far more reusable.
 
----
 
 ## Standard Error (`stderr`)
 
@@ -306,7 +299,6 @@ The user still sees important errors, while the output file contains only the in
 
 This separation is one of the reasons Unix command-line tools compose so well.
 
----
 
 ## Standard Streams and Our Text Editor
 
@@ -341,7 +333,6 @@ Whenever the editor needs to redraw the screen, it sends characters and control 
 
 Although our editor will later place the terminal into **raw mode**, changing how keyboard input is delivered, the fundamental communication channel remains the same.
 
----
 
 ## Everything Is a Stream
 
@@ -367,7 +358,6 @@ This consistent interface greatly simplifies software development.
 
 Instead of learning different APIs for every possible input and output device, programmers work with the same abstraction.
 
----
 
 ## Engineering Insight
 
@@ -381,7 +371,6 @@ This separation allows software to remain portable across different hardware and
 
 As you'll see throughout this book, abstraction is one of the most powerful ideas in software engineering. By hiding unnecessary details behind well-defined interfaces, complex systems become easier to understand, maintain, and extend.
 
----
 
 ## Common Mistakes
 
@@ -389,19 +378,16 @@ As you'll see throughout this book, abstraction is one of the most powerful idea
 
 `printf()` writes to `stdout`. Whether that output appears on the screen, a file, or another destination depends on how the operating system has connected the stream.
 
----
 
 ### Mistake 2 — Assuming `scanf()` always reads from the keyboard
 
 `scanf()` reads from `stdin`. By default, `stdin` is connected to the keyboard, but it may also be connected to a file, another program, or another input source.
 
----
 
 ### Mistake 3 — Ignoring `stderr`
 
 Error messages should generally be written to `stderr` rather than `stdout`. Keeping these streams separate allows users to redirect normal output without losing important diagnostic information.
 
----
 
 ## Summary
 

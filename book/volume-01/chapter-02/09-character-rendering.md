@@ -1,4 +1,4 @@
-# 2.9 Character Rendering
+﻿# 2.9 Character Rendering
 
 So far, we have followed a character from our program to the terminal emulator.
 
@@ -18,7 +18,6 @@ Unlike a graphical application, which can draw shapes at arbitrary pixel positio
 
 Understanding this rendering model is essential because our text editor will rely on it entirely. Every cursor movement, every line of text, and every screen refresh will ultimately manipulate this character grid.
 
----
 
 ## Characters Are Not Images
 
@@ -42,7 +41,6 @@ The terminal emulator provides its **appearance**.
 
 This separation allows the same program to appear differently depending on the user's font settings without requiring any changes to the application itself.
 
----
 
 ## Fonts
 
@@ -64,7 +62,6 @@ Instead, it simply requests that a particular character be displayed.
 
 The terminal emulator consults the selected font to determine what that character should look like.
 
----
 
 ## Glyphs
 
@@ -103,7 +100,6 @@ This distinction is important because computers store characters, not glyphs.
 
 The terminal emulator combines the character received from the application with the glyph provided by the selected font to produce the final image on the screen.
 
----
 
 ## The Character Grid
 
@@ -147,7 +143,6 @@ When an application displays text, it is effectively asking the terminal emulato
 
 This grid-based model is one of the defining characteristics of terminal applications.
 
----
 
 ## Character Cells
 
@@ -176,7 +171,6 @@ Unlike graphical applications, terminal programs rarely think in terms of indivi
 
 Instead, they operate by updating character cells.
 
----
 
 ## Monospaced Fonts
 
@@ -225,7 +219,6 @@ Monospaced fonts solve this problem by ensuring that every character occupies on
 
 This is why virtually every terminal emulator uses a monospaced font by default.
 
----
 
 ## Cursor Positioning
 
@@ -276,7 +269,6 @@ Column = 37
 
 The editor will spend much of its time updating these two values as the user navigates through the document.
 
----
 
 ## Why Character Grids Matter
 
@@ -302,7 +294,6 @@ When the document changes, the renderer will determine which character should ap
 
 Everything—from the status bar to the cursor and the document itself—will ultimately be represented as characters placed into this grid.
 
----
 
 ## Engineering Insight
 
@@ -312,7 +303,6 @@ Instead of manipulating millions of individual pixels, terminal programs work wi
 
 This abstraction allows terminal applications to remain lightweight while still providing responsive interactive interfaces.
 
----
 
 ## Common Mistakes
 
@@ -332,7 +322,6 @@ Terminal applications position content using rows and columns within a character
 
 Terminal interfaces rely on consistent character widths to maintain alignment. Monospaced fonts ensure that every character occupies exactly one cell, making tables, source code, and text layouts predictable.
 
----
 
 ## Summary
 

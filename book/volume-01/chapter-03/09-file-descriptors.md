@@ -1,4 +1,4 @@
-# 3.9 Standard File Descriptors
+﻿# 3.9 Standard File Descriptors
 
 Throughout this book, we have repeatedly encountered the terms **standard input**, **standard output**, and **standard error**.
 
@@ -8,7 +8,6 @@ Now that we understand terminal sessions, shells, and pseudo-terminals, we can p
 
 Every interactive terminal application—including our future text editor—communicates with the outside world primarily through **three standard file descriptors**.
 
----
 
 ## What Is a File Descriptor?
 
@@ -28,7 +27,6 @@ It can refer to:
 
 Whenever a program wants to read from or write to one of these resources, it does so through a file descriptor.
 
----
 
 ## The Three Standard File Descriptors
 
@@ -46,7 +44,6 @@ These three descriptors exist for almost every command-line program.
 
 Our text editor will use them throughout its lifetime.
 
----
 
 ## Standard Input (`stdin`)
 
@@ -83,7 +80,6 @@ This code reads one byte from standard input.
 
 Later in the book, our editor will use this mechanism to receive keyboard input.
 
----
 
 ## Standard Output (`stdout`)
 
@@ -127,7 +123,6 @@ The terminal emulator receives the bytes and displays them to the user.
 
 Nearly everything our editor draws—including the document contents, the status bar, and cursor positioning—will eventually be written to `stdout`.
 
----
 
 ## Standard Error (`stderr`)
 
@@ -145,7 +140,6 @@ This writes the message to file descriptor **2**.
 
 Separating normal output from error output allows each stream to be handled independently.
 
----
 
 ## Why Three Separate Streams?
 
@@ -173,7 +167,6 @@ stderr ─────► Terminal
 
 This separation is extremely useful for scripting, automation, and debugging.
 
----
 
 ## Redirection
 
@@ -213,7 +206,6 @@ It simply writes to file descriptor **1** as usual.
 
 The operating system handles the rest.
 
----
 
 ## Pipes
 
@@ -242,7 +234,6 @@ Each simply reads from or writes to its standard streams.
 
 The shell creates the connection between them.
 
----
 
 ## How Our Editor Will Use Standard Streams
 
@@ -269,7 +260,6 @@ stderr (2) ─────► Error Messages
 
 Because our editor uses these standard interfaces, it automatically works inside terminal emulators, over SSH, and in many other Unix environments.
 
----
 
 ## Engineering Insight
 
@@ -279,7 +269,6 @@ A program reads from file descriptor **0** and writes to descriptors **1** and *
 
 This abstraction makes programs highly reusable. The same application can run interactively in a terminal, participate in shell pipelines, or have its output redirected to a file—all without changing its source code.
 
----
 
 ## Summary
 

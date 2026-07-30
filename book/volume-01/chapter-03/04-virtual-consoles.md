@@ -1,4 +1,4 @@
-# 3.4 Virtual Consoles
+﻿# 3.4 Virtual Consoles
 
 In the previous section, we learned that a **TTY** is the operating system's abstraction for an interactive terminal. Originally, each physical teletype corresponded to a single TTY.
 
@@ -8,7 +8,6 @@ Linux solves this problem using **virtual consoles**.
 
 Virtual consoles allow one computer, one keyboard, and one monitor to behave as though several independent terminals are connected to the system.
 
----
 
 ## The Problem
 
@@ -30,7 +29,6 @@ Instead, Linux allows multiple independent login sessions to exist simultaneousl
 
 Each session has its own TTY.
 
----
 
 ## One Physical Console, Many Virtual Consoles
 
@@ -66,7 +64,6 @@ Each maintains its own:
 
 Switching between them does **not** terminate the programs running in the others.
 
----
 
 ## Switching Between Virtual Consoles
 
@@ -91,13 +88,11 @@ For example:
 
 Each console behaves as if it were its own independent terminal.
 
----
 
 ### Note
 
 If you are running Linux inside a virtual machine, over SSH, or within Windows Subsystem for Linux (WSL), these shortcuts may not work because the host operating system intercepts them.
 
----
 
 ## Virtual Consoles Are Independent Sessions
 
@@ -131,7 +126,6 @@ When you later return to the first console, the editor is exactly where you left
 
 This isolation allows developers and system administrators to work on multiple tasks simultaneously without opening multiple physical terminals.
 
----
 
 ## Virtual Console Device Files
 
@@ -163,7 +157,6 @@ refers to the second.
 
 Programs rarely open these device files directly, but the operating system uses them internally to route keyboard input and display output for each console.
 
----
 
 ## Where Does the Terminal Emulator Fit?
 
@@ -194,7 +187,6 @@ Instead, each terminal window creates its own **pseudo-terminal (PTY)**.
 
 We will explore PTYs in the next section.
 
----
 
 ## Virtual Consoles vs. Terminal Emulator Windows
 
@@ -211,7 +203,6 @@ Both provide a text-based interface for interacting with programs, but they are 
 
 Fortunately, applications rarely need to care about the difference because both present a terminal interface.
 
----
 
 ## Engineering Insight
 
@@ -232,7 +223,6 @@ Examples include:
 
 In each case, software provides the illusion of additional resources while sharing the underlying hardware.
 
----
 
 ## Summary
 

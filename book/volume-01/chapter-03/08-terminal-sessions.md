@@ -1,4 +1,4 @@
-# 3.8 Terminal Sessions
+﻿# 3.8 Terminal Sessions
 
 So far, we have studied each component of the terminal environment individually.
 
@@ -15,7 +15,6 @@ Every time you open a terminal window, a complete terminal session is created. T
 
 Understanding this lifecycle will help us see where our text editor fits into the larger system.
 
----
 
 ## What Is a Terminal Session?
 
@@ -32,7 +31,6 @@ You can think of it as one complete working environment.
 
 For example, when you open a new terminal window, everything inside that window belongs to one terminal session.
 
----
 
 ## Starting a Terminal Session
 
@@ -60,7 +58,6 @@ Within a fraction of a second, the terminal window appears and the shell is read
 
 At this point, the terminal session has begun.
 
----
 
 ## Step 1 — The Terminal Emulator Starts
 
@@ -88,7 +85,6 @@ Initially, however, the window is empty.
 
 The emulator must first prepare an environment in which terminal applications can run.
 
----
 
 ## Step 2 — A PTY Is Created
 
@@ -120,7 +116,6 @@ This PTY becomes the communication channel for the entire terminal session.
 
 Every character typed by the user and every byte printed by applications will travel through this PTY.
 
----
 
 ## Step 3 — The Shell Starts
 
@@ -144,7 +139,6 @@ The shell connects its standard input, standard output, and standard error to th
 
 From this point onward, the shell behaves exactly as though it were running inside a traditional hardware terminal.
 
----
 
 ## Step 4 — The Shell Waits
 
@@ -174,7 +168,6 @@ Shell
 
 This waiting state is where the terminal session spends most of its time.
 
----
 
 ## Step 5 — The User Starts a Program
 
@@ -206,7 +199,6 @@ The shell is **no longer interacting with the user**.
 
 Instead, the editor now communicates directly with the terminal.
 
----
 
 ## The Terminal Belongs to the Foreground Program
 
@@ -239,7 +231,6 @@ This explains why you cannot type shell commands while an interactive program is
 
 The shell is waiting for that program to finish.
 
----
 
 ## Returning to the Shell
 
@@ -276,7 +267,6 @@ The user can now:
 - execute a script,
 - or simply exit the shell.
 
----
 
 ## Ending the Terminal Session
 
@@ -320,7 +310,6 @@ Once the shell terminates, there is no longer a program managing the terminal se
 
 Most terminal emulators respond by closing the corresponding window, although some can be configured to keep it open after the shell exits.
 
----
 
 ## The Complete Lifecycle
 
@@ -386,7 +375,6 @@ Terminal Window Closes
 
 This entire sequence is one terminal session.
 
----
 
 ## Where Our Editor Fits
 
@@ -414,7 +402,6 @@ Its responsibility is simply to communicate with the terminal through the interf
 
 Understanding this separation of responsibilities will make the implementation much cleaner when we begin writing code in Volume X.
 
----
 
 ## Engineering Insight
 
@@ -426,7 +413,6 @@ The terminal emulator, shell, and editor are independent programs created by dif
 
 This modular design allows developers to replace individual components without affecting the rest of the system. You can change your terminal emulator, switch to a different shell, or use another text editor, and the overall workflow remains the same.
 
----
 
 ## Summary
 

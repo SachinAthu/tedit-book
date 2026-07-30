@@ -20,8 +20,6 @@ Understanding this journey is essential because a terminal text editor relies en
 
 In this chapter, we'll examine every major component involved in displaying text and establish the foundation for the chapters that follow.
 
----
-
 # Learning Objectives
 
 By the end of this chapter, you should be able to:

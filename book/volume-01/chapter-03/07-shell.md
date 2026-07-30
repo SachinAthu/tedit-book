@@ -1,4 +1,4 @@
-# 3.7 The Shell
+﻿# 3.7 The Shell
 
 So far, we have explored the environment surrounding a terminal application.
 
@@ -19,7 +19,6 @@ The shell is the program that sits between the user and the operating system. It
 
 Before our text editor can run, the shell must first launch it.
 
----
 
 ## What Is a Shell?
 
@@ -41,7 +40,6 @@ It is **not** part of the terminal emulator, nor is it built into the operating 
 
 Instead, it is an ordinary user-space application.
 
----
 
 ## Why Is It Called a "Shell"?
 
@@ -72,7 +70,6 @@ The shell provides one of the primary interfaces through which users communicate
 
 The shell forms an outer layer—a **shell**—around the operating system.
 
----
 
 ## The Shell Does Not Execute Commands Itself
 
@@ -135,7 +132,6 @@ Shell Prompt Returns
 
 The shell is therefore a **program launcher**, not the program performing the requested task.
 
----
 
 ## Starting Our Text Editor
 
@@ -195,7 +191,6 @@ The editor now receives keyboard input directly from the terminal.
 
 When the editor exits, control returns to the shell.
 
----
 
 ## Popular Unix Shells
 
@@ -218,7 +213,6 @@ Although these shells differ in features and syntax, they all perform the same f
 
 Throughout this book, the specific shell is largely unimportant because our editor communicates directly with the terminal, not with shell-specific features.
 
----
 
 ## The Shell Prompt
 
@@ -278,7 +272,6 @@ $
 
 The prompt is therefore a visual indication that the shell is ready for the next command.
 
----
 
 ## The Shell Starts Programs
 
@@ -311,7 +304,6 @@ We will study these APIs in detail later in the book.
 
 For now, it is enough to understand that the shell is responsible for starting new programs.
 
----
 
 ## Environment Variables
 
@@ -339,7 +331,6 @@ For example:
 
 Our text editor may eventually use some of these variables, but understanding them in depth is beyond the scope of this chapter.
 
----
 
 ## The Relationship Between the Shell and the Terminal Emulator
 
@@ -419,7 +410,6 @@ The shell manages the programs running within that terminal.
 
 These are separate responsibilities performed by separate programs.
 
----
 
 ## Terminal Emulator vs. Shell
 
@@ -436,7 +426,6 @@ Since these terms are often confused, let's compare them directly.
 
 Although they work closely together, they solve completely different problems.
 
----
 
 ## Engineering Insight
 
@@ -448,7 +437,6 @@ Because these responsibilities are independent, users can freely combine differe
 
 This modular design is one of Unix's greatest strengths. Each component performs a single well-defined job and communicates through standardized interfaces.
 
----
 
 ## Summary
 
