@@ -4,8 +4,6 @@
 **Version:** 1.0  
 **Status:** Living Document
 
----
-
 # Purpose
 
 This glossary defines the canonical terminology used throughout the book.
@@ -15,8 +13,6 @@ It exists to ensure terminology remains consistent across every chapter.
 If a term appears here, every chapter should use this definition and terminology unless explicitly stated otherwise.
 
 This glossary is intentionally incomplete at the beginning of the project and will grow as new concepts are introduced.
-
----
 
 # Conventions
 
@@ -44,9 +40,23 @@ Volume X, Chapter Y
 - ...
 - ...
 
----
-
 # A
+
+## Alternate Screen Buffer
+
+**Definition**
+
+A secondary, initially empty screen buffer that full-screen applications can switch into, allowing them to draw their interface without overwriting the shell's output in the normal screen buffer. Switching back restores the shell content exactly as it was.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- Screen Buffer
+- ANSI Escape Sequence
+- Normal Screen Buffer
 
 ## ANSI Escape Sequence
 
@@ -64,8 +74,6 @@ Volume I, Chapter 4
 - Cursor
 - Raw Mode
 
----
-
 ## ASCII
 
 **Definition**
@@ -81,8 +89,6 @@ Volume I, Chapter 2
 - Character Encoding
 - Unicode
 - UTF-8
-
----
 
 # B
 
@@ -100,8 +106,6 @@ Volume I, Chapter 2
 
 - Standard Output
 - Kernel
-
----
 
 # C
 
@@ -121,8 +125,6 @@ Volume I, Chapter 5
 - Terminal
 - termios
 
----
-
 ## Character Cell
 
 **Definition**
@@ -138,8 +140,6 @@ Volume I, Chapter 2
 - Monospaced Font
 - Font
 - Terminal Emulator
-
----
 
 ## Character Encoding
 
@@ -157,8 +157,6 @@ Volume I, Chapter 2
 - Unicode
 - UTF-8
 
----
-
 ## Console
 
 **Definition**
@@ -174,8 +172,6 @@ Volume I, Chapter 2
 - Terminal Emulator
 - Terminal
 
----
-
 ## Control Sequence
 
 **Definition**
@@ -190,8 +186,6 @@ Volume I, Chapter 2
 
 - ANSI Escape Sequence
 - Terminal Emulator
-
----
 
 ## Controlling Terminal
 
@@ -209,8 +203,6 @@ Volume I, Chapter 3
 - Process Group
 - PTY
 - Signal
-
----
 
 ## CPU (Central Processing Unit)
 
@@ -230,7 +222,21 @@ Volume I, Chapter 2
 - Program Counter
 - Main Memory
 
----
+## CSI (Control Sequence Introducer)
+
+**Definition**
+
+The two-character prefix `ESC [` that marks the beginning of a structured ANSI escape sequence. Most terminal commands used by text editors are CSI sequences.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- SGR
+- Private Mode Sequence
 
 ## Cursor
 
@@ -249,8 +255,6 @@ Volume III, Chapter 14
 - Viewport
 - Renderer
 - Text Buffer
-
----
 
 # D
 
@@ -271,8 +275,6 @@ Volume III, Chapter 12
 - Text Buffer
 - File Manager
 
----
-
 # E
 
 ## Editor State
@@ -291,8 +293,6 @@ Volume III, Chapter 12
 - Renderer
 - Cursor
 
----
-
 ## Event Loop
 
 **Definition**
@@ -307,8 +307,6 @@ Volume II, Chapter 9
 
 - Renderer
 - Input Handler
-
----
 
 # F
 
@@ -328,8 +326,6 @@ Volume I, Chapter 2
 - Monospaced Font
 - Terminal Emulator
 
----
-
 ## File Descriptor
 
 **Definition**
@@ -348,8 +344,6 @@ Volume I, Chapter 3
 - Process
 - PTY
 
----
-
 ## Frame
 
 **Definition**
@@ -367,7 +361,21 @@ Volume IV, Chapter 17
 - Renderer
 - Event Loop
 
----
+## Full Redraw
+
+**Definition**
+
+The rendering strategy of regenerating the entire visible interface from the current editor state on every frame, rather than incrementally updating only the regions of the screen that changed. This avoids the complexity of tracking differences between frames.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- Rendering Cycle
+- Frame
+- Renderer
 
 # G
 
@@ -387,7 +395,21 @@ Volume I, Chapter 2
 - Font
 - Unicode
 
----
+## Graceful Degradation
+
+**Definition**
+
+The design philosophy where an application uses advanced terminal features when available but falls back to simpler, widely supported alternatives when they are not, ensuring the application remains usable on all terminals.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- Terminfo
+- Terminal Emulator
+- Capability Database
 
 # H
 
@@ -406,8 +428,6 @@ Volume I, Chapter 2
 - Stack
 - Process
 - Main Memory
-
----
 
 # I
 
@@ -428,8 +448,6 @@ Volume III, Chapter 15
 - Command Engine
 - Event Loop
 
----
-
 ## Instruction Cycle
 
 **Definition**
@@ -445,8 +463,6 @@ Volume I, Chapter 2
 - CPU
 - Program Counter
 - Machine Instruction
-
----
 
 # M
 
@@ -466,8 +482,6 @@ Volume I, Chapter 2
 - Instruction Cycle
 - Program Counter
 
----
-
 ## Main Memory (RAM)
 
 **Definition**
@@ -483,8 +497,6 @@ Volume I, Chapter 2
 - CPU
 - Register
 - Process
-
----
 
 ## Monospaced Font
 
@@ -502,9 +514,23 @@ Volume I, Chapter 2
 - Character Cell
 - Terminal Emulator
 
----
-
 # P
+
+## Private Mode Sequence
+
+**Definition**
+
+An escape sequence beginning with `ESC[?` that controls terminal behaviour modes—such as cursor visibility, alternate screen switching, mouse reporting, and bracketed paste—rather than cursor position or text formatting. These originate from DEC VT-series terminals.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- CSI
+- Alternate Screen Buffer
 
 ## Process
 
@@ -521,8 +547,6 @@ Volume I, Chapter 2
 - Operating System
 - File Descriptor
 
----
-
 ## Process ID (PID)
 
 **Definition**
@@ -537,8 +561,6 @@ Volume I, Chapter 2
 
 - Process
 - Operating System
-
----
 
 ## Process Group
 
@@ -558,8 +580,6 @@ Volume I, Chapter 3
 - Signal
 - Shell
 
----
-
 ## Program Counter (PC)
 
 **Definition**
@@ -575,8 +595,6 @@ Volume I, Chapter 2
 - CPU
 - Instruction Cycle
 - Machine Instruction
-
----
 
 ## Pseudo Terminal (PTY)
 
@@ -596,8 +614,6 @@ Volume I, Chapter 3
 - File Descriptor
 - Virtual Console
 
----
-
 # R
 
 ## Raw Mode
@@ -615,8 +631,6 @@ Volume I, Chapter 5
 - Canonical Mode
 - termios
 
----
-
 ## Renderer
 
 **Definition**
@@ -632,7 +646,22 @@ Volume IV, Chapter 19
 - Frame
 - Viewport
 
----
+## Rendering Cycle
+
+**Definition**
+
+The fixed sequence of operations performed each time the terminal display is updated: hide the cursor, move the cursor home, clear the screen, draw the entire interface, position the cursor at the editing location, and show the cursor again.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- Full Redraw
+- Frame
+- Renderer
+- ANSI Escape Sequence
 
 ## Register
 
@@ -650,9 +679,38 @@ Volume I, Chapter 2
 - Main Memory
 - Instruction Cycle
 
----
-
 # S
+
+## SGR (Select Graphic Rendition)
+
+**Definition**
+
+A family of ANSI escape sequences identified by the `m` final command character that control the visual appearance of text—including bold, underline, reverse video, and colors—rather than its position on screen.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- CSI
+
+## Screen Buffer
+
+**Definition**
+
+An in-memory representation of the terminal's displayed content. Modern terminal emulators maintain two screen buffers—the normal screen buffer and the alternate screen buffer—only one of which is visible at a time.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- Alternate Screen Buffer
+- Terminal Emulator
+- ANSI Escape Sequence
 
 ## Scrollback Buffer
 
@@ -669,8 +727,6 @@ Volume I, Chapter 3
 - Terminal Emulator
 - Viewport
 
----
-
 ## Shell
 
 **Definition**
@@ -686,8 +742,6 @@ Volume I, Chapter 2
 - Terminal Emulator
 - Process
 - Standard Input
-
----
 
 ## Signal
 
@@ -706,8 +760,6 @@ Volume I, Chapter 3
 - Foreground Process Group
 - Job Control
 
----
-
 ## Stack
 
 **Definition**
@@ -723,8 +775,6 @@ Volume I, Chapter 2
 - Heap
 - Process
 - Main Memory
-
----
 
 ## Standard Error (stderr)
 
@@ -742,8 +792,6 @@ Volume I, Chapter 2
 - Standard Output
 - Process
 
----
-
 ## Standard Input (stdin)
 
 **Definition**
@@ -759,8 +807,6 @@ Volume I, Chapter 2
 - Standard Output
 - Terminal
 
----
-
 ## Standard Output (stdout)
 
 **Definition**
@@ -775,8 +821,6 @@ Volume I, Chapter 2
 
 - Standard Input
 - Terminal
-
----
 
 # T
 
@@ -796,8 +840,6 @@ Volume I, Chapter 3
 - Terminal
 - Video Terminal
 
----
-
 ## Terminal
 
 **Definition**
@@ -815,8 +857,6 @@ Volume I, Chapter 2
 - Terminal Emulator
 - TTY
 - PTY
-
----
 
 ## Terminal Emulator
 
@@ -836,8 +876,6 @@ Volume I, Chapter 2
 - ANSI Escape Sequence
 - TTY
 
----
-
 ## Terminal Session
 
 **Definition**
@@ -856,7 +894,21 @@ Volume I, Chapter 3
 - Controlling Terminal
 - Process Group
 
----
+## Terminfo
+
+**Definition**
+
+A capability database on Unix-like systems that provides terminal-specific control sequences. Applications query terminfo for the correct escape codes for the current terminal type rather than hard-coding sequences, greatly improving portability across different terminal emulators.
+
+**First Introduced**
+
+Volume I, Chapter 4
+
+**Related Terms**
+
+- Terminal Emulator
+- ANSI Escape Sequence
+- Graceful Degradation
 
 ## Text Buffer
 
@@ -875,8 +927,6 @@ Volume III, Chapter 13
 - Document
 - Cursor
 
----
-
 ## TTY
 
 **Definition**
@@ -891,8 +941,6 @@ Volume I, Chapter 3
 
 - PTY
 - Terminal
-
----
 
 # U
 
@@ -912,8 +960,6 @@ Volume I, Chapter 2
 - ASCII
 - Character Encoding
 
----
-
 ## UTF-8
 
 **Definition**
@@ -929,8 +975,6 @@ Volume I, Chapter 2
 - Unicode
 - ASCII
 - Character Encoding
-
----
 
 # V
 
@@ -951,8 +995,6 @@ Volume I, Chapter 3
 - Teletype
 - Terminal Emulator
 
----
-
 ## Viewport
 
 **Definition**
@@ -970,8 +1012,6 @@ Volume IV, Chapter 20
 - Renderer
 - Cursor
 
----
-
 ## Virtual Console
 
 **Definition**
@@ -988,8 +1028,6 @@ Volume I, Chapter 3
 - PTY
 - Terminal Emulator
 - Console
-
----
 
 # W
 
@@ -1009,8 +1047,6 @@ Project Documentation
 
 - Git
 - Repository
-
----
 
 # Future Terms
 
@@ -1039,8 +1075,6 @@ The following concepts are expected to be added as the manuscript develops:
 - Double Buffering
 - Cache Locality
 
----
-
 # Maintenance Rules
 
 1. Every canonical technical term should appear exactly once in this glossary.
@@ -1056,7 +1090,5 @@ The following concepts are expected to be added as the manuscript develops:
 6. When introducing a new canonical term, immediately add it to this document.
 
 7. If two terms appear to describe the same concept, prefer the glossary definition and terminology.
-
----
 
 End of GLOSSARY.md
