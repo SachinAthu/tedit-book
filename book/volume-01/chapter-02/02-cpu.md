@@ -55,7 +55,7 @@ This process is known as the **instruction cycle**, sometimes called the **fetch
            +----------------+
            | Decode         |
            | Determine what |
-           | the instruction|
+           | the instruction |
            | means          |
            +----------------+
                     │
@@ -67,10 +67,17 @@ This process is known as the **instruction cycle**, sometimes called the **fetch
            +----------------+
                     │
                     ▼
-             Next Instruction
                     │
                     └───────────────┐
                                     ▼
+                    ┌───────────────────────────────┐
+                    │  Advance to Next Instruction  │
+                    └───────────────────────────────┘
+                                    │
+                                    │
+                                    └──────────────────────┐
+                                                           ▼
+                                           (repeat from Fetch)
 ```
 
 This cycle repeats continuously while the computer is powered on.
