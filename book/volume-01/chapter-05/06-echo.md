@@ -4,13 +4,13 @@ When you type into a terminal, the characters you press immediately appear on th
 
 For example, if you type:
 
-```text id="g81v4n"
+```text
 hello
 ```
 
 the terminal displays:
 
-```text id="wb9l6x"
+```text
 hello
 ```
 
@@ -32,7 +32,7 @@ When echo is enabled, every printable character received from the keyboard is im
 
 Conceptually:
 
-```text id="lpwd7a"
+```text
 Keyboard
 
 ↓
@@ -51,7 +51,7 @@ This means the application does not need to print the characters itself.
 
 Consider the following program:
 
-```c id="dz98pc"
+```c
 #include <stdio.h>
 
 int main(void)
@@ -67,13 +67,13 @@ Notice that it never calls `printf()`.
 
 Nevertheless, if you run it and type:
 
-```text id="73a3jk"
+```text
 A
 ```
 
 the screen shows:
 
-```text id="0k2n4w"
+```text
 A
 ```
 
@@ -87,7 +87,7 @@ The terminal displayed it automatically because echo was enabled.
 
 The sequence of events is approximately:
 
-```text id="u54wki"
+```text
 Press 'A'
 
 ↓
@@ -119,13 +119,13 @@ Echo makes command-line programs easy to use.
 
 Imagine entering a command into a shell.
 
-```text id="n6t4ud"
+```text
 $ ls -l
 ```
 
 As you type, you expect to see:
 
-```text id="sp3w0t"
+```text
 ls -l
 ```
 
@@ -135,7 +135,7 @@ The terminal already provides that functionality.
 
 Similarly, if you run:
 
-```text id="tmyyvp"
+```text
 $ cat
 ```
 
@@ -151,25 +151,25 @@ Automatic echoing is useful for shells, but it creates serious problems for a te
 
 Imagine opening a document containing:
 
-```text id="cs6udw"
+```text
 Hello
 ```
 
 Your editor draws the document:
 
-```text id="n7gm5l"
+```text
 Hello|
 ```
 
 Now you press:
 
-```text id="t9rjml"
+```text
 A
 ```
 
 If echo is still enabled, the terminal immediately prints:
 
-```text id="dug9w9"
+```text
 A
 ```
 
@@ -177,7 +177,7 @@ without waiting for the editor.
 
 A moment later, the editor updates its internal document, redraws the screen, and prints:
 
-```text id="1vjlwm"
+```text
 HelloA|
 ```
 
@@ -199,7 +199,7 @@ If the terminal echoes characters while the editor also redraws the document, bo
 
 Conceptually:
 
-```text id="6p0e6m"
+```text
 Keyboard
 
 ↓
@@ -231,7 +231,7 @@ Once echo is turned off, pressing a key no longer causes the terminal to display
 
 The interaction changes to:
 
-```text id="cjlwm7"
+```text
 Keyboard
 
 ↓
@@ -275,7 +275,7 @@ Suppose the user presses the key **A**.
 
 With echo enabled:
 
-```text id="vjlwm2"
+```text
 Press 'A'
 
 ↓
@@ -289,7 +289,7 @@ Application processes 'A'
 
 With echo disabled:
 
-```text id="jlwm83"
+```text
 Press 'A'
 
 ↓
@@ -319,7 +319,7 @@ You have already encountered applications that disable echo.
 
 Consider logging into a remote server:
 
-```text id="zyoqp0"
+```text
 Password:
 ```
 

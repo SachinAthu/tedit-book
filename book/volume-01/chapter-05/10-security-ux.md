@@ -26,7 +26,7 @@ Once those requirements no longer exist, the terminal should immediately return 
 
 The application's lifecycle should look like this:
 
-```text id="q1k8xp"
+```text
 Start Application
 
 ↓
@@ -139,7 +139,7 @@ It should:
 
 Conceptually:
 
-```text id="8jwq4m"
+```text
 Acquire Resource
 
 ↓
@@ -213,7 +213,7 @@ For example:
 
 In every case, the underlying principle is identical:
 
-```text id="w4d1vy"
+```text
 Acquire
 
 ↓

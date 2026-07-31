@@ -36,7 +36,7 @@ From the application's perspective, terminal settings are represented by a data 
 
 Conceptually, the relationship looks like this:
 
-```text id="f5o4yt"
+```text
 Application
 
 ↓
@@ -64,13 +64,13 @@ Instead, it requests changes through the operating system, which updates the ter
 
 POSIX defines a structure named:
 
-```c id="8o6m9q"
+```c
 struct termios
 ```
 
 Although the actual definition contains several fields and implementation-specific details, it can be thought of conceptually as a collection of configuration categories.
 
-```text id="7x1b8m"
+```text
 struct termios
 
 ├── Input Flags
@@ -99,7 +99,7 @@ For example, they can control whether:
 
 Conceptually:
 
-```text id="yopn7g"
+```text
 Keyboard
 
 ↓
@@ -121,7 +121,7 @@ For example, the terminal may automatically perform certain character translatio
 
 The path looks like:
 
-```text id="xmkfwh"
+```text
 Application
 
 ↓
@@ -158,7 +158,7 @@ Most of the settings that distinguish canonical mode from raw mode belong to thi
 
 Conceptually:
 
-```text id="h3wqu9"
+```text
 Keyboard
 
 ↓
@@ -199,7 +199,7 @@ Before changing terminal behavior, an application first asks the operating syste
 
 Conceptually:
 
-```text id="vjvrwq"
+```text
 Current Terminal Settings
 
 ↓
@@ -221,7 +221,7 @@ It can modify this copy without affecting the terminal immediately.
 
 Once the desired changes have been made, the modified configuration is sent back to the operating system.
 
-```text id="r2yvpu"
+```text
 Application
 
 ↓
@@ -251,7 +251,7 @@ The editor should preserve those settings before making any changes.
 
 The typical sequence is:
 
-```text id="db0w5v"
+```text
 Read Current Settings
 
 ↓

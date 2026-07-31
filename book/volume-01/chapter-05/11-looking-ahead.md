@@ -20,13 +20,13 @@ For ordinary characters, this is straightforward.
 
 Suppose the user presses:
 
-```text id="jlwm201"
+```text
 A
 ```
 
 The editor receives:
 
-```text id="jlwm202"
+```text
 0x41
 ```
 
@@ -44,7 +44,7 @@ Consider the Up Arrow key.
 
 The editor does **not** receive something like:
 
-```text id="jlwm203"
+```text
 UP
 ```
 
@@ -52,7 +52,7 @@ Instead, the terminal sends a sequence of bytes.
 
 For many terminals, pressing the Up Arrow produces:
 
-```text id="jlwm204"
+```text
 ESC
 [
 A
@@ -60,7 +60,7 @@ A
 
 Or, expressed as bytes:
 
-```text id="rgctx205"
+```text
 0x1B
 0x5B
 0x41
@@ -92,7 +92,7 @@ The application must interpret those bytes and determine whether they represent:
 
 Conceptually, the editor sees something like this:
 
-```text id="rgctx206"
+```text
 Keyboard
 
 ↓
@@ -144,7 +144,7 @@ As our editor evolves, keyboard input will pass through several stages before af
 
 The overall flow looks like this:
 
-```text id="rgctx209"
+```text
 Keyboard
 
 ↓

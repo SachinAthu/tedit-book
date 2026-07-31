@@ -16,7 +16,7 @@ Instead of transferring data immediately from one component to another, the syst
 
 Conceptually:
 
-```text id="8qj5dl"
+```text
 Source
 
 ↓
@@ -47,13 +47,13 @@ Instead of sending each character immediately to the application, it collects ch
 
 Suppose the user types:
 
-```text id="hjlwm6"
+```text
 Hello
 ```
 
 Internally, the terminal behaves approximately like this:
 
-```text id="d2pn71"
+```text
 Press 'H'
 
 ↓
@@ -63,7 +63,7 @@ Buffer
 "H"
 ```
 
-```text id="ktj7o9"
+```text
 Press 'e'
 
 ↓
@@ -73,7 +73,7 @@ Buffer
 "He"
 ```
 
-```text id="dkvqyu"
+```text
 Press 'l'
 
 ↓
@@ -87,7 +87,7 @@ The process continues until Enter is pressed.
 
 Only then does the terminal deliver the entire line.
 
-```text id="i6br67"
+```text
 Buffer
 
 "Hello\n"
@@ -99,7 +99,7 @@ Application
 
 The application never receives:
 
-```text id="dcqj4w"
+```text
 'H'
 
 ↓
@@ -121,7 +121,7 @@ The application never receives:
 
 Instead, it receives:
 
-```text id="h28pqz"
+```text
 "Hello\n"
 ```
 
@@ -131,7 +131,7 @@ as a single block of input.
 
 The complete flow in canonical mode looks like this:
 
-```text id="6t3ktm"
+```text
 Keyboard
 
 ↓
@@ -163,13 +163,13 @@ One advantage of line buffering is that editing happens **inside the terminal**,
 
 Suppose the user types:
 
-```text id="phs3vr"
+```text
 hellp
 ```
 
 The terminal stores:
 
-```text id="qvjk2k"
+```text
 hellp
 ```
 
@@ -177,25 +177,25 @@ The user presses Backspace.
 
 The terminal modifies the buffer:
 
-```text id="6a52gs"
+```text
 hell
 ```
 
 The user types:
 
-```text id="9lbjlwm"
+```text
 o
 ```
 
 The buffer becomes:
 
-```text id="if44uh"
+```text
 hello
 ```
 
 Only after Enter does the application receive:
 
-```text id="3mkrx4"
+```text
 hello\n
 ```
 
@@ -209,7 +209,7 @@ The difference between canonical mode and raw mode can be summarized visually.
 
 ### Canonical Mode
 
-```text id="2nxnmu"
+```text
 Keyboard
 
 ↓
@@ -253,7 +253,7 @@ The application waits until the line is complete.
 
 ### Raw Mode
 
-```text id="yk0wcx"
+```text
 Keyboard
 
 ↓

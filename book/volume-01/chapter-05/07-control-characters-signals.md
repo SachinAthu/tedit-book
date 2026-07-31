@@ -25,7 +25,7 @@ Control characters are characters that represent **actions** rather than printab
 
 Unlike ordinary characters such as:
 
-```text id="n7wp1h"
+```text
 A
 B
 1
@@ -79,7 +79,7 @@ Signals allow the operating system, the terminal, or another process to inform a
 
 Conceptually:
 
-```text id="khm9wq"
+```text
 Operating System
 
 ↓
@@ -107,13 +107,13 @@ Instead of passing those characters directly to the application, it converts the
 
 For example, pressing:
 
-```text id="0k3aqv"
+```text
 Ctrl+C
 ```
 
 typically results in:
 
-```text id="djlwm5"
+```text
 Keyboard
 
 ↓
@@ -158,7 +158,7 @@ This distinction is important because not every control character results in a s
 
 Imagine a program accidentally enters an infinite loop.
 
-```text id="4nnqlz"
+```text
 while (1)
 {
     /* ... */
@@ -169,7 +169,7 @@ Without a way to interrupt it, the only solution might be to reboot the computer
 
 Instead, pressing:
 
-```text id="psvjlwm"
+```text
 Ctrl+C
 ```
 
@@ -177,7 +177,7 @@ asks the operating system to interrupt the process.
 
 Likewise, if you wish to temporarily pause a program, you can press:
 
-```text id="i6elru"
+```text
 Ctrl+Z
 ```
 
@@ -191,7 +191,7 @@ Now imagine our editor is running.
 
 Suppose we want:
 
-```text id="vjlwm8"
+```text
 Ctrl+S
 ```
 
@@ -199,7 +199,7 @@ to save the document.
 
 Later we may want:
 
-```text id="jlwm74"
+```text
 Ctrl+Q
 ```
 
@@ -207,7 +207,7 @@ to quit.
 
 Eventually we might even use:
 
-```text id="jlwm42"
+```text
 Ctrl+F
 ```
 
@@ -219,7 +219,7 @@ But what happens if the terminal intercepts them first?
 
 Even worse, suppose we decide to use:
 
-```text id="0gql0f"
+```text
 Ctrl+C
 ```
 
@@ -237,7 +237,7 @@ The flow changes from:
 
 ### Canonical Mode
 
-```text id="jlwm29"
+```text
 Keyboard
 
 ↓
@@ -257,7 +257,7 @@ to:
 
 ### Raw Mode
 
-```text id="jlwm90"
+```text
 Keyboard
 
 ↓
@@ -279,7 +279,7 @@ The editor can interpret it however it chooses.
 
 For example:
 
-```text id="jlwm17"
+```text
 Ctrl+S
 
 ↓
@@ -293,7 +293,7 @@ Save Document
 
 or
 
-```text id="jlwm64"
+```text
 Ctrl+Q
 
 ↓

@@ -24,7 +24,7 @@ A flag is simply a setting that can be either **enabled** or **disabled**.
 
 Conceptually:
 
-```text id="rvjlwm"
+```text
 Feature
 
 ↓
@@ -34,7 +34,7 @@ Enabled
 
 or
 
-```text id="jlwm71"
+```text
 Feature
 
 ↓
@@ -59,7 +59,7 @@ Changing terminal behavior is simply a matter of enabling or disabling the appro
 
 As we saw in the previous section, the `termios` structure organizes its settings into several categories.
 
-```text id="jlwm04"
+```text
 struct termios
 
 ├── Input Flags
@@ -81,7 +81,7 @@ Input flags control how bytes arriving from the keyboard are processed before re
 
 Conceptually:
 
-```text id="jlwm14"
+```text
 Keyboard
 
 ↓
@@ -107,7 +107,7 @@ When enabling raw mode, several of these automatic transformations are disabled 
 
 Output flags affect characters travelling in the opposite direction.
 
-```text id="jlwm18"
+```text
 Application
 
 ↓
@@ -131,7 +131,7 @@ Local flags control many of the interactive features users experience while typi
 
 Conceptually:
 
-```text id="jlwm81"
+```text
 Keyboard
 
 ↓
@@ -166,7 +166,7 @@ Controls canonical (line-buffered) input mode.
 
 When enabled:
 
-```text id="jlwm32"
+```text
 Keyboard
 
 ↓
@@ -184,7 +184,7 @@ Application
 
 When disabled:
 
-```text id="jlwm44"
+```text
 Keyboard
 
 ↓
@@ -204,7 +204,7 @@ Controls automatic character echo.
 
 When enabled:
 
-```text id="jlwm57"
+```text
 Press 'A'
 
 ↓
@@ -214,7 +214,7 @@ Terminal prints 'A'
 
 When disabled:
 
-```text id="jlwm62"
+```text
 Press 'A'
 
 ↓
@@ -232,7 +232,7 @@ Controls whether certain control characters generate signals.
 
 When enabled:
 
-```text id="jlwm85"
+```text
 Ctrl+C
 
 ↓
@@ -246,7 +246,7 @@ Program terminates
 
 When disabled:
 
-```text id="jlwm93"
+```text
 Ctrl+C
 
 ↓
@@ -274,7 +274,7 @@ Controls software flow control.
 
 Historically:
 
-```text id="jlwm21"
+```text
 Ctrl+S
 
 ↓
@@ -282,7 +282,7 @@ Ctrl+S
 Pause Output
 ```
 
-```text id="jlwm36"
+```text
 Ctrl+Q
 
 ↓
@@ -294,7 +294,7 @@ This behavior originated when communicating with slow serial terminals.
 
 Modern text editors commonly use:
 
-```text id="jlwm51"
+```text
 Ctrl+S
 
 ↓
@@ -304,7 +304,7 @@ Save File
 
 and
 
-```text id="jlwm66"
+```text
 Ctrl+Q
 
 ↓
@@ -324,7 +324,7 @@ When enabled, pressing Enter often causes a carriage return (`'\r'`) to be trans
 
 Conceptually:
 
-```text id="jlwm76"
+```text
 '\r'
 
 ↓
@@ -346,7 +346,7 @@ Normally, the terminal may modify outgoing characters before displaying them.
 
 For example, it may automatically translate newline characters into a carriage-return/newline pair.
 
-```text id="jlwm97"
+```text
 Application writes '\n'
 
 ↓

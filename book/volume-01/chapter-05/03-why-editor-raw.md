@@ -22,7 +22,7 @@ Immediately after pressing the key, you expect:
 
 The interaction feels instantaneous.
 
-```text id="qyx8jw"
+```text
 Press 'A'
 
 ↓
@@ -48,27 +48,27 @@ Now consider the arrow keys.
 
 Imagine the document contains:
 
-```text id="uf58zo"
+```text
 Hello
 World
 ```
 
 The cursor starts here:
 
-```text id="p2gk8n"
+```text
 Hello|
 World
 ```
 
 When the user presses the Left Arrow key once:
 
-```text id="lk1v4o"
+```text
 ←
 ```
 
 the cursor should immediately become:
 
-```text id="m9e0k5"
+```text
 Hell|o
 World
 ```
@@ -81,7 +81,7 @@ The cursor would remain stationary, making navigation impossible.
 
 Suppose the user types:
 
-```text id="mvjrto"
+```text
 Hellp
 ```
 
@@ -91,7 +91,7 @@ They press Backspace and then type **o**.
 
 The editor should display:
 
-```text id="f5a6ls"
+```text
 Hello
 ```
 
@@ -132,7 +132,7 @@ A text editor is constantly responding to user input.
 
 Every key press follows the same basic cycle:
 
-```text id="jqbjy6"
+```text
 User presses a key
 
 ↓
@@ -162,7 +162,7 @@ Canonical mode interrupts this conversation by delaying input until an entire li
 
 Imagine trying to write this sentence in an editor that uses canonical mode:
 
-```text id="30ix1r"
+```text
 The quick brown fox jumps over the lazy dog.
 ```
 
@@ -194,7 +194,7 @@ Instead of allowing the terminal to decide when input is complete, we want every
 
 The desired flow becomes:
 
-```text id="rfqjlwm"
+```text
 Keyboard
 
 ↓
@@ -237,7 +237,7 @@ After switching modes, the editor must perform these tasks itself.
 
 The architecture changes from:
 
-```text id="my7tr6"
+```text
 Terminal
 
 ├── Collect input
@@ -249,7 +249,7 @@ Terminal
 
 to:
 
-```text id="wgvmub"
+```text
 Editor
 
 ├── Read every key

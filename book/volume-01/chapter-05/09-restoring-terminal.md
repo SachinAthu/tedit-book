@@ -30,7 +30,7 @@ Suppose the user returns to the shell.
 
 Instead of seeing the familiar prompt:
 
-```text id="jlwm101"
+```text
 $
 ```
 
@@ -46,7 +46,7 @@ Arrow keys stop working as expected.
 
 The terminal now behaves more like this:
 
-```text id="jlwm102"
+```text
 No echo
 
 No line editing
@@ -62,7 +62,7 @@ The terminal configuration is.
 
 Imagine this sequence of events.
 
-```text id="jlwm103"
+```text
 $ ./editor
 
 (Editor crashes)
@@ -76,13 +76,13 @@ ls
 
 The user expects to see:
 
-```text id="jlwm104"
+```text
 $ ls
 ```
 
 Instead:
 
-```text id="jlwm105"
+```text
 $
 ```
 
@@ -106,7 +106,7 @@ The editor may terminate, but the terminal continues running.
 
 Conceptually:
 
-```text id="jlwm106"
+```text
 Terminal
 
 ↓
@@ -144,7 +144,7 @@ Only then does it modify the terminal.
 
 The sequence is:
 
-```text id="jlwm107"
+```text
 Original Settings
 
 ↓
@@ -205,13 +205,13 @@ The simplest situation occurs when the editor exits normally.
 
 For example, the user presses:
 
-```text id="jlwm108"
+```text
 Ctrl+Q
 ```
 
 The editor performs its shutdown sequence.
 
-```text id="jlwm109"
+```text
 Save work (if necessary)
 
 ↓
@@ -241,7 +241,7 @@ They may terminate because of:
 
 For example:
 
-```text id="jlwm110"
+```text
 Enable Raw Mode
 
 ↓
@@ -257,7 +257,7 @@ If nothing else happens, the terminal remains in raw mode.
 
 The next shell prompt appears with:
 
-```text id="rgctx111"
+```text
 No echo
 
 No line editing
@@ -273,7 +273,7 @@ Professional terminal applications therefore try to restore the terminal even wh
 
 Conceptually:
 
-```text id="rgctx112"
+```text
 Program Starts
 
 ↓
@@ -319,7 +319,7 @@ Every exit path eventually calls that cleanup function.
 
 Conceptually:
 
-```text id="rgctx113"
+```text
 Normal Exit
 
 ──────┐
@@ -377,13 +377,13 @@ If a program does leave the terminal in raw mode, the situation is usually recov
 
 On Unix-like systems, users often restore the terminal manually using commands such as:
 
-```text id="rgctx114"
+```text
 reset
 ```
 
 or
 
-```text id="rgctx115"
+```text
 stty sane
 ```
 
