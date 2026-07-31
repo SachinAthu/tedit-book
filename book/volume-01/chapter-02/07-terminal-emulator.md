@@ -10,7 +10,7 @@ The answer is **the terminal emulator**.
 
 Every time you open a terminal window on your desktop, you are launching a terminal emulator. It is the application responsible for receiving a stream of characters from the operating system and rendering them as visible text inside a graphical window.
 
-Our text editor will run _inside_ a terminal emulator. Understanding its role is therefore essential before we begin exploring the Unix terminal system in the next chapter.
+Our text editor will run _inside_ a terminal emulator. Chapter 3 will explore terminal emulators in depth — covering their architecture, relationship with pseudo-terminals (PTYs), responsibilities for keyboard input and ANSI escape sequence interpretation, and the full terminal session lifecycle. For now, we introduce the concept and survey the major implementations.
 
 
 ## What Is a Terminal Emulator?
@@ -18,8 +18,6 @@ Our text editor will run _inside_ a terminal emulator. Understanding its role is
 A **terminal emulator** is a program that simulates the behavior of a traditional computer terminal within a graphical operating system.
 
 Instead of drawing its own user interface using buttons, menus, and windows, a terminal application communicates by sending characters and control sequences. The terminal emulator interprets those bytes and updates the display accordingly.
-
-Conceptually, the process is straightforward.
 
 ```text
 Application
@@ -40,148 +38,7 @@ Terminal Emulator
 Rendered Window
 ```
 
-The application never draws pixels directly.
-
-Instead, it sends instructions in the form of characters and control sequences. The terminal emulator converts those instructions into a visible interface.
-
-For example, when a program writes:
-
-```c
-printf("Hello, World!\n");
-```
-
-the program has merely produced a sequence of bytes.
-
-The terminal emulator receives those bytes and displays:
-
-```text
-Hello, World!
-```
-
-From the user's perspective, the program appears to have written directly onto the screen. In reality, the terminal emulator performed the rendering.
-
-
-## Why Does a Terminal Emulator Exist?
-
-Modern operating systems use graphical desktop environments.
-
-Applications such as web browsers, file managers, and text editors usually create their own windows and draw their own graphical interfaces.
-
-Terminal programs work differently.
-
-They were originally designed to communicate with physical text terminals long before graphical desktop environments existed. Modern computers no longer use those physical devices, but millions of command-line programs still expect to communicate with one.
-
-Rather than changing every existing program, operating systems provide terminal emulators that imitate the behavior of those earlier terminals.
-
-As a result, decades-old command-line software can continue to run on modern graphical desktops without modification.
-
-A terminal emulator therefore serves as a bridge between two different worlds:
-
-- graphical desktop environments, and
-- text-based terminal applications.
-
-It provides a window on the desktop while preserving the behavior expected by traditional terminal software.
-
-
-## The Terminal Emulator Is Not the Application
-
-One of the most common misconceptions among beginners is believing that the terminal emulator _is_ the program they are running.
-
-Suppose you type:
-
-```bash
-ls
-```
-
-The screen displays a list of files.
-
-It is tempting to think that the terminal emulator executed the `ls` command.
-
-It did not.
-
-Instead, the sequence of events is roughly:
-
-```text
-User
-
-    │
-types "ls"
-
-    ▼
-
-Shell
-
-    │
-starts
-
-    ▼
-
-ls Program
-
-    │
-writes output
-
-    ▼
-
-Terminal Emulator
-
-    │
-renders text
-
-    ▼
-
-Screen
-```
-
-Each component has a separate responsibility.
-
-- The **shell** interprets the command you typed.
-- The **operating system** starts the requested program.
-- The **program** produces output.
-- The **terminal emulator** displays that output.
-
-The terminal emulator is responsible only for communication and rendering. It does not execute shell commands itself.
-
-This distinction becomes especially important when we begin writing our own editor. Our program will simply produce output; it will not concern itself with how that output is drawn on the screen.
-
-
-## Interpreting Character Streams
-
-A terminal emulator continuously receives a stream of bytes.
-
-Some bytes represent ordinary printable characters.
-
-For example,
-
-```text
-48 65 6C 6C 6F
-```
-
-may eventually become:
-
-```text
-Hello
-```
-
-However, not every byte represents visible text.
-
-Some byte sequences are interpreted as **commands** that control the display.
-
-For example, a sequence might mean:
-
-- move the cursor,
-- clear the screen,
-- change the text color,
-- hide the cursor, or
-- switch to an alternate screen.
-
-The application does not perform these actions itself.
-
-Instead, it sends special byte sequences, and the terminal emulator interprets them according to established terminal conventions.
-
-We will study these control sequences in detail in Chapter 4 when we introduce ANSI Escape Sequences.
-
-For now, it is enough to understand that the terminal emulator is constantly interpreting an incoming stream of bytes—some representing text, others representing display instructions.
+The application never draws pixels directly. Instead, it sends instructions in the form of characters and control sequences, and the terminal emulator converts those instructions into a visible interface.
 
 
 ## Common Terminal Emulators
@@ -239,51 +96,17 @@ It offers features such as split panes, search, session restoration, extensive c
 
 Although these terminal emulators are developed by different teams and run on different operating systems, they all understand the same basic terminal conventions.
 
-That is why a terminal application written for Linux often runs correctly inside:
-
-- GNOME Terminal,
-- Alacritty,
-- Kitty,
-- Windows Terminal (through compatible environments), and
-- iTerm2,
-
-without requiring changes to its source code.
+That is why a terminal application written for Linux often runs correctly inside GNOME Terminal, Alacritty, Kitty, Windows Terminal (through compatible environments), and iTerm2 without requiring changes to its source code.
 
 The application simply produces a stream of characters and terminal control sequences. As long as the terminal emulator understands those sequences, it can render the interface correctly.
 
 This shared "language" between applications and terminal emulators is one of the reasons terminal software has remained remarkably portable for decades.
 
 
-## Engineering Insight
-
-A terminal emulator is best viewed as a specialized rendering engine rather than a command interpreter.
-
-Its primary responsibility is to translate incoming character streams into a visual representation. The shell executes commands, the operating system manages processes, and applications generate output. By keeping these responsibilities separate, Unix-like systems allow each component to evolve independently while maintaining compatibility with existing software.
-
-
-## Common Mistakes
-
-**Confusing the shell with the terminal emulator**
-
-The shell interprets commands and starts programs. The terminal emulator displays their input and output.
-
-**Assuming the terminal emulator executes applications**
-
-It does not. Applications are started by the operating system, typically at the request of a shell.
-
-**Believing the terminal emulator draws whatever the application wants directly**
-
-Applications send bytes and control sequences. The terminal emulator decides how to interpret and render them according to terminal standards.
-
-**Thinking all terminal emulators are fundamentally different**
-
-While they vary in features and performance, they all perform the same essential role: interpreting character streams and rendering a terminal interface.
-
-
 ## Summary
 
-A terminal emulator is the graphical application that presents a text-based terminal on a modern desktop. Rather than executing commands itself, it receives a stream of characters and control sequences from terminal applications, interprets that stream, and renders the resulting interface inside a window.
+A terminal emulator is the graphical application that presents a text-based terminal on a modern desktop. It receives a stream of characters and control sequences from terminal applications, interprets that stream, and renders the resulting interface inside a window without executing commands itself.
 
-This separation of responsibilities is fundamental to terminal programming. Applications produce output, the shell launches programs, the operating system manages communication, and the terminal emulator handles rendering.
+Chapter 3 provides a complete treatment of terminal emulators — how they create pseudo-terminals, launch shells, forward keyboard input, interpret ANSI escape sequences, maintain scrollback history, and handle window resizing — as part of the broader Unix terminal architecture.
 
 In the next section, we will clarify the distinction between two terms that are often used interchangeably: the **console** and the **terminal**. Understanding their historical origins will help explain why both terms remain in use today.
