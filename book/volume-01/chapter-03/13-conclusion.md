@@ -1,6 +1,6 @@
 # Conclusion Volume 1 Chapter 3
 
-## Summary
+## Chapter Summary
 
 This chapter asked a question that every terminal programmer must eventually answer: **What exactly is the environment our application is communicating with?**
 

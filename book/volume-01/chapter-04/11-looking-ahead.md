@@ -1,4 +1,4 @@
-# 4.11 Looking Ahead: Building Our Renderer
+# 4.11 Looking Ahead - Building Our Renderer
 
 This chapter has introduced a collection of individual terminal control techniques. We learned how to move the cursor, clear the screen, format text, hide the cursor, and switch to the alternate screen buffer. Each of these features may seem independent, but they all serve a single purpose.
 

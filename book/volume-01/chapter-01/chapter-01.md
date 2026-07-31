@@ -283,7 +283,7 @@ The editor is our destination.
 
 Understanding computer systems is the real journey.
 
-## Summary
+## Chapter Summary
 
 In this chapter, we:
 
