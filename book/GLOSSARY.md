@@ -157,6 +157,22 @@ Volume I, Chapter 2
 - Unicode
 - UTF-8
 
+## Code Point
+
+**Definition**
+
+A unique numeric identifier assigned to each character in the Unicode standard, written in the form `U+0041`. A code point identifies which character is intended but does not specify how it is stored as bytes — that is the role of a character encoding such as UTF-8.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Unicode
+- UTF-8
+- Character Encoding
+
 ## Console
 
 **Definition**
@@ -310,6 +326,23 @@ Volume I, Chapter 5
 
 # E
 
+## Escape Character (ESC)
+
+**Definition**
+
+The ASCII control character at value 27 (0x1B) that signals the bytes following it should be interpreted as a command sequence rather than as text. ESC is the first byte of every ANSI escape sequence, used both for display control (applications sending commands to the terminal) and special-key representation (terminals sending key-press data to applications).
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- CSI
+- Control Character
+- ASCII
+
 ## Editor State
 
 **Definition**
@@ -342,6 +375,22 @@ Volume II, Chapter 9
 - Input Handler
 
 # F
+
+## Function Key
+
+**Definition**
+
+A key on the keyboard labelled F1 through F12 (sometimes extending further) that has no corresponding ASCII character. Terminals transmit function-key presses as escape sequences (e.g., `ESC [ 15 ~` for F5), and applications bind them to commands such as opening menus or triggering specialised operations.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- ANSI Escape Sequence
+- Escape Character (ESC)
+- Modifier Key
 
 ## Font
 
@@ -478,8 +527,34 @@ Volume III, Chapter 15
 
 **Related Terms**
 
+- Input Parser
 - Command Engine
 - Event Loop
+
+**Notes**
+
+The Input Handler is the broader subsystem. The Input Parser (introduced in Volume I, Chapter 6) is the specific byte-to-event translation layer within that subsystem.
+
+## Input Parser
+
+**Definition**
+
+The component within the Input Handler responsible for translating a raw byte stream from the terminal into abstract key events. The parser examines incoming bytes, recognizes patterns such as escape sequences and multi-byte UTF-8 characters, and produces structured events (e.g., `KEY_ARROW_UP`, `KEY_CTRL_S`) that the rest of the editor can consume without knowledge of terminal protocols.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Input Handler
+- Input Parsing
+- Escape Character (ESC)
+- Lookahead
+
+**Notes**
+
+The Input Handler (introduced in Volume III, Chapter 15) is the broader subsystem responsible for reading keyboard input and translating it into editor commands. The Input Parser is the specific byte-to-event translation layer within that subsystem.
 
 ## Instruction Cycle
 
@@ -496,6 +571,24 @@ Volume I, Chapter 2
 - CPU
 - Program Counter
 - Machine Instruction
+
+# K
+
+## Key
+
+**Definition**
+
+A physical or logical button on a keyboard. Keys are distinct from characters: a single key may produce multiple bytes (e.g., an arrow key generates an escape sequence), multiple keys may produce a single character (e.g., Shift+A produces 'A'), and some keys produce no characters at all (e.g., modifier keys pressed alone).
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Character Encoding
+- Modifier Key
+- Escape Character (ESC)
 
 # L
 
@@ -515,6 +608,22 @@ Volume I, Chapter 5
 - Raw Mode
 - termios
 - Echo
+
+## Lookahead
+
+**Definition**
+
+A parsing technique where the parser temporarily inspects upcoming bytes before committing to an interpretation of the current input. In terminal input, lookahead is essential because a standalone Escape key press, an Alt-modified key, and the beginning of an escape sequence all start with the same ESC byte (0x1B). The parser must read enough subsequent bytes to disambiguate.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Input Parser
+- Escape Character (ESC)
+- Input Parsing
 
 # M
 
@@ -549,6 +658,23 @@ Volume I, Chapter 2
 - CPU
 - Register
 - Process
+
+## Modifier Key
+
+**Definition**
+
+A key (Shift, Ctrl, Alt, Meta, Super) that does not produce a character on its own but alters the meaning of another key pressed simultaneously. In a terminal environment: Shift typically affects the resulting character before it reaches the application; Ctrl produces ASCII control characters; Alt often prefixes the key's normal bytes with an ESC byte; Meta and Super may be intercepted by the operating system and never reach the terminal application.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Key
+- Control Character
+- Escape Character (ESC)
+- termios
 
 ## Monospaced Font
 
@@ -1122,8 +1248,6 @@ Project Documentation
 
 The following concepts are expected to be added as the manuscript develops:
 
-- UTF-8 Code Point
-- UTF-8 Code Unit
 - Gap Buffer
 - Piece Table
 - Rope

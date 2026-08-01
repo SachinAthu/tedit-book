@@ -49,3 +49,19 @@ Reason:
 Raw mode is a temporary operating state, not a permanent configuration change. The editor must save the original `termios` settings before enabling raw mode and restore them before exiting — whether the exit is normal or due to an error. Failing to restore the settings leaves the user's terminal in an unusable state (no echo, no line editing, broken shell). This save-modify-restore pattern applies broadly: any software that temporarily modifies shared system resources should leave them exactly as it found them.
 
 First referenced: Chapter 5
+
+---
+
+# ADR-004
+
+Input Parsing Architecture
+
+Decision:
+
+Separate raw byte parsing from editor logic by introducing a dedicated Input Parser component.
+
+Reason:
+
+Terminal input arrives as an unstructured byte stream containing printable characters, control characters, multi-byte UTF-8 sequences, and variable-length escape sequences — all sharing common prefixes (e.g., ESC). Mixing byte-level parsing directly into editor commands couples the editor to terminal protocol details, making the code harder to maintain, test, and port. A dedicated Input Parser sits between the raw byte stream and the editor's Command Engine, translating terminal-specific byte sequences into abstract key events (`KEY_ARROW_UP`, `KEY_CTRL_S`). This provides a clean boundary: the parser handles terminal protocols; everything above it operates on structured events. The design follows the broader principle of separating low-level implementation details from high-level application behavior.
+
+First referenced: Chapter 6
