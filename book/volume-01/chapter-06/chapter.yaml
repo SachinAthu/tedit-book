@@ -11,5 +11,5 @@ sections:
   - 6.6 Escape Sequences for Special Keys —> 06-escape-sequences.md
   - 6.7 Function Keys and Other Special Keys —> 07-function-keys.md
   - 6.8 Modifier Keys —> 08-modifier-keys.md
-  - 6.9 The Challenge of Parsing Input —> 09-challenge-parcing-output.md
+  - 6.9 The Challenge of Parsing Input —> 09-challenge-parsing-input.md
   - 6.10 Designing an Input Parser —> 10-designing-input-parser.md

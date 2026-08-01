@@ -6,15 +6,6 @@ Understanding this journey is important because a terminal application does not 
 
 In this section, we will follow a key press from the moment your finger touches the keyboard until the corresponding bytes arrive at your program.
 
-## Learning Objectives
-
-By the end of this section, you should be able to:
-
-- Describe the complete path a key press takes to reach a terminal application.
-- Explain the responsibilities of the keyboard, operating system, terminal emulator, and application.
-- Understand why a terminal program reads bytes from standard input instead of communicating directly with keyboard hardware.
-- Recognize where raw mode fits into the input pipeline.
-
 ## The Journey Begins
 
 Imagine you press the **A** key while your text editor is running.
@@ -229,7 +220,7 @@ Operating System
 
 ↓
 
-Terminal
+Terminal Emulator
 
 ↓
 
@@ -257,7 +248,7 @@ Operating System
 
 ↓
 
-Terminal
+Terminal Emulator
 
 ↓
 

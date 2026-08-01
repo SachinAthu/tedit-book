@@ -9,16 +9,6 @@ Most users encounter control characters every day through keyboard shortcuts lik
 
 In this section, we will explore what control characters are, why they exist, and how pressing the **Ctrl** key transforms ordinary letters into non-printable control codes.
 
-## Learning Objectives
-
-By the end of this section, you should be able to:
-
-- Explain what control characters are.
-- Understand their historical purpose.
-- Describe how the **Ctrl** key generates control characters.
-- Interpret common Ctrl shortcuts used in terminal applications.
-- Understand why these shortcuts remain important in modern systems programming.
-
 ## What Are Control Characters?
 
 Unlike printable characters, control characters do not represent visible symbols.
@@ -27,7 +17,7 @@ Instead, they instruct a device to perform some action.
 
 For example:
 
-```text id="6fxr6m"
+```text
 Printable Character
 
 A
@@ -37,7 +27,7 @@ A
 Display the letter A
 ```
 
-```text id="h0zm5w"
+```text
 Control Character
 
 LF
@@ -71,7 +61,7 @@ Instead of inventing separate communication protocols, engineers reserved part o
 
 For example:
 
-```text id="n1i34m"
+```text
 ASCII Value
 
 ↓
@@ -100,7 +90,7 @@ Rather than producing a printable character, it transforms another key into a co
 
 For example:
 
-```text id="5urq2q"
+```text
 Press:
 
 Ctrl + A
@@ -112,7 +102,7 @@ ASCII 1
 
 Similarly:
 
-```text id="v0e7ru"
+```text
 Ctrl + C
 
 ↓
@@ -122,7 +112,7 @@ ASCII 3
 
 and:
 
-```text id="vrw6lf"
+```text
 Ctrl + D
 
 ↓
@@ -138,7 +128,7 @@ One elegant feature of ASCII is the relationship between uppercase letters and t
 
 Consider the uppercase alphabet:
 
-```text id="o0kqym"
+```text
 Letter      ASCII
 
 A           65
@@ -154,7 +144,7 @@ Z           90
 
 Their corresponding control characters occupy the beginning of the ASCII table:
 
-```text id="zbjlwm"
+```text
 Ctrl+A      1
 
 Ctrl+B      2
@@ -168,7 +158,7 @@ Ctrl+Z      26
 
 Notice the pattern:
 
-```text id="azl0gu"
+```text
 A  → 1
 
 B  → 2
@@ -221,7 +211,7 @@ One interesting aspect of terminal programming is that the original purpose of a
 
 For example:
 
-```text id="bdmjlwm"
+```text
 Ctrl+S
 
 ↓
@@ -232,7 +222,7 @@ XOFF
 
 Today, many text editors interpret the same shortcut as:
 
-```text id="oqjlwm"
+```text
 Ctrl+S
 
 ↓
@@ -242,7 +232,7 @@ Save File
 
 Likewise:
 
-```text id="sljlwm"
+```text
 Ctrl+Q
 
 ↓
@@ -253,7 +243,7 @@ XON
 
 is commonly interpreted as:
 
-```text id="xjlwm9"
+```text
 Ctrl+Q
 
 ↓
@@ -267,7 +257,7 @@ This reuse of control characters demonstrates how software has evolved while rem
 
 Suppose the user presses:
 
-```text id="xj5t3q"
+```text
 Ctrl + Q
 ```
 
@@ -275,7 +265,7 @@ Your editor does **not** receive two separate key presses.
 
 Instead, it receives a single byte:
 
-```text id="5u8rm8"
+```text
 0x11
 ```
 
@@ -283,13 +273,13 @@ which is the ASCII value **17**.
 
 Similarly:
 
-```text id="93x7hf"
+```text
 Ctrl + C
 ```
 
 becomes:
 
-```text id="l2znxv"
+```text
 0x03
 ```
 
@@ -299,7 +289,7 @@ It is the application's responsibility to decide what those bytes mean.
 
 For example:
 
-```text id="gj5hmb"
+```text
 Read Byte
 
 ↓
@@ -313,7 +303,7 @@ Quit Command
 
 or
 
-```text id="w5ldx9"
+```text
 Read Byte
 
 ↓
@@ -337,7 +327,7 @@ For example:
 
 If pressing:
 
-```text id="0y2b8n"
+```text
 S
 ```
 
@@ -347,7 +337,7 @@ Control characters solve this problem because they occupy a separate part of the
 
 This allows editors to distinguish between:
 
-```text id="obh2ur"
+```text
 S
 
 ↓
@@ -357,7 +347,7 @@ Insert Character
 
 and
 
-```text id="hjlwm7"
+```text
 Ctrl + S
 
 ↓

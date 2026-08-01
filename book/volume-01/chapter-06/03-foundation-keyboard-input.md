@@ -10,16 +10,6 @@ One of the earliest and most influential character encoding systems is **ASCII**
 
 Understanding ASCII is essential because many keyboard inputs, control characters, and terminal conventions originate from it.
 
-## Learning Objectives
-
-By the end of this section, you should be able to:
-
-- Explain what ASCII is and why it was created.
-- Understand how characters are represented as numbers.
-- Recognize the difference between printable and control characters.
-- Interpret ASCII values in decimal and hexadecimal.
-- Appreciate ASCII's continuing influence on terminal programming.
-
 ## Why Do We Need Character Encoding?
 
 Imagine two computers exchanging text.

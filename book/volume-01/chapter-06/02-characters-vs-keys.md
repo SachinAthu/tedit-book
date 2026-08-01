@@ -18,16 +18,6 @@ A **character** is a piece of textual data produced as a result of pressing one 
 
 These are related concepts, but they are not the same thing.
 
-## Learning Objectives
-
-By the end of this section, you should be able to:
-
-- Distinguish between a key and a character.
-- Explain why not every key produces a character.
-- Understand that the same key can produce different characters.
-- Recognize that some characters require multiple key presses.
-- Appreciate why editors process key events rather than simply reading characters.
-
 ## What Is a Key?
 
 A **key** is a physical button on the keyboard.

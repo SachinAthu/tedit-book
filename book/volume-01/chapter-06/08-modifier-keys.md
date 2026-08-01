@@ -198,6 +198,8 @@ The application cannot know immediately.
 
 It must briefly wait to determine whether additional bytes follow.
 
+In practice, this is implemented by configuring the terminal's `VTIME` and `VMIN` parameters (part of the `termios` interface). Setting `VTIME` to a small value (such as 1, meaning 100 milliseconds) tells the terminal driver to return whatever bytes are available after that timeout, rather than blocking indefinitely. This gives the parser enough time to see if an `ESC` byte is followed by a sequence — yet the delay is short enough that the user never notices.
+
 ## Alt and Escape: An Ambiguous Beginning
 
 This ambiguity is one of the most interesting challenges in terminal input.

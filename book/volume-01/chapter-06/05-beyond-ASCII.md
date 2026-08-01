@@ -12,17 +12,6 @@ To solve this problem, the computing industry adopted **Unicode**, and one of it
 
 Understanding UTF-8 is important because a modern text editor must be capable of handling far more than plain English text.
 
-## Learning Objectives
-
-By the end of this section, you should be able to:
-
-- Understand why ASCII is no longer sufficient.
-- Explain the purpose of Unicode.
-- Describe what UTF-8 is.
-- Distinguish between single-byte and multi-byte characters.
-- Recognize why input is no longer limited to one byte per character.
-- Understand why UTF-8 compatibility is valuable for terminal applications.
-
 ## The Limitations of ASCII
 
 ASCII was designed primarily for English.
@@ -38,7 +27,7 @@ It includes:
 
 However, it cannot represent characters such as:
 
-```text id="d3v4nt"
+```text
 é
 ñ
 ø
@@ -64,11 +53,11 @@ A larger character set became essential.
 
 Unicode was created to provide a unique identifier for every character used in human writing.
 
-Instead of defining only 128 characters, Unicode defines well over one million possible code points, with more than 150,000 currently assigned.
+Instead of defining only 128 characters, Unicode defines well over one million possible code points, with nearly 150,000 currently assigned.
 
 For example:
 
-```text id="qv8bhs"
+```text
 Character      Unicode
 
 A              U+0041
@@ -84,13 +73,13 @@ A              U+0041
 
 Each character has its own **code point**, written using the format:
 
-```text id="kzjlwm"
+```text
 U+XXXX
 ```
 
 or, for larger values:
 
-```text id="jlwm6u"
+```text
 U+1F60A
 ```
 
@@ -137,6 +126,17 @@ A character may occupy:
 
 depending on the character being represented.
 
+UTF-8 uses the high bits of the first byte to signal how many bytes a character occupies:
+
+| Byte pattern | Length |
+|---|---|
+| `0xxxxxxx` | 1 byte (ASCII) |
+| `110xxxxx 10xxxxxx` | 2 bytes |
+| `1110xxxx 10xxxxxx 10xxxxxx` | 3 bytes |
+| `11110xxx 10xxxxxx 10xxxxxx 10xxxxxx` | 4 bytes |
+
+Any byte beginning with `10` is a continuation byte. This structure allows a parser to determine byte boundaries without scanning backwards — if a byte starts with `0` or `11`, it is the beginning of a new character.
+
 This allows UTF-8 to represent virtually every written language while remaining compact for common text.
 
 ## ASCII Is a Subset of UTF-8
@@ -147,7 +147,7 @@ Every ASCII character has exactly the same byte value in UTF-8.
 
 For example:
 
-```text id="jlwm74"
+```text
 Character
 
 A
@@ -155,13 +155,13 @@ A
 
 ASCII:
 
-```text id="jlwm75"
+```text
 0x41
 ```
 
 UTF-8:
 
-```text id="jlwm76"
+```text
 0x41
 ```
 
@@ -180,7 +180,7 @@ Characters from the original ASCII range still occupy one byte.
 
 Examples include:
 
-```text id="jlwm77"
+```text
 Character      UTF-8 Bytes
 
 A              41
@@ -200,7 +200,7 @@ Characters outside the ASCII range require additional bytes.
 
 For example:
 
-```text id="jlwm78"
+```text
 Character
 
 é
@@ -208,31 +208,31 @@ Character
 
 occupies:
 
-```text id="jlwm79"
+```text
 2 bytes
 ```
 
 A Chinese character such as:
 
-```text id="jlwm80"
+```text
 漢
 ```
 
 typically occupies:
 
-```text id="jlwm81"
+```text
 3 bytes
 ```
 
 An emoji such as:
 
-```text id="jlwm82"
+```text
 😊
 ```
 
 occupies:
 
-```text id="jlwm83"
+```text
 4 bytes
 ```
 
@@ -244,7 +244,7 @@ This distinction is extremely important.
 
 One of the most common mistakes made by beginning systems programmers is assuming:
 
-```text id="jlwm84"
+```text
 1 Character
 
 =
@@ -258,13 +258,13 @@ It is **not** true for UTF-8.
 
 For example, consider the word:
 
-```text id="jlwm85"
+```text
 Café
 ```
 
 Visually, it contains four characters:
 
-```text id="jlwm86"
+```text
 C
 a
 f
@@ -275,7 +275,7 @@ However, in UTF-8, the final character occupies two bytes.
 
 Internally, the word requires:
 
-```text id="jlwm87"
+```text
 C   1 byte
 
 a   1 byte
@@ -289,7 +289,7 @@ for a total of **5 bytes**.
 
 Likewise:
 
-```text id="jlwm88"
+```text
 😊
 ```
 
@@ -301,19 +301,19 @@ A text editor therefore cannot assume that moving one byte always means moving o
 
 When a user types an ASCII character such as:
 
-```text id="jlwm89"
+```text
 A
 ```
 
 the terminal sends:
 
-```text id="jlwm90"
+```text
 41
 ```
 
 When the user types:
 
-```text id="jlwm91"
+```text
 é
 ```
 
@@ -321,7 +321,7 @@ the terminal sends two bytes.
 
 Similarly, typing:
 
-```text id="jlwm92"
+```text
 😊
 ```
 
@@ -347,7 +347,7 @@ However, our architectural decisions should not prevent future Unicode support.
 
 For example, if the editor assumes:
 
-```text id="jlwm93"
+```text
 Cursor Position
 
 =
@@ -359,7 +359,7 @@ it will work correctly for ASCII but fail for UTF-8 text.
 
 Instead, we should recognize from the beginning that:
 
-```text id="jlwm94"
+```text
 Character Position
 
 ≠

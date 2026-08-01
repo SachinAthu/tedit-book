@@ -370,7 +370,7 @@ Keyboard
 
 ↓
 
-Terminal
+Terminal Emulator
 
 ↓
 
