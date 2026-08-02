@@ -90,6 +90,22 @@ Volume I, Chapter 2
 - Unicode
 - UTF-8
 
+## Assumption
+
+**Definition**
+
+A condition that the software expects to be true about its operating environment rather than a design decision or a requirement. Assumptions allow the design to be simplified by accepting certain environmental conditions without repeatedly verifying them. Unlike guarantees, assumptions may occasionally be violated, and well-designed software handles such violations gracefully.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Constraint
+- Functional Requirement
+- Non-Functional Requirement (NFR)
+
 # B
 
 ## Buffer
@@ -271,6 +287,22 @@ Volume I, Chapter 4
 - SGR
 - Private Mode Sequence
 
+## Constraint
+
+**Definition**
+
+A rule or limitation that restricts the range of possible design and implementation choices. Unlike requirements, which describe what the software should accomplish, constraints define the boundaries within which development must occur—such as the programming language, target platform, user interface type, and concurrency model. Well-chosen constraints simplify design by eliminating incompatible solutions.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Assumption
+- Functional Requirement
+- Project Scope
+
 ## Cursor
 
 **Definition**
@@ -408,6 +440,22 @@ Volume I, Chapter 2
 - Monospaced Font
 - Terminal Emulator
 
+## Feature Creep
+
+**Definition**
+
+The uncontrolled expansion of a project's scope through the continual addition of new capabilities without evaluating whether they belong within the original objectives. Feature creep increases development time, complicates testing, and often results in software that is more complex than originally intended. A well-defined project scope and success criteria help prevent feature creep.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Project Scope
+- Success Criteria
+- Minimum Viable Editor (MVE)
+
 ## File Descriptor
 
 **Definition**
@@ -458,6 +506,23 @@ Volume I, Chapter 4
 - Rendering Cycle
 - Frame
 - Renderer
+
+## Functional Requirement
+
+**Definition**
+
+A specific behavior or service that the software must provide, describing what the system should do from the user's perspective rather than how it should be implemented. Functional requirements are written in testable terms, often using the word "shall" to indicate mandatory behavior, and are typically assigned unique identifiers (e.g., FR-001) for traceability throughout the project.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Non-Functional Requirement (NFR)
+- Software Requirements Specification (SRS)
+- Use Case
+- Requirements Traceability
 
 # G
 
@@ -643,6 +708,23 @@ Volume I, Chapter 2
 - Instruction Cycle
 - Program Counter
 
+## Minimum Viable Editor (MVE)
+
+**Definition**
+
+The minimal set of features that our terminal text editor must provide to be considered a functional and usable application. The MVE includes document management, text editing, cursor management, screen rendering, file operations, navigation, user interaction, and document state tracking, while intentionally excluding advanced features such as syntax highlighting, undo, plugins, and multiple documents.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Project Scope
+- Functional Requirement
+- Success Criteria
+- Feature Creep
+
 ## Main Memory (RAM)
 
 **Definition**
@@ -691,6 +773,24 @@ Volume I, Chapter 2
 - Font
 - Character Cell
 - Terminal Emulator
+
+# N
+
+## Non-Functional Requirement (NFR)
+
+**Definition**
+
+A requirement that specifies the quality attributes or characteristics the software should possess rather than the specific features it provides. Non-functional requirements address how well the system performs (e.g., performance, reliability, usability, maintainability, portability) rather than what specific behaviors it exhibits. Unlike functional requirements, non-functional requirements often influence the design of the entire system.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Functional Requirement
+- Software Requirements Specification (SRS)
+- Constraint
 
 # P
 
@@ -857,6 +957,22 @@ Volume I, Chapter 2
 - Main Memory
 - Instruction Cycle
 
+## Requirements Traceability
+
+**Definition**
+
+A professional practice in which every architectural component, test case, and implementation feature can be traced back to one or more requirement identifiers. Traceability ensures that every part of the system exists for a defined purpose and helps prevent unnecessary complexity, making it easier to manage changes as a project evolves.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Functional Requirement
+- Software Requirements Specification (SRS)
+- Non-Functional Requirement (NFR)
+
 # S
 
 ## SGR (Select Graphic Rendition)
@@ -938,6 +1054,25 @@ Volume I, Chapter 3
 - Foreground Process Group
 - Job Control
 
+## Software Requirements Specification (SRS)
+
+**Definition**
+
+A structured document that defines what a software system must accomplish and the conditions under which it must operate. An SRS focuses on what the software should do rather than how it will be implemented, describing functional requirements, non-functional requirements, constraints, assumptions, use cases, and success criteria. It serves as a blueprint for the project and a shared reference for all stakeholders.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Functional Requirement
+- Non-Functional Requirement (NFR)
+- Constraint
+- Assumption
+- Use Case
+- Success Criteria
+
 ## Stack
 
 **Definition**
@@ -953,6 +1088,22 @@ Volume I, Chapter 2
 - Heap
 - Process
 - Main Memory
+
+## Stakeholder
+
+**Definition**
+
+Any individual or group that has an interest in a software system's development, operation, or success. Stakeholders may include end users, developers, maintainers, testers, and project managers. Each stakeholder views the software from a different perspective, and understanding these perspectives helps produce requirements that address actual needs rather than abstract capabilities.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Software Requirements Specification (SRS)
+- Functional Requirement
+- Use Case
 
 ## Standard Error (stderr)
 
@@ -999,6 +1150,23 @@ Volume I, Chapter 2
 
 - Standard Input
 - Terminal
+
+## Success Criteria
+
+**Definition**
+
+Measurable conditions that determine whether a software project has achieved its intended goals. Success criteria evaluate the system as a whole rather than describing individual behaviors, providing an objective endpoint for development and ensuring that the implementation remains aligned with the project's scope.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Project Scope
+- Functional Requirement
+- Minimum Viable Editor (MVE)
+- Feature Creep
 
 # T
 
@@ -1139,6 +1307,22 @@ Volume I, Chapter 3
 - Terminal
 
 # U
+
+## Use Case
+
+**Definition**
+
+A description of a sequence of interactions between a user and a software system to accomplish a specific goal. Unlike individual requirements, which describe isolated pieces of functionality, use cases describe complete tasks from the user's perspective. Each use case identifies an actor, a goal, and the typical flow of interactions required to achieve that goal.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Functional Requirement
+- Stakeholder
+- Software Requirements Specification (SRS)
 
 ## Unicode
 
