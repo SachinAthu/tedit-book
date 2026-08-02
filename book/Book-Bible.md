@@ -535,22 +535,6 @@ Simpler implementation.
 
 ---
 
-ADR-003
-
-Text Representation
-
-Decision:
-
-Vector of strings
-
-Reason:
-
-Easy to understand.
-
-Future chapters may reference ADRs.
-
----
-
 # 25. Cross References
 
 When a chapter builds on previous material, reference it.

@@ -75,7 +75,7 @@ Input Parser
 Command Engine
         │
         ▼
-Document
+Editor State
         │
         ▼
 Renderer

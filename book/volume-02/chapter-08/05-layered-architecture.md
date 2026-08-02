@@ -211,29 +211,38 @@ By isolating these responsibilities within the Platform Layer, the remainder of 
 
 ## Dependency Direction
 
-One of the most important rules of layered architecture is that **dependencies should flow in one direction**.
+Layers help organize components, but they do not dictate the direction of every data dependency.
 
-Higher layers may depend on lower layers, but lower layers should not depend on higher layers.
+In our architecture, the **Core Layer** holds the Editor State — the central source of truth for the entire application. Both the Application Layer and the Platform Layer depend on it.
+
+The Application Layer (Command Engine) modifies the Editor State in response to user input. The Platform Layer (Renderer, File Manager) reads the Editor State to display the screen and persist files.
 
 This relationship can be visualized as follows.
 
 ```text
 Application Layer
+(Command Engine)
         │
         ▼
 Core Layer
+(Editor State)
+        ▲
         │
-        ▼
 Platform Layer
+(Renderer,
+File Manager,
+Input Handler)
 ```
 
-Notice that the arrows point downward.
+Notice that the arrows point inward toward the Core Layer.
 
-The Application Layer uses services provided by the Core Layer.
+The Core Layer does **not** depend on either the Application Layer or the Platform Layer. It simply maintains the application state, unaware of who reads or modifies it.
 
-The Platform Layer provides services to the rest of the application but should not contain knowledge of application-specific behavior.
+This is a key architectural property: the most stable part of the system — the data that defines an editing session — should not depend on the more volatile components that surround it.
 
-Maintaining this one-way dependency structure prevents circular relationships between modules and makes the architecture easier to understand.
+The Platform Layer also provides **services** to the rest of the application. The Input Handler reads raw keyboard input from the operating system, the Renderer draws to the terminal, and the File Manager reads and writes files on disk. The Command Engine consumes these services indirectly (receiving parsed key events and triggering operations), but this service relationship flows through well-defined interfaces rather than direct module-to-module dependencies.
+
+Maintaining this inward dependency structure prevents circular relationships between modules and makes the architecture easier to understand.
 
 ## Layers Are Logical, Not Physical
 

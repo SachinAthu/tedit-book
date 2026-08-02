@@ -267,6 +267,10 @@ Command Engine
 File Manager
       │
       ▼
+Read Document
+(Editor State)
+      │
+      ▼
 Write File
       │
       ▼
@@ -277,7 +281,9 @@ Editor State
 Renderer
 ```
 
-The File Manager performs the actual file operation.
+The File Manager first reads the current document from the Editor State.
+
+It then performs the actual file operation, writing the document contents to disk.
 
 Once the save succeeds, the Editor State is updated to indicate that the document no longer contains unsaved changes.
 

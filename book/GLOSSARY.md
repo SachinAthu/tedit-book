@@ -74,6 +74,38 @@ Volume I, Chapter 4
 - Cursor
 - Raw Mode
 
+## Architecture (Software Architecture)
+
+**Definition**
+
+The high-level design of a software system that identifies components, assigns responsibilities, and defines the interfaces through which those components communicate. Architecture organizes a system before implementation begins, providing a blueprint that guides development and ensures the resulting software remains comprehensible, maintainable, and extensible.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Component
+- Layered Architecture
+- Separation of Concerns
+- Architectural Decision Record (ADR)
+
+## Architectural Decision Record (ADR)
+
+**Definition**
+
+A documented design choice that captures a significant architectural decision, including the reasoning behind it, the alternatives that were considered, and the trade-offs that were accepted. ADRs preserve the context of architectural decisions so that future developers understand not only what was chosen but also why it was chosen and when the decision should be revisited.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Architecture (Software Architecture)
+- Constraint
+
 ## ASCII
 
 **Definition**
@@ -188,6 +220,22 @@ Volume I, Chapter 6
 - Unicode
 - UTF-8
 - Character Encoding
+
+## Command Engine
+
+**Definition**
+
+The component responsible for executing editor operations in response to parsed key events. The Command Engine determines which editing operation should be performed (such as inserting a character, deleting text, moving the cursor, or saving the document) and coordinates the resulting state changes through the Editor State.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Editor State
+- Input Parser
+- File Manager
 
 ## Console
 
@@ -321,7 +369,27 @@ Volume III, Chapter 14
 - Renderer
 - Text Buffer
 
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 14.
+
 # D
+
+## Data Flow
+
+**Definition**
+
+The predictable path that information follows through a software system as it responds to user actions. In the editor, data flow describes how a key press moves from the keyboard through the Input Handler, Input Parser, Command Engine, and Editor State, and finally to the Renderer and Terminal Display.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Architecture (Software Architecture)
+- Editor State
+- Event Loop
 
 ## Document
 
@@ -339,6 +407,10 @@ Volume III, Chapter 12
 
 - Text Buffer
 - File Manager
+
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 12.
 
 ## Echo
 
@@ -390,6 +462,10 @@ Volume III, Chapter 12
 - Text Buffer
 - Renderer
 - Cursor
+
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 12.
 
 ## Event Loop
 
@@ -456,6 +532,23 @@ Volume II, Chapter 7
 - Success Criteria
 - Minimum Viable Editor (MVE)
 
+## File Manager
+
+**Definition**
+
+The component responsible for loading documents from disk into memory and saving the current document back to disk. The File Manager reads and writes files through operating system interfaces and updates the Editor State to reflect the result of file operations, such as clearing the Dirty Flag after a successful save.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Document
+- Editor State
+- Command Engine
+- Dirty Flag
+
 ## File Descriptor
 
 **Definition**
@@ -490,6 +583,10 @@ Volume IV, Chapter 17
 
 - Renderer
 - Event Loop
+
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Implementation: Volume IV, Chapter 17.
 
 ## Full Redraw
 
@@ -598,6 +695,8 @@ Volume III, Chapter 15
 
 **Notes**
 
+Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 15.
+
 The Input Handler is the broader subsystem. The Input Parser (introduced in Volume I, Chapter 6) is the specific byte-to-event translation layer within that subsystem.
 
 ## Input Parser
@@ -657,6 +756,22 @@ Volume I, Chapter 6
 
 # L
 
+## Layered Architecture
+
+**Definition**
+
+An architectural pattern that organizes software components into distinct levels of responsibility, where each layer has a specific purpose and dependencies flow in a well-defined direction. In the editor, the layers are the Application Layer (command processing), the Core Layer (editor state and data), and the Platform Layer (terminal, file, and input services).
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Architecture (Software Architecture)
+- Low Coupling
+- Module
+
 ## Line Buffering
 
 **Definition**
@@ -689,6 +804,22 @@ Volume I, Chapter 6
 - Input Parser
 - Escape Character (ESC)
 - Input Parsing
+
+## Low Coupling
+
+**Definition**
+
+A design principle where modules have few and well-defined dependencies on one another. Systems with low coupling are easier to understand, test, debug, and extend because changes to one module are less likely to affect others. The opposite is tight coupling, where many modules are interconnected and a change in one can cascade through the system.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Dependency
+- High Cohesion
+- Layered Architecture
 
 # M
 
@@ -924,6 +1055,10 @@ Volume IV, Chapter 19
 - Frame
 - Viewport
 
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Implementation: Volume IV, Chapter 19.
+
 ## Rendering Cycle
 
 **Definition**
@@ -1054,6 +1189,22 @@ Volume I, Chapter 3
 - Foreground Process Group
 - Job Control
 
+## Single Source of Truth
+
+**Definition**
+
+An architectural principle where every piece of application data has exactly one authoritative location. In the editor, the Editor State serves as the single source of truth for the document, cursor position, viewport, and all other runtime state. All components read from and modify this single state rather than maintaining independent copies, which prevents inconsistency and simplifies reasoning about the system.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Editor State
+- State Ownership
+- Data Flow
+
 ## Software Requirements Specification (SRS)
 
 **Definition**
@@ -1104,6 +1255,22 @@ Volume II, Chapter 7
 - Software Requirements Specification (SRS)
 - Functional Requirement
 - Use Case
+
+## State Ownership
+
+**Definition**
+
+An architectural principle where each piece of data in a system has a single, clearly defined owner responsible for maintaining its correctness. In the editor, the Editor State owns the document, cursor, viewport, and all other application data. Other components may read this state but should not independently modify it — all changes flow through the owner. This ensures consistency and prevents conflicts between components.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Editor State
+- Single Source of Truth
+- Command Engine
 
 ## Standard Error (stderr)
 
@@ -1392,6 +1559,10 @@ Volume IV, Chapter 20
 - Renderer
 - Cursor
 
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Implementation: Volume IV, Chapter 20.
+
 ## Virtual Console
 
 **Definition**
@@ -1437,8 +1608,6 @@ The following concepts are expected to be added as the manuscript develops:
 - Rope
 - Status Bar
 - Message Bar
-- File Manager
-- Command Engine
 - Immediate Mode Rendering
 - Retained Mode Rendering
 - Dirty Flag
