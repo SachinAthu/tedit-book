@@ -8,7 +8,7 @@ Functional requirements described the editor's capabilities in concrete, testabl
 
 We enumerated the constraints under which the editor operates: C99, POSIX APIs, Linux, a terminal interface, single-threaded execution, and single-document editing. Assumptions captured the expected operating environment: an ANSI-compatible terminal, UTF-8 text files, keyboard input, file system access, and a reasonable terminal size.
 
-Use cases demonstrated how individual requirements combine into realistic workflows—creating documents, opening files, editing, saving, and exiting. Finally, success criteria established six measurable standards that determine when the editor satisfies its intended purpose.
+Use cases demonstrated how individual requirements combine into realistic workflows—creating documents, opening files, editing, saving, and exiting. Finally, success criteria established ten measurable standards that determine when the editor satisfies its intended purpose.
 
 Every architectural decision in the chapters ahead will trace back to the requirements, constraints, assumptions, and success criteria established here.
 

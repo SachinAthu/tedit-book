@@ -31,7 +31,7 @@ These different perspectives influence the requirements that appear in an SRS.
 
 ## Stakeholders for Our Project
 
-Our editor is an educational project rather than a commercial product, so the number of stakeholders is much smaller.
+Our editor is an educational project rather than a commercial product, so the number of stakeholders is much smaller. We discuss two main stakeholders here, but the final SRS will contain some additional stakeholders.
 
 ### The User
 

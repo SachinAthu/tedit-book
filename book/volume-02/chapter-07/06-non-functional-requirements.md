@@ -101,7 +101,7 @@ Unlike functional requirements, which often correspond to individual features, n
 
 ## Categories of Non-Functional Requirements
 
-For our editor, we will focus on five major categories.
+For our editor, we will focus on seven major categories.
 
 ```text
 Non-Functional Requirements
@@ -110,10 +110,12 @@ Non-Functional Requirements
 ├── Reliability
 ├── Usability
 ├── Maintainability
-└── Portability
+├── Portability
+├── Extensibility
+└── Security and Data Integrity
 ```
 
-These categories align well with the educational goals of this book, emphasizing not only how to build software, but also how to build it well. The complete SRS at the end of this chapter also formalizes **Extensibility** and **Security & Data Integrity** as additional NFR categories.
+These categories align well with the educational goals of this book, emphasizing not only how to build software, but also how to build it well.
 
 ## Performance
 
@@ -178,6 +180,31 @@ Examples include:
 
 This approach makes it easier to adapt the editor to macOS and other POSIX-based systems in the future.
 
+## Extensibility
+
+Extensibility describes how easily the software can accommodate new features without requiring fundamental changes to its core design.
+
+For a project that deliberately starts small and grows over multiple volumes, extensibility is an important quality. Features such as syntax highlighting, undo and redo, and search and replace are explicitly excluded from the initial implementation, but the architecture should not prevent them from being added later.
+
+Examples include:
+
+- The editor architecture shall allow additional features to be incorporated without requiring fundamental changes to the core design.
+- The editor shall maintain a clear separation between core editing functionality and optional future enhancements.
+
+A well-designed module boundary, for instance, ensures that adding syntax highlighting does not require rewriting the renderer or modifying the document model. Extensibility does not mean anticipating every possible future feature — that leads to over-engineering. Instead, it means designing clean interfaces that new components can plug into without disrupting existing ones.
+
+## Security and Data Integrity
+
+Security and data integrity concern the editor's responsibility to protect user data. While a single-user terminal editor does not face the same threats as a networked application, it still handles content that users consider valuable.
+
+Examples include:
+
+- The editor shall modify files only when explicitly requested by the user.
+- The editor shall not alter document contents during file loading or saving except as required to preserve the edited text.
+- The editor shall maintain the integrity of the in-memory document representation throughout editing operations.
+
+These requirements may seem obvious, but they become meaningful when things go wrong. What happens if a file save is interrupted? Does the editor write partial data, corrupt the original file, or leave the original intact while failing gracefully? Documenting these expectations early ensures that file safety — discussed in detail in Volume V — is treated as a first-class concern rather than an afterthought.
+
 ## Balancing Non-Functional Requirements
 
 Non-functional requirements often compete with one another.
@@ -200,6 +227,6 @@ Functional requirements determine whether software is **capable**. Non-functiona
 
 ## Summary
 
-Non-functional requirements define the quality attributes of our editor. They describe how the software should perform, how reliable it should be, how easy it should be to use and maintain, and how portable it should remain across supported platforms. These requirements influence nearly every architectural decision that follows and provide the standards by which the overall quality of the editor can be evaluated.
+Non-functional requirements define the quality attributes of our editor. They describe how the software should perform, how reliable it should be, how easy it should be to use and maintain, how portable it should remain across supported platforms, how extensible its architecture should be for future enhancements, and how carefully it should protect user data. These requirements influence nearly every architectural decision that follows and provide the standards by which the overall quality of the editor can be evaluated.
 
 With both the functional and non-functional requirements established, we can now examine the **constraints** under which our editor must operate and how those limitations shape the design of the system.

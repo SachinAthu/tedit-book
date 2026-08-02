@@ -70,47 +70,83 @@ Future improvements become enhancements rather than unfinished work.
 
 Our editor will be considered successful if it satisfies the following objectives.
 
-### SC-001 — Document Editing
+### SC-001 — Requirements Coverage
 
-A user can create a new document, open an existing text file, modify its contents, and save the result without data loss. This end-to-end editing workflow functions correctly using only the editor's built-in commands.
+All functional requirements defined in this Software Requirements Specification have been implemented and can be verified to work correctly. Every feature described in the functional requirements section — from file management to document state tracking — operates as specified.
 
-This represents the editor's primary purpose.
-
----
-
-### SC-002 — Reliable Keyboard Interaction
-
-Every supported key produces its intended action during an editing session. Printable characters appear at the cursor, navigation keys reposition the cursor correctly, and keyboard shortcuts invoke the corresponding commands.
-
-Users can interact with the editor entirely through the keyboard.
+This criterion is intentionally placed first. If a feature exists in the SRS but not in the code, the project is incomplete regardless of how well the existing features work. Requirements coverage ensures that implementation remains aligned with the agreed-upon objectives.
 
 ---
 
-### SC-003 — Correct Screen Rendering
+### SC-002 — Terminal Environment Compatibility
 
-The terminal display accurately reflects the current editor state after every user action. The document text, cursor position, status bar, and messages remain synchronized without visual artifacts.
+The editor operates correctly within a POSIX-compatible terminal environment. It enters Raw Mode to receive keyboard input immediately, uses ANSI escape sequences to control the display, and functions as expected within a standard terminal emulator.
 
----
-
-### SC-004 — Stable File Operations
-
-Files are loaded and saved correctly through repeated edit-and-save cycles. When a file operation fails, the editor reports the error clearly and continues running rather than terminating.
-
-Protecting user data is one of the most important responsibilities of any text editor.
+This criterion verifies that the editor works within the environment it was designed for. A text editor that requires a graphical interface or a specific terminal emulator would not meet the project's definition of success.
 
 ---
 
-### SC-005 — Responsive User Experience
+### SC-003 — Keyboard-Driven Editing
 
-Keyboard input results in a screen update with no perceptible delay during normal editing. The editor remains responsive when opening, editing, and navigating files of typical size.
+Users can create a new document, open an existing text file, modify its contents, navigate through the document, and save the result — all using only the keyboard. Every supported key produces its intended action during an editing session. Printable characters appear at the cursor, navigation keys reposition the cursor correctly, and keyboard shortcuts invoke the corresponding commands.
+
+This represents the editor's primary purpose. A terminal text editor lives or dies by the quality of its keyboard interaction.
 
 ---
 
-### SC-006 — Maintainable Architecture
+### SC-004 — Document State Integrity
 
-A developer unfamiliar with the codebase can identify the major modules, understand their responsibilities, and trace a user action from input to screen update within a brief review of the source structure.
+The editor correctly maintains the in-memory document state throughout an editing session. Insertions, deletions, line splits, and line merges produce the expected document contents without corruption or data loss. The document stored in memory always reflects the most recent editing operation.
 
-This criterion reflects the educational objective of the project. The editor is intended not only to function correctly but also to demonstrate professional software design practices.
+While file operations handle persistence, document state integrity concerns what happens between those operations. A corrupted internal state can cause incorrect rendering, unexpected behavior, or data loss during the next save.
+
+---
+
+### SC-005 — Terminal Restoration
+
+The editor restores the terminal to its original operating state upon normal termination. Raw Mode is disabled, the alternate screen buffer is released if it was used, and the cursor is positioned appropriately before the application exits.
+
+This criterion addresses an important systems programming responsibility discussed at length in Volume I: any software that modifies a shared system resource must leave it exactly as it was found. Failing to restore the terminal leaves the user with a broken shell — no echo, no line editing, and a confusing interactive environment.
+
+---
+
+### SC-006 — Architectural Adherence
+
+The implementation adheres to the architectural principles and constraints defined in this specification. The programming language, rendering strategy, input mode, module boundaries, and design priorities match what was established in the SRS.
+
+This criterion ensures that the completed code reflects the architecture designed in the following chapters rather than evolving into a different design during implementation. Architectural drift — where the code gradually diverges from the planned design — is a common problem in software projects and is prevented by measuring adherence explicitly.
+
+---
+
+### SC-007 — Modular Code Organization
+
+A developer unfamiliar with the codebase can identify the major modules, understand their responsibilities, and trace a user action from input to screen update within a brief review of the source structure. The source code is organized into components with clearly defined responsibilities and interfaces.
+
+This criterion reflects the educational objective of the project. The editor is intended not only to function correctly but also to demonstrate professional software design practices. The code should teach as well as work.
+
+---
+
+### SC-008 — Responsive and Stable Experience
+
+The editor provides a responsive and stable editing experience for typical plain text documents. Keyboard input results in a screen update with no perceptible delay during normal editing. File operations complete correctly through repeated edit-and-save cycles, and when an operation fails, the editor reports the error clearly and continues running rather than terminating.
+
+This combines the user-facing qualities of performance and reliability into a single observable standard: the editor feels snappy and does not lose data.
+
+---
+
+### SC-009 — Educational Value
+
+The implementation serves as a clear and maintainable reference for learning terminal programming, software architecture, and text editor design. A reader who has followed the book from the beginning can study the completed source code and recognize how each concept — from ANSI escape sequences to the event loop to the rendering cycle — is expressed in practice.
+
+This criterion acknowledges that our editor is, first and foremost, a teaching tool. The code is not merely correct; it is also comprehensible. If the implementation is so clever that it cannot be understood, it has not served its educational purpose.
+
+---
+
+### SC-010 — Extensibility Foundation
+
+The completed implementation provides a solid foundation for the advanced features and enhancements introduced in later volumes of this book. The modular architecture and clean interfaces make it possible to add syntax highlighting, undo and redo, search and replace, multiple documents, and plugin support without requiring fundamental changes to the core design.
+
+This criterion looks beyond the current project scope. The editor is intentionally limited, but its architecture should not be. A well-designed foundation supports growth; a brittle one resists it. Future volumes depend on this foundation being sound.
 
 ## Measuring Success
 
@@ -121,21 +157,25 @@ Consider the following checklist.
 ```text
 Project Evaluation
 
-✓ Opens files
+✓ SC-001 — All functional requirements implemented and verified
 
-✓ Saves files
+✓ SC-002 — Works in POSIX terminal with raw mode and ANSI
 
-✓ Edits text
+✓ SC-003 — Full keyboard-driven editing workflow
 
-✓ Moves cursor
+✓ SC-004 — In-memory document state maintained correctly
 
-✓ Displays correctly
+✓ SC-005 — Terminal restored to original state on exit
 
-✓ Handles keyboard input
+✓ SC-006 — Architecture matches planned design
 
-✓ Maintains document state
+✓ SC-007 — Modular code with clear responsibilities
 
-✓ Follows architectural design
+✓ SC-008 — Responsive and stable editing experience
+
+✓ SC-009 — Code serves as a clear learning reference
+
+✓ SC-010 — Architecture supports future enhancements
 ```
 
 When every item has been verified, we can confidently say that the editor fulfills its intended purpose.

@@ -37,7 +37,9 @@ The goals might include:
 - Creating a new document
 - Opening an existing file
 - Editing text
+- Navigating through a document
 - Saving changes
+- Viewing editor status
 - Exiting the application
 
 Each goal becomes a separate use case.
@@ -185,7 +187,39 @@ Continue Editing
 
 ---
 
-### UC-004 — Save Changes
+### UC-004 — Navigate Within the Document
+
+**Actor**
+
+User
+
+**Goal**
+
+Move the cursor through the document to review or reach a specific location.
+
+**Typical Flow**
+
+```text
+Press Arrow Keys
+
+↓
+
+Cursor Repositioned
+
+↓
+
+Scroll if Necessary
+
+↓
+
+Viewport Updated
+```
+
+This use case is separated from editing because navigation is a frequent, independent activity. Users often scroll through a document to read or review its contents without making any changes. Treating navigation as its own use case ensures that scrolling, viewport management, and cursor movement receive appropriate attention during design rather than being treated as an afterthought of the editing workflow.
+
+---
+
+### UC-005 — Save Changes
 
 **Actor**
 
@@ -215,7 +249,39 @@ Continue Editing
 
 ---
 
-### UC-005 — Exit the Editor
+### UC-006 — Display Editor Status
+
+**Actor**
+
+User
+
+**Goal**
+
+Know the current state of the editing session at all times.
+
+**Typical Flow**
+
+```text
+Editor Running
+
+↓
+
+Status Bar Updated
+
+↓
+
+User Views Information
+
+↓
+
+Continue Editing
+```
+
+This use case is less dramatic than editing or saving, but it is equally important. While the user edits, the editor continuously displays contextual information — the filename, cursor position, and whether the document has unsaved changes. This is not a single action but an ongoing responsibility. Including it as a use case explicitly acknowledges that status display is not an afterthought; it is a core part of the user experience that must be designed and maintained.
+
+---
+
+### UC-007 — Exit the Editor
 
 **Actor**
 

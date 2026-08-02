@@ -116,8 +116,6 @@ For clarity, the requirements are grouped into seven categories:
 
 Each requirement describes a behavior that the completed editor must provide. Together, these requirements define the minimum functionality needed to achieve the project scope established earlier in this chapter.
 
-In the following subsections, we will examine each category in detail and assign a unique identifier to every requirement. These identifiers will provide a useful reference point as we design the architecture in Chapters 8 through 11 and eventually implement the editor in Volume X.
-
 ## Engineering Insight
 
 Professional software engineers often use **requirements traceability**, where every architectural component, test case, and implementation feature can be traced back to one or more requirement identifiers. This practice ensures that every part of the system exists for a defined purpose and helps prevent unnecessary complexity.
