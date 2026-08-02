@@ -71,7 +71,7 @@ Learn what actually happens before your program even starts.
 
 Design before writing code.
 
-## **Chapter 7 — Requirements Engineering**
+## **Chapter 7 — Software Requirements Specification**
 
 - Functional requirements
 - Non-functional requirements

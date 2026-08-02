@@ -1,0 +1,15 @@
+chapter: 8
+title: System Architecture
+volume: 2
+
+sections:
+  - 8.1 What Is Software Architecture? —> 01-what-is-software-architecture.md
+  - 8.2 From Requirements to Architecture —> 02-requirements-to-architecture.md
+  - 8.3 Architectural Goals —> 03-architectural-goals.md
+  - 8.4 High-Level Architecture —> 04-high-level-architecture.md
+  - 8.5 Layered Architecture —> 05-layered-architecture.md
+  - 8.6 Core Components —> 06-core-components.md
+  - 8.7 Data Flow Through the Editor —> 07-data-flow-through-editor.md
+  - 8.8 State Ownership —> 08-state-ownership.md
+  - 8.9 Module Dependencies —> 09-module-dependencies.md
+  - 8.10 Architectural Decisions —> 10-architectural-decisions.md
