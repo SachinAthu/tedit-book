@@ -1,6 +1,4 @@
-# Conclusion Volume 1 Chapter 2
-
-## Chapter Summary
+# Chapter Summary
 
 This chapter began with a deceptively simple question: **How does a computer display text?**
 

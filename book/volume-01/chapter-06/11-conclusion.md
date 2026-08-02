@@ -1,6 +1,4 @@
-# Conclusion Volume 1 Chapter 6
-
-## Chapter Summary
+# Chapter Summary
 
 In this chapter, we explored how keyboard input travels from a physical key press to a running terminal application. We distinguished **keys** from **characters**, examined **ASCII** and **control characters**, and expanded to **UTF-8** for representing Unicode characters via variable-length byte sequences. We then learned that **special keys** (arrows, functions, navigation) are transmitted as **ANSI escape sequences** — multi-byte patterns with shared prefixes that require pattern recognition rather than single-byte reading. Finally, we introduced the **Input Parser**, a dedicated component that translates raw bytes into abstract key events, separating the terminal's communication protocol from editor logic. This design reinforces a principle that will guide the remainder of the book: **separate low-level implementation details from high-level application behavior.**
 

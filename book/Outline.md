@@ -71,13 +71,14 @@ Learn what actually happens before your program even starts.
 
 Design before writing code.
 
-## **Chapter 7 — Software Requirements Specification**
+## **Chapter 7 — Requirements Engineering**
 
 - Functional requirements
 - Non-functional requirements
 - Constraints
 - Assumptions
 - Success criteria
+- Full SRS
 
 ## **Chapter 8 — System Architecture**
 

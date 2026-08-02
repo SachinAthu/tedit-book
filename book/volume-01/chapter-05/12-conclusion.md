@@ -1,6 +1,4 @@
-# Conclusion Volume 1 Chapter 5
-
-## Chapter Summary
+# Chapter Summary
 
 By default, the terminal processes keyboard input before any program receives it. This behavior, known as canonical mode, provides conveniences such as line buffering, character echo, and signal generation — features that serve shells well but prevent a text editor from responding to individual key presses. To gain full control, editors use the `termios` interface to enable raw mode, which disables these default behaviors and delivers each key press directly to the application. Shifting from canonical to raw mode is not merely a configuration change; it transfers responsibility for input handling and screen rendering from the terminal to the program. With that control comes an obligation to save the original terminal settings before entering raw mode and restore them before exiting, ensuring the user's environment remains intact regardless of how the application terminates.
 
@@ -15,4 +13,4 @@ By default, the terminal processes keyboard input before any program receives it
 
 ## Preview of the Next Chapter
 
-Chapter 6 shifts focus from *receiving* keyboard input to *understanding* it. Now that raw mode delivers every byte to our editor without preprocessing, each key press arrives as one or more bytes that the application must interpret. We will explore how keyboards encode input — from simple ASCII characters to multi-byte escape sequences for arrow keys, function keys, and control shortcuts — and how the editor's Input Parser translates raw bytes into meaningful Editor Commands.
+Chapter 6 shifts focus from _receiving_ keyboard input to _understanding_ it. Now that raw mode delivers every byte to our editor without preprocessing, each key press arrives as one or more bytes that the application must interpret. We will explore how keyboards encode input — from simple ASCII characters to multi-byte escape sequences for arrow keys, function keys, and control shortcuts — and how the editor's Input Parser translates raw bytes into meaningful Editor Commands.

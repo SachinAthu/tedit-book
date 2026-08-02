@@ -3,4 +3,14 @@ title: Software Requirements Specification
 volume: 2
 
 sections:
-  - 7.1  —> 01-.md
+  - 7.1 Why We Need Requirements —> 01-why-we-need-requirements.md
+  - 7.2 What Is a Software Requirements Specification? —> 02-what-is-srs.md
+  - 7.3 Defining the Project Scope —> 03-defining-project-scope.md
+  - 7.4 Stakeholders and Users —> 04-stakeholders-and-users.md
+  - 7.5 Functional Requirements —> 05-functional-requirements.md
+  - 7.6 Non-Functional Requirements —> 06-non-functional-requirements.md
+  - 7.7 Constraints —> 07-constraints.md
+  - 7.8 Assumptions —> 08-assumptions.md
+  - 7.9 Use Cases —> 09-use-cases.md
+  - 7.10 Success Criteria —> 10-success-criteria.md
+  - 7.11 Software Requirements Specification —> 11-srs-document.md
