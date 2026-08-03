@@ -13,3 +13,4 @@ sections:
   - 8.8 State Ownership —> 08-state-ownership.md
   - 8.9 Module Dependencies —> 09-module-dependencies.md
   - 8.10 Architectural Decisions —> 10-architectural-decisions.md
+  - 8.11 System Architecture —> 11-system-architecture.md

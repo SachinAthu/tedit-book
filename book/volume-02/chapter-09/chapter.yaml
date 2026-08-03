@@ -1,0 +1,17 @@
+chapter: 9
+title: Event Driven Architecture
+volume: 2
+
+sections:
+  - 9.1 What Is an Event-Driven System? —> 01-what-is-an-event-driven-system.md
+  - 9.2 The Life of an Editor —> 02-life-of-an-editor.md
+  - 9.3 Initialization Phase —> 03-initialization-phase.md
+  - 9.4 The Event Loop —> 04-event-loop.md
+  - 9.5 Events in Our Editor —> 05-events-in-our-editor.md
+  - 9.6 Event Processing Pipeline —> 06-event-processing-pipeline.md
+  - 9.7 Commands vs. Events —> 07-commands-vs-events.md
+  - 9.8 State Updates —> 08-state-updates.md
+  - 9.9 The Rendering Cycle —> 09-rendering-cycle.md
+  - 9.10 Maintaining Responsiveness —> 10-maintaining-responsiveness.md
+  - 9.11 Error Handling Within the Loop —> 11-error-handling-within-the-loop.md
+  - 9.12 Putting It All Together —> 12-all-together.md

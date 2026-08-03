@@ -264,5 +264,3 @@ Architectural Decision Records preserve these choices by documenting not only wh
 For our editor, the foundational decisions — C99 as the implementation language, full-screen redraw rendering, raw terminal mode, and a dedicated Input Parser — define the module boundaries, data flow, and dependency structure that shape every component described in this chapter.
 
 These decisions are not permanent; as the editor evolves, future ADRs will explain how and why the architecture changes.
-
-With the architecture now established, the next chapter brings this static structure to life by examining the event loop that drives the editor at runtime.
