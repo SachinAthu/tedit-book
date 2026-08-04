@@ -418,3 +418,5 @@ Rather than redesigning the application's execution model whenever new functiona
 ## Engineering Insight
 
 Well-designed software often appears more complicated than it really is because it performs many different tasks. However, beneath that functionality is usually a surprisingly small execution model. Our editor is built around a single repeating cycle: receive an event, interpret it, update the **Editor State**, render the result, and wait for the next event. Every feature introduced later in the book builds upon this same foundation. Once this runtime model is understood, the behavior of the entire editor becomes significantly easier to reason about.
+
+The next section brings them together into a single reference document: the **Runtime Model** for our terminal text editor.

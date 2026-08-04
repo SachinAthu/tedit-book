@@ -221,6 +221,23 @@ Volume I, Chapter 6
 - UTF-8
 - Character Encoding
 
+## Command
+
+**Definition**
+
+An instruction expressing an editing operation the editor should perform — such as inserting a character, moving the cursor, saving the document, or resizing the viewport. Unlike an event, which describes what happened, a command describes what the editor should do in response to an event. The mapping from events to commands is performed by the Command Engine.
+
+**First Introduced**
+
+Volume II, Chapter 9
+
+**Related Terms**
+
+- Event
+- Event Loop
+- Command Engine
+- Editor State
+
 ## Command Engine
 
 **Definition**
@@ -466,6 +483,42 @@ Volume III, Chapter 12
 **Notes**
 
 Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 12.
+
+## Event
+
+**Definition**
+
+Any occurrence that the application recognizes as something requiring a response. Events may originate from the user (keyboard), the operating system (terminal resize, startup, shutdown), or the application itself (cursor moved, document modified). Events are processed through a unified pipeline regardless of their source, and a single event often triggers a cascade of additional events.
+
+**First Introduced**
+
+Volume II, Chapter 9
+
+**Related Terms**
+
+- Command
+- Event Loop
+- Event-Driven Architecture
+- Data Flow
+- Editor State
+
+## Event-Driven Architecture
+
+**Definition**
+
+A software system whose behavior is determined by events rather than a fixed sequence of operations. The application spends most of its lifetime waiting for events, processing each one, updating its internal state, and rendering the display — then returning to wait for the next event. This model is a natural fit for interactive applications such as text editors, where the program has nothing to do until the user presses a key or the environment changes.
+
+**First Introduced**
+
+Volume II, Chapter 9
+
+**Related Terms**
+
+- Event
+- Event Loop
+- Architecture (Software Architecture)
+- Data Flow
+- Single Source of Truth
 
 ## Event Loop
 

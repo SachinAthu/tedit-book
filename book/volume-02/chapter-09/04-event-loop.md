@@ -23,33 +23,7 @@ Although this resembles a conventional `while` loop, it represents much more tha
 
 ## Why an Event Loop?
 
-Most programs execute a sequence of operations and then terminate.
-
-For example, a file-copy utility might perform the following steps:
-
-```text
-Open Source File
-
-↓
-
-Copy Contents
-
-↓
-
-Write Destination File
-
-↓
-
-Exit
-```
-
-Once its work is complete, the program has no reason to continue running.
-
-A text editor is fundamentally different. After displaying the initial screen, it cannot predict what the user will do next. The user may type a character, move the cursor, save the document, resize the terminal, or simply pause for several minutes without pressing any keys.
-
-Instead of terminating, the editor must remain active and respond whenever something happens.
-
-The Event Loop provides exactly this behavior.
+As we saw in Section 9.1, a text editor differs fundamentally from sequential programs: it cannot predict what the user will do next, so it must remain active and respond whenever something happens rather than executing a fixed sequence of operations and terminating. The Event Loop is the mechanism that provides this behavior.
 
 ## Waiting for Events
 

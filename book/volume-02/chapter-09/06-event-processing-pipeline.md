@@ -1,6 +1,6 @@
 # 9.6 Event Processing Pipeline
 
-In the previous section, we learned that the Event Loop repeatedly waits for an event, processes it, updates the Editor State, and renders a new frame. While this describes the overall execution cycle, it does not explain what actually happens inside the **"Process the Event"** step.
+In the previous section, we examined the three categories of events the editor processes—keyboard, system, and internal. While knowing what kinds of events exist is useful, it does not explain what actually happens inside the **"Process the Event"** step of the Event Loop.
 
 When the user presses a key, the editor does not immediately insert text or move the cursor. Instead, the event travels through a series of specialized components, each responsible for performing a single task. This sequence of processing stages is known as the **Event Processing Pipeline**.
 
@@ -8,7 +8,7 @@ By dividing event processing into multiple stages, the editor maintains a modula
 
 The complete pipeline is illustrated below.
 
-```text id="k3vn8a"
+```text
 Keyboard
     │
     ▼
@@ -77,7 +77,7 @@ KEY_ARROW_UP
 
 Or:
 
-```text id="nyec3v"
+```text
 Raw Byte
 
 ↓

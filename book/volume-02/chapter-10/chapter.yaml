@@ -1,0 +1,17 @@
+chapter: 10
+title: Project Structure
+volume: 2
+
+sections:
+  - 10.1 Why Project Structure Matters —> 01-why-project-structure-matters.md
+  - 10.2 Mapping Architecture to Source Code —> 02-mapping-architecture-to-source-code.md
+  - 10.3 Directory Layout —> 03-directory-layout.md
+  - 10.4 Module Organization —> 04-module-organization.md
+  - 10.5 Header File Organization —> 05-header-file-organization.md
+  - 10.6 Module Interfaces —> 06-module-interfaces.md
+  - 10.7 Shared Types and Common Utilities —> 07-shared-types-and-common-utilities.md
+  - 10.8 Naming Conventions —> 08-naming-conventions.md
+  - 10.9 Build System Overview —> 09-build-system-overview.md
+  - 10.10 Coding Standards —> 10-coding-standards.md
+  - 10.11 Project Structure —> 11-ref-project-structure.md
+  - 10.12 Coding Standards —> 12-ref-coding-standards.md
