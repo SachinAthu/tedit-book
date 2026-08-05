@@ -142,7 +142,7 @@ Each piece of state has exactly one owner. Other components may read the state b
 | ---------------- | ------------------ |
 | Document         | Command Engine     |
 | Cursor           | Cursor             |
-| Viewport         | Renderer           |
+| Viewport         | Command Engine     |
 | Current File     | File Manager       |
 | Dirty Flag       | Command Engine     |
 | Status Message   | Renderer           |

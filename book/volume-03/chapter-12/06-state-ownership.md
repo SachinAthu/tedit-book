@@ -118,14 +118,14 @@ Editor State
 └── Viewport
        ▲
        │
-   Renderer
+   Command Engine
 ```
 
 Each component is responsible for maintaining the state that belongs to it.
 
 If another component needs that information, it simply reads it from the Editor State rather than attempting to modify it.
 
-This ownership model was introduced earlier in our System Architecture, where each major field of the Editor State was assigned a single responsible component.
+This ownership model was introduced in Chapter 8 (System Architecture), where each major field of the Editor State was assigned a single responsible component.
 
 ## Reading Is Different from Writing
 

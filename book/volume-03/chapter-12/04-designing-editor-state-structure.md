@@ -4,24 +4,7 @@ Now that we have identified the information our editor must maintain and establi
 
 At this point, it is important to remember that we are still working at the architectural level. Our goal is **not** to define C structures or decide how every field will be implemented. Instead, we want to understand the major pieces that make up the editor's runtime state and how they relate to one another.
 
-Think of the Editor State as the top-level object that brings together all of the information required by the application.
-
-```text
-Editor State
-│
-├── Document
-├── Cursor
-├── Viewport
-├── Screen
-├── Current File
-├── Dirty Flag
-├── Status Message
-└── Configuration
-```
-
-Each item represents a distinct aspect of the editor's current condition. Together, they describe everything the application needs to continue an editing session.
-
-Notice that the Editor State does not replace these individual components. Instead, it **owns** them, collecting them into a single coherent structure that represents the entire application.
+Think of the Editor State as the top-level object that brings together all of the information required by the application. We saw the complete list of components in the previous section: Document, Cursor, Viewport, Screen, Current File, Dirty Flag, Status Message, and Configuration. The Editor State does not replace these individual components. Instead, it **owns** them, collecting them into a single coherent structure that represents the entire application.
 
 ## Thinking in Terms of Composition
 

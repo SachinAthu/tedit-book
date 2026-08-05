@@ -139,7 +139,7 @@ Editors often provide temporary feedback to the user.
 
 For example:
 
-```text id="rq04tp"
+```text
 File saved successfully.
 
 Cannot open file.

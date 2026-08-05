@@ -82,7 +82,7 @@ The collection of information that describes the current condition of a program 
 
 **First Introduced**
 
-Volume II, Chapter 12
+Volume III, Chapter 12
 
 **Related Terms**
 
@@ -292,7 +292,7 @@ Volume I, Chapter 6
 
 **Definition**
 
-A consistent set of guidelines for writing source code that improves readability, reduces misunderstandings, and makes the entire codebase feel as though it was written by a single developer. Coding standards cover naming conventions, function size, use of `const`, avoidance of magic numbers, formatting style, and commenting practices—focusing on *why* rather than *what*.
+A consistent set of guidelines for writing source code that improves readability, reduces misunderstandings, and makes the entire codebase feel as though it was written by a single developer. Coding standards cover naming conventions, function size, use of `const`, avoidance of magic numbers, formatting style, and commenting practices—focusing on _why_ rather than _what_.
 
 **First Introduced**
 
@@ -345,7 +345,7 @@ An architectural pattern where complex objects are built by combining smaller, s
 
 **First Introduced**
 
-Volume II, Chapter 12
+Volume III, Chapter 12
 
 **Related Terms**
 
@@ -532,7 +532,7 @@ A boolean value that records whether a document has been modified since it was l
 
 **First Introduced**
 
-Volume II, Chapter 12
+Volume III, Chapter 12
 
 **Related Terms**
 
@@ -1685,7 +1685,7 @@ A program that remains active and continuously responds to new events by updatin
 
 **First Introduced**
 
-Volume II, Chapter 12
+Volume III, Chapter 12
 
 **Related Terms**
 
@@ -1701,7 +1701,7 @@ A program that performs a task using the information it receives, produces a res
 
 **First Introduced**
 
-Volume II, Chapter 12
+Volume III, Chapter 12
 
 **Related Terms**
 

@@ -4,22 +4,7 @@ In the previous section, we designed the Editor State as a collection of smaller
 
 Before we examine these components in detail in later chapters, it is helpful to understand the role each one plays within the overall system.
 
-Think of the Editor State as a small team. Each member has a specific job, and together they enable the editor to function correctly.
-
-```text
-Editor State
-│
-├── Document
-├── Cursor
-├── Viewport
-├── Screen
-├── Current File
-├── Dirty Flag
-├── Status Message
-└── Configuration
-```
-
-Let us examine each of these components individually.
+Think of the Editor State as a small team. Each member has a specific job, and together they enable the editor to function correctly. Let us examine each of these components individually.
 
 ## The Document
 
@@ -155,7 +140,7 @@ false
 
 After the user inserts a single character:
 
-```text id="mz9ef6"
+```text
 Dirty Flag
 
 true
@@ -209,7 +194,7 @@ Suppose the user types the character **A**.
 
 Several components participate in handling this single action:
 
-```text id="v4z9hj"
+```text
 User presses A
         │
         ▼
@@ -239,4 +224,4 @@ Notice that none of these components attempts to do everything. The Document doe
 
 ## Summary
 
-The Editor State is composed of several specialized components, each responsible for a different aspect of the editor's runtime behavior. The Document stores editable text, the Cursor tracks the editing position, the Viewport determines what is visible, the Screen describes the terminal dimensions, the Current File identifies the associated file, the Dirty Flag records unsaved changes, the Status Message communicates with the user, and the Configuration stores editor settings. Together, these components provide a complete representation of the editor's current state and establish the foundation for the chapters that follow.
+The Editor State is composed of several specialized components, each responsible for a different aspect of the editor's runtime behavior. The Document stores editable text, the Cursor tracks the editing position, the Viewport determines what is visible, the Screen describes the terminal dimensions, the Current File identifies the associated file, the Dirty Flag records unsaved changes, the Status Message communicates with the user, and the Configuration stores editor settings. Together, these components provide a complete representation of the editor's current state. In the next section, we will examine how state ownership ensures that each of these components is modified only by the component responsible for it.
