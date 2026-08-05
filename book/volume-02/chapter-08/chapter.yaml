@@ -3,6 +3,7 @@ title: System Architecture
 volume: 2
 
 sections:
+  - Introduction —> 00-introduction.md
   - 8.1 What Is Software Architecture? —> 01-what-is-software-architecture.md
   - 8.2 From Requirements to Architecture —> 02-requirements-to-architecture.md
   - 8.3 Architectural Goals —> 03-architectural-goals.md
@@ -14,3 +15,4 @@ sections:
   - 8.9 Module Dependencies —> 09-module-dependencies.md
   - 8.10 Architectural Decisions —> 10-architectural-decisions.md
   - 8.11 System Architecture —> 11-ref-system-architecture.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

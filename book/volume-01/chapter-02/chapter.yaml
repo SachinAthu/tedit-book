@@ -3,6 +3,7 @@ title: How Computers Display Text
 volume: 1
 
 sections:
+  - Introduction —> 00-introduction.md
   - 2.1 The Journey of a Character —> 01-journey-character.md
   - 2.2 The CPU —> 02-cpu.md
   - 2.3 Main Memory (RAM) —> 03-ram.md
@@ -14,3 +15,4 @@ sections:
   - 2.9 Character Rendering —> 09-character-rendering.md
   - 2.10 Character Encoding —> 10-character-encoding.md
   - 2.11 Following One Character —> 11-following-one-character.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

@@ -152,13 +152,29 @@ Formatting has no effect on how a program executes, but it has a significant imp
 
 Consistent indentation, spacing, and brace placement allow developers to recognize the structure of the code quickly.
 
-For example, all source files should follow the same formatting conventions regarding:
+For this project, we adopt the following concrete formatting rules:
 
-- Indentation.
-- Blank lines.
-- Brace placement.
-- Line wrapping.
-- Alignment of related declarations.
+- Use **four-space indentation**.
+- Place the **opening brace on a new line**.
+- Write **one statement per line**.
+- Separate **logical sections with blank lines**.
+- Keep line length **reasonable**, wrapping long lines rather than writing very long single lines.
+
+For example, a small function written according to these rules looks like this:
+
+```text
+static void update_status_bar(EditorState *editor)
+{
+    if (editor->status_message[0] == '\0')
+    {
+        return;
+    }
+
+    render_status_message(editor);
+}
+```
+
+Note the four-space indentation, the opening brace on its own line, one statement per line, and the blank line separating the guard clause from the main body.
 
 When every file follows the same style, the reader can focus on the program's logic rather than adapting to different formatting preferences.
 
@@ -266,4 +282,4 @@ Coding standards complement the project's architecture by providing consistent g
 
 These practices may appear simple, but together they establish the disciplined foundation required for building reliable software. In the implementation chapters that follow, every source file and function will adhere to these standards, ensuring that the editor remains both technically sound and approachable to future readers and contributors.
 
-The next two sections brings two reference documents: the **Project Structure** and the **Coding Standards** for our terminal text editor.
+The next two sections present the reference documents for this chapter: the **Project Structure** and the **Coding Standards** for our terminal text editor. The chapter then concludes with a summary of what we have designed and a preview of the implementation work ahead.

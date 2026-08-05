@@ -192,7 +192,7 @@ This choice is motivated by several factors:
 
 Although our implementation targets Linux, using CMake prepares the project for future portability without requiring major structural changes.
 
-The details of writing `CMakeLists.txt` files will be introduced later in this chapter. For now, it is sufficient to understand the role that CMake plays in organizing and building the project.
+The details of writing `CMakeLists.txt` files will be introduced later in the book. For now, it is sufficient to understand the role that CMake plays in organizing and building the project.
 
 ## Build System vs. Compiler
 

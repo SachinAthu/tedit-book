@@ -3,6 +3,7 @@ title: ANSI Escape Sequences
 volume: 1
 
 sections:
+  - Introduction —> 00-introduction.md
   - 4.1 The Problem with Plain Text —> 01-problem-plain-text.md
   - 4.2 What Is an ANSI Escape Sequence? —> 02-ANSI-escape-sequence.md
   - 4.3 Anatomy of an Escape Sequence —> 03-anatomy-escape-sequence.md
@@ -14,3 +15,4 @@ sections:
   - 4.9 Putting It All Together —> 09-putting-all-together.md
   - 4.10 Terminal Compatibility —> 10-terminal-compatibility.md
   - 4.11 Looking Ahead - Building Our Renderer —> 11-looking-ahead.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

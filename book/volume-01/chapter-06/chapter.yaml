@@ -3,6 +3,7 @@ title: Keyboard Input
 volume: 1
 
 sections:
+  - Introduction —> 00-introduction.md
   - 6.1 From Key Press to Program —> 01-key-press-to-program.md
   - 6.2 Characters vs. Keys —> 02-characters-vs-keys.md
   - 6.3 ASCII - The Foundation of Keyboard Input —> 03-foundation-keyboard-input.md
@@ -13,3 +14,4 @@ sections:
   - 6.8 Modifier Keys —> 08-modifier-keys.md
   - 6.9 The Challenge of Parsing Input —> 09-challenge-parsing-input.md
   - 6.10 Designing an Input Parser —> 10-designing-input-parser.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

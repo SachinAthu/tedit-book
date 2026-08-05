@@ -44,8 +44,8 @@ editor/
 │   └── terminal.c
 │
 ├── common/
-│   └── common.h
-│   └── common.c      (if needed)
+│   |── common.h
+│   └── common.c
 │
 ├── tests/
 │

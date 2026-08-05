@@ -3,6 +3,7 @@ title: The Unix Terminal
 volume: 1
 
 sections:
+  - Introduction —> 00-introduction.md
   - 3.1 Why Study the Terminal —> 01-why-study-terminal.md
   - 3.2 A Brief History of Terminals —> 02-history-of-terminals.md
   - 3.3 What is a TTY —> 03-what-is-tty.md
@@ -15,3 +16,4 @@ sections:
   - 3.10 Controlling Terminal —> 10-controlling-terminal.md
   - 3.11 Process Groups —> 11-process-groups.md
   - 3.12 Putting Everything Together —> 12-everything-together.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

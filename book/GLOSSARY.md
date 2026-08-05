@@ -155,7 +155,40 @@ Volume I, Chapter 2
 - Standard Output
 - Kernel
 
+## Build System
+
+**Definition**
+
+A collection of tools and configuration files that automate the process of transforming source code into an executable program. The build system coordinates compilation of individual source files into object files, manages header dependencies, and invokes the linker to produce the final executable. It also supports incremental builds by recompiling only the files affected by recent changes, eliminating the need to manually compile each source file.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Object File
+- Linker
+- Incremental Build
+- CMake
+
 # C
+
+## CMake
+
+**Definition**
+
+A cross-platform build system adopted for this project that generates native build files (such as Makefiles or Ninja files) from a single project description. CMake supports Linux, macOS, Windows, and embedded platforms, scales from small educational projects to large production systems, and integrates with modern IDEs. The project's `CMakeLists.txt` file describes source files, compiler options, and build targets.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Build System
+- Object File
+- Incremental Build
 
 ## Canonical Mode
 
@@ -221,6 +254,22 @@ Volume I, Chapter 6
 - UTF-8
 - Character Encoding
 
+## Coding Standard
+
+**Definition**
+
+A consistent set of guidelines for writing source code that improves readability, reduces misunderstandings, and makes the entire codebase feel as though it was written by a single developer. Coding standards cover naming conventions, function size, use of `const`, avoidance of magic numbers, formatting style, and commenting practices—focusing on *why* rather than *what*.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Naming Convention
+- Information Hiding
+- Project Structure
+
 ## Command
 
 **Definition**
@@ -253,6 +302,23 @@ Volume II, Chapter 8
 - Editor State
 - Input Parser
 - File Manager
+
+## Common Module
+
+**Definition**
+
+A foundational module that provides shared type definitions, constants, enumerations, and utility macros needed by multiple independent feature modules. The common module (typically `common/` with a `common.h` header) eliminates duplication and reduces unnecessary inter-module dependencies by serving as shared infrastructure rather than shared behavior. It must remain carefully scoped to avoid becoming a dumping ground for unrelated code.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Module
+- Header File
+- Information Hiding
+- Separation of Concerns
 
 ## Console
 
@@ -726,7 +792,41 @@ Volume I, Chapter 2
 - Process
 - Main Memory
 
+## Header File
+
+**Definition**
+
+A file (`.h`) that declares the public interface of a module—including type definitions, function prototypes, constants, and enumerations—that other modules may use. Header files serve as a contract between modules: they describe what services are available and what each function requires, while deliberately excluding implementation details. Each header is protected by an include guard to prevent multiple inclusion during compilation.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Source File
+- Module
+- Include Guard
+- Forward Declaration
+- Information Hiding
+
 # I
+
+## Include Guard
+
+**Definition**
+
+A preprocessor construct (`#ifndef`, `#define`, `#endif`) placed at the top and bottom of a header file that prevents its contents from being processed more than once during compilation of a single translation unit. Without include guards, a header included multiple times—directly or transitively—would result in duplicate declaration errors.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Header File
+- Preprocessor
+- Forward Declaration
 
 ## Input Handler
 
@@ -772,6 +872,24 @@ Volume I, Chapter 6
 **Notes**
 
 The Input Handler (introduced in Volume III, Chapter 15) is the broader subsystem responsible for reading keyboard input and translating it into editor commands. The Input Parser is the specific byte-to-event translation layer within that subsystem.
+
+## Information Hiding
+
+**Definition**
+
+A design principle where a module exposes only the information that other modules genuinely require while concealing how it accomplishes its work internally. In C projects, information hiding is achieved by declaring public types and function prototypes in header files while keeping implementation details, private helper functions, and internal data structures confined to source files—often using the `static` keyword. Information hiding reduces coupling and allows implementations to change without affecting dependents.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Module
+- Header File
+- Source File
+- `static` (Internal Linkage)
+- Separation of Concerns
 
 ## Instruction Cycle
 
@@ -824,6 +942,22 @@ Volume II, Chapter 8
 - Architecture (Software Architecture)
 - Low Coupling
 - Module
+
+## Linker
+
+**Definition**
+
+The tool that combines multiple object files and libraries into a single executable program. The linker resolves symbol references (function calls and variable accesses) between separately compiled modules by matching each reference to its definition, producing a complete program that the operating system can load and execute.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Object File
+- Build System
+- Compilation
 
 ## Line Buffering
 
@@ -942,6 +1076,24 @@ Volume I, Chapter 6
 - Escape Character (ESC)
 - termios
 
+## Module
+
+**Definition**
+
+The fundamental organizational unit in a software project, consisting of a header file that declares the public interface and a source file that contains the implementation. Each module focuses on a single architectural responsibility—such as rendering, input handling, or document management—and communicates with other modules only through its declared public interface. Modules encapsulate implementation details and reduce coupling across the codebase.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Header File
+- Source File
+- Information Hiding
+- Separation of Concerns
+- Module Interface
+
 ## Monospaced Font
 
 **Definition**
@@ -976,7 +1128,44 @@ Volume II, Chapter 7
 - Software Requirements Specification (SRS)
 - Constraint
 
+# O
+
+## Object File
+
+**Definition**
+
+An intermediate file produced by compiling a single source file into machine code before it is linked into a final executable. Object files contain compiled code and references to symbols (functions and variables) whose addresses will be resolved during linking. They allow modular compilation so that only changed files need to be recompiled.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Linker
+- Build System
+- Source File
+- Incremental Build
+
 # P
+
+## Project Structure
+
+**Definition**
+
+The physical organization of a software project's source code into directories and files that mirrors the system architecture. Project structure determines where each architectural component lives in the codebase, how header and source files are organized, and how the build system locates and compiles the source tree. A well-designed project structure makes the architecture visible without reading a single line of implementation.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Architecture (Software Architecture)
+- Module
+- Header File
+- Source File
+- Build System
 
 ## Private Mode Sequence
 
@@ -1194,6 +1383,23 @@ Volume I, Chapter 4
 - Terminal Emulator
 - ANSI Escape Sequence
 
+## Separation of Concerns
+
+**Definition**
+
+A design principle that states each module in a software system should focus on a single, well-defined responsibility and avoid taking on tasks that belong elsewhere. Separation of concerns improves maintainability, readability, and scalability by ensuring that changes to one aspect of the system do not cascade through unrelated code. In a well-organized project, the directory structure and module boundaries reflect this principle.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Module
+- Information Hiding
+- Architecture (Software Architecture)
+- Low Coupling
+
 ## Scrollback Buffer
 
 **Definition**
@@ -1276,6 +1482,23 @@ Volume II, Chapter 7
 - Assumption
 - Use Case
 - Success Criteria
+
+## Source File
+
+**Definition**
+
+The implementation file (`.c`) within a module that contains the function bodies, internal helper functions, and private details of how the module performs its work. Source files translate the module's public interface—declared in the corresponding header file—into executable code. Internal functions and data marked `static` remain private to the source file and are not visible to other modules.
+
+**First Introduced**
+
+Volume II, Chapter 10
+
+**Related Terms**
+
+- Header File
+- Module
+- Information Hiding
+- Object File
 
 ## Stack
 

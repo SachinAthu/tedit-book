@@ -36,16 +36,7 @@ For example, consider the Renderer.
 
 In the architecture, the Renderer is responsible for generating the editor's visual output from the current Editor State.
 
-When implemented, this responsibility becomes a dedicated module:
-
-```text
-renderer/
-
-├── renderer.h
-└── renderer.c
-```
-
-The header file declares the services the Renderer provides, while the source file contains the implementation. Other parts of the editor interact with the Renderer through its public interface without needing to understand its internal implementation.
+When implemented, this responsibility becomes a dedicated module that exposes a public header and keeps its implementation private. Other parts of the editor interact with the Renderer through its public interface without needing to understand its internal details.
 
 The same principle applies to every major architectural component.
 

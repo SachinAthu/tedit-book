@@ -225,4 +225,4 @@ Professional software engineers often spend considerable time refining interface
 
 A module interface is the contract between a module and the rest of the system. It defines the services a module provides while hiding the implementation behind those services. By communicating exclusively through small, well-designed interfaces, modules remain independent, loosely coupled, and easier to maintain. This separation allows implementations to evolve without affecting other parts of the editor, preserving the modular architecture established throughout the previous chapters.
 
-In the next section, we will examine **dependency rules in practice** and see how disciplined module dependencies help maintain a clean, scalable, and maintainable codebase.
+In the next section, we will examine how shared types and common utilities are organized to reduce duplication and eliminate unnecessary dependencies between feature modules.

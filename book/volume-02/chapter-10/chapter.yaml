@@ -3,6 +3,7 @@ title: Project Structure
 volume: 2
 
 sections:
+  - Introduction —> 00-introduction.md
   - 10.1 Why Project Structure Matters —> 01-why-project-structure-matters.md
   - 10.2 Mapping Architecture to Source Code —> 02-mapping-architecture-to-source-code.md
   - 10.3 Directory Layout —> 03-directory-layout.md
@@ -15,3 +16,4 @@ sections:
   - 10.10 Coding Standards —> 10-coding-standards.md
   - 10.11 Project Structure —> 11-ref-project-structure.md
   - 10.12 Coding Standards —> 12-ref-coding-standards.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

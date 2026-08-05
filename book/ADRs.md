@@ -139,3 +139,47 @@ Reason:
 Follows the Single Responsibility Principle and improves maintainability.
 
 First referenced: Chapter 8
+
+# ADR-010
+
+Module-Based Directory Layout
+
+Decision:
+
+Organize the project into module directories — one per architectural component — with each module's header and source files co-located. Reject the alternative of grouping files by type (all headers in one directory, all sources in another), and reject a flat layout (all `.c` and `.h` files in a single directory).
+
+Reason:
+
+A module-based layout makes the architecture visible in the directory tree. Every architectural component from Chapter 8 becomes a physical directory whose name communicates its responsibility: `input/`, `renderer/`, `document/`, and so on. Co-locating each module's header and source file keeps its public interface and implementation together, making it easier to find, understand, and modify. A flat layout scales poorly as modules are added, and a file-type layout separates a module's interface from its implementation, requiring the developer to navigate two unrelated trees to understand one component.
+
+First referenced: Chapter 10
+
+# ADR-011
+
+Dedicated Common Module
+
+Decision:
+
+Create a `common/` directory with a `common.h` header for shared type definitions, constants, enumerations, and utility macros that are needed by multiple independent feature modules. Explicitly prohibit placing module-specific logic (document operations, rendering functions, cursor movement, file handling) into this module.
+
+Reason:
+
+Without a central shared module, definitions needed by multiple components would either be duplicated — leading to inconsistencies when one copy changes — or placed in an arbitrary module's header, creating an unnecessary dependency. The common module eliminates both problems by providing a single source of truth for genuinely shared infrastructure. The prohibition against module-specific logic prevents the common module from becoming a dumping ground that introduces the very coupling it is intended to eliminate.
+
+First referenced: Chapter 10
+
+# ADR-012
+
+CMake as Build System
+
+Decision:
+
+Use CMake as the project's build system rather than traditional Make, Meson, Ninja, Bazel, or hand-written build scripts.
+
+Reason:
+
+CMake provides cross-platform support (Linux, macOS, Windows, embedded platforms), scales from small educational projects to large production systems, integrates with modern IDEs, and generates native build files from a single project description. This allows the same `CMakeLists.txt` to describe the project regardless of the target platform, avoiding platform-specific build scripts. While CMake introduces its own configuration language, the investment in learning it is offset by eliminating the need to manually track dependencies, compiler flags, and incremental rebuilds as the project grows.
+
+Trade-off: CMake adds an external dependency and a configuration language to learn. For a single-file program, a compiler command would suffice. However, the editor will grow to multiple modules, each with their own source and header files, making manual compilation impractical. CMake is introduced early so that the build system scales with the project rather than being retrofitted later.
+
+First referenced: Chapter 10

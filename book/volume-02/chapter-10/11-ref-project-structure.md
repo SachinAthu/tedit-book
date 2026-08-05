@@ -38,7 +38,8 @@ editor/
 │   └── terminal.c
 │
 ├── common/
-│   └── common.h
+│   |── common.h
+│   └── common.c
 │
 ├── tests/
 ├── docs/
