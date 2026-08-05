@@ -1,0 +1,197 @@
+# 12.4 Designing the EditorState Structure
+
+Now that we have identified the information our editor must maintain and established that it should have a single source of truth, we can begin designing the **Editor State** itself.
+
+At this point, it is important to remember that we are still working at the architectural level. Our goal is **not** to define C structures or decide how every field will be implemented. Instead, we want to understand the major pieces that make up the editor's runtime state and how they relate to one another.
+
+Think of the Editor State as the top-level object that brings together all of the information required by the application.
+
+```text
+Editor State
+│
+├── Document
+├── Cursor
+├── Viewport
+├── Screen
+├── Current File
+├── Dirty Flag
+├── Status Message
+└── Configuration
+```
+
+Each item represents a distinct aspect of the editor's current condition. Together, they describe everything the application needs to continue an editing session.
+
+Notice that the Editor State does not replace these individual components. Instead, it **owns** them, collecting them into a single coherent structure that represents the entire application.
+
+## Thinking in Terms of Composition
+
+When designing software, complex objects are often built by combining smaller, specialized objects.
+
+For example, consider a car.
+
+```text
+Car
+│
+├── Engine
+├── Transmission
+├── Steering
+├── Brakes
+└── Wheels
+```
+
+A car is not a single, monolithic component. It is composed of several independent parts, each with its own responsibility.
+
+The Editor State follows the same principle.
+
+```text
+Editor State
+│
+├── Document
+├── Cursor
+├── Viewport
+├── Screen
+├── Current File
+├── Status Message
+└── Configuration
+```
+
+Each component focuses on one specific responsibility while the Editor State brings them together into a complete application.
+
+This approach is known as **composition**—building larger structures by combining smaller ones.
+
+## Why Not One Giant Structure?
+
+An alternative would be to place every piece of information directly into a single, enormous structure.
+
+For example:
+
+```text
+Editor State
+│
+├── line_count
+├── lines
+├── cursor_row
+├── cursor_column
+├── viewport_row
+├── viewport_column
+├── screen_rows
+├── screen_columns
+├── filename
+├── dirty
+├── status_message
+├── message_time
+├── tab_width
+├── ...
+```
+
+Although this technically works, it has several disadvantages.
+
+As the editor grows, the structure becomes increasingly difficult to understand. Related information becomes scattered among unrelated fields, making it harder to determine which data belongs together.
+
+For example:
+
+- Cursor-related fields become mixed with document data.
+- Screen information sits beside file information.
+- Configuration values become interspersed with runtime state.
+
+The result is a structure that lacks organization and becomes progressively harder to maintain.
+
+## Grouping Related Information
+
+A better design is to group related data into dedicated structures.
+
+Instead of storing every field individually, we organize them by responsibility.
+
+```text
+Editor State
+│
+├── Document
+│
+├── Cursor
+│
+├── Viewport
+│
+├── Screen
+│
+├── Current File
+│
+├── Status Message
+│
+└── Configuration
+```
+
+Each component now has a clearly defined purpose.
+
+For example:
+
+- **Document** contains everything related to editable text.
+- **Cursor** contains everything related to cursor movement.
+- **Viewport** describes which portion of the document is visible.
+- **Screen** stores information about the terminal window.
+- **Configuration** stores user-adjustable settings.
+
+Instead of one massive collection of unrelated fields, we now have several small, focused structures.
+
+This organization makes the system easier to understand because readers can examine one component at a time.
+
+## A High-Level View
+
+At this stage, we deliberately avoid discussing the internal details of each component.
+
+For example, we are **not** yet concerned with questions such as:
+
+- How should the document represent text?
+- How should the cursor store its position?
+- What information belongs in the viewport?
+- How should screen dimensions be represented?
+
+Each of these questions deserves its own discussion and will be explored in later chapters.
+
+For now, it is enough to understand that the Editor State acts as the container that holds all of these components together.
+
+```text
+                Editor State
+                      │
+      ┌───────────────┼───────────────┐
+      │               │               │
+      ▼               ▼               ▼
+  Document        Cursor         Viewport
+      │
+      ├───────────────┐
+      ▼               ▼
+ Current File     Dirty Flag
+
+      ▼
+   Renderer
+      ▲
+      │
+ Status Message
+
+      ▼
+Configuration
+```
+
+This diagram emphasizes that the Editor State is the central repository for the application's runtime information. Individual components remain distinct, but they are organized into a single cohesive model.
+
+## Preparing for the Next Chapters
+
+The Editor State serves as the highest level of our runtime model.
+
+The chapters that follow will gradually "zoom in" on each of its major components.
+
+For example:
+
+- Chapter 13 will explore how the **Document** should represent editable text.
+- Chapter 14 will examine how the **Cursor** moves through the document.
+- Chapter 15 will discuss how input events become editing commands.
+- Chapter 16 will explain how those commands modify the Editor State.
+
+By designing the Editor State first, we establish the framework into which every future component naturally fits.
+
+## Engineering Insight
+
+One of the hallmarks of good software architecture is **abstraction**. At higher levels of the design, we focus on how major components relate to one another rather than how each one is implemented internally. This allows us to understand the overall structure of the system without becoming distracted by implementation details. As we move through the remaining chapters, we will gradually replace these high-level boxes with concrete data structures and algorithms.
+
+## Summary
+
+The Editor State is the top-level representation of the editor's runtime state. Rather than storing every piece of information in a single, monolithic structure, it groups related information into smaller, focused components such as the Document, Cursor, Viewport, Screen, and Configuration. This compositional design improves clarity, maintainability, and extensibility while providing a solid architectural framework for the remainder of the editor. In the next section, we will examine each of these components individually and understand the role each one plays within the Editor State.

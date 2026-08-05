@@ -107,7 +107,6 @@ Design before writing code.
 
 Why:
 
-- vector\<string\>
 - Full redraw
 - Single document
 - No threads

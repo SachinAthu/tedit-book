@@ -1,0 +1,15 @@
+chapter: 12
+title: Editor State
+volume: 3
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 12.1 What Is Application State?  —> 01-application-state.md
+  - 12.2 Stateless vs Stateful Programs —> 02-stateless-vs-stateful.md
+  - 12.3 What Information Must Our Editor Remember? —> 03-what-editor-remember.md
+  - 12.4 Designing the EditorState Structure —> 04-designing-editorState-structure.md
+  - 12.5 Understanding Each Part —> 05-understanding-each-part.md
+  - 12.6 State Ownership —> 06-state-ownership.md
+  - 12.7 How State Changes During Editing —> 07-state-change-rendering.md
+  - 12.8 Designing for Growth —> 08-designing-for-growth.md
+  - Summary, Exercises, Next Chapter Preview —> 09-conclusion.md

@@ -72,7 +72,24 @@ Volume I, Chapter 4
 
 - Terminal Emulator
 - Cursor
-- Raw Mode
+  - Raw Mode
+
+## Application State
+
+**Definition**
+
+The collection of information that describes the current condition of a program at any given moment, including everything the program needs to know in order to continue operating correctly. Unlike data stored on disk, application state exists only while the program is executing and is continuously updated as the user interacts with the application.
+
+**First Introduced**
+
+Volume II, Chapter 12
+
+**Related Terms**
+
+- Editor State
+- Stateful Program
+- Stateless Program
+- Single Source of Truth
 
 ## Architecture (Software Architecture)
 
@@ -190,6 +207,23 @@ Volume II, Chapter 10
 - Object File
 - Incremental Build
 
+## Circular Dependency
+
+**Definition**
+
+A situation where two or more modules directly or indirectly depend on one another, forming a cycle in the dependency graph. Circular dependencies make a system harder to understand, test, and modify because a change in any module can cascade through the cycle in unexpected ways. In the editor's architecture, circular dependencies are prohibited — dependencies flow in one direction toward the Core Layer.
+
+**First Introduced**
+
+Volume II, Chapter 11
+
+**Related Terms**
+
+- Low Coupling
+- Layered Architecture
+- Module
+- One-Way Dependencies
+
 ## Canonical Mode
 
 **Definition**
@@ -301,7 +335,23 @@ Volume II, Chapter 8
 
 - Editor State
 - Input Parser
-- File Manager
+  - File Manager
+
+## Composition
+
+**Definition**
+
+An architectural pattern where complex objects are built by combining smaller, specialized components — each with its own clearly defined responsibility — rather than as a single monolithic structure. In the editor, the EditorState is composed of the Document, Cursor, Viewport, Screen, and Configuration, each contributing a distinct piece of the application's runtime state.
+
+**First Introduced**
+
+Volume II, Chapter 12
+
+**Related Terms**
+
+- Editor State
+- Separation of Concerns
+- Module
 
 ## Common Module
 
@@ -472,7 +522,23 @@ Volume II, Chapter 8
 
 - Architecture (Software Architecture)
 - Editor State
-- Event Loop
+  - Event Loop
+
+## Dirty Flag
+
+**Definition**
+
+A boolean value that records whether a document has been modified since it was last saved. The dirty flag is typically false when the document matches the file on disk and true when unsaved changes exist, allowing the editor to warn the user before exiting and to avoid unnecessary save operations.
+
+**First Introduced**
+
+Volume II, Chapter 12
+
+**Related Terms**
+
+- Document
+- Editor State
+- File Manager
 
 ## Document
 
@@ -827,6 +893,23 @@ Volume II, Chapter 10
 - Header File
 - Preprocessor
 - Forward Declaration
+
+## Incremental Rendering
+
+**Definition**
+
+A rendering strategy where only the portions of the screen that have changed since the previous frame are updated, rather than redrawing the entire display. Incremental rendering requires the renderer to track which regions are "dirty" and compute the minimal set of updates needed. While more efficient in terms of terminal output than a full redraw, it introduces additional complexity in tracking state changes and ensuring the display never becomes inconsistent.
+
+**First Introduced**
+
+Volume II, Chapter 11
+
+**Related Terms**
+
+- Full Redraw
+- Rendering Cycle
+- Frame
+- Renderer
 
 ## Input Handler
 
@@ -1592,7 +1675,38 @@ Volume I, Chapter 2
 **Related Terms**
 
 - Standard Input
-- Terminal
+  - Terminal
+
+## Stateful Program
+
+**Definition**
+
+A program that remains active and continuously responds to new events by updating its internal state. A stateful program's future behavior depends on its current condition — the same input can produce different results when the program's state differs. A text editor is a stateful program because every editing operation depends on the current document, cursor position, viewport, and other runtime information.
+
+**First Introduced**
+
+Volume II, Chapter 12
+
+**Related Terms**
+
+- Application State
+- Stateless Program
+- Editor State
+
+## Stateless Program
+
+**Definition**
+
+A program that performs a task using the information it receives, produces a result, and terminates without needing to remember anything afterward. Each execution is independent of previous runs and starts from the same initial state. Command-line utilities that take input, produce output, and exit are typically stateless.
+
+**First Introduced**
+
+Volume II, Chapter 12
+
+**Related Terms**
+
+- Application State
+- Stateful Program
 
 ## Success Criteria
 
@@ -1886,7 +2000,6 @@ The following concepts are expected to be added as the manuscript develops:
 - Message Bar
 - Immediate Mode Rendering
 - Retained Mode Rendering
-- Dirty Flag
 - Scroll Offset
 - Horizontal Scrolling
 - Vertical Scrolling
