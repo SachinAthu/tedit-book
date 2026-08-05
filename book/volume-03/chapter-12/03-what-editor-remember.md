@@ -182,6 +182,16 @@ Notice that every item in this list describes **the current condition of the edi
 
 These are not arbitrary choices. Together, they capture everything the editor needs to know to continue an editing session correctly from one event to the next.
 
+## Persistent and Transient State
+
+Not all state is created equal. Some pieces of information map to data that exists outside the editor, while others have meaning only during the editing session itself.
+
+**Persistent state** represents information that corresponds to data stored on disk. The **Document** is backed by a file, and the **Configuration** can be saved between sessions so that user preferences persist across launches. These components have a life beyond the current editor session — they describe information that may be written out and read back later.
+
+**Transient state** describes the editing session itself and has no meaning once the editor exits. The **Cursor** position, **Viewport**, **Dirty Flag**, **Status Message**, **Screen** dimensions, and **Current File** name all exist solely while the editor is running. They describe *where* the user is working, *what* is visible, *whether* changes are pending, and *how* the terminal is configured — information that is meaningful only within the context of an active editing session.
+
+Understanding this distinction clarifies why not all of the Editor State is saved when the user writes a file. Saving captures the document's contents, but the cursor position, viewport, and status message remain in memory — they are part of the editing experience, not the document itself.
+
 ## Engineering Insight
 
 It is tempting to think of a text editor as "just a document with a cursor." In reality, the document is only one part of the application's state. Features such as scrolling, status messages, terminal resizing, and file management all require additional information that exists independently of the document itself. Recognizing these distinct responsibilities early leads to a cleaner and more maintainable architecture.

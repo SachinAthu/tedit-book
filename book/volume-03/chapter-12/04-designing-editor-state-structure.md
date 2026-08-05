@@ -103,73 +103,9 @@ Editor State
 └── Configuration
 ```
 
-Each component now has a clearly defined purpose.
+Each component now has a clearly defined purpose. We will examine each of these components individually in the next section.
 
-For example:
-
-- **Document** contains everything related to editable text.
-- **Cursor** contains everything related to cursor movement.
-- **Viewport** describes which portion of the document is visible.
-- **Screen** stores information about the terminal window.
-- **Configuration** stores user-adjustable settings.
-
-Instead of one massive collection of unrelated fields, we now have several small, focused structures.
-
-This organization makes the system easier to understand because readers can examine one component at a time.
-
-## A High-Level View
-
-At this stage, we deliberately avoid discussing the internal details of each component.
-
-For example, we are **not** yet concerned with questions such as:
-
-- How should the document represent text?
-- How should the cursor store its position?
-- What information belongs in the viewport?
-- How should screen dimensions be represented?
-
-Each of these questions deserves its own discussion and will be explored in later chapters.
-
-For now, it is enough to understand that the Editor State acts as the container that holds all of these components together.
-
-```text
-                Editor State
-                      │
-      ┌───────────────┼───────────────┐
-      │               │               │
-      ▼               ▼               ▼
-  Document        Cursor         Viewport
-      │
-      ├───────────────┐
-      ▼               ▼
- Current File     Dirty Flag
-
-      ▼
-   Renderer
-      ▲
-      │
- Status Message
-
-      ▼
-Configuration
-```
-
-This diagram emphasizes that the Editor State is the central repository for the application's runtime information. Individual components remain distinct, but they are organized into a single cohesive model.
-
-## Preparing for the Next Chapters
-
-The Editor State serves as the highest level of our runtime model.
-
-The chapters that follow will gradually "zoom in" on each of its major components.
-
-For example:
-
-- Chapter 13 will explore how the **Document** should represent editable text.
-- Chapter 14 will examine how the **Cursor** moves through the document.
-- Chapter 15 will discuss how input events become editing commands.
-- Chapter 16 will explain how those commands modify the Editor State.
-
-By designing the Editor State first, we establish the framework into which every future component naturally fits.
+Instead of one massive collection of unrelated fields, we now have several small, focused structures. This organization makes the system easier to understand because readers can examine one component at a time.
 
 ## Engineering Insight
 
