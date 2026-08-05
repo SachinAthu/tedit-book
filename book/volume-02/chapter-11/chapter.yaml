@@ -1,0 +1,21 @@
+chapter: 11
+title: Design Decisions
+volume: 2
+
+sections:
+  - Introduction
+  - 11.1 How Engineers Make Design Decisions
+  - 11.2 Decision 1 — Implement the Editor in C
+  - 11.3 Decision 2 — Use a Full-Screen Redraw Renderer
+  - 11.4 Decision 3 — Use Raw Terminal Mode
+  - 11.5 Decision 4 — Separate Input Parsing from Commands
+  - 11.6 Decision 5 — Use a Layered Architecture
+  - 11.7 Decision 6 — Centralize the Editor State
+  - 11.8 Decision 7 — Give Every Component One Responsibility
+  - 11.9 Decision 8 — Enforce One-Way Dependencies
+  - 11.10 Decision 9 — Organize the Project by Modules
+  - 11.11 Decision 10 — Create a Dedicated Common Module
+  - 11.12 Decision 11 — Use CMake
+  - 11.13 Decisions We Intentionally Deferred
+  - 11.14 Design Principles to Remember
+  - Summary, Exercises, Next Chapter Preview
