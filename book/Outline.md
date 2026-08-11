@@ -137,7 +137,6 @@ Tradeoffs.
   - Gap Buffer
   - Piece Table
   - Rope
-- Comparison.
 
 ## **Chapter 14 — Cursor Engine**
 

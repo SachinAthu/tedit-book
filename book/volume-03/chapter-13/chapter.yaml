@@ -1,0 +1,17 @@
+chapter: 13
+title: Document Model
+volume: 3
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 13.1 What Is a Document? —> 01-what-is-a-document.md
+  - 13.2 Why Not Edit the File Directly? —> 02-why-not-edit-the-file-directly.md
+  - 13.3 Responsibilities of the Document —> 03-responsibilities-of-the-document.md
+  - 13.4 What Operations Must a Document Support? —> 04-what-operations-must-a-document-support.md
+  - 13.5 Possible Ways to Represent Text —> 05-possible-ways-to-represent-text.md
+  - 13.6 Option 1 — A Single String —> 06-option-single-string.md
+  - 13.7 Option 2 — A Vector of Lines —> 07-option-vector-of-lines.md
+  - 13.8 Option 3 — Gap Buffer —> 08-option-gap-buffer.md
+  - 13.9 Option 4 — Piece Table —> 09-option-piece-table.md
+  - 13.10 Option 5 — Rope —> 10-option-rope.md
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md

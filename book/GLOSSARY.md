@@ -808,6 +808,27 @@ Volume II, Chapter 7
 
 # G
 
+## Gap Buffer
+
+**Definition**
+
+A text representation that stores the document as a contiguous character sequence while reserving an empty region—the gap—at the current editing position. Characters are inserted into the gap, and the gap is moved when the cursor moves, so repeated edits near the same position avoid shifting the entire document. The gap must be moved and resized as needed, adding implementation complexity.
+
+**First Introduced**
+
+Volume III, Chapter 13
+
+**Related Terms**
+
+- Vector of Lines
+- Piece Table
+- Rope
+- Text Buffer
+
+**Notes**
+
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 27.
+
 ## Glyph
 
 **Definition**
@@ -1250,6 +1271,27 @@ Volume II, Chapter 10
 - Source File
 - Build System
 
+## Piece Table
+
+**Definition**
+
+A text representation that keeps the document's text in one or more underlying buffers and represents the current document as an ordered sequence of pieces, each referring to a portion of a buffer. Editing operations record new pieces rather than rewriting existing text, which can make insertions and deletions efficient while preserving the original document data. The added indirection makes the representation more complex than storing text directly.
+
+**First Introduced**
+
+Volume III, Chapter 13
+
+**Related Terms**
+
+- Gap Buffer
+- Vector of Lines
+- Rope
+- Text Buffer
+
+**Notes**
+
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
+
 ## Private Mode Sequence
 
 **Definition**
@@ -1349,6 +1391,27 @@ Volume I, Chapter 3
 - Virtual Console
 
 # R
+
+## Rope
+
+**Definition**
+
+A text representation that organizes a document as a tree of text fragments rather than as one large contiguous sequence. Each leaf holds a portion of the document, and the tree structure allows the editor to locate and modify regions without moving the entire document, which scales well to very large files. The editor must maintain and balance the tree, making ropes more complex to implement than a vector of lines.
+
+**First Introduced**
+
+Volume III, Chapter 13
+
+**Related Terms**
+
+- Gap Buffer
+- Piece Table
+- Vector of Lines
+- Text Buffer
+
+**Notes**
+
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 29.
 
 ## Raw Mode
 
@@ -1932,6 +1995,24 @@ Volume I, Chapter 3
 - Teletype
 - Terminal Emulator
 
+## Vector of Lines
+
+**Definition**
+
+The document representation adopted by our editor, in which a document is stored as a collection of independently stored text lines, each holding its own sequence of characters. This model matches the user's line-oriented mental model of text and makes operations such as splitting, merging, rendering, and cursor positioning natural, while keeping implementation simple. Character edits still shift characters within a single line, so very long lines can be costly to edit.
+
+**First Introduced**
+
+Volume III, Chapter 13
+
+**Related Terms**
+
+- Document
+- Text Buffer
+- Gap Buffer
+- Piece Table
+- Rope
+
 ## Viewport
 
 **Definition**
@@ -1993,9 +2074,6 @@ Project Documentation
 
 The following concepts are expected to be added as the manuscript develops:
 
-- Gap Buffer
-- Piece Table
-- Rope
 - Status Bar
 - Message Bar
 - Immediate Mode Rendering

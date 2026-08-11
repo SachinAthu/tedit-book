@@ -183,3 +183,21 @@ CMake provides cross-platform support (Linux, macOS, Windows, embedded platforms
 Trade-off: CMake adds an external dependency and a configuration language to learn. For a single-file program, a compiler command would suffice. However, the editor will grow to multiple modules, each with their own source and header files, making manual compilation impractical. CMake is introduced early so that the build system scales with the project rather than being retrofitted later.
 
 First referenced: Chapter 10
+
+---
+
+# ADR-013
+
+Document Representation
+
+Decision:
+
+Represent the document in memory as a **vector of lines** — a collection of independently stored text lines, each holding its own sequence of characters — rather than a single string, a gap buffer, a piece table, or a rope.
+
+Reason:
+
+A text editor constantly works with lines: the cursor has a row and column, the renderer draws one line at a time, pressing Enter splits a line, and Backspace at the start of a line merges it with the previous one. A vector of lines maps these concepts directly onto the data structure, making line operations natural and easy to reason about. It is simple to visualize and debug, matches the cursor's row/column model and the renderer's line-by-line output, and is consistent with the project's requirements, which prioritize simplicity, readability, and educational value over advanced optimization. More sophisticated representations such as gap buffers, piece tables, and ropes offer better performance for certain workloads but hide the text behind additional layers of machinery that are unnecessary for this editor's scope.
+
+Trade-off: The vector of lines does not eliminate the fundamental cost of editing contiguous character sequences. Character insertions and deletions still shift memory within the affected line, so very long lines can be costly to edit, and inserting or deleting lines can require changes to the underlying collection. These limitations are acceptable for the documents our editor is designed to handle. Because the Document's responsibility is well defined (owning the text and nothing else), the representation can be replaced later without changing the higher-level architecture.
+
+First referenced: Chapter 13
