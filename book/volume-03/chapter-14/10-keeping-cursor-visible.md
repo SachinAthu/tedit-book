@@ -106,3 +106,17 @@ The result is an important invariant for the user interface:
 > **After navigation and viewport adjustment are complete, the logical Cursor should always have a corresponding visible screen position.**
 
 This invariant will become especially important when the Renderer and scrolling system are implemented later in the book.
+
+## Summary
+
+Keeping the Cursor visible is a Viewport responsibility, not a Cursor or Renderer responsibility.
+
+To summarize what we covered:
+
+- A valid logical Cursor is not necessarily a visible Cursor.
+- When the Cursor moves outside the visible region, the Viewport moves to follow it.
+- The rule is simple: move the Viewport up if the Cursor is above the visible region, down if it is below, and leave it unchanged if the Cursor is already visible.
+- Horizontal scrolling follows the same principle for the horizontal offset.
+- The resulting invariant: after navigation and viewport adjustment, the logical Cursor always has a corresponding visible screen position.
+
+Continue to the **Chapter Summary**, which consolidates these rules into a single behavioral contract for the Cursor, followed by exercises and a preview of the next chapter.

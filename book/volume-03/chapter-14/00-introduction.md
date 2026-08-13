@@ -82,7 +82,7 @@ The Cursor Engine therefore sits at an important boundary between the Document, 
 
 This chapter will develop the rules behind that system before we implement them. We will examine horizontal and vertical movement, cursor boundaries, the preferred column, and the relationship between the logical cursor and the Viewport.
 
-The goal is not simply to make the arrow keys work. The goal is to establish a **predictable and well-defined cursor model** that the Input Engine and Command Engine can use later.
+The goal is not simply to make the arrow keys work. The goal is to establish a **predictable and well-defined cursor model** that the Input Handler and Command Engine can use later.
 
 That distinction is important because the runtime architecture separates input, commands, state updates, and rendering:
 

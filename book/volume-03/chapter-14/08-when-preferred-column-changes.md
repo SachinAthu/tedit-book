@@ -78,12 +78,12 @@ current_column
 For example:
 
 ```text
-Line 1: 01234567890123456789
-                         ^
+Line 1: 012345678901234567890
+                            ^
 Line 2: 012
-           ^
-Line 3: 01234567890123456789
-                         ^
+          ^
+Line 3: 012345678901234567890
+                            ^
 ```
 
 The cursor's actual column changes while passing through the short line, but the preferred column remains constant.
@@ -197,8 +197,6 @@ This gives the Cursor a simple and predictable model:
 ```
 
 The preferred column is therefore not a second cursor position. It is a piece of navigation state that records the horizontal position the user intends to maintain while moving vertically.
-
-With these rules established, the Cursor can now move through the Document without violating its fundamental invariants. The next step is to examine those boundaries explicitly and determine exactly where the Cursor is allowed to exist.
 
 ## Summary
 

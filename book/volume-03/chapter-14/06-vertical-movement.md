@@ -569,8 +569,6 @@ Clamp       Use preferred
 
 This gives us a robust starting point, but the preferred-column mechanism deserves closer examination. Without it, vertical navigation through lines of different lengths would feel inconsistent.
 
-The next section will therefore focus specifically on **the short-line problem and how the preferred column preserves the user's intended horizontal position during vertical movement**.
-
 ## Summary
 
 Vertical movement changes the Cursor's **row** and therefore moves it between lines.

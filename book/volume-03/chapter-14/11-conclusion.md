@@ -27,15 +27,16 @@ These rules form the behavioral contract that the Cursor implementation will lat
 
 ### Review Questions
 
-- What is the difference between a logical cursor and a terminal cursor?
-- Why are there potentially six cursor positions in a five-character line?
-- Why is preferred column necessary?
-- Why shouldn't the Renderer own cursor movement?
-- Why must cursor coordinates be validated?
+1. What is the difference between a logical cursor and a terminal cursor?
+2. Why are there potentially six cursor positions in a five-character line?
+3. Why is a preferred column necessary for vertical movement?
+4. Why shouldn't the Renderer own cursor movement?
+5. Why must cursor coordinates be validated?
+6. Why does horizontal movement update the preferred column while vertical movement preserves it?
 
 ### Thought Experiments
 
-Give the reader examples such as:
+1. Given the document:
 
 ```text
 Hello
@@ -43,13 +44,15 @@ Hi
 Hello World
 ```
 
-and ask them to determine the cursor position after a sequence of `Down`, `Down`, `Up`, `Right`, etc.
+starting with the cursor at the beginning of the first line (`row = 0`, `column = 0`) and a preferred column of `0`, determine the cursor's `row` and `column` after each step of the sequence `Down`, `Down`, `Right`, `Right`, `Up`, `Down`, `Down`. For each step, state the resulting `current_column` and `preferred_column`.
+
+2. Suppose the user holds the Down key to scroll through a document in which every second line is short. Explain why clamping alone — without a preferred column — causes the cursor to drift left and "stick" to the ends of the short lines. Then describe what a well-behaved editor should do instead.
+
+3. A line of five characters offers six valid cursor positions. Where does the sixth position come from, and why does the editor need it even though there is no character there?
 
 ### Design Exercise
 
-Ask the reader to define the invariants that must always be true for a valid `Cursor`.
-
-This fits the book's goal of developing independent understanding rather than simply reproducing implementation.
+1. Write down the invariants that must always be true for a valid `Cursor`. For each invariant, identify one user action that could violate it if the Cursor Engine did not enforce the rule, and explain how the movement logic preserves it.
 
 ## Common Mistakes
 
@@ -65,4 +68,4 @@ This fits the book's goal of developing independent understanding rather than si
 
 ## Preview of the Next Chapter
 
-The next chapter moves from **where the user is positioned** to **how the editor understands what the user wants to do**. Chapter 15 introduces the **Input Engine**, which receives raw terminal input and transforms it into meaningful key events that the rest of the editor can understand. We will examine input events, key mapping, escape sequences, and the boundary between low-level terminal input and higher-level editor commands. By the end of the chapter, the input path will be clearly separated from the Cursor and Command Engine, completing another important boundary in the editor's architecture.
+The next chapter moves from **where the user is positioned** to **how the editor understands what the user wants to do**. Chapter 15 introduces the **Input Handler**, which receives raw terminal input and transforms it into meaningful key events that the rest of the editor can understand. We will examine input events, key mapping, escape sequences, and the boundary between low-level terminal input and higher-level editor commands. By the end of the chapter, the input path will be clearly separated from the Cursor and Command Engine, completing another important boundary in the editor's architecture.

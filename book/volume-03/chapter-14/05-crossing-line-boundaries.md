@@ -526,4 +526,4 @@ We can now state our line-boundary rules clearly:
 
 The Cursor Engine therefore treats each line as a distinct horizontal space.
 
-With this rule established, we can now examine the other major direction of Cursor movement: **vertical movement**, where line length introduces a much more interesting problem.
+Continue to **Section 14.6, Vertical Movement**, which examines the other major direction of movement, where differing line lengths introduce a much more interesting problem.

@@ -450,4 +450,4 @@ Long line
 Continue vertically
 ```
 
-The next question is therefore not what the preferred column does, but **when it should change**. If every Cursor movement modified it, vertical navigation would lose the very behavior that the preferred column was introduced to provide.
+Continue to **Section 14.8, When Preferred Column Changes**, which examines when the preferred column should change. If every movement modified it, vertical navigation would lose the very behavior it was introduced to provide.

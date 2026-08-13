@@ -163,8 +163,8 @@ We can visualize the coordinates as:
 
 ```text
           columns
-       0 1 2 3 4 5
-       ↓ ↓ ↓ ↓ ↓ ↓
+       0 1 2 3 4 5 6
+       ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
 row 0  H e l l o |
 row 1  W o r l d |

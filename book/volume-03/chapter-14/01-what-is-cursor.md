@@ -222,7 +222,7 @@ This invariant will guide every movement operation we design throughout this cha
 
 The Cursor does not exist independently of the editor.
 
-It is part of the larger `Editor State`:
+It is part of the larger `EditorState`:
 
 ```text
 EditorState
@@ -236,7 +236,7 @@ EditorState
 └── ...
 ```
 
-`Editor State` remains the application's single source of truth. The Cursor is the component responsible for the meaning and behavior of cursor-related state. This distinction allows the rest of the system to interact with the cursor without taking ownership of its rules.
+`EditorState` remains the application's single source of truth. The Cursor is the component responsible for the meaning and behavior of cursor-related state. This distinction allows the rest of the system to interact with the cursor without taking ownership of its rules.
 
 For example:
 
@@ -256,7 +256,7 @@ Editor State
 Renderer
 ```
 
-The Input Engine will eventually tell the system that the user pressed an arrow key. The Command Engine will decide that this means a cursor movement operation. The Cursor will then apply the movement rules. Finally, the Renderer will display the resulting position.
+The Input Handler will eventually tell the system that the user pressed an arrow key. The Command Engine will decide that this means a cursor movement operation. The Cursor will then apply the movement rules. Finally, the Renderer will display the resulting position.
 
 This separation gives us a clean architecture:
 

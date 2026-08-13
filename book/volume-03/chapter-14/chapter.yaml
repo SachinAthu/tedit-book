@@ -5,7 +5,7 @@ volume: 3
 sections:
   - Introduction —> 00-introduction.md
   - 14.1 What Is the Cursor? —> 01-what-is-cursor.md
-  - 14.2 Cursor Coordinates —> 02-cursor-cordinates.md
+  - 14.2 Cursor Coordinates —> 02-cursor-coordinates.md
   - 14.3 Cursor Position vs Character Position —> 03-cursor-vs-character-position.md
   - 14.4 Horizontal Movement —> 04-horizontal-movement.md
   - 14.5 Crossing Line Boundaries —> 05-crossing-line-boundaries.md

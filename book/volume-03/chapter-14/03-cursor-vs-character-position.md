@@ -520,4 +520,4 @@ This distinction gives us a clean foundation for:
 
 We will use this model throughout the rest of the book.
 
-With the meaning of a Cursor position now established, we can move on to the first actual movement operation: **moving the Cursor horizontally from left to right and right to left within a line**.
+Continue to **Section 14.4, Horizontal Movement**, which examines the first actual movement operation: moving the Cursor left and right within a line.

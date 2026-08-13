@@ -542,8 +542,6 @@ In simplified form:
 
 These rules are deliberately small. Good cursor design does not require complicated movement logic for the simplest operations. Complexity appears when we move between lines, particularly when lines have different lengths.
 
-That is the problem we will address next when we examine **vertical movement**.
-
 ## Summary
 
 Horizontal movement is the simplest Cursor operation: Left and Right shift the column within the current line while the row stays fixed.
