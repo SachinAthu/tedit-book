@@ -308,7 +308,7 @@ Volume II, Chapter 10
 
 **Definition**
 
-An instruction expressing an editing operation the editor should perform — such as inserting a character, moving the cursor, saving the document, or resizing the viewport. Unlike an event, which describes what happened, a command describes what the editor should do in response to an event. The mapping from events to commands is performed by the Command Engine.
+An instruction expressing an editing operation the editor should perform — such as inserting a character, moving the cursor, saving the document, or resizing the viewport. Unlike an event, which describes what happened, a command describes what the editor should do in response to an event. The mapping from events to commands is performed by the Input Engine.
 
 **First Introduced**
 
@@ -318,6 +318,7 @@ Volume II, Chapter 9
 
 - Event
 - Event Loop
+- Input Engine
 - Command Engine
 - Editor State
 
@@ -325,7 +326,7 @@ Volume II, Chapter 9
 
 **Definition**
 
-The component responsible for executing editor operations in response to parsed key events. The Command Engine determines which editing operation should be performed (such as inserting a character, deleting text, moving the cursor, or saving the document) and coordinates the resulting state changes through the Editor State.
+The component responsible for executing editor commands. The Command Engine receives a command dispatched by the Input Engine, determines how that command should change the editor (such as inserting a character, deleting text, moving the cursor, or saving the document), and coordinates the resulting state changes through the Editor State.
 
 **First Introduced**
 
@@ -333,9 +334,10 @@ Volume II, Chapter 8
 
 **Related Terms**
 
+- Input Engine
+- Command
 - Editor State
-- Input Parser
-  - File Manager
+- File Manager
 
 ## Composition
 
@@ -513,7 +515,7 @@ Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapte
 
 **Definition**
 
-The predictable path that information follows through a software system as it responds to user actions. In the editor, data flow describes how a key press moves from the keyboard through the Input Handler, Input Parser, Command Engine, and Editor State, and finally to the Renderer and Terminal Display.
+The predictable path that information follows through a software system as it responds to user actions. In the editor, data flow describes how a key press moves from the keyboard through the Input Handler, Input Parser, Input Engine, Command Engine, and Editor State, and finally to the Renderer and Terminal Display.
 
 **First Introduced**
 
@@ -933,13 +935,13 @@ Volume II, Chapter 11
 - Frame
 - Renderer
 
-## Input Handler
+## Input Engine
 
 **Definition**
 
-The subsystem responsible for reading keyboard input and translating it into editor commands.
+The component responsible for translating abstract key events into editor commands and dispatching those commands to the Command Engine.
 
-It does not directly modify the document.
+It does not read raw terminal bytes, parse escape sequences, or modify the Document. It determines which command an input event represents and passes that command along for execution.
 
 **First Introduced**
 
@@ -947,21 +949,45 @@ Volume III, Chapter 15
 
 **Related Terms**
 
+- Input Handler
 - Input Parser
+- Command Engine
+- Editor State
+
+**Notes**
+
+The Input Engine is the third of three input stages. The Input Handler reads raw bytes, the Input Parser translates those bytes into key events, and the Input Engine maps those events to editor commands. Command execution itself belongs to the Command Engine.
+
+## Input Handler
+
+**Definition**
+
+The component responsible for reading raw keyboard input from the terminal.
+
+It does not interpret escape sequences, map events to commands, or directly modify the document.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Input Parser
+- Input Engine
 - Command Engine
 - Event Loop
 
 **Notes**
 
-Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 15.
+Architectural overview: Volume II, Chapter 8.
 
-The Input Handler is the broader subsystem. The Input Parser (introduced in Volume I, Chapter 6) is the specific byte-to-event translation layer within that subsystem.
+The Input Handler is the first of three input stages. It reads raw bytes; the Input Parser (introduced in Volume I, Chapter 6) translates those bytes into key events; the Input Engine (introduced in Volume III, Chapter 15) maps those events to editor commands.
 
 ## Input Parser
 
 **Definition**
 
-The component within the Input Handler responsible for translating a raw byte stream from the terminal into abstract key events. The parser examines incoming bytes, recognizes patterns such as escape sequences and multi-byte UTF-8 characters, and produces structured events (e.g., `KEY_ARROW_UP`, `KEY_CTRL_S`) that the rest of the editor can consume without knowledge of terminal protocols.
+The component responsible for translating the raw byte stream received by the Input Handler into abstract key events. The parser examines incoming bytes, recognizes patterns such as escape sequences and multi-byte UTF-8 characters, and produces structured events (e.g., `KEY_ARROW_UP`, `KEY_CTRL_S`) that the rest of the editor can consume without knowledge of terminal protocols.
 
 **First Introduced**
 
@@ -970,13 +996,14 @@ Volume I, Chapter 6
 **Related Terms**
 
 - Input Handler
+- Input Engine
 - Input Parsing
 - Escape Character (ESC)
 - Lookahead
 
 **Notes**
 
-The Input Handler (introduced in Volume III, Chapter 15) is the broader subsystem responsible for reading keyboard input and translating it into editor commands. The Input Parser is the specific byte-to-event translation layer within that subsystem.
+The Input Parser is the middle of three input stages. The Input Handler (introduced in Volume II, Chapter 8) reads raw bytes; the Input Parser translates those bytes into key events; the Input Engine (introduced in Volume III, Chapter 15) maps those events to editor commands.
 
 ## Information Hiding
 
@@ -1029,6 +1056,61 @@ Volume I, Chapter 6
 - Character Encoding
 - Modifier Key
 - Escape Character (ESC)
+
+## Key Binding
+
+**Definition**
+
+The association between an input event and the editor command it triggers. A key binding records which command a given key combination represents; it is the responsibility of the Input Engine to recognize the event and map it to the command, while execution belongs to the Command Engine.
+
+**First Introduced**
+
+Volume III, Chapter 15
+
+**Related Terms**
+
+- Keyboard Shortcut
+- Key Event
+- Input Engine
+- Command
+
+## Key Event
+
+**Definition**
+
+A structured, editor-level representation of a single piece of user input, produced by the Input Parser from raw terminal bytes. A key event describes what was entered (for example, `KEY_ARROW_LEFT`, `KEY_BACKSPACE`, or `KEY_CHARACTER('a')`) rather than how the terminal encoded it, so higher layers can process input without knowledge of terminal protocols.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Input Parser
+- Input Engine
+- Event
+- Command
+
+**Notes**
+
+Key events are also called input events. They form a contract between the Input Parser, which produces them, and the Input Engine, which maps them to commands.
+
+## Keyboard Shortcut
+
+**Definition**
+
+A key combination (such as Ctrl+S or Ctrl+Q) that has been bound to an editor command. A keyboard shortcut is a binding between an input event and a command, not the operation itself: changing the binding changes how the command is triggered without changing what the command does.
+
+**First Introduced**
+
+Volume III, Chapter 15
+
+**Related Terms**
+
+- Key Binding
+- Key Event
+- Command
+- Input Engine
 
 # L
 

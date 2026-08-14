@@ -41,6 +41,8 @@ The Input Engine's responsibilities can now be expressed as a concise contract, 
 
 This contract gives the reader a precise boundary before entering Chapter 16.
 
+The central design choice — introducing a dedicated Input Engine that maps events to commands rather than assigning that work to the Input Parser or the Command Engine — is recorded as **ADR-015: Input Engine**.
+
 ## Exercises
 
 ### Review Questions

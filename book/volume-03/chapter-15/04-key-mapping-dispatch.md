@@ -248,10 +248,10 @@ A more data-driven approach is to store mappings in a table:
 +------------------+----------------------+
 | KEY_ARROW_LEFT   | MOVE_CURSOR_LEFT     |
 | KEY_ARROW_RIGHT  | MOVE_CURSOR_RIGHT    |
-| KEY_BACKSPACE    | DELETE_PREVIOUS_CHAR |
-| KEY_ENTER        | SPLIT_LINE           |
-| KEY_CTRL_S       | SAVE_DOCUMENT        |
-| KEY_CTRL_Q       | QUIT_EDITOR          |
+| KEY_BACKSPACE    | DELETE_PREVIOUS_CHARACTER |
+| KEY_ENTER        | SPLIT_LINE               |
+| KEY_CTRL_S       | SAVE_DOCUMENT            |
+| KEY_CTRL_Q       | QUIT_EDITOR              |
 +------------------+----------------------+
 ```
 

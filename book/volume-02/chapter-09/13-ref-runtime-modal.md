@@ -65,6 +65,9 @@ Input Handler
 Input Parser
     │
     ▼
+Input Engine
+    │
+    ▼
 Command Engine
     │
     ▼
@@ -83,6 +86,7 @@ Component responsibilities:
 | -------------- | ------------------------------------------ |
 | Input Handler  | Read raw terminal input                    |
 | Input Parser   | Convert raw bytes into abstract key events |
+| Input Engine   | Map key events to editor commands          |
 | Command Engine | Execute editor commands                    |
 | Editor State   | Single source of truth                     |
 | Renderer       | Produce the visual frame                   |

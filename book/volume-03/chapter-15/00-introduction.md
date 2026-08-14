@@ -87,7 +87,7 @@ Command Execution
 Editor State
 ```
 
-The architecture defined earlier already establishes this separation between input processing, command execution, and editor state. The Input Engine makes that boundary concrete without introducing another source of editor state or duplicating responsibilities that belong to the Command Engine.
+The architecture defined earlier already separates input processing, command execution, and editor state, with parsed key events flowing from the Input Handler through the Input Parser to the Command Engine. This chapter introduces the **Input Engine** as a dedicated component between the Input Parser and the Command Engine, making that boundary explicit without introducing another source of editor state or duplicating responsibilities that belong to the Command Engine.
 
 The goal of this chapter is therefore not to teach keyboard input again. Instead, it is to understand how a clean editor turns **what the user pressed** into **what the editor should attempt to do**.
 

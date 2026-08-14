@@ -255,3 +255,5 @@ Its value comes primarily from maintaining a clean boundary between terminal inp
 The Input Engine is intentionally simple: key dispatch is effectively `O(1)`, memory use is minimal, and performance is not the primary concern. The real trade-off is between simple fixed mappings and future configurability, and the baseline editor chooses the middle ground — a dedicated component with a straightforward implementation.
 
 The Input Engine demonstrates that a well-designed component does not need sophisticated algorithms. Its value comes from maintaining a clean boundary between terminal input and editor behavior.
+
+Continue to the **Chapter Summary**, which consolidates the Input Engine's responsibilities into a single contract, followed by exercises and a preview of the next chapter.

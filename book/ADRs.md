@@ -219,3 +219,21 @@ Text documents have lines of different lengths, so the cursor cannot naively pre
 Trade-off: The preferred column is additional navigation state that must be kept consistent — horizontal movement establishes it, vertical movement preserves it, and editing operations define their own effect on it. This is more complex than tracking a single column, but it is what makes vertical navigation through lines of different lengths behave predictably.
 
 First referenced: Chapter 14
+
+---
+
+# ADR-015
+
+Input Engine
+
+Decision:
+
+Introduce a dedicated Input Engine component between the Input Parser and the Command Engine. The Input Engine maps abstract key events to editor commands and dispatches those commands for execution, without reading raw terminal bytes, parsing escape sequences, or modifying the Document.
+
+Reason:
+
+The Input Parser understands terminal input, and the Command Engine understands how to execute editor operations. Deciding which command a key event represents is a third, distinct responsibility. Folding it into the Input Parser would couple terminal-specific parsing to editor-specific commands; folding it into the Command Engine would couple command execution to the keyboard layout. A dedicated Input Engine completes the input pipeline as three clean stages — read bytes (Input Handler), parse into events (Input Parser), map to commands (Input Engine) — giving each stage one responsibility. It also keeps commands independent of the keys that trigger them: a shortcut is a binding between an input event and a command, so bindings can change (including future configurable shortcuts) without changing the commands themselves.
+
+Trade-off: The Input Engine adds one component and one boundary to the architecture for a mapping that a small editor could perform with a simple `switch` statement. That structural cost is accepted because the boundary — separating input from behavior — is what keeps input handling from accumulating document, cursor, and file responsibilities as the editor grows.
+
+First referenced: Chapter 15

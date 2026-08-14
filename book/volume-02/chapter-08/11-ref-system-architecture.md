@@ -14,14 +14,19 @@
           +------------------+
                    │
                    ▼
-          +------------------+
-          |   Input Parser   |
-          +------------------+
-                   │
-                   ▼
-          +------------------+
-          | Command Engine   |
-          +------------------+
+           +------------------+
+           |   Input Parser   |
+           +------------------+
+                    │
+                    ▼
+           +------------------+
+           |   Input Engine   |
+           +------------------+
+                    │
+                    ▼
+           +------------------+
+           | Command Engine   |
+           +------------------+
                    │
                    ▼
           +------------------+
@@ -42,17 +47,18 @@
 
 The editor is organized into three logical layers. Dependencies flow inward toward the Core Layer.
 
-| Layer       | Components                                          | Responsibility                                   |
-| ----------- | --------------------------------------------------- | ------------------------------------------------ |
-| Application | Command Engine                                      | Decides what should happen in response to input. |
-| Core        | Editor State, Document, Cursor, Viewport            | Holds the application data (single source of truth). |
-| Platform    | Input Handler, Input Parser, Renderer, File Manager, Terminal Interface | Interacts with the operating system and terminal. |
+| Layer       | Components                                                              | Responsibility                                       |
+| ----------- | ----------------------------------------------------------------------- | ---------------------------------------------------- |
+| Application | Input Engine, Command Engine                                            | Maps input events to commands and executes them.     |
+| Core        | Editor State, Document, Cursor, Viewport                                | Holds the application data (single source of truth). |
+| Platform    | Input Handler, Input Parser, Renderer, File Manager, Terminal Interface | Interacts with the operating system and terminal.    |
 
 **Dependency Direction**
 
 ```text
 Application Layer
-(Command Engine)
+(Input Engine,
+ Command Engine)
         │
         ▼
 Core Layer
@@ -69,41 +75,57 @@ The Core Layer does not depend on either the Application Layer or the Platform L
 ## 3. Component Responsibilities
 
 ### Input Handler
+
 - Reads raw bytes from the terminal.
 - Delivers input to the Input Parser.
 - Does not interpret input meaning.
 
 ### Input Parser
+
 - Translates raw bytes into abstract key events (`KEY_CHARACTER`, `KEY_ARROW_UP`, `KEY_CTRL_S`, etc.).
 - Hides terminal protocol details from higher-level components.
 - Referenced by ADR-004.
 
+### Input Engine
+
+- Receives abstract key events from the Input Parser.
+- Maps each key event to an editor command.
+- Dispatches commands to the Command Engine.
+- Does not read raw terminal bytes, parse escape sequences, or modify the Document.
+- Referenced by ADR-015.
+
 ### Command Engine
-- Receives parsed key events.
-- Determines which editing operation to perform (insert, delete, move cursor, save, exit).
+
+- Receives commands dispatched by the Input Engine.
+- Determines how each command changes the editor (insert, delete, move cursor, save, exit).
 - Coordinates state changes through the Editor State.
 - Does not read input directly or draw the screen.
 
 ### Editor State
+
 - Central repository for all application data.
 - Single source of truth.
 - Contains: Document, Cursor, Viewport, Current File, Dirty Flag, Screen Size, Status Message, Configuration.
 
 ### Document
+
 - Stores the editable text currently loaded in memory.
 - All editing operations modify the Document; the file on disk is only affected during save operations.
 
 ### Cursor
+
 - Tracks the logical position within the document where the next editing operation occurs.
 - Maintains both a document position (row, column) and a screen position.
 
 ### Renderer
+
 - Reads the current Editor State.
 - Generates a complete visual frame (visible lines, status bar, message bar, cursor).
 - Performs no editing operations and does not modify the Document.
 - Follows the full-screen redraw strategy (ADR-002).
 
 ### File Manager
+
 - Loads documents from disk into the Editor State.
 - Saves the current document from the Editor State back to disk.
 - Reads document data from Editor State before writing.
@@ -111,6 +133,7 @@ The Core Layer does not depend on either the Application Layer or the Platform L
 - Isolated from other components to avoid coupling to file system APIs.
 
 ### Terminal Interface
+
 - Manages raw mode (enable/disable).
 - Queries terminal dimensions.
 - Writes ANSI escape sequences.
@@ -126,28 +149,28 @@ All user interactions follow a consistent pipeline:
 Input → Interpret → Execute → Update State → Render
 ```
 
-| Operation          | Flow                                                                                   |
-| ------------------ | -------------------------------------------------------------------------------------- |
-| Insert character   | Keyboard → Input Handler → Input Parser → Command Engine → Editor State → Renderer → Terminal |
-| Move cursor        | Keyboard → Input Handler → Input Parser → Command Engine → Cursor (in Editor State) → Renderer → Terminal |
-| Save file          | Keyboard → Input Handler → Input Parser → Command Engine → File Manager → Read Document (Editor State) → Write File → Editor State (Update Dirty Flag) → Renderer → Terminal |
-| Open file          | Command Engine → File Manager → Read File → Editor State (populate Document) → Renderer → Terminal |
-| Exit               | Keyboard → Input Handler → Input Parser → Command Engine → Terminal Interface (restore settings) |
+| Operation        | Flow                                                                                                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Insert character | Keyboard → Input Handler → Input Parser → Input Engine → Command Engine → Editor State → Renderer → Terminal                                                                                |
+| Move cursor      | Keyboard → Input Handler → Input Parser → Input Engine → Command Engine → Cursor (in Editor State) → Renderer → Terminal                                                                    |
+| Save file        | Keyboard → Input Handler → Input Parser → Input Engine → Command Engine → File Manager → Read Document (Editor State) → Write File → Editor State (Update Dirty Flag) → Renderer → Terminal |
+| Open file        | Command Engine → File Manager → Read File → Editor State (populate Document) → Renderer → Terminal                                                                                          |
+| Exit             | Keyboard → Input Handler → Input Parser → Input Engine → Command Engine → Terminal Interface (restore settings)                                                                             |
 
 ## 5. State Ownership Rules
 
 Each piece of state has exactly one owner. Other components may read the state but must not modify it independently.
 
-| State Field      | Owner              |
-| ---------------- | ------------------ |
-| Document         | Command Engine     |
-| Cursor           | Cursor             |
-| Viewport         | Command Engine     |
-| Current File     | File Manager       |
-| Dirty Flag       | Command Engine     |
-| Status Message   | Renderer           |
-| Screen Size      | Terminal Interface |
-| Configuration    | Command Engine     |
+| State Field    | Owner              |
+| -------------- | ------------------ |
+| Document       | Command Engine     |
+| Cursor         | Cursor             |
+| Viewport       | Command Engine     |
+| Current File   | File Manager       |
+| Dirty Flag     | Command Engine     |
+| Status Message | Renderer           |
+| Screen Size    | Terminal Interface |
+| Configuration  | Command Engine     |
 
 **Principle: One owner, many readers.**
 
@@ -157,14 +180,15 @@ Components cooperate through the Editor State rather than communicating directly
 
 ### Allowed Dependencies
 
-| Module             | Depends On                 | Reason                                                  |
-| ------------------ | -------------------------- | ------------------------------------------------------- |
-| Input Handler      | Terminal Interface         | Reads raw keyboard input from the operating system.     |
-| Input Parser       | Input Handler              | Interprets raw byte stream into key events.             |
-| Command Engine     | Input Parser, Editor State | Executes commands and updates application state.        |
-| Renderer           | Editor State               | Reads current state to generate the display.            |
-| File Manager       | Editor State               | Reads document and updates dirty flag during file ops.  |
-| Terminal Interface | Operating System           | Provides low-level terminal services and raw mode.      |
+| Module             | Depends On                   | Reason                                                         |
+| ------------------ | ---------------------------- | -------------------------------------------------------------- |
+| Input Handler      | Terminal Interface           | Reads raw keyboard input from the operating system.            |
+| Input Parser       | Input Handler                | Interprets raw byte stream into key events.                    |
+| Input Engine       | Input Parser, Command Engine | Maps key events to commands and dispatches them for execution. |
+| Command Engine     | Editor State                 | Executes commands and updates application state.               |
+| Renderer           | Editor State                 | Reads current state to generate the display.                   |
+| File Manager       | Editor State                 | Reads document and updates dirty flag during file ops.         |
+| Terminal Interface | Operating System             | Provides low-level terminal services and raw mode.             |
 
 ### Forbidden Dependencies
 

@@ -162,10 +162,10 @@ Instead of embedding mappings in conditional logic or a `switch`, the editor cou
 | KEY_ARROW_RIGHT  | MOVE_CURSOR_RIGHT    |
 | KEY_ARROW_UP     | MOVE_CURSOR_UP       |
 | KEY_ARROW_DOWN   | MOVE_CURSOR_DOWN     |
-| KEY_BACKSPACE    | DELETE_PREVIOUS_CHAR |
-| KEY_ENTER        | SPLIT_LINE           |
-| KEY_CTRL_S       | SAVE_DOCUMENT        |
-| KEY_CTRL_Q       | QUIT_EDITOR          |
+| KEY_BACKSPACE    | DELETE_PREVIOUS_CHARACTER |
+| KEY_ENTER        | SPLIT_LINE               |
+| KEY_CTRL_S       | SAVE_DOCUMENT            |
+| KEY_CTRL_Q       | QUIT_EDITOR              |
 +------------------+----------------------+
 ```
 
