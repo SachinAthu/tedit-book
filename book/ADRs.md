@@ -201,3 +201,21 @@ A text editor constantly works with lines: the cursor has a row and column, the 
 Trade-off: The vector of lines does not eliminate the fundamental cost of editing contiguous character sequences. Character insertions and deletions still shift memory within the affected line, so very long lines can be costly to edit, and inserting or deleting lines can require changes to the underlying collection. These limitations are acceptable for the documents our editor is designed to handle. Because the Document's responsibility is well defined (owning the text and nothing else), the representation can be replaced later without changing the higher-level architecture.
 
 First referenced: Chapter 13
+
+---
+
+# ADR-014
+
+Cursor Movement Model
+
+Decision:
+
+Model the cursor as a logical position — a row and a column — managed by a dedicated Cursor component whose movement is explicit and local. Horizontal movement (Left/Right) is confined to the current line and stops at its boundaries rather than automatically crossing into adjacent lines; vertical movement (Up/Down) changes the row while attempting to preserve a separate preferred column, clamping the actual column to the destination line's length when that line is too short.
+
+Reason:
+
+Text documents have lines of different lengths, so the cursor cannot naively preserve a single column across vertical movement. Storing only the current column is insufficient: after passing through a short line, the cursor would permanently drift toward the beginning of the line and never return to the user's intended horizontal position. A preferred column records the user's horizontal intent, while the actual column reflects the constraint imposed by the current line. Likewise, confining horizontal movement to a single line keeps the operation's meaning simple — crossing into another line is a separate movement decision, made explicitly rather than as an accidental side effect of incrementing a column.
+
+Trade-off: The preferred column is additional navigation state that must be kept consistent — horizontal movement establishes it, vertical movement preserves it, and editing operations define their own effect on it. This is more complex than tracking a single column, but it is what makes vertical navigation through lines of different lengths behave predictably.
+
+First referenced: Chapter 14

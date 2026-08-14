@@ -10,6 +10,8 @@ Horizontal movement is local to the current line: Left and Right change the colu
 
 Finally, the Cursor lives in Document coordinates, while the terminal can display only a portion of the Document at a time. The Viewport determines which part is visible and keeps the cursor on screen, and the Renderer translates logical coordinates into screen coordinates. The Cursor remains a logical concept throughout: its behavior belongs entirely to the Cursor module, while the Command Engine decides when cursor operations occur.
 
+The two central design choices — confining horizontal movement to the current line and preserving horizontal intent through a preferred column — are recorded as **ADR-014: Cursor Movement Model**.
+
 ## Cursor Movement Rules
 
 The Cursor's movement behavior can now be expressed as a compact contract.

@@ -488,9 +488,9 @@ Volume II, Chapter 7
 
 **Definition**
 
-The logical position within the document where the next editing operation occurs.
+The logical editing position within the document, described by a row and a column, where the next editing operation will occur.
 
-The cursor has both a document position and a screen position, although these may differ when scrolling is involved.
+The cursor is a logical position in the Document rather than the blinking character on the terminal; the terminal cursor is only its visual representation. It must always remain a valid position within the current document.
 
 **First Introduced**
 
@@ -498,6 +498,7 @@ Volume III, Chapter 14
 
 **Related Terms**
 
+- Preferred Column
 - Viewport
 - Renderer
 - Text Buffer
@@ -1291,6 +1292,20 @@ Volume III, Chapter 13
 **Notes**
 
 Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
+
+## Preferred Column
+
+**Definition**
+
+A value stored alongside the cursor that records the horizontal position the user intends to maintain while moving vertically. When the cursor moves up or down onto a line too short to hold that column, the cursor's actual column is temporarily clamped to the end of the line while the preferred column is preserved, so the original horizontal position can be restored on a longer line. Horizontal movement (Left/Right) establishes a new preferred column; vertical movement (Up/Down) preserves it.
+
+**First Introduced**
+
+Volume III, Chapter 14
+
+**Related Terms**
+
+- Cursor
 
 ## Private Mode Sequence
 
