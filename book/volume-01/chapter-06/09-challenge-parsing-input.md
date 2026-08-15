@@ -60,7 +60,7 @@ To the operating system, these are simply bytes arriving in sequence.
 
 Nothing in this stream indicates where one key ends and the next begins.
 
-The responsibility for finding those boundaries belongs entirely to the Input Handler.
+The responsibility for finding those boundaries belongs entirely to the Input Parser.
 
 ## One Key Does Not Always Mean One Byte
 
@@ -128,7 +128,7 @@ or
 More
 ```
 
-An Input Handler cannot determine the type of input simply by counting bytes.
+An Input Parser cannot determine the type of input simply by counting bytes.
 
 Instead, it must examine the contents of the byte stream and recognize known patterns.
 
@@ -176,13 +176,13 @@ Every one of these inputs begins with:
 ESC
 ```
 
-After reading only the first byte, the Input Handler cannot determine which key the user intended.
+After reading only the first byte, the Input Parser cannot determine which key the user intended.
 
 It must continue reading additional bytes until enough information is available to make a decision.
 
 ## Looking Ahead Before Deciding
 
-Imagine the Input Handler receives this byte:
+Imagine the Input Parser receives this byte:
 
 ```text
 ESC
@@ -251,7 +251,7 @@ Lookahead does not necessarily mean waiting for a large amount of input. In most
 
 ## Recognizing Patterns
 
-Rather than treating each byte independently, an Input Handler searches for patterns within the incoming stream.
+Rather than treating each byte independently, an Input Parser searches for patterns within the incoming stream.
 
 Conceptually, the parser performs comparisons such as:
 
@@ -483,7 +483,7 @@ By hiding terminal-specific details behind a parser, the rest of the editor rema
 
 ## Summary
 
-Parsing keyboard input is considerably more challenging than simply reading bytes from standard input. Different keys produce different numbers of bytes, multiple keys can begin with the same prefix, and escape sequences may arrive incrementally. An Input Handler must therefore examine the incoming byte stream, recognize known patterns, buffer incomplete sequences when necessary, and translate the result into abstract key events.
+Parsing keyboard input is considerably more challenging than simply reading bytes from standard input. Different keys produce different numbers of bytes, multiple keys can begin with the same prefix, and escape sequences may arrive incrementally. An Input Parser must therefore examine the incoming byte stream, recognize known patterns, buffer incomplete sequences when necessary, and translate the result into abstract key events.
 
 This parsing layer forms the boundary between the terminal's byte-oriented communication protocol and the editor's event-driven architecture. By isolating this responsibility within the Input Parser, the rest of the editor can remain focused on higher-level operations rather than the complexities of terminal input encoding.
 

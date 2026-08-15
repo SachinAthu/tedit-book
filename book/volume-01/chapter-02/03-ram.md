@@ -1,7 +1,5 @@
 ﻿# 2.3 Main Memory (RAM)
 
-> I think this section should introduce only the memory concepts needed for understanding a text editor. So, the focus is on **why a running program needs RAM and how our editor will use it**.
-
 Imagine opening a 200-page text document in a text editor.
 
 Within a fraction of a second, the entire document becomes available for editing. You can move the cursor, insert characters, delete words, and scroll through the file almost instantly.

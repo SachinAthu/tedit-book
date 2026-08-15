@@ -76,11 +76,13 @@ project/
 │
 ├── document/
 ├── cursor/
+├── viewport/
 ├── renderer/
 ├── input/
 ├── terminal/
 ├── file/
-└── command/
+├── command/
+└── state/
 ```
 
 Here, each directory represents a distinct subsystem of the editor. As new functionality is added, it naturally fits into the appropriate module rather than being placed wherever there happens to be space.

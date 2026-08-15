@@ -188,7 +188,7 @@ Not all state is created equal. Some pieces of information map to data that exis
 
 **Persistent state** represents information that corresponds to data stored on disk. The **Document** is backed by a file, and the **Configuration** can be saved between sessions so that user preferences persist across launches. These components have a life beyond the current editor session — they describe information that may be written out and read back later.
 
-**Transient state** describes the editing session itself and has no meaning once the editor exits. The **Cursor** position, **Viewport**, **Dirty Flag**, **Status Message**, **Screen** dimensions, and **Current File** name all exist solely while the editor is running. They describe *where* the user is working, *what* is visible, *whether* changes are pending, and *how* the terminal is configured — information that is meaningful only within the context of an active editing session.
+**Transient state** describes the editing session itself and has no meaning once the editor exits. The **Cursor** position, **Viewport**, **Dirty Flag**, **Status Message**, **Screen Size**, and **Current File** name all exist solely while the editor is running. They describe *where* the user is working, *what* is visible, *whether* changes are pending, and *how* the terminal is configured — information that is meaningful only within the context of an active editing session.
 
 Understanding this distinction clarifies why not all of the Editor State is saved when the user writes a file. Saving captures the document's contents, but the cursor position, viewport, and status message remain in memory — they are part of the editing experience, not the document itself.
 

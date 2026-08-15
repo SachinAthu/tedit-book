@@ -39,9 +39,17 @@ editor/
 │   ├── renderer.h
 │   └── renderer.c
 │
+├── state/
+│   ├── state.h
+│   └── state.c
+│
 ├── terminal/
 │   ├── terminal.h
 │   └── terminal.c
+│
+├── viewport/
+│   ├── viewport.h
+│   └── viewport.c
 │
 ├── common/
 │   |── common.h
@@ -56,7 +64,7 @@ editor/
 └── README.md
 ```
 
-Each directory represents a single architectural component of the editor. By grouping related files together, the project structure itself communicates the responsibilities of each module.
+Most directories represent a single architectural component of the editor. By grouping related files together, the project structure itself communicates the responsibilities of each module.
 
 Let us examine each part of the project individually.
 
@@ -84,7 +92,7 @@ input/
 └── input.c
 ```
 
-contains everything related to reading and processing keyboard input.
+implements the entire input pipeline. The Input Handler reads raw bytes, the Input Parser converts them into key events, and the Input Engine maps those events to commands. These three stages are kept as separate functions within the module, so the architectural boundaries from Chapter 8 are preserved even though they share a single directory.
 
 This organization offers several advantages:
 
@@ -104,9 +112,7 @@ renderer/
 ├── status_bar.c
 ├── status_bar.h
 ├── message_bar.c
-├── message_bar.h
-├── viewport.c
-└── viewport.h
+└── message_bar.h
 ```
 
 The project structure remains organized because every rendering-related file stays within the Renderer module.

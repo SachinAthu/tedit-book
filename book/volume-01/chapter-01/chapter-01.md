@@ -251,7 +251,7 @@ Recommended tools:
 
 Although many concepts are portable, some terminal APIs differ across operating systems. We will discuss portability where appropriate.
 
-## 1.11 How This book Is Organized
+## 1.11 How This Book Is Organized
 
 The book is divided into ten progressively deeper volumes.
 

@@ -231,7 +231,7 @@ Both begin with the same byte:
 ESC
 ```
 
-Only after additional bytes arrive can the Input Handler distinguish between them.
+Only after additional bytes arrive can the Input Parser distinguish between them.
 
 This explains why many terminal editors delay processing the Escape key for a very short time. If more bytes arrive immediately, the application interprets them as part of a longer sequence rather than as an isolated Escape key press.
 
@@ -359,7 +359,7 @@ Modifiers allow a relatively small keyboard to support a much larger set of oper
 
 ## Engineering Insight
 
-A robust Input Handler should avoid exposing terminal-specific modifier encodings to the rest of the editor.
+A robust Input Parser should avoid exposing terminal-specific modifier encodings to the rest of the editor.
 
 Instead, it should translate the incoming bytes into abstract key events.
 
@@ -370,7 +370,7 @@ Raw Bytes
 
 ↓
 
-Input Handler
+Input Parser
 
 ↓
 
@@ -401,12 +401,12 @@ This abstraction keeps the **Command Engine** independent of terminal-specific p
 - Expecting the terminal to distinguish between Shift and Caps Lock for alphabetic characters.
 - Treating every `ESC` byte as the Escape key without considering Alt-modified input or longer escape sequences.
 - Assuming every terminal supports the same modifier key combinations.
-- Mixing modifier parsing directly into editor commands instead of isolating it within the Input Handler.
+- Mixing modifier parsing directly into editor commands instead of isolating it within the Input Parser.
 
 ## Summary
 
 Modifier keys extend the expressive power of a keyboard by changing the meaning of other keys. In terminal applications, however, they are not handled uniformly. The Shift key usually affects the resulting character before it reaches the application, Ctrl often produces ASCII control characters, and Alt frequently introduces an Escape prefix that can be confused with the Escape key itself. Additional modifiers, such as Meta and Super, may never reach the terminal application at all.
 
-These behaviors demonstrate that interpreting keyboard input involves much more than reading individual bytes. The Input Handler must understand how modifier keys interact with printable characters, control characters, and escape sequences while presenting the rest of the editor with a simple, consistent representation of user input.
+These behaviors demonstrate that interpreting keyboard input involves much more than reading individual bytes. The Input Parser must understand how modifier keys interact with printable characters, control characters, and escape sequences while presenting the rest of the editor with a simple, consistent representation of user input.
 
 In the next section, we will bring together everything introduced in this chapter and examine **the challenge of parsing keyboard input**, where individual bytes are transformed into meaningful key events that the editor can understand.

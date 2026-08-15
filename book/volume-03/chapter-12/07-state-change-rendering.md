@@ -101,7 +101,7 @@ Editor State
 ├── Dirty Flag     ✓ Set
 ├── Status Message Unchanged
 ├── Viewport       Unchanged
-└── Screen         Unchanged
+└── Screen Size    Unchanged
 ```
 
 The document now contains an additional character.
@@ -185,7 +185,7 @@ Editor State
 ├── Cursor         ✓ Updated
 ├── Dirty Flag     Unchanged
 ├── Viewport       Maybe Updated
-└── Screen         Unchanged
+└── Screen Size    Unchanged
 ```
 
 Only the cursor position changes.

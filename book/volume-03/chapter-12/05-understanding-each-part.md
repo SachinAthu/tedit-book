@@ -84,9 +84,9 @@ The viewport remembers where the visible window begins, allowing the renderer to
 
 Without the viewport, the editor would have no concept of scrolling.
 
-## The Screen
+## The Screen Size
 
-The **Screen** component stores information about the terminal window itself.
+The **Screen Size** component stores information about the terminal window itself.
 
 Examples include:
 
@@ -94,7 +94,7 @@ Examples include:
 - Number of columns
 
 ```text
-Screen
+Screen Size
 
 Rows    : 40
 Columns : 120
@@ -106,7 +106,7 @@ The renderer uses this information to determine:
 - Where to place the status bar
 - How much horizontal space is available
 
-Whenever the terminal window is resized, the Screen component is updated to reflect the new dimensions.
+Whenever the terminal window is resized, the Screen Size component is updated to reflect the new dimensions.
 
 ## The Current File
 
@@ -220,8 +220,8 @@ This separation of responsibilities keeps the architecture modular and makes eac
 
 ## Engineering Insight
 
-Notice that none of these components attempts to do everything. The Document does not know how to render itself, the Cursor does not modify the document, and the Screen does not handle keyboard input. This clear separation of responsibilities is an example of the **Single Responsibility Principle**, which states that each component should have one primary reason to change. Following this principle reduces coupling and makes the system easier to extend as new features are added.
+Notice that none of these components attempts to do everything. The Document does not know how to render itself, the Cursor does not modify the document, and the Screen Size does not handle keyboard input. This clear separation of responsibilities is an example of the **Single Responsibility Principle**, which states that each component should have one primary reason to change. Following this principle reduces coupling and makes the system easier to extend as new features are added.
 
 ## Summary
 
-The Editor State is composed of several specialized components, each responsible for a different aspect of the editor's runtime behavior. The Document stores editable text, the Cursor tracks the editing position, the Viewport determines what is visible, the Screen describes the terminal dimensions, the Current File identifies the associated file, the Dirty Flag records unsaved changes, the Status Message communicates with the user, and the Configuration stores editor settings. Together, these components provide a complete representation of the editor's current state. In the next section, we will examine how state ownership ensures that each of these components is modified only by the component responsible for it.
+The Editor State is composed of several specialized components, each responsible for a different aspect of the editor's runtime behavior. The Document stores editable text, the Cursor tracks the editing position, the Viewport determines what is visible, the Screen Size describes the terminal dimensions, the Current File identifies the associated file, the Dirty Flag records unsaved changes, the Status Message communicates with the user, and the Configuration stores editor settings. Together, these components provide a complete representation of the editor's current state. In the next section, we will examine how state ownership ensures that each of these components is modified only by the component responsible for it.

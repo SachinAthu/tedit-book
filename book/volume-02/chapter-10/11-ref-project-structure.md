@@ -33,9 +33,17 @@ editor/
 │   ├── renderer.h
 │   └── renderer.c
 │
+├── state/
+│   ├── state.h
+│   └── state.c
+│
 ├── terminal/
 │   ├── terminal.h
 │   └── terminal.c
+│
+├── viewport/
+│   ├── viewport.h
+│   └── viewport.c
 │
 ├── common/
 │   |── common.h
@@ -55,6 +63,7 @@ editor/
 - Public interfaces belong in the module header.
 - Module internals remain private to the implementation file.
 - `main.c` coordinates the application but contains minimal logic.
+- The `input/` module houses all three input stages—Input Handler, Input Parser, and Input Engine—as separate functions within one module.
 
 ## Dependencies
 

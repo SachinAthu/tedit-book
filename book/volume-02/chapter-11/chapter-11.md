@@ -6,7 +6,7 @@
 
 Before designing the core components of our editor, it is important to understand why the system is designed the way it is. Every architectural choice represents a trade-off between simplicity, performance, maintainability, and future extensibility. The decisions presented in this chapter were made to support the educational goals of this project while providing a solid foundation for a functional terminal-based text editor.
 
-By understanding the reasoning behind these decisions, you will be better prepared to evaluate alternative designs and appreciate the trade-offs involved in software engineering
+By understanding the reasoning behind these decisions, you will be better prepared to evaluate alternative designs and appreciate the trade-offs involved in software engineering.
 
 ## Learning Objectives
 

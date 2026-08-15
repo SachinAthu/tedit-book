@@ -30,7 +30,7 @@ Editor State
 ├── Document
 ├── Cursor
 ├── Viewport
-├── Screen
+├── Screen Size
 ├── Current File
 ├── Dirty Flag
 ├── Status Message
@@ -60,7 +60,7 @@ Editor State
 ├── Cursor
 ├── Viewport
 ├── Search
-├── Screen
+├── Screen Size
 ├── Current File
 ├── Dirty Flag
 ├── Status Message
@@ -90,7 +90,7 @@ Editor State
 ├── Cursor
 ├── Undo History
 ├── Viewport
-├── Screen
+├── Screen Size
 ├── Current File
 ├── Dirty Flag
 ├── Status Message
@@ -128,7 +128,7 @@ Editor State
 │
 ├── Cursor
 ├── Viewport
-├── Screen
+├── Screen Size
 └── ...
 ```
 

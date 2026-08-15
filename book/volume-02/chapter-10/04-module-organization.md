@@ -205,14 +205,19 @@ Each module should have a single, clearly defined responsibility.
 
 For example:
 
-| Module     | Responsibility                          |
-| ---------- | --------------------------------------- |
-| `renderer` | Generate the visual output.             |
-| `document` | Store and modify editable text.         |
-| `cursor`   | Track and update cursor position.       |
-| `input`    | Read and interpret keyboard input.      |
-| `terminal` | Interact with the terminal environment. |
-| `file`     | Load and save documents.                |
+| Module     | Responsibility                                       |
+| ---------- | ---------------------------------------------------- |
+| `input`    | Turn raw terminal input into editor commands.        |
+| `command`  | Execute editor commands.                             |
+| `state`    | Hold the editor's data (the single source of truth). |
+| `document` | Store and modify editable text.                      |
+| `cursor`   | Track and update cursor position.                    |
+| `viewport` | Track which part of the document is visible.         |
+| `renderer` | Generate the visual output.                          |
+| `terminal` | Interact with the terminal environment.              |
+| `file`     | Load and save documents.                             |
+
+The `input` module groups three closely related stages: the Input Handler reads raw bytes, the Input Parser converts them into key events, and the Input Engine maps those events to commands. Because these three responsibilities cooperate to perform one task—turning raw input into commands—they are implemented together for now, with each stage kept as a separate function so the module can be split later if needed.
 
 If a module begins taking on unrelated responsibilities, it often indicates that it should be divided into smaller modules.
 

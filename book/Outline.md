@@ -125,7 +125,7 @@ Tradeoffs.
 - Editor
 - Document
 - Cursor
-- Screen
+- Screen Size
 - Status
 - Configuration
 

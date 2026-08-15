@@ -2,7 +2,7 @@
 
 Application **state** is the information a program maintains while it is running—its current condition, existing only in memory during execution. A text editor is a **stateful program**: every editing operation depends on the current document, cursor, viewport, and other runtime information, and the same key press can produce different results depending on the editor's current state.
 
-Our editor's state consists of the **Document**, **Cursor**, **Viewport**, **Screen**, **Current File**, **Dirty Flag**, **Status Message**, and **Configuration**. Rather than scattering this data, we collect it into a single **EditorState** structure that groups related information into focused components through composition.
+Our editor's state consists of the **Document**, **Cursor**, **Viewport**, **Screen Size**, **Current File**, **Dirty Flag**, **Status Message**, and **Configuration**. Rather than scattering this data, we collect it into a single **EditorState** structure that groups related information into focused components through composition.
 
 The principle of **state ownership** ensures each piece of state has exactly one component responsible for modifying it; other components may read freely but must not write. As the user interacts, every event follows the same sequence: **process the event, update the state, and render the result**. Finally, this modular design supports growth—new features like search or undo history can be added as new components without redesigning the core architecture.
 

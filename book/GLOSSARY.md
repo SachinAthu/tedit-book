@@ -401,7 +401,7 @@ Volume III, Chapter 16
 
 **Definition**
 
-An architectural pattern where complex objects are built by combining smaller, specialized components — each with its own clearly defined responsibility — rather than as a single monolithic structure. In the editor, the EditorState is composed of the Document, Cursor, Viewport, Screen, and Configuration, each contributing a distinct piece of the application's runtime state.
+An architectural pattern where complex objects are built by combining smaller, specialized components — each with its own clearly defined responsibility — rather than as a single monolithic structure. In the editor, the EditorState is composed of the Document, Cursor, Viewport, Screen Size, and Configuration, each contributing a distinct piece of the application's runtime state.
 
 **First Introduced**
 
@@ -1724,7 +1724,7 @@ A command-line interpreter that reads user commands and launches programs. The s
 
 **First Introduced**
 
-Volume I, Chapter 2
+Volume I, Chapter 3
 
 **Related Terms**
 
@@ -1839,7 +1839,7 @@ Volume II, Chapter 7
 
 An architectural principle where each piece of state has exactly one owner responsible for maintaining and modifying it. In the editor, each field of the Editor State is written by a single component: the Command Engine owns the Document, Viewport, Dirty Flag, and Configuration; the Cursor owns the cursor position; the File Manager owns the current file; the Renderer owns the status message; and the Terminal Interface owns the screen size. Other components may read a field but must not modify it directly.
 
-Ownership answers *who may write a field* and is distinct from domain responsibility — *who defines the rules and representation of a value*. The Command Engine writes the Document field, while the Document Model owns the representation and editing rules for that text.
+Ownership answers _who may write a field_ and is distinct from domain responsibility — _who defines the rules and representation of a value_. The Command Engine writes the Document field, while the Document Model owns the representation and editing rules for that text.
 
 **First Introduced**
 

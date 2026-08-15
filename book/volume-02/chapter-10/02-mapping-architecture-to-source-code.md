@@ -11,22 +11,30 @@ For example, the architecture introduced in Chapter 8 contains components such a
 ```text
 Architecture                  Source Code
 
-Input Handler        ─────►    input/
+Input Handler        ─┐
+Input Parser         ─┼────►    input/
+Input Engine         ─┘
 
-Renderer             ─────►    renderer/
+Command Engine       ─────►    command/
+
+Editor State         ─────►    state/
 
 Document             ─────►    document/
 
 Cursor               ─────►    cursor/
 
-File Manager         ─────►    file/
+Viewport             ─────►    viewport/
 
-Command Engine       ─────►    command/
+Renderer             ─────►    renderer/
+
+File Manager         ─────►    file/
 
 Terminal Interface   ─────►    terminal/
 ```
 
 Notice that the names of the modules closely match the names of the architectural components. This is intentional. Using consistent terminology throughout the architecture, documentation, and source code reduces confusion and makes the project easier to understand.
+
+One deliberate exception is the `input/` module, which groups three closely related components: the Input Handler, Input Parser, and Input Engine. The architecture in Chapter 8 keeps these responsibilities distinct (ADR-004 and ADR-015), and the module preserves that separation internally—reading raw bytes, parsing them into key events, and mapping events to commands remain separate functions even though they share one directory. Grouping them together reflects the fact that they form a single input pipeline; if that pipeline grows more complex, `input/` can be split into separate modules later without disturbing the rest of the project.
 
 ## From Components to Modules
 

@@ -11,13 +11,13 @@ Command Engine
       │
       │ coordinates
       ▼
-+-------------------------------+
-|         Editor State          |
-|                               |
-|  Document   Cursor   Viewport |
-|  File       Dirty    Screen   |
-|  Status     Configuration     |
-+-------------------------------+
++------------------------------------+
+|            Editor State            |
+|                                    |
+|  Document   Cursor   Viewport      |
+|  File       Dirty    Screen Size   |
+|  Status     Configuration          |
++------------------------------------+
       │
       │ owned by individual
       │ core components

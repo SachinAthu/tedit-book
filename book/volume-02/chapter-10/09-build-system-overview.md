@@ -73,7 +73,11 @@ input.c
 
 renderer.c
 
+state.c
+
 terminal.c
+
+viewport.c
 ```
 
 Each source file may depend on several header files, and each modification requires recompilation of the affected components.
@@ -110,7 +114,9 @@ editor/
 ├── file/
 ├── input/
 ├── renderer/
+├── state/
 ├── terminal/
+├── viewport/
 └── ...
 ```
 

@@ -218,7 +218,7 @@ Function Key
 Longer Escape Sequence
 ```
 
-An input handler cannot assume that each call to `read()` returns exactly one complete key press. Instead, it must determine whether the bytes represent:
+An input parser cannot assume that each call to `read()` returns exactly one complete key press. Instead, it must determine whether the bytes represent:
 
 - a printable character,
 - a UTF-8 encoded character,
@@ -243,7 +243,7 @@ ESC [ 3 ~
 
         ↓
 
-Input Handler
+Input Parser
 
         ↓
 
@@ -262,12 +262,12 @@ The rest of the editor no longer needs to understand terminal-specific escape se
 - Expecting all terminals to use identical escape sequences.
 - Treating the Escape (`ESC`) key as equivalent to the start of every escape sequence.
 - Processing incomplete escape sequences before all bytes have been received.
-- Mixing terminal-specific byte parsing directly into editor logic instead of isolating it within the Input Handler.
+- Mixing terminal-specific byte parsing directly into editor logic instead of isolating it within the Input Parser.
 
 ## Summary
 
 Function keys and other navigation keys extend the ideas introduced with arrow keys. Since these keys have no ASCII representation, terminal emulators encode them as escape sequences, often consisting of several bytes. Unfortunately, historical differences between terminal types mean that multiple valid encodings may exist for the same key.
 
-For a terminal editor, this means that reading keyboard input is only the first step. The Input Handler must examine incoming bytes, recognize complete escape sequences, and translate them into internal key events that the rest of the editor can use without worrying about terminal-specific details.
+For a terminal editor, this means that reading keyboard input is only the first step. The Input Parser must examine incoming bytes, recognize complete escape sequences, and translate them into internal key events that the rest of the editor can use without worrying about terminal-specific details.
 
 In the next section, we will examine another layer of complexity: **modifier keys** such as **Shift**, **Ctrl**, **Alt**, and **Meta**, and how they alter the meaning of ordinary key presses.

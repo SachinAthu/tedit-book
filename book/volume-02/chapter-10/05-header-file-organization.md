@@ -173,7 +173,7 @@ In these situations, a **forward declaration** can be used instead of including 
 
 For example, suppose the Renderer needs a pointer to an `EditorState`.
 
-Rather than including `editor.h`, the header can simply declare that the type exists.
+Rather than including `state.h`, the header can simply declare that the type exists.
 
 ```c
 typedef struct EditorState EditorState;
