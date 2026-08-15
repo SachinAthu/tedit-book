@@ -118,7 +118,7 @@ File Operation
  └── Failure
        │
        ▼
-Message State
+Status Message
        │
        ▼
 Render
@@ -148,7 +148,7 @@ File Manager
  └── Error
        │
        ▼
-Message State
+Status Message
       │
       ▼
 Renderer
@@ -175,7 +175,7 @@ Command Result
       ▼
 Editor State
       │
-      └── status/message
+      └── Status Message
               │
               ▼
            Renderer

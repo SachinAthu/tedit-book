@@ -22,6 +22,8 @@ Document / Cursor / File
 Editor State
 ```
 
+Document and Cursor are Core-layer components, while the File Manager is a Platform-layer component (Chapter 8); the Command Engine coordinates both.
+
 ## Command Engine Contract
 
 The Command Engine's responsibilities can now be expressed as a concise contract, parallel to the Cursor contract in Chapter 14 and the Input Engine contract in Chapter 15.
@@ -64,17 +66,17 @@ Chapter 16 — Command Engine  →  What should the editor do?
 
 1. If both `Ctrl+S` and a future menu action should save the document, what architectural component should both eventually invoke?
 
-### Design exercise
+### Design Exercise
 
 1. Design a command enum for the editor's current feature set.
 
-### Optional challenge
+### Optional Challenge
 
 1. Design a command representation that can carry data, such as the character associated with an insertion command.
 
 ## Common Mistakes
 
-### Mistake 1 — Putting key parsing in the Command Engine
+### Putting key parsing in the Command Engine
 
 ```text
 Command Engine
@@ -83,7 +85,7 @@ Command Engine
 
 Wrong responsibility.
 
-### Mistake 2 — Letting commands draw directly
+### Letting commands draw directly
 
 ```text
 COMMAND_SAVE_DOCUMENT
@@ -92,15 +94,15 @@ COMMAND_SAVE_DOCUMENT
 
 Commands modify state; rendering happens afterward.
 
-### Mistake 3 — Putting document algorithms directly into command dispatch
+### Putting document algorithms directly into command dispatch
 
 The command layer should coordinate operations rather than become the Document implementation.
 
-### Mistake 4 — Making commands depend on specific keys
+### Making commands depend on specific keys
 
 Commands should represent behavior, not shortcuts.
 
-### Mistake 5 — Treating every command as a document modification
+### Treating every command as a document modification
 
 Movement, saving, and quitting have different state effects.
 
@@ -122,4 +124,4 @@ The next question becomes:
 
 > **How does the current state become an image on the terminal?**
 
-Chapter 17 therefore begins the Rendering Engine volume and introduces the theory behind the renderer: immediate-mode rendering, retained-mode rendering, frame generation, and redraw strategies.
+Chapter 17 therefore begins the Rendering Engine volume and introduces the theory behind the renderer: immediate-mode rendering, retained-mode rendering, game loops, and double buffering.

@@ -7,7 +7,7 @@ This mechanism is **command dispatch**.
 The Command Engine receives a command value such as:
 
 ```text
-COMMAND_MOVE_LEFT
+COMMAND_MOVE_CURSOR_LEFT
 ```
 
 and dispatches it to the corresponding operation:
@@ -18,10 +18,10 @@ Command
    ▼
 Command Type
    │
-   ├── MOVE_LEFT ─────────► Move cursor left
-   ├── MOVE_RIGHT ────────► Move cursor right
-   ├── MOVE_UP ───────────► Move cursor up
-   ├── MOVE_DOWN ─────────► Move cursor down
+   ├── MOVE_CURSOR_LEFT ─────────► Move cursor left
+   ├── MOVE_CURSOR_RIGHT ────────► Move cursor right
+   ├── MOVE_CURSOR_UP ───────────► Move cursor up
+   ├── MOVE_CURSOR_DOWN ─────────► Move cursor down
    ├── INSERT_CHARACTER ──► Insert character
    ├── DELETE_PREVIOUS_CHARACTER ──► Delete previous character
    ├── DELETE_CHARACTER ──► Delete character
@@ -41,19 +41,19 @@ Conceptually:
 ```c
 switch (command.type)
 {
-    case COMMAND_MOVE_LEFT:
+    case COMMAND_MOVE_CURSOR_LEFT:
         /* move cursor left */
         break;
 
-    case COMMAND_MOVE_RIGHT:
+    case COMMAND_MOVE_CURSOR_RIGHT:
         /* move cursor right */
         break;
 
-    case COMMAND_MOVE_UP:
+    case COMMAND_MOVE_CURSOR_UP:
         /* move cursor up */
         break;
 
-    case COMMAND_MOVE_DOWN:
+    case COMMAND_MOVE_CURSOR_DOWN:
         /* move cursor down */
         break;
 
@@ -96,7 +96,7 @@ The `switch` statement determines **which operation should run**. It does not ne
 For example:
 
 ```c
-case COMMAND_MOVE_LEFT:
+case COMMAND_MOVE_CURSOR_LEFT:
     cursor_move_left(...);
     break;
 ```

@@ -138,6 +138,8 @@ Conceptually:
 
 This separation keeps the Command Engine focused on **what operation needs to be performed and which components need to participate**, while the individual components remain responsible for their own behavior.
 
+The File Manager in this diagram belongs to the Platform layer rather than the Core layer, as established in Chapter 8. The Command Engine coordinates it in the same way as the Document and Cursor, so the diagram does not distinguish the two layers.
+
 ## Handling Command-Level Outcomes
 
 Command execution can also produce different outcomes.
@@ -163,7 +165,7 @@ Execute
    │
    ├── Success ──► Update State
    │
-   └── Error ────► Update Message State
+   └── Error ────► Update Status Message
                          │
                          ▼
                     Continue Loop
@@ -218,7 +220,7 @@ This separation is the central responsibility of the Command Engine. It turns an
 
 ## Summary
 
-The Command Engine is the coordinator of state transitions: it executes commands, dispatches them to the appropriate core components, and ensures that one user action produces one consistent change to the Editor State. It also handles command-level outcomes, so recoverable errors such as failed saves update the Message State without breaking the Event Loop.
+The Command Engine is the coordinator of state transitions: it executes commands, dispatches them to the appropriate core components, and ensures that one user action produces one consistent change to the Editor State. It also handles command-level outcomes, so recoverable errors such as failed saves update the Status Message without breaking the Event Loop.
 
 The Command Engine deliberately does not read raw terminal input, parse escape sequences, render the screen, or manage terminal modes. Those responsibilities belong to the Input Parser, the Input Engine, and the Renderer.
 

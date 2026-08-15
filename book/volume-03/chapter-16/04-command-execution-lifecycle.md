@@ -69,7 +69,7 @@ MOVE_CURSOR_LEFT
 The Command Engine receives:
 
 ```text
-COMMAND_MOVE_LEFT
+COMMAND_MOVE_CURSOR_LEFT
 ```
 
 At this point, terminal-specific information has already been removed from the operation. It receives the command as a structured representation of editor intent.
@@ -86,8 +86,8 @@ Command
    ▼
 Command Type
    │
-   ├── MOVE_LEFT
-   ├── MOVE_RIGHT
+   ├── MOVE_CURSOR_LEFT
+   ├── MOVE_CURSOR_RIGHT
    ├── INSERT_CHARACTER
    ├── DELETE_PREVIOUS_CHARACTER
    ├── DELETE_CHARACTER
@@ -103,7 +103,7 @@ The Command Engine does not need to reinterpret the command. The command already
 For example:
 
 ```text
-COMMAND_MOVE_LEFT
+COMMAND_MOVE_CURSOR_LEFT
 ```
 
 means that the Cursor should perform its left-movement operation.
@@ -227,7 +227,7 @@ File Manager
  └── Error
       │
       ▼
-Message State
+Status Message
 ```
 
 The Event Loop can then continue processing subsequent commands.
@@ -433,7 +433,7 @@ That predictable boundary is what allows the different subsystems to remain inde
 
 The command execution lifecycle is one stage of the editor's runtime pipeline: the Command Engine receives a command, identifies the operation, coordinates the affected components, updates the Editor State, and leaves the result for the Renderer. Each command represents one logical user action, and one command produces one completed state transition before rendering begins.
 
-Because the editor uses a full-redraw architecture, the Command Engine produces state changes rather than screen updates. Recoverable errors are communicated through the Message State so the Event Loop can continue.
+Because the editor uses a full-redraw architecture, the Command Engine produces state changes rather than screen updates. Recoverable errors are communicated through the Status Message so the Event Loop can continue.
 
 Now that the command execution lifecycle is clear, the next section examines how commands are grouped by the kind of editor behavior they represent.
 

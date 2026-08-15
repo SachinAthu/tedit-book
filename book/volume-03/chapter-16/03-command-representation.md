@@ -52,10 +52,10 @@ In C, an enumeration is a natural representation for this part of the command:
 ```c
 typedef enum
 {
-    COMMAND_MOVE_LEFT,
-    COMMAND_MOVE_RIGHT,
-    COMMAND_MOVE_UP,
-    COMMAND_MOVE_DOWN,
+    COMMAND_MOVE_CURSOR_LEFT,
+    COMMAND_MOVE_CURSOR_RIGHT,
+    COMMAND_MOVE_CURSOR_UP,
+    COMMAND_MOVE_CURSOR_DOWN,
     COMMAND_INSERT_CHARACTER,
     COMMAND_DELETE_PREVIOUS_CHARACTER,
     COMMAND_DELETE_CHARACTER,
@@ -115,7 +115,7 @@ A movement command could then be represented as:
 
 ```text
 Command
-├── type      = COMMAND_MOVE_LEFT
+├── type      = COMMAND_MOVE_CURSOR_LEFT
 └── character = unused
 ```
 
@@ -128,6 +128,8 @@ Command
 ```
 
 The structure is deliberately simple. The current editor has only a small number of commands, and most of them require no additional data.
+
+One simplification worth noting is that the `character` field holds a single byte, which is sufficient for ASCII. As established in Chapter 6, however, UTF-8 encodes many characters using multiple bytes, so a single `char` cannot represent every character the editor might eventually receive. For the current editor's scope this is adequate; full multi-byte character support is deferred to Chapter 23 (Text Encoding).
 
 However, the example exposes an important design consideration: **not every command has the same payload requirements**.
 
@@ -217,7 +219,7 @@ The Command Engine can inspect the command type and select the appropriate opera
 For a command without additional data:
 
 ```text
-COMMAND_MOVE_LEFT
+COMMAND_MOVE_CURSOR_LEFT
         │
         ▼
 Execute cursor movement

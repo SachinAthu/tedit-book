@@ -65,7 +65,7 @@ This preserves the principle established by the architecture:
 
 ## The Command Engine as a Coordinator
 
-The Command Engine can therefore be viewed as a coordinator sitting above several core components:
+The Command Engine can therefore be viewed as a coordinator sitting above several components:
 
 ```text
                     Command
@@ -97,6 +97,8 @@ The Command Engine coordinates those effects, but it should not independently im
 ## State Ownership
 
 Each important piece of state should have a clear owner.
+
+This ownership model was established in Chapter 8 (System Architecture) and examined again in Chapter 12 (Editor State). It is restated here because it directly determines which components the Command Engine coordinates.
 
 The architecture defines ownership explicitly:
 
@@ -140,7 +142,7 @@ This distinction is what keeps the Command Engine from becoming a general-purpos
 
 ## Why Ownership Matters
 
-Without explicit ownership, state can become duplicated.
+As established in Chapter 8, without explicit ownership, state can become duplicated.
 
 Imagine keeping the cursor position in both the Command Engine and the Cursor component:
 

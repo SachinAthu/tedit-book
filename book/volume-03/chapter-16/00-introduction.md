@@ -16,6 +16,9 @@ The Command Engine forms the boundary between user intent and changes to the edi
 Keyboard Input
       │
       ▼
+Input Handler
+      │
+      ▼
 Input Parser
       │
       ▼
