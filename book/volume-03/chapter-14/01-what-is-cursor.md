@@ -244,6 +244,9 @@ For example:
 Input
   │
   ▼
+Input Engine
+  │
+  ▼
 Command Engine
   │
   ▼
@@ -256,7 +259,7 @@ Editor State
 Renderer
 ```
 
-The Input Handler will eventually tell the system that the user pressed an arrow key. The Command Engine will decide that this means a cursor movement operation. The Cursor will then apply the movement rules. Finally, the Renderer will display the resulting position.
+The Input Handler will eventually tell the system that the user pressed an arrow key. The Input Engine will map that event to a cursor-movement command, and the Command Engine will execute it. The Cursor will then apply the movement rules. Finally, the Renderer will display the resulting position.
 
 This separation gives us a clean architecture:
 

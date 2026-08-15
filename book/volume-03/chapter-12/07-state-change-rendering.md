@@ -48,6 +48,9 @@ Input Handler
 Input Parser
     │
     ▼
+Input Engine
+    │
+    ▼
 Command Engine
     │
     ▼
@@ -58,7 +61,8 @@ Each component has a specific responsibility.
 
 - The **Input Handler** reads raw bytes from the terminal.
 - The **Input Parser** converts those bytes into an abstract key event.
-- The **Command Engine** determines what that event means.
+- The **Input Engine** maps that event to an editor command.
+- The **Command Engine** executes that command.
 - The **Editor State** is updated accordingly.
 
 Notice that **none of these components draw the screen**.
@@ -268,4 +272,4 @@ A common mistake when designing interactive applications is to let components mo
 
 ## Summary
 
-Editing is fundamentally a sequence of state transitions. Every user action is translated into a command, the Command Engine updates the appropriate parts of the Editor State, and only then does the Renderer generate a new frame. Different events modify different pieces of state, but every operation follows the same execution model: **process the event, update the state, and render the result**. This predictable workflow forms the foundation of the editor's runtime behavior. In the next section, we will see how designing the Editor State for growth keeps the architecture open to future features without requiring a fundamental redesign.
+Editing is fundamentally a sequence of state transitions. Every user action is mapped to a command by the Input Engine, the Command Engine executes that command to update the appropriate parts of the Editor State, and only then does the Renderer generate a new frame. Different events modify different pieces of state, but every operation follows the same execution model: **process the event, update the state, and render the result**. This predictable workflow forms the foundation of the editor's runtime behavior. In the next section, we will see how designing the Editor State for growth keeps the architecture open to future features without requiring a fundamental redesign.

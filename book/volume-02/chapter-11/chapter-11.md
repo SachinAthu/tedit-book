@@ -193,6 +193,9 @@ Input Handler
 Input Parser
     │
     ▼
+Input Engine
+    │
+    ▼
 Command Engine
 ```
 
@@ -200,9 +203,10 @@ Each component has a specific role:
 
 - The **Input Handler** reads raw bytes from the terminal.
 - The **Input Parser** translates those bytes into abstract key events.
-- The **Command Engine** executes the appropriate editor command.
+- The **Input Engine** maps each key event to the appropriate editor command.
+- The **Command Engine** executes that command.
 
-For example, the arrow-up key might arrive as a sequence of bytes, but the Command Engine receives only a simple event such as `KEY_ARROW_UP`. It does not need to know how that key was encoded by the terminal.
+For example, the arrow-up key might arrive as a sequence of bytes, but the Input Engine maps that event to a command such as `MOVE_CURSOR_UP`, and the Command Engine receives only that command. Neither component needs to know how the key was encoded by the terminal.
 
 ### Alternatives
 
@@ -226,7 +230,7 @@ The primary disadvantage is the introduction of an additional component in the a
 
 ### Decision
 
-For this project, raw terminal input is first translated into abstract key events by a dedicated **Input Parser**. The **Command Engine** operates only on these parsed events and remains completely independent of the terminal's byte-level input format. This separation keeps the architecture cleaner, more maintainable, and easier to extend.
+For this project, raw terminal input is first translated into abstract key events by a dedicated **Input Parser**. The **Input Engine** then maps those events to editor commands, and the **Command Engine** executes those commands, remaining completely independent of the terminal's byte-level input format. This separation keeps the architecture cleaner, more maintainable, and easier to extend.
 
 ## 11.6 Decision 5 — Use a Layered Architecture
 
@@ -242,7 +246,8 @@ Our editor consists of three logical layers:
 
 ```text
 Application Layer
-(Command Engine)
+(Input Engine,
+ Command Engine)
         │
         ▼
 Core Layer
@@ -356,7 +361,8 @@ For example:
 
 - The **Input Handler** reads raw keyboard input.
 - The **Input Parser** converts raw bytes into key events.
-- The **Command Engine** decides what action to perform.
+- The **Input Engine** maps key events to editor commands.
+- The **Command Engine** executes editor commands.
 - The **Renderer** draws the current Editor State.
 - The **File Manager** handles file input and output.
 
@@ -685,7 +691,7 @@ Every software project begins with decisions. The language, the architecture, th
 
 We chose **C** as the implementation language because it provides the lowest practical abstraction and direct access to POSIX APIs, making the underlying system visible rather than hidden. For rendering, we selected a **full-screen redraw** strategy that treats every frame as a fresh representation of the Editor State — simpler to implement, easier to debug, and naturally aligned with the event-driven architecture from Chapter 9. We enabled **raw terminal mode** to receive every key press immediately, giving the editor complete control over user interaction at the cost of responsibility for restoring the terminal before exit.
 
-At the architectural level, we adopted a **three-layer design** — Application, Core, and Platform — that separates decision-making from data storage from system interaction. We centralized all runtime information into a single **Editor State** so every component operates on the same source of truth. We assigned each component **one responsibility** — the Input Handler reads bytes, the Input Parser produces events, the Renderer draws frames, the File Manager handles I/O — and we enforced **one-way dependencies** flowing toward the Core Layer to prevent circular coupling. We organized the physical project into **module-based directories** that mirror the logical architecture, created a dedicated **Common module** for shared infrastructure while guarding against scope creep, and adopted **CMake** to scale the build system alongside the project.
+At the architectural level, we adopted a **three-layer design** — Application, Core, and Platform — that separates decision-making from data storage from system interaction. We centralized all runtime information into a single **Editor State** so every component operates on the same source of truth. We assigned each component **one responsibility** — the Input Handler reads bytes, the Input Parser produces events, the Input Engine maps events to commands, the Command Engine executes those commands, the Renderer draws frames, the File Manager handles I/O — and we enforced **one-way dependencies** flowing toward the Core Layer to prevent circular coupling. We organized the physical project into **module-based directories** that mirror the logical architecture, created a dedicated **Common module** for shared infrastructure while guarding against scope creep, and adopted **CMake** to scale the build system alongside the project.
 
 We also identified features that are intentionally deferred — multiple documents, syntax highlighting, undo, plugins, and others — not because they are unimportant, but because the first priority is understanding the core architecture before extending it.
 

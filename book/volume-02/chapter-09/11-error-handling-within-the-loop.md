@@ -116,6 +116,9 @@ Input Handler
 Input Parser
       │
       ▼
+Input Engine
+      │
+      ▼
 Command Engine
       │
       ▼

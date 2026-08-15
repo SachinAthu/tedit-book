@@ -18,6 +18,9 @@ Input Handler
 Input Parser
     │
     ▼
+Input Engine
+    │
+    ▼
 Command Engine
     │
     ▼
@@ -93,11 +96,11 @@ This abstraction hides terminal-specific details from the rest of the editor.
 
 As established by **ADR-004**, separating byte-level parsing from editor logic prevents the Command Engine from becoming coupled to terminal protocols and creates a clean boundary between platform-specific input handling and editor behavior.
 
-## Step 4 — Command Engine
+## Step 4 — Input Engine
 
-Once a structured key event has been produced, it is passed to the **Command Engine**.
+Once a structured key event has been produced, it is passed to the **Input Engine**.
 
-The Command Engine determines what action should be performed.
+The Input Engine maps each key event to the editor command it represents.
 
 For example:
 
@@ -109,11 +112,17 @@ For example:
 | `KEY_CTRL_S`         | Save document             |
 | `KEY_CTRL_Q`         | Exit editor               |
 
-Notice that the Command Engine does not care how the key event was produced. It simply receives an abstract event and decides which editing operation should occur.
+Notice that the Input Engine does not care how the key event was produced. It simply receives an abstract event and decides which command should be executed.
 
-## Step 5 — Update the Editor State
+## Step 5 — Command Engine
 
-After selecting the appropriate command, the editor modifies the **Editor State**.
+Once a command has been selected, it is passed to the **Command Engine**.
+
+The Command Engine executes the command, coordinating the changes that update the Editor State.
+
+## Step 6 — Update the Editor State
+
+After the command has been executed, the editor modifies the **Editor State**.
 
 Depending on the operation, this may involve:
 
@@ -126,7 +135,7 @@ Depending on the operation, this may involve:
 
 The Editor State remains the **single source of truth** for the entire application. Every modification made by the Command Engine is reflected here before any rendering occurs.
 
-## Step 6 — Render the Updated State
+## Step 7 — Render the Updated State
 
 Once the Editor State has been updated, the **Renderer** generates a new visual frame.
 
@@ -162,10 +171,13 @@ Input Parser
 KEY_CHARACTER('A')
         │
         ▼
-Command Engine
+Input Engine
         │
         ▼
 Insert Character
+        │
+        ▼
+Command Engine
         │
         ▼
 Editor State Updated
@@ -195,6 +207,6 @@ This design closely follows the layered architecture established in Chapter 8, w
 
 ## Summary
 
-Every event processed by the editor follows the same pipeline. Input enters the system through the Input Handler, is translated into structured events by the Input Parser, interpreted by the Command Engine, applied to the Editor State, and finally rendered to the terminal.
+Every event processed by the editor follows the same pipeline. Input enters the system through the Input Handler, is translated into structured events by the Input Parser, mapped to commands by the Input Engine, executed by the Command Engine, applied to the Editor State, and finally rendered to the terminal.
 
 By ensuring that every event follows the same path, the editor achieves a predictable execution model that is easy to understand, debug, and extend. In the next section, we will look more closely at the relationship between **events** and **commands**, and why treating them as separate concepts leads to a cleaner architecture.

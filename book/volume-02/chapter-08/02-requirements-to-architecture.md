@@ -84,6 +84,12 @@ identifies Left Arrow
         │
         ▼
 
+Input Engine
+maps to a move-cursor command
+
+        │
+        ▼
+
 Command Engine
 requests cursor movement
 
@@ -122,6 +128,9 @@ Input Handler
 Input Parser
         │
         ▼
+Input Engine
+        │
+        ▼
 Command Engine
         │
         ▼
@@ -135,7 +144,8 @@ Each component performs only its own responsibility.
 
 - The **Input Handler** reads bytes from the terminal.
 - The **Input Parser** determines that the bytes represent the character `'A'`.
-- The **Command Engine** decides that an insertion should occur.
+- The **Input Engine** maps that key event to an insert-character command.
+- The **Command Engine** executes that command.
 - The **Document** updates the stored text.
 - The **Renderer** redraws the screen.
 

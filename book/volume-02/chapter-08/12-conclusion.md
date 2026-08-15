@@ -2,7 +2,7 @@
 
 This chapter introduced the **system architecture** of our terminal text editor — the high-level design that transforms the Software Requirements Specification into a concrete, workable structure.
 
-We defined architecture as the blueprint that identifies components, responsibilities, and interfaces. We bridged from Chapter 7 by mapping every requirement onto a module — the File Manager for file operations, the Cursor for navigation, and so on — and established the **architectural goals** (simplicity, readability, modularity, and educational value) that guide every subsequent decision. The high-level architecture diagram, tracing input from keyboard through the Input Handler, Input Parser, Command Engine, Editor State, Renderer, and File Manager, serves as the primary reference throughout the book.
+We defined architecture as the blueprint that identifies components, responsibilities, and interfaces. We bridged from Chapter 7 by mapping every requirement onto a module — the File Manager for file operations, the Cursor for navigation, and so on — and established the **architectural goals** (simplicity, readability, modularity, and educational value) that guide every subsequent decision. The high-level architecture diagram, tracing input from keyboard through the Input Handler, Input Parser, Input Engine, Command Engine, Editor State, Renderer, and File Manager, serves as the primary reference throughout the book.
 
 We examined each core component, traced data flow through concrete examples (pressing **A** and **Ctrl+S**), introduced the Editor State as the single source of truth, and defined dependency rules — the Renderer must never modify the Document directly, for example — that prevent tangled coupling.
 

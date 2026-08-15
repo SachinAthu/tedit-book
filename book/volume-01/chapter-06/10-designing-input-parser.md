@@ -43,6 +43,10 @@ Key Event
 
 ↓
 
+Input Engine
+
+↓
+
 Command Engine
 
 ↓
@@ -54,7 +58,8 @@ Each component has a clearly defined responsibility.
 
 - The operating system delivers bytes.
 - The Input Parser interprets those bytes.
-- The Command Engine decides what action to perform.
+- The Input Engine maps each key event to a command.
+- The Command Engine executes that command.
 - The Editor State records the results of that action.
 
 By assigning each responsibility to a separate component, the overall architecture remains easier to understand and modify.
@@ -349,11 +354,15 @@ KEY_CTRL_S
 
 ↓
 
-Command Engine
+Input Engine
 
 ↓
 
 Save Document
+
+↓
+
+Command Engine
 ```
 
 Likewise:
@@ -371,18 +380,22 @@ KEY_UP
 
 ↓
 
-Command Engine
+Input Engine
 
 ↓
 
 Move Cursor
+
+↓
+
+Command Engine
 ```
 
 This separation follows the **Single Responsibility Principle**.
 
 The parser interprets input.
 
-The Command Engine decides what that input means for the editor.
+The Input Engine decides what that input means for the editor, and the Command Engine carries out the resulting command.
 
 ## Why This Design Scales
 

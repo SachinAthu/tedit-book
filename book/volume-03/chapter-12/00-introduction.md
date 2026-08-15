@@ -1,4 +1,4 @@
-# Volume III — Software Architecture
+# Volume III — Core Editor Engine
 
 # Chapter 12 — Editor State
 

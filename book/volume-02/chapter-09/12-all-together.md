@@ -4,7 +4,7 @@ Throughout this chapter, we have examined the individual components of the edito
 
 At this point, it is useful to step back and view the editor as a complete system.
 
-Rather than thinking of the **Input Handler**, **Command Engine**, **Renderer**, and **File Manager** as isolated components, we can now understand how they cooperate to create a continuous editing experience. This complete execution model serves as the conceptual foundation for the implementation chapters that follow later in the book.
+Rather than thinking of the **Input Handler**, **Input Parser**, **Input Engine**, **Command Engine**, **Renderer**, and **File Manager** as isolated components, we can now understand how they cooperate to create a continuous editing experience. This complete execution model serves as the conceptual foundation for the implementation chapters that follow later in the book.
 
 ## The Complete Runtime Lifecycle
 
@@ -154,18 +154,18 @@ Key Event
 
 The **Input Handler** reads bytes from the operating system.
 
-The **Input Parser** interprets those bytes and produces abstract events such as:
+The **Input Parser** interprets those bytes and produces abstract key events such as:
 
-- character insertion,
-- cursor movement,
-- save request,
-- quit request.
+- `KEY_CHARACTER('A')`
+- `KEY_ARROW_UP`
+- `KEY_CTRL_S`
+- `KEY_CTRL_Q`
 
-By the time processing reaches the **Command Engine**, terminal-specific details have already been removed.
+By the time processing reaches the **Input Engine**, terminal-specific details have already been removed.
 
-## Phase 4: Executing Commands
+## Phase 4: Mapping Events to Commands
 
-The **Command Engine** determines how the editor should respond.
+The **Input Engine** determines which command each key event represents.
 
 For example:
 
@@ -196,6 +196,8 @@ KEY_CTRL_S
 
 Save Document
 ```
+
+The selected command is then passed to the **Command Engine**, which executes it.
 
 Each command has a clearly defined responsibility.
 
@@ -356,6 +358,11 @@ We can now combine all architectural components introduced throughout Chapters 8
                       ▼
              +------------------+
              |  Input Parser    |
+             +------------------+
+                      │
+                      ▼
+             +------------------+
+             |   Input Engine   |
              +------------------+
                       │
                       ▼

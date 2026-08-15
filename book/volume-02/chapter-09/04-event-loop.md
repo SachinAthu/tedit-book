@@ -108,19 +108,22 @@ A simplified view of this coordination is shown below:
 ```text
              Event Loop
                   │
-        ┌─────────┼─────────┐
-        ▼         ▼         ▼
- Input Parser  Command   Renderer
-                 Engine
-                   │
-                   ▼
-              Editor State
+     ┌────────────┼────────────┐
+     ▼            ▼            ▼
+Input Parser  Input Engine  Command Engine
+                                │
+                                ▼
+                           Editor State
+                                ▲
+                                │
+                             Renderer
 ```
 
 Each component performs a specific task:
 
 - The **Input Parser** interprets incoming input events.
-- The **Command Engine** determines the appropriate editing operation.
+- The **Input Engine** maps each key event to an editor command.
+- The **Command Engine** executes that command.
 - The **Editor State** stores the current state of the application.
 - The **Renderer** generates the next visual frame.
 

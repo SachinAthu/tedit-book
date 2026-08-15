@@ -16,7 +16,7 @@ Understanding these event categories helps explain why an event-driven architect
 
 The majority of events originate directly from the user.
 
-Whenever a key is pressed, the terminal delivers the corresponding input to the editor. The **Input Handler** reads the raw bytes, the **Input Parser** interprets them, and the resulting event is passed to the **Command Engine**.
+Whenever a key is pressed, the terminal delivers the corresponding input to the editor. The **Input Handler** reads the raw bytes, the **Input Parser** interprets them into a structured event, the **Input Engine** maps that event to a command, and the resulting command is passed to the **Command Engine**.
 
 Examples include:
 
@@ -55,10 +55,18 @@ KEY_ARROW_LEFT
 
 ↓
 
+Input Engine
+
+↓
+
+MOVE_CURSOR_LEFT
+
+↓
+
 Command Engine
 ```
 
-The **Command Engine** does not care how the key was encoded by the terminal. It simply receives a structured event and determines the appropriate editing operation.
+The **Command Engine** does not care how the key was encoded by the terminal. The **Input Engine** maps the structured event to a command, and the Command Engine simply executes that command.
 
 ## System Events
 

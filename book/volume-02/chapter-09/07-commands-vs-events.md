@@ -1,6 +1,6 @@
 # 9.7 Commands vs. Events
 
-The terms **event** and **command** are often used interchangeably in casual discussions, but they represent two different concepts within the architecture of our editor. Understanding the distinction between them is important because it explains why the Input Parser and the Command Engine are implemented as separate components.
+The terms **event** and **command** are often used interchangeably in casual discussions, but they represent two different concepts within the architecture of our editor. Understanding the distinction between them is important because it explains why the Input Parser, the Input Engine, and the Command Engine are implemented as separate components.
 
 An **event** describes **what happened**, while a **command** describes **what the editor should do** in response.
 
@@ -62,7 +62,7 @@ Unlike events, commands express actions that modify the Editor State or perform 
 
 ## From Event to Command
 
-The Command Engine acts as the bridge between events and commands.
+The Input Engine acts as the bridge between events and commands.
 
 It receives an event from the Input Parser, determines its meaning, and selects the appropriate command.
 
@@ -93,7 +93,7 @@ KEY_CTRL_S
 Save Document
 ```
 
-The event itself never modifies the document. It is merely the input that causes the Command Engine to execute a command.
+The event itself never modifies the document. It is merely the input that causes the Input Engine to select a command, which the Command Engine then executes.
 
 ## Why Separate Events from Commands?
 
@@ -146,7 +146,8 @@ Each component has a single responsibility:
 | ------------------ | --------------------------------------- |
 | **Input Handler**  | Reads raw bytes from the terminal.      |
 | **Input Parser**   | Converts bytes into key events.         |
-| **Command Engine** | Translates events into editor commands. |
+| **Input Engine**   | Maps key events to editor commands.     |
+| **Command Engine** | Executes editor commands.               |
 | **Editor State**   | Stores the current application state.   |
 | **Renderer**       | Displays the updated state.             |
 
@@ -194,6 +195,6 @@ Keeping these concepts separate reduces coupling, improves maintainability, and 
 
 ## Summary
 
-An event is a notification that something has occurred, while a command is an instruction telling the editor what action to perform. The Command Engine bridges these two concepts by translating events produced by the Input Parser into commands that update the Editor State.
+An event is a notification that something has occurred, while a command is an instruction telling the editor what action to perform. The Input Engine bridges these two concepts by translating events produced by the Input Parser into commands, which the Command Engine then executes to update the Editor State.
 
 This separation allows the editor to remain modular, flexible, and easy to extend. In the next section, we will examine how commands modify the **Editor State** and why maintaining a single source of truth is central to the editor's design.

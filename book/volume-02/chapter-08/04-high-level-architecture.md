@@ -55,6 +55,11 @@ The overall architecture of our editor is shown below.
                    │
                    ▼
           +------------------+
+          |   Input Engine   |
+          +------------------+
+                   │
+                   ▼
+          +------------------+
           | Command Engine   |
           +------------------+
                    │
@@ -102,18 +107,32 @@ The **Input Parser** examines the incoming bytes and determines what they repres
 For example:
 
 - `'A'` becomes a printable character event.
-- `Ctrl+S` becomes a save command.
+- `Ctrl+S` becomes a control key event (`KEY_CTRL_S`).
 - An escape sequence becomes an arrow key event.
 
 The parser transforms terminal-specific byte sequences into structured events that the rest of the editor can understand.
 
 This separation allows the remainder of the editor to remain independent of terminal protocols.
 
-### Step 3 — Commands Are Executed
+### Step 3 — Events Are Mapped to Commands
 
-Once an input event has been identified, it is passed to the **Command Engine**.
+Once an input event has been identified, it is passed to the **Input Engine**.
 
-The Command Engine decides what action should occur.
+The Input Engine decides which command the event represents.
+
+Examples include:
+
+- `KEY_ARROW_LEFT` becomes **Move Cursor Left**.
+- `KEY_BACKSPACE` becomes **Delete Character**.
+- `KEY_CTRL_S` becomes **Save Document**.
+
+The Input Engine does **not** read raw bytes or modify the editor's state. Its only responsibility is to map each key event to the appropriate command and hand that command to the Command Engine.
+
+### Step 4 — Commands Are Executed
+
+Once a command has been selected, it is passed to the **Command Engine**.
+
+The Command Engine executes the command, coordinating the appropriate modifications to the editor's state.
 
 Examples include:
 
@@ -123,11 +142,9 @@ Examples include:
 - Save the document.
 - Exit the editor.
 
-The Command Engine coordinates the appropriate modifications to the editor's state.
-
 It does **not** draw the screen or communicate directly with the terminal.
 
-### Step 4 — State Is Updated
+### Step 5 — State Is Updated
 
 All editing operations ultimately modify the **Editor State**.
 
@@ -146,7 +163,7 @@ Every component that needs information about the editor obtains it from this sha
 
 The Editor State serves as the central source of truth for the entire application.
 
-### Step 5 — The Screen Is Redrawn
+### Step 6 — The Screen Is Redrawn
 
 After the state changes, the **Renderer** generates a new frame.
 
@@ -158,7 +175,7 @@ Its only responsibility is displaying the current state of the editor.
 
 This follows the rendering strategy established earlier in the book, where each update redraws the entire visible screen rather than attempting incremental updates (ADR-002).
 
-### Step 6 — Files Are Accessed When Needed
+### Step 7 — Files Are Accessed When Needed
 
 Most editing operations do not interact with the file system.
 
@@ -186,7 +203,7 @@ This design is often described using the **Single Responsibility Principle**:
 
 If rendering requirements change, only the Renderer should require modification.
 
-If keyboard handling changes, only the Input Handler and Input Parser should require modification.
+If keyboard input handling changes, only the Input Handler and Input Parser should require modification. If the mapping from keys to commands changes, only the Input Engine should require modification.
 
 Changes remain localized rather than spreading throughout the entire application.
 

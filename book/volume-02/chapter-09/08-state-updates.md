@@ -1,6 +1,6 @@
 # 9.8 State Updates
 
-In the previous section, we saw how the Command Engine translates events into commands. Once a command has been selected, the next step is to apply its effects to the application. This is accomplished by updating the **Editor State**.
+In the previous section, we saw how the Input Engine translates events into commands. Once a command has been selected and executed by the Command Engine, the next step is to apply its effects to the application. This is accomplished by updating the **Editor State**.
 
 The Editor State is the central repository for all data managed by the editor. As discussed in Chapter 8, it acts as the **single source of truth**, ensuring that every component works with the same consistent view of the application. Rather than modifying the display directly, commands modify the Editor State, and the Renderer later uses that state to generate the next frame.
 

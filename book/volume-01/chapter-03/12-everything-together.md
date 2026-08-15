@@ -378,28 +378,6 @@ This separation of responsibilities is one of the reasons Unix systems remain si
 Each component focuses on doing one job well.
 
 
-## Looking Ahead
-
-At this point, we understand the complete environment in which our editor will run.
-
-We know:
-
-- where keyboard input comes from,
-- how applications receive it,
-- how output reaches the screen,
-- how shells launch programs,
-- how terminal emulators communicate with applications,
-- and how the operating system manages terminal sessions.
-
-However, one important mystery remains.
-
-Earlier in this chapter, we mentioned that applications move the cursor, clear the screen, and change colors by sending **ANSI escape sequences**.
-
-We have treated these as magical commands.
-
-It is now time to discover what they really are.
-
-
 ## Engineering Insight
 
 A remarkable aspect of the Unix terminal architecture is that none of its major components needs to understand the internal implementation of the others.
@@ -415,16 +393,8 @@ Instead, each communicates through standardized interfaces—PTYs, file descript
 This loose coupling has allowed terminal software written decades apart to work together seamlessly. It is a textbook example of modular system design, where independently developed components cooperate through stable, well-defined interfaces.
 
 
-## Chapter Summary
+## Summary
 
-In this chapter, we explored the architecture of the Unix terminal environment.
+In this section, we connected the individual components of the terminal environment into a single working picture. We followed a complete terminal application from the moment a terminal window is opened—through the creation of a PTY, the launch of the shell, and the start of our editor—down to the round trip of a single keystroke and the character that finally appears on the screen.
 
-We began with the history of terminals, from mechanical teletypes to modern terminal emulators, and saw why the term **TTY** still exists today. We then introduced virtual consoles and pseudo-terminals, explaining how graphical terminal emulators provide the same interface as traditional terminals.
-
-Next, we examined the shell, terminal sessions, standard file descriptors, controlling terminals, and process groups. Together, these concepts explained how programs receive keyboard input, produce output, and interact with users through a terminal.
-
-Most importantly, we saw that our text editor is only one component in a much larger system. Rather than communicating directly with hardware, it relies on the operating system and the terminal environment to handle input, output, rendering, and process management.
-
-With this foundation in place, we are ready to begin controlling the terminal itself.
-
-In the next chapter, we will explore **ANSI Escape Sequences**—the language that terminal applications use to move the cursor, clear the screen, change colors, and create full-screen interactive interfaces. From that point onward, we will begin acquiring the practical tools needed to build our own terminal text editor.
+Along the way, a clear division of responsibilities emerged. The operating system manages processes, the terminal emulator handles rendering and input, the PTY provides the communication channel, the shell starts programs, and our editor is left with a surprisingly small job: read from `stdin`, update its buffer, and write to `stdout`. Everything else is handled by the surrounding environment.

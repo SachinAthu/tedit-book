@@ -1,6 +1,6 @@
 # 8.8 State Ownership
 
-As we have seen throughout this chapter, every component in the editor performs a specific responsibility. The Input Handler reads keyboard input, the Input Parser interprets key sequences, the Command Engine decides which action to perform, and the Renderer displays the current state of the editor.
+As we have seen throughout this chapter, every component in the editor performs a specific responsibility. The Input Handler reads keyboard input, the Input Parser interprets key sequences, the Input Engine maps those events to commands, the Command Engine executes those commands, and the Renderer displays the current state of the editor.
 
 One question still remains:
 

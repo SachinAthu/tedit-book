@@ -86,6 +86,9 @@ Input Handler
 Input Parser
        │
        ▼
+Input Engine
+       │
+       ▼
 Command Engine
        │
        ▼
@@ -146,7 +149,8 @@ The dependency structure looks like this.
 
 ```text
 Application Layer
-(Command Engine)
+(Input Engine,
+ Command Engine)
         │
         ▼
 Core Layer
@@ -228,7 +232,8 @@ The following table summarizes the primary dependencies between the editor's maj
 | ------------------ | -------------------------- | ------------------------------------------------------------------------- |
 | Input Handler      | Terminal Interface         | Reads raw keyboard input from the operating system.                       |
 | Input Parser       | Input Handler              | Interprets the raw byte stream into key events.                           |
-| Command Engine     | Input Parser, Editor State | Executes editing commands and updates the application state.              |
+| Input Engine       | Input Parser, Command Engine | Maps key events to commands and dispatches them for execution.         |
+| Command Engine     | Editor State               | Executes commands and updates the application state.                      |
 | Renderer           | Editor State               | Reads the current state to generate the display.                          |
 | File Manager       | Editor State               | Reads and writes the current document during file operations.             |
 | Terminal Interface | Operating System           | Provides low-level terminal services such as raw mode and screen control. |

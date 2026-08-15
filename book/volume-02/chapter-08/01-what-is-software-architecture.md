@@ -62,6 +62,7 @@ For example:
 
 - The **Input Handler** reads data from the terminal.
 - The **Input Parser** interprets raw bytes as keyboard events.
+- The **Input Engine** maps keyboard events to editor commands.
 - The **Command Engine** executes editor commands.
 - The **Renderer** updates the display.
 - The **File Manager** loads and saves documents.
@@ -116,6 +117,11 @@ A simplified view of a terminal text editor might look like this:
         ▼
 +---------------+
 | Input Parser  |
++---------------+
+        │
+        ▼
++---------------+
+| Input Engine  |
 +---------------+
         │
         ▼

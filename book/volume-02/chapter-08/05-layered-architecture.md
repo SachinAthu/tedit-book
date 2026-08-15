@@ -113,6 +113,7 @@ Our terminal text editor can be organized into three logical layers.
 +--------------------------------------+
 |          Application Layer           |
 |--------------------------------------|
+| Input Engine                         |
 | Command Engine                       |
 +--------------------------------------+
                  │
@@ -146,9 +147,9 @@ The **Application Layer** represents the editor's behavior.
 
 Its primary responsibility is deciding **what should happen** in response to user actions.
 
-The central component of this layer is the **Command Engine**.
+The central components of this layer are the **Input Engine** and the **Command Engine**.
 
-When the user presses a key, the Command Engine determines which editing operation should be performed.
+When the user presses a key, the Input Engine maps the resulting key event to a command, and the Command Engine executes that command to determine which editing operation should be performed.
 
 Examples include:
 
@@ -215,13 +216,14 @@ Layers help organize components, but they do not dictate the direction of every 
 
 In our architecture, the **Core Layer** holds the Editor State — the central source of truth for the entire application. Both the Application Layer and the Platform Layer depend on it.
 
-The Application Layer (Command Engine) modifies the Editor State in response to user input. The Platform Layer (Renderer, File Manager) reads the Editor State to display the screen and persist files.
+The Application Layer (Input Engine, Command Engine) modifies the Editor State in response to user input. The Platform Layer (Renderer, File Manager) reads the Editor State to display the screen and persist files.
 
 This relationship can be visualized as follows.
 
 ```text
 Application Layer
-(Command Engine)
+(Input Engine,
+ Command Engine)
         │
         ▼
 Core Layer
@@ -240,7 +242,7 @@ The Core Layer does **not** depend on either the Application Layer or the Platfo
 
 This is a key architectural property: the most stable part of the system — the data that defines an editing session — should not depend on the more volatile components that surround it.
 
-The Platform Layer also provides **services** to the rest of the application. The Input Handler reads raw keyboard input from the operating system, the Renderer draws to the terminal, and the File Manager reads and writes files on disk. The Command Engine consumes these services indirectly (receiving parsed key events and triggering operations), but this service relationship flows through well-defined interfaces rather than direct module-to-module dependencies.
+The Platform Layer also provides **services** to the rest of the application. The Input Handler reads raw keyboard input from the operating system, the Renderer draws to the terminal, and the File Manager reads and writes files on disk. The Input Engine and Command Engine consume these services indirectly (the Input Engine receives parsed key events, and the Command Engine triggers operations), but this service relationship flows through well-defined interfaces rather than direct module-to-module dependencies.
 
 Maintaining this inward dependency structure prevents circular relationships between modules and makes the architecture easier to understand.
 

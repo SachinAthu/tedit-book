@@ -34,6 +34,11 @@ The architecture introduced in the previous section consists of several cooperat
                    │
                    ▼
           +------------------+
+          |   Input Engine   |
+          +------------------+
+                   │
+                   ▼
+          +------------------+
           | Command Engine   |
           +------------------+
                    │
@@ -123,13 +128,39 @@ Instead of working with raw byte sequences, higher-level components simply recei
 
 This architectural decision was established earlier in **ADR-004**, which introduced a dedicated Input Parser to separate terminal protocols from editor logic.
 
-## Command Engine
+## Input Engine
 
-Once an input event has been identified, it is passed to the **Command Engine**.
+Once the Input Parser has produced a structured key event, the editor must decide which command that event represents. This is the responsibility of the **Input Engine**.
 
-The Command Engine determines what action the editor should perform.
+The Input Engine receives a key event and maps it to the appropriate editor command.
 
 For example:
+
+```text
+KEY_ARROW_UP
+    │
+    ▼
+MOVE_CURSOR_UP
+```
+
+```text
+KEY_CTRL_S
+    │
+    ▼
+SAVE_DOCUMENT
+```
+
+The Input Engine does **not** read raw bytes, parse escape sequences, or modify the Document. It simply decides which command a key event represents and dispatches that command to the Command Engine.
+
+Separating the Input Engine from the Command Engine keeps keyboard bindings independent of editor behavior: a key can be remapped to a different command without changing how that command is executed. This decision is recorded as **ADR-015**, which is examined in detail in Chapter 15.
+
+## Command Engine
+
+Once the Input Engine has selected a command, that command is passed to the **Command Engine**.
+
+The Command Engine executes the command and coordinates the resulting changes to the editor's state.
+
+For example, it may:
 
 - Insert a character.
 - Delete a character.
@@ -141,7 +172,7 @@ Notice that the Command Engine does not read keyboard input directly.
 
 It also does not draw the screen.
 
-Instead, it coordinates the editor's behavior by issuing commands that modify the current state.
+Instead, it coordinates the editor's behavior by executing commands that modify the current state.
 
 It can be thought of as the decision-making component of the application.
 
@@ -252,6 +283,9 @@ Input Handler
 Input Parser
     │
     ▼
+Input Engine
+    │
+    ▼
 Command Engine
     │
     ▼
@@ -296,7 +330,7 @@ Professional software systems therefore emphasize **high cohesion**—keeping cl
 
 ## Summary
 
-The editor is composed of several specialized components, each responsible for a distinct aspect of the system. The Input Handler acquires raw keyboard input, the Input Parser converts it into meaningful events, the Command Engine decides what actions to perform, the Editor State stores the application's data, the Renderer presents that state to the user, the File Manager handles persistent storage, and the Terminal Interface manages communication with the terminal.
+The editor is composed of several specialized components, each responsible for a distinct aspect of the system. The Input Handler acquires raw keyboard input, the Input Parser converts it into meaningful events, the Input Engine maps those events to commands, the Command Engine executes those commands, the Editor State stores the application's data, the Renderer presents that state to the user, the File Manager handles persistent storage, and the Terminal Interface manages communication with the terminal.
 
 Together, these components form a modular architecture in which every part has a clear responsibility and contributes to the editor without becoming responsible for unrelated tasks.
 

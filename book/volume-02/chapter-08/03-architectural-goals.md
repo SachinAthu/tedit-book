@@ -58,6 +58,7 @@ For example:
 
 - Reading bytes from the terminal belongs to the **Input Handler**.
 - Interpreting escape sequences belongs to the **Input Parser**.
+- Mapping key events to commands belongs to the **Input Engine**.
 - Executing editing operations belongs to the **Command Engine**.
 - Storing text belongs to the **Document**.
 - Drawing the screen belongs to the **Renderer**.
@@ -70,6 +71,9 @@ Input Handler
         │
         ▼
 Input Parser
+        │
+        ▼
+Input Engine
         │
         ▼
 Command Engine

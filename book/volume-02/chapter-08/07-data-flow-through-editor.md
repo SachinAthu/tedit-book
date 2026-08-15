@@ -44,6 +44,9 @@ Input Handler
 Input Parser
       │
       ▼
+Input Engine
+      │
+      ▼
 Command Engine
       │
       ▼
@@ -126,11 +129,9 @@ KEY_CHARACTER('A')
 
 From this point onward, the remainder of the editor no longer deals with raw terminal bytes.
 
-### Step 4 — Command Engine
+### Step 4 — Input Engine
 
-The Command Engine receives the key event.
-
-It determines that the event represents an insertion command.
+The Input Engine receives the key event and maps it to a command.
 
 ```text
 KEY_CHARACTER('A')
@@ -140,9 +141,13 @@ KEY_CHARACTER('A')
 Insert Character
 ```
 
+### Step 5 — Command Engine
+
+The Command Engine receives the **Insert Character** command and executes it.
+
 Rather than modifying the terminal directly, it requests a modification to the document stored in the Editor State.
 
-### Step 5 — Editor State
+### Step 6 — Editor State
 
 The document stored in memory is updated.
 
@@ -168,7 +173,7 @@ The document is marked as modified.
 
 The Editor State now reflects the new state of the application.
 
-### Step 6 — Renderer
+### Step 7 — Renderer
 
 The Renderer examines the updated Editor State.
 
@@ -219,6 +224,10 @@ KEY_ARROW_LEFT
 
 ↓
 
+Input Engine
+
+↓
+
 Command Engine
 
 ↓
@@ -259,6 +268,9 @@ Input Parser
       │
       ▼
 KEY_CTRL_SAVE
+      │
+      ▼
+Input Engine
       │
       ▼
 Command Engine
