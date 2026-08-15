@@ -161,7 +161,7 @@ Tradeoffs.
 - Merge line
 - Move cursor
 - Save
-- Qui
+- Quit
 
 ---
 

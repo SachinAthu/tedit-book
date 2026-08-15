@@ -1,0 +1,19 @@
+chapter: 16
+title: Command Engine
+volume: 3
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 16.1 What the Command Engine Is Responsible For —> 01-command-engine-responsible.md
+  - 16.2 Commands as an Abstraction —> 02-command-as-abstraction.md
+  - 16.3 Command Representation —> 03-command-representation.md
+  - 16.4 The Command Execution Lifecycle —> 04-command-execution-lifecycle.md
+  - 16.5 Command Categories —> 05-command-categories.md
+  - 16.6 Editing Commands and Core Operations —> 06-editing-commands-core-operations.md
+  - 16.7 Command Boundaries and State Ownership —> 07-command-boundaries-state-ownership.md
+  - 16.8 Commands That Do Not Modify the Document —> 08-commands-that-do-not-modify-document.md
+  - 16.9 Command Results and Error Handling —> 09-command-results-error-handling.md
+  - 16.10 Command Dispatch —> 10-command-dispatch.md
+  - 16.11 Design Alternatives —> 11-design-alternatives.md
+  - 16.12 Complexity and Trade-offs —> 12-complexity-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md
