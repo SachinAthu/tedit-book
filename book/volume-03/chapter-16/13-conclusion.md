@@ -86,7 +86,7 @@ Wrong responsibility.
 ### Mistake 2 — Letting commands draw directly
 
 ```text
-COMMAND_SAVE
+COMMAND_SAVE_DOCUMENT
     └── printf(...)
 ```
 

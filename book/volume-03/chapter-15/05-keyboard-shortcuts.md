@@ -78,7 +78,7 @@ Command Engine
 Save current document
 ```
 
-This separation means the input subsystem does not need to know how the document is represented, how the file is written, or how the modified state is updated.
+This separation means the input subsystem does not need to know how the document is represented, how the file is written, or how the Dirty Flag is updated.
 
 Those details belong to the command execution path and the components involved in performing the operation.
 

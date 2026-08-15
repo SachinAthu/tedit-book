@@ -11,10 +11,10 @@ MOVE_CURSOR_LEFT
    Success
 ```
 
-Others interact with operations that can fail. The clearest example is `SAVE`, which depends on the file system:
+Others interact with operations that can fail. The clearest example is `SAVE_DOCUMENT`, which depends on the file system:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Operation
@@ -77,16 +77,16 @@ Render
 
 Not every successful command needs to produce a user-visible message. A cursor movement, for example, normally succeeds silently.
 
-Likewise, a successful character insertion simply results in the updated Document, Cursor, and modified state.
+Likewise, a successful character insertion simply results in the updated Document, Cursor, and Dirty Flag.
 
 ## Commands That Can Fail
 
 Some commands depend on conditions outside the immediate editor state.
 
-`SAVE` is the primary example:
+`SAVE_DOCUMENT` is the primary example:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Manager
@@ -110,7 +110,7 @@ A recoverable command error means that the requested operation could not be comp
 For example:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Operation
@@ -140,14 +140,14 @@ A command failure needs to become visible to the user.
 The Command Engine can therefore coordinate the creation of an appropriate state update:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Manager
  │
  └── Error
-      │
-      ▼
+       │
+       ▼
 Message State
       │
       ▼
@@ -198,13 +198,13 @@ Document
 The user executes:
 
 ```text
-SAVE
+SAVE_DOCUMENT
 ```
 
 If the operation fails:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Operation
@@ -219,16 +219,16 @@ The editor should therefore retain the unsaved in-memory state rather than treat
 Conceptually:
 
 ```text
-Before SAVE
+Before SAVE_DOCUMENT
     │
     ├── Document = modified
     └── Dirty = true
           │
           ▼
-       SAVE fails
+       SAVE_DOCUMENT fails
           │
           ▼
-After SAVE
+After SAVE_DOCUMENT
     │
     ├── Document = unchanged
     ├── Dirty = true
@@ -255,8 +255,8 @@ For example:
 
 - `MOVE_CURSOR_LEFT` → successful state change
 - `INSERT_CHARACTER` → successful document modification
-- `SAVE` → successful persistence or recoverable failure
-- `QUIT` → request to leave the normal editing loop
+- `SAVE_DOCUMENT` → successful persistence or recoverable failure
+- `QUIT_EDITOR` → request to leave the normal editing loop
 
 The exact representation of these results should remain simple for the current editor. The important architectural point is that **command execution produces an outcome that the runtime can act upon**.
 
@@ -321,10 +321,10 @@ Without a consistent approach, command implementations could start doing things 
 INSERT_CHARACTER
     └── print error
 
-SAVE
+SAVE_DOCUMENT
     └── print error
 
-DELETE
+DELETE_CHARACTER
     └── print error
 ```
 

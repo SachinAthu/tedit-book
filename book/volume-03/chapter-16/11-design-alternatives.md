@@ -102,8 +102,8 @@ Command
    │
    ├──► Cursor handles MOVE commands
    ├──► Document handles INSERT/DELETE
-   ├──► File Manager handles SAVE
-   └──► Terminal handles QUIT
+   ├──► File Manager handles SAVE_DOCUMENT
+   └──► Terminal handles QUIT_EDITOR
 ```
 
 This initially appears modular because each component handles behavior related to itself.
@@ -117,7 +117,7 @@ INSERT_CHARACTER
        │
        ├──► Document changes
        ├──► Cursor changes
-       └──► Dirty state changes
+       └──► Dirty Flag changes
 ```
 
 There would be no single place coordinating the complete state transition.

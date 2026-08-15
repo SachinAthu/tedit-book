@@ -38,7 +38,7 @@ Command Engine
         │
         ├──► Cursor: advance position
         │
-        └──► Dirty State: mark modified
+        └──► Dirty Flag: mark modified
 ```
 
 The Document performs the actual text insertion according to its representation and editing rules.
@@ -49,9 +49,32 @@ The Command Engine coordinates these consequences so that the operation results 
 
 It should not contain another implementation of character insertion.
 
+## Delete Previous Character
+
+The `DELETE_PREVIOUS_CHARACTER` command requests removal of the character before the current cursor position. It is the operation normally triggered by the Backspace key.
+
+Conceptually:
+
+```text
+DELETE_PREVIOUS_CHARACTER
+        │
+        ▼
+Command Engine
+        │
+        ├──► Document: remove text
+        │
+        ├──► Cursor: adjust position
+        │
+        └──► Dirty Flag: mark modified
+```
+
+The exact behavior at line boundaries belongs to the Document and Cursor rules established earlier.
+
+For example, deleting at the beginning of a line may require the current line to be merged with the previous line. The Command Engine does not need to reproduce those rules. It coordinates the appropriate core operations.
+
 ## Delete Character
 
-The `DELETE_CHARACTER` command requests removal of text relative to the current cursor position.
+The `DELETE_CHARACTER` command requests removal of the character at the current cursor position. It is the operation normally triggered by the Delete key.
 
 Conceptually:
 
@@ -65,16 +88,16 @@ Command Engine
         │
         ├──► Cursor: adjust position
         │
-        └──► Dirty State: mark modified
+        └──► Dirty Flag: mark modified
 ```
 
-The exact behavior at line boundaries belongs to the Document and Cursor rules established earlier.
+The same boundary applies here: deleting at the end of a line may merge the following line into the current one. The Command Engine coordinates that behavior through the Document and Cursor rather than reimplementing it.
 
-For example, deleting at the beginning of a line may require the current line to be merged with the previous line. The Command Engine does not need to reproduce those rules. It coordinates the appropriate core operations.
-
-This is an important boundary:
+Both delete commands share an important boundary:
 
 > **The command identifies the requested operation; the core component determines how that operation is performed correctly.**
+
+There is no separate `MERGE_LINE` command. Line merging is a Document-level operation (established in Chapter 13) that the delete commands trigger when they cross a line boundary: `DELETE_PREVIOUS_CHARACTER` merges the current line into the previous one, and `DELETE_CHARACTER` merges the following line into the current one.
 
 ## Split Line
 
@@ -102,7 +125,7 @@ The Document is responsible for maintaining its line representation, while the C
 
 Again, the Command Engine coordinates the operation without becoming responsible for the internal mechanics of line splitting.
 
-## Editing Commands and the Modified State
+## Editing Commands and the Dirty Flag
 
 All commands that change the Document have an important additional consequence: the document becomes modified.
 
@@ -130,7 +153,7 @@ Document
     └── Modified
 ```
 
-The modified state is not itself part of the text representation. It describes the relationship between the current in-memory Document and its last saved state.
+The Dirty Flag is not itself part of the text representation. It describes the relationship between the current in-memory Document and its last saved state.
 
 The Command Engine therefore has to coordinate this state transition whenever a command successfully changes the Document.
 
@@ -143,7 +166,15 @@ INSERT_CHARACTER
        │
        ├── Document changes
        ├── Cursor changes
-       └── Dirty state changes
+       └── Dirty Flag changes
+```
+
+```text
+DELETE_PREVIOUS_CHARACTER
+       │
+       ├── Document changes
+       ├── Cursor may change
+       └── Dirty Flag changes
 ```
 
 ```text
@@ -151,7 +182,7 @@ DELETE_CHARACTER
        │
        ├── Document changes
        ├── Cursor may change
-       └── Dirty state changes
+       └── Dirty Flag changes
 ```
 
 ```text
@@ -159,7 +190,7 @@ SPLIT_LINE
        │
        ├── Document changes
        ├── Cursor changes
-       └── Dirty state changes
+       └── Dirty Flag changes
 ```
 
 The exact combination depends on the operation and the current document state.
@@ -171,10 +202,10 @@ The Command Engine's role is to ensure that the appropriate components participa
 It may initially seem simpler to put the entire implementation of an editing command inside the Command Engine:
 
 ```text
-COMMAND_DELETE
+COMMAND_DELETE_CHARACTER
      │
      ▼
-command_delete()
+command_delete_character()
      │
      ├── manipulate lines
      ├── move cursor
@@ -284,7 +315,7 @@ The result is a Command Engine that remains relatively small even as the editor'
 
 ## Summary
 
-Editing commands, such as `INSERT_CHARACTER`, `DELETE_CHARACTER`, and `SPLIT_LINE`, are where the Command Engine coordinates operations that change the Document. The Command Engine does not define how text editing works; the Document and Cursor apply their own rules while the Command Engine ensures the affected components participate in one consistent state transition.
+Editing commands, such as `INSERT_CHARACTER`, `DELETE_PREVIOUS_CHARACTER`, `DELETE_CHARACTER`, and `SPLIT_LINE`, are where the Command Engine coordinates operations that change the Document. The Command Engine does not define how text editing works; the Document and Cursor apply their own rules while the Command Engine ensures the affected components participate in one consistent state transition.
 
 Because every editing command modifies the Document, it also marks the document as modified. This keeps the Command Engine focused on coordination rather than duplicating the editing algorithms established in earlier chapters.
 

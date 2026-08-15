@@ -25,7 +25,7 @@ This distinction prevents input-handling code from becoming another source of st
 
 ## The Input Engine Does Not Own Editor State
 
-The Editor State is the application's single source of truth. It contains the state required to represent the current editing session, including the Document, Cursor, Viewport, current file, modified state, screen information, and other application data.
+The Editor State is the application's single source of truth. It contains the state required to represent the current editing session, including the Document, Cursor, Viewport, current file, Dirty Flag, screen information, and other application data.
 
 The Input Engine does not maintain its own copies of these values.
 

@@ -51,10 +51,11 @@ Similarly:
 
 ```text
 INSERT_CHARACTER
+DELETE_PREVIOUS_CHARACTER
 DELETE_CHARACTER
 SPLIT_LINE
-SAVE
-QUIT
+SAVE_DOCUMENT
+QUIT_EDITOR
 ```
 
 each represents an operation that the editor knows how to perform.
@@ -68,11 +69,13 @@ Command
    │
    ├── INSERT_CHARACTER ──► Document + Cursor
    │
+   ├── DELETE_PREVIOUS_CHARACTER ──► Document + Cursor
+   │
    ├── DELETE_CHARACTER ──► Document + Cursor
    │
-   ├── SAVE ──────────────► File Manager
+   ├── SAVE_DOCUMENT ──────────────► File Manager
    │
-   └── QUIT ──────────────► Application State
+   └── QUIT_EDITOR ──────────────► Application State
 ```
 
 The Command Engine therefore acts as a coordinator rather than replacing the components responsible for the underlying operations.
@@ -146,7 +149,7 @@ A command may:
 - fail because an external operation could not be completed, or
 - request that the application terminate.
 
-For example, `SAVE` may succeed or fail depending on the file system. A failed save should be represented as a command-level error and communicated through the editor's state rather than causing the Command Engine to bypass the normal runtime flow.
+For example, `SAVE_DOCUMENT` may succeed or fail depending on the file system. A failed save should be represented as a command-level error and communicated through the editor's state rather than causing the Command Engine to bypass the normal runtime flow.
 
 The runtime model defines recoverable errors such as save failures and missing files as conditions that should update the Message Bar while allowing the Event Loop to continue.
 

@@ -89,10 +89,11 @@ Command Type
    ├── MOVE_LEFT
    ├── MOVE_RIGHT
    ├── INSERT_CHARACTER
+   ├── DELETE_PREVIOUS_CHARACTER
    ├── DELETE_CHARACTER
    ├── SPLIT_LINE
-   ├── SAVE
-   └── QUIT
+   ├── SAVE_DOCUMENT
+   └── QUIT_EDITOR
 ```
 
 This is the point where command dispatch occurs.
@@ -139,13 +140,13 @@ INSERT_CHARACTER('A')
        │
        ├──► Cursor
        │
-       └──► Dirty State
+       └──► Dirty Flag
 ```
 
 A save operation crosses into the file system:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Manager
@@ -203,7 +204,7 @@ Not every command execution necessarily succeeds.
 For example, a save operation may encounter an error:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Manager
@@ -218,7 +219,7 @@ A successful command can leave the Editor State updated normally.
 A recoverable failure can instead update the appropriate state, such as a status or message value:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ▼
 File Manager
@@ -382,7 +383,7 @@ Document changes
 Cursor changes
         │
         ▼
-Dirty state changes
+Dirty Flag changes
         │
         ▼
 Frame is rendered

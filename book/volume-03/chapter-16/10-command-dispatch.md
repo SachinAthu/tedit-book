@@ -23,10 +23,11 @@ Command Type
    ├── MOVE_UP ───────────► Move cursor up
    ├── MOVE_DOWN ─────────► Move cursor down
    ├── INSERT_CHARACTER ──► Insert character
+   ├── DELETE_PREVIOUS_CHARACTER ──► Delete previous character
    ├── DELETE_CHARACTER ──► Delete character
    ├── SPLIT_LINE ────────► Split line
-   ├── SAVE ──────────────► Save document
-   └── QUIT ──────────────► Quit editor
+   ├── SAVE_DOCUMENT ──────► Save document
+   └── QUIT_EDITOR ────────► Quit editor
 ```
 
 The dispatch mechanism therefore connects the **abstract command representation** introduced earlier with the **concrete operations** provided by the editor's core components.
@@ -60,6 +61,10 @@ switch (command.type)
         /* insert character */
         break;
 
+    case COMMAND_DELETE_PREVIOUS_CHARACTER:
+        /* delete previous character */
+        break;
+
     case COMMAND_DELETE_CHARACTER:
         /* delete character */
         break;
@@ -68,11 +73,11 @@ switch (command.type)
         /* split line */
         break;
 
-    case COMMAND_SAVE:
+    case COMMAND_SAVE_DOCUMENT:
         /* save document */
         break;
 
-    case COMMAND_QUIT:
+    case COMMAND_QUIT_EDITOR:
         /* quit editor */
         break;
 }

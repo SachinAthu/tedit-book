@@ -56,7 +56,7 @@ The Input Engine determines that the key means `MOVE_CURSOR_LEFT`. The Command E
 
 This distinction is important. A keyboard shortcut is an **input binding**; a command is an **editor operation**. The command should not need to know whether it was triggered by the Left Arrow key, a different shortcut, or some future form of user interaction. This separation keeps input handling independent from editor behavior and allows the same command to be triggered by different inputs.
 
-The Command Engine also provides a consistent place to coordinate operations that affect different parts of the editor. Inserting a character, for example, changes the Document and may also require the Cursor and modified state to be updated. Saving a document does not change the document's contents, but it synchronizes the in-memory state with the file on disk and changes the document's modified state after a successful save.
+The Command Engine also provides a consistent place to coordinate operations that affect different parts of the editor. Inserting a character, for example, changes the Document and may also require the Cursor and Dirty Flag to be updated. Saving a document does not change the document's contents, but it synchronizes the in-memory state with the file on disk and changes the document's Dirty Flag after a successful save.
 
 The Command Engine therefore does not replace the responsibilities of the Document or Cursor components. The Document remains responsible for the text it stores, and the Cursor remains responsible for cursor behavior. Instead, the Command Engine **coordinates these operations in response to commands**.
 
@@ -111,7 +111,7 @@ By the end of this chapter, you should be able to:
 - Describe the lifecycle of a command from input event to updated Editor State.
 - Classify commands into navigation, editing, document, and application operations.
 - Explain how the Command Engine coordinates the Document, Cursor, and other core state without taking ownership of their internal responsibilities.
-- Understand how command execution interacts with the modified state and recoverable errors.
+- Understand how command execution interacts with the Dirty Flag and recoverable errors.
 - Compare simple command dispatch with alternative command architectures.
 - Evaluate the complexity and trade-offs introduced by a dedicated Command Engine.
 - Recognize common architectural mistakes that blur the boundary between input handling, command execution, state management, and rendering.

@@ -59,6 +59,7 @@ The core editing commands include:
 
 ```text
 INSERT_CHARACTER
+DELETE_PREVIOUS_CHARACTER
 DELETE_CHARACTER
 SPLIT_LINE
 ```
@@ -72,14 +73,14 @@ INSERT_CHARACTER
        │
        ├──► Document changes
        ├──► Cursor changes
-       └──► Dirty state changes
+       └──► Dirty Flag changes
 ```
 
 Similarly, deleting text can require both a Document modification and a corresponding Cursor adjustment.
 
 The important architectural distinction is that the Command Engine **coordinates these consequences**, while the Document and Cursor components apply their own domain-specific rules.
 
-Because editing commands modify the Document, they normally cause the document's modified state to become true.
+Because editing commands modify the Document, they normally cause the Dirty Flag to become true.
 
 ## Document Commands
 
@@ -88,17 +89,17 @@ Document commands operate on the relationship between the in-memory Document and
 The primary document command in the current editor is:
 
 ```text
-SAVE
+SAVE_DOCUMENT
 ```
 
-Unlike an editing command, `SAVE` does not modify the Document's contents.
+Unlike an editing command, `SAVE_DOCUMENT` does not modify the Document's contents.
 
 Instead, it performs a synchronization:
 
 ```text
 In-Memory Document
         │
-        │ SAVE
+        │ SAVE_DOCUMENT
         ▼
    File Manager
         │
@@ -110,7 +111,7 @@ After a successful save, the document can be marked as unmodified.
 
 A save can also fail because of an external condition such as a file-system error. In that case, the command produces an error outcome rather than changing the Document's contents.
 
-This makes `SAVE` different from both navigation and editing commands: it primarily coordinates the in-memory editor state with an external resource.
+This makes `SAVE_DOCUMENT` different from both navigation and editing commands: it primarily coordinates the in-memory editor state with an external resource.
 
 Detailed file operations are intentionally outside the scope of this chapter and are covered later in the File System volume.
 
@@ -121,15 +122,15 @@ Application commands control the lifecycle of the editor itself.
 The primary example is:
 
 ```text
-QUIT
+QUIT_EDITOR
 ```
 
-Unlike navigation and editing commands, `QUIT` does not primarily operate on the Document or Cursor.
+Unlike navigation and editing commands, `QUIT_EDITOR` does not primarily operate on the Document or Cursor.
 
 Instead, it affects whether the application continues running:
 
 ```text
-QUIT
+QUIT_EDITOR
   │
   ▼
 Running = false
@@ -150,8 +151,8 @@ The categories can be summarized by the state they primarily affect:
 | ----------- | ------------------ | ------------------------------------- | ------------------ |
 | Navigation  | `MOVE_CURSOR_LEFT` | Cursor                                | No                 |
 | Editing     | `INSERT_CHARACTER` | Document, Cursor                      | Yes                |
-| Document    | `SAVE`             | File synchronization / document state | No                 |
-| Application | `QUIT`             | Application lifecycle                 | No                 |
+| Document    | `SAVE_DOCUMENT`    | File synchronization / document state | No                 |
+| Application | `QUIT_EDITOR`      | Application lifecycle                 | No                 |
 
 This classification also illustrates why it would be incorrect to assume that every command is simply a document-editing operation.
 
@@ -174,7 +175,7 @@ INSERT_CHARACTER
 Likewise, saving can affect both external file state and internal document state:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ├──► File on Disk
  │
@@ -202,8 +203,8 @@ For example:
 ```text
 MOVE_CURSOR_RIGHT  → Navigation
 INSERT_CHARACTER   → Editing
-SAVE               → Document
-QUIT               → Application
+SAVE_DOCUMENT      → Document
+QUIT_EDITOR        → Application
 ```
 
 This makes the command set easier to reason about without creating separate execution systems for each category.

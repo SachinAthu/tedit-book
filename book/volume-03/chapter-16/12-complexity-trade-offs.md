@@ -198,7 +198,7 @@ The Input Engine can be tested with mappings such as:
 
 ```text
 KEY_ARROW_LEFT → MOVE_CURSOR_LEFT
-KEY_CTRL_S     → SAVE
+KEY_CTRL_S     → SAVE_DOCUMENT
 ```
 
 without testing the actual editing operation.
@@ -208,8 +208,9 @@ The Command Engine can then be tested using commands directly:
 ```text
 MOVE_CURSOR_LEFT
 INSERT_CHARACTER('A')
+DELETE_PREVIOUS_CHARACTER
 DELETE_CHARACTER
-SAVE
+SAVE_DOCUMENT
 ```
 
 without needing to simulate terminal input.

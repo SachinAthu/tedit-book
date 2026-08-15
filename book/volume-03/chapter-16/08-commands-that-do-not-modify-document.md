@@ -8,8 +8,8 @@ Consider three commands:
 
 ```text
 MOVE_CURSOR_LEFT
-SAVE
-QUIT
+SAVE_DOCUMENT
+QUIT_EDITOR
 ```
 
 None of these directly changes the Document's contents.
@@ -24,14 +24,14 @@ MOVE_CURSOR_LEFT
 ```
 
 ```text
-SAVE
+SAVE_DOCUMENT
    │
    ▼
-File System / Dirty State
+File System / Dirty Flag
 ```
 
 ```text
-QUIT
+QUIT_EDITOR
    │
    ▼
 Application State
@@ -90,7 +90,7 @@ The movement itself is still governed by the Cursor Engine's rules. The Command 
 
 ## Save
 
-`SAVE` is another command that does not modify the Document.
+`SAVE_DOCUMENT` is another command that does not modify the Document.
 
 Instead, it synchronizes the current in-memory Document with its persistent representation:
 
@@ -139,12 +139,12 @@ If the save fails, the Document should remain unchanged and the editor should re
 
 ## Quit
 
-`QUIT` does not modify the Document either.
+`QUIT_EDITOR` does not modify the Document either.
 
 Instead, it changes the application's running state:
 
 ```text
-QUIT
+QUIT_EDITOR
   │
   ▼
 Running = false
@@ -157,7 +157,7 @@ The command therefore affects the lifecycle of the application rather than the c
 
 The actual cleanup work remains the responsibility of the appropriate platform components. In particular, terminal settings must be restored before the application terminates.
 
-This keeps the `QUIT` command conceptually simple:
+This keeps the `QUIT_EDITOR` command conceptually simple:
 
 > The command requests termination; the components responsible for application and terminal state perform the necessary cleanup.
 
@@ -167,17 +167,18 @@ The examples above demonstrate why command categories should not be defined sole
 
 A more useful view is to consider **which part of the Editor State a command affects**:
 
-| Command             | Document | Cursor | Dirty State | File System | Application |
+| Command             | Document | Cursor | Dirty Flag | File System | Application |
 | ------------------- | -------: | -----: | ----------: | ----------: | ----------: |
 | `MOVE_CURSOR_LEFT`  |        — |      ✓ |           — |           — |           — |
 | `MOVE_CURSOR_RIGHT` |        — |      ✓ |           — |           — |           — |
 | `MOVE_CURSOR_UP`    |        — |      ✓ |           — |           — |           — |
 | `MOVE_CURSOR_DOWN`  |        — |      ✓ |           — |           — |           — |
 | `INSERT_CHARACTER`  |        ✓ |      ✓ |           ✓ |           — |           — |
+| `DELETE_PREVIOUS_CHARACTER` | ✓ |      ✓ |           ✓ |           — |           — |
 | `DELETE_CHARACTER`  |        ✓ |      ✓ |           ✓ |           — |           — |
 | `SPLIT_LINE`        |        ✓ |      ✓ |           ✓ |           — |           — |
-| `SAVE`              |        — |      — |           ✓ |           ✓ |           — |
-| `QUIT`              |        — |      — |           — |           — |           ✓ |
+| `SAVE_DOCUMENT`     |        — |      — |           ✓ |           ✓ |           — |
+| `QUIT_EDITOR`       |        — |      — |           — |           — |           ✓ |
 
 The table is not intended to define new ownership rules. It simply shows the different effects that commands can have.
 
@@ -200,7 +201,7 @@ INSERT_CHARACTER
        │
        ├── Document changes
        ├── Cursor changes
-       └── Dirty state changes
+       └── Dirty Flag changes
 ```
 
 Navigation commands cause an Editor State change without a Document change:
@@ -214,16 +215,16 @@ MOVE_CURSOR_LEFT
 A successful save changes the persistence state without changing the Document:
 
 ```text
-SAVE
+SAVE_DOCUMENT
  │
  ├── Document remains unchanged
- └── Dirty state changes
+ └── Dirty Flag changes
 ```
 
 Quit changes application state:
 
 ```text
-QUIT
+QUIT_EDITOR
  │
  └── Running state changes
 ```
@@ -236,7 +237,7 @@ If the Command Engine treated every command as a Document operation, it would cr
 
 For example, a cursor movement should not need to interact with the Document simply because it is being executed through the same Command Engine.
 
-Likewise, `SAVE` should not modify the Document merely because it is classified as a command.
+Likewise, `SAVE_DOCUMENT` should not modify the Document merely because it is classified as a command.
 
 Instead, each command should affect only the state required by its operation:
 
@@ -286,7 +287,7 @@ This broader view keeps the Command Engine aligned with its architectural purpos
 
 ## Summary
 
-Not every command changes the contents of the Document. Navigation commands move the Cursor, `SAVE` persists the Document without editing it, and `QUIT` changes the application's running state. Each still produces a meaningful state transition.
+Not every command changes the contents of the Document. Navigation commands move the Cursor, `SAVE_DOCUMENT` persists the Document without editing it, and `QUIT_EDITOR` changes the application's running state. Each still produces a meaningful state transition.
 
 The distinction between a Document change and an Editor State change is central: the Command Engine is a **state-transition coordinator**, not a text-editing component.
 

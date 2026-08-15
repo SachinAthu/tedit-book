@@ -36,14 +36,15 @@ Navigation
 
 Editing
     INSERT_CHARACTER
+    DELETE_PREVIOUS_CHARACTER
     DELETE_CHARACTER
     SPLIT_LINE
 
 Document
-    SAVE
+    SAVE_DOCUMENT
 
 Application
-    QUIT
+    QUIT_EDITOR
 ```
 
 In C, an enumeration is a natural representation for this part of the command:
@@ -56,16 +57,17 @@ typedef enum
     COMMAND_MOVE_UP,
     COMMAND_MOVE_DOWN,
     COMMAND_INSERT_CHARACTER,
+    COMMAND_DELETE_PREVIOUS_CHARACTER,
     COMMAND_DELETE_CHARACTER,
     COMMAND_SPLIT_LINE,
-    COMMAND_SAVE,
-    COMMAND_QUIT
+    COMMAND_SAVE_DOCUMENT,
+    COMMAND_QUIT_EDITOR
 } CommandType;
 ```
 
 The enumeration gives the Command Engine a finite vocabulary of operations that the application currently understands.
 
-The important point is that these values describe **editor behavior**, not keyboard input. The Command Engine should receive `COMMAND_SAVE`, for example, rather than needing to know that the command originated from `KEY_CTRL_S`.
+The important point is that these values describe **editor behavior**, not keyboard input. The Command Engine should receive `COMMAND_SAVE_DOCUMENT`, for example, rather than needing to know that the command originated from `KEY_CTRL_S`.
 
 ## Command Data
 
@@ -203,10 +205,11 @@ Command Type
     ├── MOVE_CURSOR_LEFT
     ├── MOVE_CURSOR_RIGHT
     ├── INSERT_CHARACTER
+    ├── DELETE_PREVIOUS_CHARACTER
     ├── DELETE_CHARACTER
     ├── SPLIT_LINE
-    ├── SAVE
-    └── QUIT
+    ├── SAVE_DOCUMENT
+    └── QUIT_EDITOR
 ```
 
 The Command Engine can inspect the command type and select the appropriate operation.

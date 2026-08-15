@@ -158,7 +158,6 @@ Tradeoffs.
 - Insert
 - Delete
 - Split line
-- Merge line
 - Move cursor
 - Save
 - Quit

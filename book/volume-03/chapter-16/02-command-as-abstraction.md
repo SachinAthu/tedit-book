@@ -74,11 +74,11 @@ Input Event              Command
 
 KEY_ARROW_LEFT   ──────► MOVE_CURSOR_LEFT
 KEY_ARROW_RIGHT  ──────► MOVE_CURSOR_RIGHT
-KEY_CTRL_S       ──────► SAVE
-KEY_CTRL_Q       ──────► QUIT
+KEY_CTRL_S       ──────► SAVE_DOCUMENT
+KEY_CTRL_Q       ──────► QUIT_EDITOR
 ```
 
-The command does not need to know that `KEY_CTRL_S` triggered `SAVE`.
+The command does not need to know that `KEY_CTRL_S` triggered `SAVE_DOCUMENT`.
 
 This separation is one of the reasons the Input Engine exists as a distinct component. Its responsibility is to map input events to commands, while the Command Engine is responsible for executing those commands. The architecture deliberately keeps these responsibilities separate.
 
@@ -87,10 +87,10 @@ This also means that changing a shortcut does not require changing the implement
 For example, if saving were later bound to another keyboard shortcut:
 
 ```text
-KEY_NEW_SHORTCUT ───► SAVE
+KEY_NEW_SHORTCUT ───► SAVE_DOCUMENT
 ```
 
-the `SAVE` command itself would remain unchanged.
+the `SAVE_DOCUMENT` command itself would remain unchanged.
 
 ## Commands Hide How an Operation Is Triggered
 
@@ -115,13 +115,13 @@ This is useful beyond keyboard shortcuts. Although the current editor is keyboar
 For example, a future menu system might produce:
 
 ```text
-Menu → Save → SAVE
+Menu → Save → SAVE_DOCUMENT
 ```
 
 while keyboard input produces:
 
 ```text
-Ctrl+S → SAVE
+Ctrl+S → SAVE_DOCUMENT
 ```
 
 Both paths eventually reach the same command:
@@ -130,7 +130,7 @@ Both paths eventually reach the same command:
                    ┌── Ctrl+S ──────┐
                    │                │
                    ▼                │
-                 SAVE ◄─────────────┤
+                 SAVE_DOCUMENT ◄─────────────┤
                    ▲                │
                    │                │
                    └── Menu Save ───┘
@@ -294,7 +294,7 @@ Core Components
 Editor State
 ```
 
-The command abstraction therefore gives the editor a clear vocabulary for its behavior. Instead of asking the rest of the architecture to understand individual keyboard inputs, the system can communicate in terms of meaningful editor operations such as `MOVE_CURSOR_LEFT`, `INSERT_CHARACTER`, `DELETE_CHARACTER`, `SAVE`, and `QUIT`.
+The command abstraction therefore gives the editor a clear vocabulary for its behavior. Instead of asking the rest of the architecture to understand individual keyboard inputs, the system can communicate in terms of meaningful editor operations such as `MOVE_CURSOR_LEFT`, `INSERT_CHARACTER`, `DELETE_PREVIOUS_CHARACTER`, `DELETE_CHARACTER`, `SAVE_DOCUMENT`, and `QUIT_EDITOR`.
 
 That separation is small in implementation terms, but important architecturally. It keeps **how the user asks for an operation** separate from **what the editor does when that operation is requested**.
 
