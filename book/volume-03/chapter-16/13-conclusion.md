@@ -52,6 +52,8 @@ Chapter 15 — Input Engine    →  What does the user input mean?
 Chapter 16 — Command Engine  →  What should the editor do?
 ```
 
+The central design choice — representing commands as simple values (a command type plus optional data) and executing them through a dedicated Command Engine with switch-based dispatch — is recorded as **ADR-016: Command Engine**.
+
 ## Exercises
 
 ### Review Questions

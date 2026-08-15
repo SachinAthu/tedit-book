@@ -322,6 +322,43 @@ Volume II, Chapter 9
 - Command Engine
 - Editor State
 
+**Notes**
+
+Detailed treatment: Volume III, Chapter 16. A command is a value — a command type plus optional command data — not the implementation of the operation it describes.
+
+## Command Data
+
+**Definition**
+
+The optional payload carried alongside a command type that provides the information a particular operation requires. For example, an `INSERT_CHARACTER` command carries the character to insert, while a movement command requires no additional data. Separating the command type from its data lets one representation support both parameterless and parameterized commands.
+
+**First Introduced**
+
+Volume III, Chapter 16
+
+**Related Terms**
+
+- Command
+- Command Type
+- Command Engine
+
+## Command Dispatch
+
+**Definition**
+
+The mechanism by which the Command Engine selects the operation corresponding to a received command type. For the editor's small, fixed command vocabulary, dispatch is implemented as a `switch` statement over the command type that passes any command data to the selected core operation. Dispatch selects an operation but does not implement it.
+
+**First Introduced**
+
+Volume III, Chapter 16
+
+**Related Terms**
+
+- Command
+- Command Type
+- Command Data
+- Command Engine
+
 ## Command Engine
 
 **Definition**
@@ -338,6 +375,27 @@ Volume II, Chapter 8
 - Command
 - Editor State
 - File Manager
+
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Detailed treatment: Volume III, Chapter 16.
+
+## Command Type
+
+**Definition**
+
+The portion of a command that identifies which operation should be performed. In C, the command type is represented as an enumeration (`CommandType`) whose values — such as `COMMAND_MOVE_CURSOR_LEFT`, `COMMAND_INSERT_CHARACTER`, and `COMMAND_SAVE_DOCUMENT` — describe editor behavior rather than the keyboard input that produced it.
+
+**First Introduced**
+
+Volume III, Chapter 16
+
+**Related Terms**
+
+- Command
+- Command Data
+- Command Dispatch
+- Command Engine
 
 ## Composition
 
@@ -1779,7 +1837,9 @@ Volume II, Chapter 7
 
 **Definition**
 
-An architectural principle where each piece of data in a system has a single, clearly defined owner responsible for maintaining its correctness. In the editor, the Editor State owns the document, cursor, viewport, and all other application data. Other components may read this state but should not independently modify it — all changes flow through the owner. This ensures consistency and prevents conflicts between components.
+An architectural principle where each piece of state has exactly one owner responsible for maintaining and modifying it. In the editor, each field of the Editor State is written by a single component: the Command Engine owns the Document, Viewport, Dirty Flag, and Configuration; the Cursor owns the cursor position; the File Manager owns the current file; the Renderer owns the status message; and the Terminal Interface owns the screen size. Other components may read a field but must not modify it directly.
+
+Ownership answers *who may write a field* and is distinct from domain responsibility — *who defines the rules and representation of a value*. The Command Engine writes the Document field, while the Document Model owns the representation and editing rules for that text.
 
 **First Introduced**
 

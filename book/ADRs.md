@@ -237,3 +237,21 @@ The Input Parser understands terminal input, and the Command Engine understands 
 Trade-off: The Input Engine adds one component and one boundary to the architecture for a mapping that a small editor could perform with a simple `switch` statement. That structural cost is accepted because the boundary — separating input from behavior — is what keeps input handling from accumulating document, cursor, and file responsibilities as the editor grows.
 
 First referenced: Chapter 15
+
+---
+
+# ADR-016
+
+Command Engine
+
+Decision:
+
+Introduce a dedicated Command Engine component that receives commands from the Input Engine, executes them, and coordinates the resulting state changes. Represent each command as a simple value — a command type (an enumeration) plus optional command data — and dispatch commands using a straightforward `switch` statement over the command type, rather than a function-pointer table or a command-object framework.
+
+Reason:
+
+The Input Engine answers "which command does this input represent?", while the Command Engine answers "what should happen when this command executes?". These are distinct responsibilities. Folding command execution into the Input Engine would couple input interpretation to editor behavior, causing the input layer to accumulate knowledge of the Document, Cursor, and File Manager. Distributing command handling across the core components would leave no single place to coordinate the multi-component state transitions that commands such as `INSERT_CHARACTER` require. Representing a command as a value — a type plus optional data — keeps it independent of the input that triggered it, so a shortcut or a future menu system can reach the same command without changing its implementation, while the Document and Cursor retain ownership of their own rules.
+
+Trade-off: The Command Engine adds one component and one boundary for work that a small editor could perform with a `switch` statement in the input path. The simple value representation and switch dispatch are sufficient for the editor's small, fixed command vocabulary, but they do not provide undo/redo, command history, or dynamic registration — capabilities that would require the full Command Pattern, which is deliberately deferred to Chapter 32.
+
+First referenced: Chapter 16
