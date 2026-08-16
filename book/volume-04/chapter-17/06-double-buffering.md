@@ -129,6 +129,21 @@ This distinction is important:
 
 The terminal remains responsible for actually displaying the characters. Our editor is only responsible for constructing the output that describes the desired screen.
 
+### Distinguishing the Two Screen Buffers
+
+Because the phrase "screen buffer" appears in two different contexts in this book, it is worth making the distinction explicit before moving on.
+
+The terminal emulator maintains its own screen buffers — the **normal screen buffer** and the **alternate screen buffer** introduced in Chapter 4. These belong to the terminal emulator, are controlled through terminal output, and provide a separate screen context for full-screen applications.
+
+The **Screen Buffer** we introduce in the next chapter belongs to our editor. It is an application-side data structure that represents the frame being constructed, before that frame is converted into terminal output. To distinguish the two, we can call it the **Editor Screen Buffer**.
+
+| Component               | Owner             | Purpose                                       |
+| ----------------------- | ----------------- | --------------------------------------------- |
+| Alternate Screen Buffer | Terminal emulator | Provides a separate terminal screen context   |
+| Editor Screen Buffer    | Our editor        | Represents the frame being constructed        |
+
+The terminal's buffers are a feature of the terminal emulator; the editor's Screen Buffer is part of the editor's own rendering pipeline. The two share a name but serve entirely different roles.
+
 ## Buffering and Full Redraw
 
 Our editor uses a full-redraw rendering strategy. The renderer therefore works conceptually with a complete frame rather than trying to maintain a collection of independently updated screen regions. This follows the earlier architectural decision to favor predictable full-screen rendering over incremental terminal updates.

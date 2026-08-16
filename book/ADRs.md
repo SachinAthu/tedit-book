@@ -255,3 +255,21 @@ The Input Engine answers "which command does this input represent?", while the C
 Trade-off: The Command Engine adds one component and one boundary for work that a small editor could perform with a `switch` statement in the input path. The simple value representation and switch dispatch are sufficient for the editor's small, fixed command vocabulary, but they do not provide undo/redo, command history, or dynamic registration — capabilities that would require the full Command Pattern, which is deliberately deferred to Chapter 32.
 
 First referenced: Chapter 16
+
+---
+
+# ADR-017
+
+Rendering Model and Frame Representation
+
+Decision:
+
+Use immediate-mode rendering combined with an application-side frame representation. The renderer derives a complete visual frame from the current Editor State on each frame, renders once per event-loop iteration (event-driven rather than a continuous game loop), and represents the completed frame in an in-memory Editor Screen Buffer before converting it into terminal output.
+
+Reason:
+
+Immediate-mode rendering keeps the renderer a read-only consumer of the Editor State: given the same relevant state, the renderer produces the same visual result, with no second persistent visual model to keep synchronized. Rendering once per event reflects the editor's event-driven architecture and avoids the wasted work of a continuously running game loop. Representing the frame in an Editor Screen Buffer separates frame construction from terminal output, so the terminal never observes a partially constructed frame, without turning the rendering system into a full retained-mode framework.
+
+Trade-off: A retained-mode system could avoid reconstructing unchanged regions of the display, but for a small terminal editor the additional state and synchronization complexity is not justified. The Editor Screen Buffer adds a modest, bounded amount of memory proportional to the visible terminal area, accepted in exchange for a simpler, more predictable rendering pipeline.
+
+First referenced: Chapter 17

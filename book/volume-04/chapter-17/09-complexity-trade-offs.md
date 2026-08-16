@@ -38,11 +38,11 @@ This distinction keeps the memory requirements predictable.
 
 The main trade-off can be summarized as:
 
-| Approach                    | Complexity |       Rendering Work | State Management |
-| --------------------------- | ---------: | -------------------: | ---------------: |
-| Direct terminal output      |        Low | Potentially repeated |           Simple |
-| Retained visual model       |       High |    Potentially lower |          Complex |
-| Screen Buffer + full redraw |   Moderate |          Predictable |       Controlled |
+| Approach                    | Complexity | Rendering Work       | State Management |
+| --------------------------- | ---------- | -------------------- | ---------------- |
+| Direct terminal output      | Low        | Potentially repeated | Simple           |
+| Retained visual model       | High       | Potentially lower    | Complex          |
+| Screen Buffer + full redraw | Moderate   | Predictable          | Controlled       |
 
 A retained rendering system may reduce unnecessary work by updating only changed portions of the display. However, it must also determine what changed and keep its visual representation synchronized with the application's state.
 

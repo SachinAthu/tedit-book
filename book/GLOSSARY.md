@@ -622,6 +622,23 @@ Volume III, Chapter 12
 
 Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 12.
 
+## Double Buffering
+
+**Definition**
+
+A technique for avoiding partially constructed frames by separating the frame being constructed from the frame being displayed. The application builds the next frame in a back buffer while the front buffer remains displayed, then presents the completed frame as a single result. In a terminal editor, this principle is applied at the application level using the Editor Screen Buffer rather than a hardware framebuffer.
+
+**First Introduced**
+
+Volume IV, Chapter 17
+
+**Related Terms**
+
+- Editor Screen Buffer
+- Immediate-Mode Rendering
+- Full Redraw
+- Frame
+
 ## Echo
 
 **Definition**
@@ -656,6 +673,27 @@ Volume I, Chapter 6
 - CSI
 - Control Character
 - ASCII
+
+## Editor Screen Buffer
+
+**Definition**
+
+The editor's own application-side, in-memory representation of the frame currently being constructed, before that frame is converted into terminal output. It is part of the editor's rendering pipeline and does not become a second authoritative model of the document or editor state.
+
+**First Introduced**
+
+Volume IV, Chapter 17
+
+**Related Terms**
+
+- Screen Buffer
+- Alternate Screen Buffer
+- Renderer
+- Frame
+
+**Notes**
+
+Distinct from the terminal emulator's screen buffers (the normal and alternate screen buffers), which belong to the terminal and are controlled through terminal output. The data structure itself is examined in Chapter 18.
 
 ## Editor State
 
@@ -829,6 +867,8 @@ Volume IV, Chapter 17
 
 - Renderer
 - Event Loop
+- Immediate-Mode Rendering
+- Retained-Mode Rendering
 
 **Notes**
 
@@ -849,6 +889,7 @@ Volume I, Chapter 4
 - Rendering Cycle
 - Frame
 - Renderer
+- Immediate-Mode Rendering
 
 ## Functional Requirement
 
@@ -889,6 +930,23 @@ Volume III, Chapter 13
 **Notes**
 
 Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 27.
+
+## Game Loop
+
+**Definition**
+
+A repetitive loop used by interactive applications that continuously read input, update internal state, and render the result. Games run this loop continuously because their world may change even without input; a text editor is event-driven instead, waiting for an event before updating state and rendering a single frame.
+
+**First Introduced**
+
+Volume IV, Chapter 17
+
+**Related Terms**
+
+- Event Loop
+- Event-Driven Architecture
+- Rendering Cycle
+- Frame
 
 ## Glyph
 
@@ -960,6 +1018,23 @@ Volume II, Chapter 10
 
 # I
 
+## Immediate-Mode Rendering
+
+**Definition**
+
+A rendering model in which the application derives the visual output directly from the current application state each time it renders, keeping no persistent representation of the interface. Given the same relevant state, the renderer produces the same result. Immediate mode is simpler to reason about than retained-mode rendering but may repeat rendering work for unchanged regions.
+
+**First Introduced**
+
+Volume IV, Chapter 17
+
+**Related Terms**
+
+- Retained-Mode Rendering
+- Full Redraw
+- Frame
+- Renderer
+
 ## Include Guard
 
 **Definition**
@@ -992,6 +1067,7 @@ Volume II, Chapter 11
 - Rendering Cycle
 - Frame
 - Renderer
+- Retained-Mode Rendering
 
 ## Input Engine
 
@@ -1619,6 +1695,40 @@ Volume I, Chapter 4
 - Renderer
 - ANSI Escape Sequence
 
+## Rendering Model
+
+**Definition**
+
+The general approach an application uses to construct and update its visual output, describing how the display is derived from application state and when rendering work occurs. The two fundamental models are immediate-mode rendering, which derives output from state on each frame, and retained-mode rendering, which maintains a persistent visual representation updated incrementally.
+
+**First Introduced**
+
+Volume IV, Chapter 17
+
+**Related Terms**
+
+- Immediate-Mode Rendering
+- Retained-Mode Rendering
+- Frame
+- Renderer
+
+## Retained-Mode Rendering
+
+**Definition**
+
+A rendering model in which the application maintains a persistent representation of the visual interface and updates it incrementally as state changes, rather than reconstructing the output from scratch each frame. Retained mode can avoid repeating work on unchanged regions but introduces additional state that must remain synchronized with application state.
+
+**First Introduced**
+
+Volume IV, Chapter 17
+
+**Related Terms**
+
+- Immediate-Mode Rendering
+- Incremental Rendering
+- Frame
+- Renderer
+
 ## Register
 
 **Definition**
@@ -1681,6 +1791,7 @@ Volume I, Chapter 4
 **Related Terms**
 
 - Alternate Screen Buffer
+- Editor Screen Buffer
 - Terminal Emulator
 - ANSI Escape Sequence
 
@@ -2180,7 +2291,7 @@ The viewport changes as the user scrolls through the document.
 
 **First Introduced**
 
-Volume IV, Chapter 20
+Volume III, Chapter 12
 
 **Related Terms**
 
@@ -2233,8 +2344,6 @@ The following concepts are expected to be added as the manuscript develops:
 
 - Status Bar
 - Message Bar
-- Immediate Mode Rendering
-- Retained Mode Rendering
 - Scroll Offset
 - Horizontal Scrolling
 - Vertical Scrolling
@@ -2242,7 +2351,6 @@ The following concepts are expected to be added as the manuscript develops:
 - Language Server Protocol (LSP)
 - Tree-sitter
 - Syntax Highlighting
-- Double Buffering
 - Cache Locality
 
 # Maintenance Rules

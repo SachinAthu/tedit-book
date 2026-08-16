@@ -5,24 +5,21 @@ Interactive applications rarely perform their work only once. They repeatedly wa
 A simplified interactive loop looks like this:
 
 ```text
-        +------------------+
-        |   Wait for Input  |
-        +------------------+
-                 |
-                 v
-        +------------------+
-        |   Update State   |
-        +------------------+
-                 |
-                 v
-        +------------------+
-        |   Render Frame   |
-        +------------------+
-                 |
-                 +------------------+
-                                    |
-                                    v
-                              Wait for Input
+         +------------------+
+    +---->|  Wait for Input  |
+    |    +------------------+
+    |             |
+    |             v
+    |    +------------------+
+    |    |   Update State   |
+    |    +------------------+
+    |             |
+    |             v
+    |    +------------------+
+    |    |   Render Frame   |
+    |    +------------------+
+    |             |
+    +<------------+
 ```
 
 The important relationship is between **state changes and rendering**. Input does not directly define what appears on the screen. Instead, input causes a change to application state, and rendering reflects that updated state.

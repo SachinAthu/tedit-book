@@ -30,6 +30,8 @@ Terminal
 
 The central idea is that **rendering is a transformation from logical state into visual state**.
 
+The central design choices — immediate-mode rendering, event-driven (one event, one frame) rendering, and the application-side frame representation — are recorded as **ADR-017: Rendering Model and Frame Representation**.
+
 ## Exercises
 
 ### Review Questions
