@@ -1,0 +1,229 @@
+# 17.6 Double Buffering
+
+When a renderer constructs a frame, there is a potential problem: the display should not expose a partially constructed frame. If output is sent to the terminal piece by piece while the frame is still being assembled, the user may briefly observe intermediate states rather than the completed result.
+
+**Double buffering** is a general technique for avoiding this problem. Instead of constructing the frame directly in the representation currently being displayed, the application prepares a separate representation and presents it only after the new frame is complete.
+
+The basic idea is:
+
+```text
+              Application
+                   |
+                   v
+           +---------------+
+           |  Back Buffer  |
+           |               |
+           | Build Frame   |
+           +---------------+
+                   |
+             frame complete
+                   |
+                   v
+           +---------------+
+           |  Front Buffer |
+           |               |
+           |   Display     |
+           +---------------+
+```
+
+The **back buffer** is where the next frame is constructed. The **front buffer** represents what is currently being displayed. Once the new frame is ready, it can be presented as a complete result.
+
+## Why Use Two Buffers?
+
+Consider a frame containing:
+
+```text
+Document
+Status Bar
+Message Bar
+Cursor
+```
+
+If the renderer writes each part directly to the visible display, the terminal may receive something like:
+
+```text
+Draw document
+      ↓
+Draw status bar
+      ↓
+Draw message bar
+      ↓
+Move cursor
+```
+
+During this sequence, the terminal is receiving an incomplete description of the final frame.
+
+With a separate back buffer, the renderer can instead construct the complete result first:
+
+```text
+Editor State
+     |
+     v
+Build complete frame
+     |
+     v
+Back Buffer
+     |
+     v
+Present frame
+     |
+     v
+Terminal
+```
+
+The terminal therefore receives output representing a completed frame rather than a series of intermediate construction steps.
+
+## Double Buffering in Graphical Systems
+
+Double buffering is particularly important in graphical systems where rendering directly into the visible display can produce visible artifacts such as flickering or tearing.
+
+A typical graphical application might have:
+
+```text
++-------------+       +-------------+
+| Front       |       | Back        |
+| Buffer      |       | Buffer      |
+|             |       |             |
+| Currently   |       | Next frame  |
+| displayed   |       | being built |
++-------------+       +-------------+
+        \                   /
+         \                 /
+          +---------------+
+          |    Present    |
+          +---------------+
+```
+
+The application draws into the back buffer while the front buffer remains available for display. Once rendering is complete, the buffers can be exchanged or the completed image can otherwise be presented.
+
+The important principle is not the physical implementation of the buffers, but the separation between:
+
+> **the frame currently being displayed and the frame currently being constructed.**
+
+## Terminal Applications Are Different
+
+A terminal editor does not normally control a graphical framebuffer in the same way that a graphical application does. The editor communicates with a terminal emulator by writing characters and terminal control sequences.
+
+Therefore, our editor does not have a traditional graphical front buffer and back buffer that it can swap.
+
+Instead, the same principle can be applied at the **application level**.
+
+```text
+Editor State
+     |
+     v
+Application-Side Frame
+     |
+     v
+Terminal Output
+     |
+     v
+Terminal Emulator
+```
+
+The editor can construct the desired frame in memory before producing the terminal output required to display it.
+
+This distinction is important:
+
+> **Application-side buffering is not the same thing as a hardware or graphical framebuffer.**
+
+The terminal remains responsible for actually displaying the characters. Our editor is only responsible for constructing the output that describes the desired screen.
+
+## Buffering and Full Redraw
+
+Our editor uses a full-redraw rendering strategy. The renderer therefore works conceptually with a complete frame rather than trying to maintain a collection of independently updated screen regions. This follows the earlier architectural decision to favor predictable full-screen rendering over incremental terminal updates.
+
+A simplified pipeline is:
+
+```text
+Editor State
+     |
+     v
+Construct Complete Frame
+     |
+     v
+Application-Side Buffer
+     |
+     v
+Terminal Output
+     |
+     v
+Terminal Emulator
+```
+
+The buffering step provides a useful separation between **constructing the frame** and **sending the frame to the terminal**.
+
+This separation will become more concrete in the next chapter when we introduce the Screen Buffer.
+
+## What Double Buffering Does Not Mean
+
+Double buffering should not be confused with retained-mode rendering.
+
+A retained-mode renderer maintains a persistent representation of the visual interface and updates it over time.
+
+A buffered renderer can instead construct a new frame from the current application state and use a temporary or current frame representation to prepare the output.
+
+For our editor, the intended relationship is closer to:
+
+```text
+Editor State
+     |
+     | derive
+     v
+Current Frame
+     |
+     | output
+     v
+Terminal
+```
+
+rather than:
+
+```text
+Editor State
+     |
+     v
+Persistent Visual Model
+     |
+     v
+Incremental Updates
+     |
+     v
+Terminal
+```
+
+The distinction preserves the architecture established throughout the book: **Editor State remains the source of truth**, while rendering derives a visual representation from it.
+
+## The Trade-off
+
+Buffering introduces additional memory and an additional stage in the rendering pipeline:
+
+```text
+State
+  ↓
+Frame Construction
+  ↓
+Buffer
+  ↓
+Terminal Output
+```
+
+For a small terminal editor, this is a modest cost. In return, it gives the renderer a clear boundary between constructing a frame and presenting it.
+
+More importantly, it provides a foundation for the Screen Buffer that will be introduced in the next chapter. That buffer will give the renderer a concrete in-memory representation of the screen rather than requiring it to treat terminal output itself as the frame.
+
+The key idea is therefore simple:
+
+> **Construct the visual result separately from presenting it.**
+
+With that principle established, we can now examine how rendering works specifically in a terminal environment.
+
+## Summary
+
+Double buffering separates constructing a frame from presenting it. The back buffer holds the next frame while the front buffer represents what is currently displayed, so the user never observes a partially constructed result. Our editor applies this idea at the application level: it builds the desired frame in memory before producing the terminal output required to display it.
+
+This is distinct from retained-mode rendering. Buffering does not make the renderer an owner of editor state; the Editor State remains the source of truth, and the buffer is only a boundary between frame construction and terminal output.
+
+Now that double buffering is established, the next section examines how rendering works specifically in a terminal environment.
+
+Continue to **Section 17.7, Rendering Models in a Terminal**.

@@ -1,0 +1,16 @@
+chapter: 17
+title: Rendering Theory
+volume: 4
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 17.1 The Rendering Problem —> 01-rendering-problem.md
+  - 17.2 What Is a Frame? —> 02-what-is-a-frame.md
+  - 17.3 Immediate-Mode Rendering —> 03-immediate-mode-rendering.md
+  - 17.4 Retained-Mode Rendering —> 04-retained-mode-rendering.md
+  - 17.5 Rendering and the Game Loop —> 05-rendering-and-game-loop.md
+  - 17.6 Double Buffering —> 06-double-buffering.md
+  - 17.7 Rendering Models in a Terminal —> 07-rendering-models-in-a-terminal.md
+  - 17.8 Design Alternatives —> 08-design-alternatives.md
+  - 17.9 Complexity and Trade-offs —> 09-complexity-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 10-conclusion.md
