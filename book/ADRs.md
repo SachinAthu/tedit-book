@@ -273,3 +273,21 @@ Immediate-mode rendering keeps the renderer a read-only consumer of the Editor S
 Trade-off: A retained-mode system could avoid reconstructing unchanged regions of the display, but for a small terminal editor the additional state and synchronization complexity is not justified. The Editor Screen Buffer adds a modest, bounded amount of memory proportional to the visible terminal area, accepted in exchange for a simpler, more predictable rendering pipeline.
 
 First referenced: Chapter 17
+
+---
+
+# ADR-018
+
+Screen Buffer Representation
+
+Decision:
+
+Represent the Screen Buffer as a reusable in-memory grid of **screen cells** — one cell per visible terminal position — stored as a contiguous one-dimensional allocation addressed with `index = row × columns + column`. Reject direct terminal output, a string-based frame buffer, separate character and attribute buffers, and a dirty-region buffer as the baseline representation.
+
+Reason:
+
+A terminal screen is a grid of positions, so a cell per position maps directly onto that structure and matches the renderer's row/column access. Each cell can hold the character plus optional visual attributes (foreground, background, attributes) for one position, which a string-based buffer cannot express cleanly. A contiguous one-dimensional allocation preserves the two-dimensional logical model while keeping storage simple and predictable, with memory bounded by terminal dimensions (`O(rows × columns)`) rather than document size. Because the editor uses full redraw, the buffer only needs to represent the current frame, so the same allocation can be reused across rendering cycles — keeping allocation out of the normal rendering path.
+
+Trade-off: The cell buffer stores a cell for every visible position even when much of the screen is empty or unchanged, and full redraw regenerates the entire frame rather than updating only changed regions. These costs are accepted because terminal screens are small and the project prioritizes a simple, predictable rendering pipeline over incremental-rendering optimizations; dirty-region tracking remains a deferred optimization if profiling later justifies it.
+
+First referenced: Chapter 18

@@ -176,7 +176,7 @@ Tradeoffs.
 ## **Chapter 18 — Screen Buffer**
 
 - Off-screen rendering
-- Dirty flags
+- Dirty tracking
 - Frame generation
 
 ## **Chapter 19 — Renderer**

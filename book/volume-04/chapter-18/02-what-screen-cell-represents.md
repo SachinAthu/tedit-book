@@ -6,7 +6,7 @@ A terminal screen can be viewed as a rectangular grid:
 
 ```text
         Columns
-    0   1   2   3   4   5   ...
+    0   1   2   3   4   5
   +---+---+---+---+---+---+
 0 |   |   |   |   |   |   |
   +---+---+---+---+---+---+
@@ -14,8 +14,6 @@ A terminal screen can be viewed as a rectangular grid:
   +---+---+---+---+---+---+
 2 |   |   |   |   |   |   |
   +---+---+---+---+---+---+
-. |   |   |   |   |   |   |
-. +---+---+---+---+---+---+
 ```
 
 Each intersection of a row and column represents one position where the terminal can display a character.
@@ -133,13 +131,13 @@ The Screen Buffer should also not be confused with the terminal's own internal s
 The terminal emulator maintains its own representation of what is currently displayed. Our Screen Buffer is an **application-side representation** of the frame that the editor intends to display.
 
 ```text
-Editor                         Terminal Emulator
+Editor (application)            Terminal Emulator (external)
 
-Screen Buffer                  Terminal Screen State
+Screen Buffer                   Terminal Screen State
      │                                  ▲
      │                                  │
      ▼                                  │
-Output Generation ───────────────► Terminal
+Output Generation ──────────────► Terminal Output
 ```
 
 The editor's buffer exists only so that the application can construct and organize its frame before producing terminal output.
@@ -175,4 +173,4 @@ Because the buffer is an application-side representation, it is not the terminal
 
 Now that the screen is represented as a collection of cells, the next section examines how many cells the editor needs and how that storage relates to the dimensions of the terminal.
 
-Continue to **Section 18.3, Buffer Dimensions**.
+Continue to **Section 18.3, Screen Buffer Dimensions**.

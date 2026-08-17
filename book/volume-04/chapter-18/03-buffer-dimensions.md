@@ -7,20 +7,17 @@ If the terminal reports a size of `rows × columns`, the Screen Buffer needs to 
 ```text
 Terminal Size
 
-80 columns
-──────────────────────────────────────────────►
+            80 columns
+───────────────────────────────────────────────►
 
 +----------------------------------------------+
 |                                              |
-|                                              |
-|                                              |
-|              Screen Buffer                   |
-|                                              |
-|                                              |
+|                                              |  ▲
+|                                              |  │
+|              Screen Buffer                   |  │ 24 rows
+|                                              |  │
+|                                              |  ▼
 +----------------------------------------------+
-                       ▲
-                       │
-                    24 rows
 ```
 
 For a terminal with 80 columns and 24 rows, the buffer contains enough cells to represent 80 positions across each of the 24 rows.

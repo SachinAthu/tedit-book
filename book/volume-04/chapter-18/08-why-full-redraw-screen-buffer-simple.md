@@ -1,4 +1,4 @@
-# 16.8 Why Full Redraw Makes the Screen Buffer Simple
+# 18.8 Why Full Redraw Makes the Screen Buffer Simple
 
 The full-redraw strategy has a direct consequence for how we implement the Screen Buffer: **the buffer only needs to represent the current frame**.
 

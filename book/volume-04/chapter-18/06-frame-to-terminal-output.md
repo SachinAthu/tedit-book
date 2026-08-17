@@ -194,7 +194,7 @@ It is the application's representation of the visual result that should be displ
 
 This separation gives the rendering system a clear structure and prepares us for the next question: **if the Screen Buffer represents a complete frame, do we really need to track which parts of that frame have changed?**
 
-That leads to the concept of **dirty flags and dirty regions**.
+That leads to the concept of **dirty tracking and dirty regions**.
 
 ## Summary
 
@@ -204,4 +204,4 @@ The terminal remains an external system that interprets the emitted bytes. The c
 
 Now that the pipeline from frame to terminal output is understood, the next section examines whether we need to track which parts of the frame have changed.
 
-Continue to **Section 18.7, Dirty Flags and Dirty Regions**.
+Continue to **Section 18.7, Dirty Tracking and Dirty Regions**.

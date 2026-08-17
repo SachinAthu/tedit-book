@@ -98,7 +98,7 @@ The renderer reads the current state and produces a frame:
 |                              |
 |                              |
 +------------------------------+
-| file.txt              1:1    |
+| file.txt              1:6    |
 +------------------------------+
 |                              |
 +------------------------------+

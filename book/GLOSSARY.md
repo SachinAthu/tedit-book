@@ -585,6 +585,23 @@ Volume II, Chapter 8
 - Editor State
   - Event Loop
 
+## Derived State
+
+**Definition**
+
+State that is computed or produced from another source rather than maintained independently. Derived state can always be rebuilt from the state that produces it, so it does not need to be kept separately in sync. In the editor, the Screen Buffer is derived state: it is produced from the current Editor State each rendering cycle and is not an authoritative model of the document or cursor.
+
+**First Introduced**
+
+Volume IV, Chapter 18
+
+**Related Terms**
+
+- Editor State
+- Single Source of Truth
+- State Ownership
+- Editor Screen Buffer
+
 ## Dirty Flag
 
 **Definition**
@@ -600,6 +617,23 @@ Volume III, Chapter 12
 - Document
 - Editor State
 - File Manager
+
+## Dirty Region
+
+**Definition**
+
+A portion of the screen whose current visual representation no longer matches the desired state and therefore must be regenerated. Dirty-region rendering (also called dirty tracking) records which cells or regions have changed so that only those parts of the frame are updated. This rendering concept is distinct from the document's Dirty Flag, which records unsaved changes to the file.
+
+**First Introduced**
+
+Volume IV, Chapter 18
+
+**Related Terms**
+
+- Dirty Flag
+- Incremental Rendering
+- Full Redraw
+- Editor Screen Buffer
 
 ## Document
 
@@ -690,6 +724,7 @@ Volume IV, Chapter 17
 - Alternate Screen Buffer
 - Renderer
 - Frame
+- Screen Cell
 
 **Notes**
 
@@ -873,6 +908,23 @@ Volume IV, Chapter 17
 **Notes**
 
 Architectural overview: Volume II, Chapter 8. Implementation: Volume IV, Chapter 17.
+
+## Frame Generation
+
+**Definition**
+
+The process of transforming the current Editor State into a complete visual frame stored in the Screen Buffer. Frame generation reads the editor's logical state and populates the buffer with the visible document content, interface elements, and cursor, without modifying the state it reads. The result is a complete snapshot of the screen ready to be converted into terminal output.
+
+**First Introduced**
+
+Volume IV, Chapter 18
+
+**Related Terms**
+
+- Frame
+- Editor Screen Buffer
+- Editor State
+- Renderer
 
 ## Full Redraw
 
@@ -1470,6 +1522,23 @@ Volume II, Chapter 10
 
 # P
 
+## Off-Screen Rendering
+
+**Definition**
+
+The technique of constructing a complete visual frame in application-managed memory before sending it to the actual display. In the editor, the Screen Buffer serves as the off-screen surface: the renderer draws the complete frame into it, and only then is the result converted into terminal output. This separates frame construction from presentation and prevents the terminal from observing a partially built frame.
+
+**First Introduced**
+
+Volume IV, Chapter 18
+
+**Related Terms**
+
+- Editor Screen Buffer
+- Double Buffering
+- Full Redraw
+- Frame
+
 ## Project Structure
 
 **Definition**
@@ -1794,6 +1863,27 @@ Volume I, Chapter 4
 - Editor Screen Buffer
 - Terminal Emulator
 - ANSI Escape Sequence
+
+## Screen Cell
+
+**Definition**
+
+A single position in the Screen Buffer, corresponding to one visible character position on the terminal. A screen cell can hold the character to display along with optional visual attributes such as foreground and background. Screen cells are addressed by screen coordinates (row, column), which describe positions on the screen rather than positions in the document.
+
+**First Introduced**
+
+Volume IV, Chapter 18
+
+**Related Terms**
+
+- Editor Screen Buffer
+- Character Cell
+- Screen Buffer
+- Frame
+
+**Notes**
+
+Distinct from the terminal emulator's Character Cell, which belongs to the terminal. The Screen Buffer is composed of screen cells and is examined in detail in Chapter 18.
 
 ## Separation of Concerns
 

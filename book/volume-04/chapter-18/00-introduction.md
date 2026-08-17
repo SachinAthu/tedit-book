@@ -12,6 +12,8 @@ The answer is the **Screen Buffer**.
 
 The Screen Buffer is an in-memory representation of the terminal's visible screen. Instead of constructing terminal output directly while examining the document, the editor first builds a complete frame in memory. That frame can then be converted into terminal output as a separate step.
 
+Throughout this chapter, **Screen Buffer** refers to the editor's own application-side buffer — the **Editor Screen Buffer** introduced in Section 17.6. It is not the same as the screen buffer maintained inside the terminal emulator itself, which we encountered as the normal and alternate screen buffers in Chapter 4. Where a distinction matters, we call ours the Editor Screen Buffer; otherwise we use "Screen Buffer" as a convenient shorthand for it.
+
 This creates a clear boundary:
 
 ```text

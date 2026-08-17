@@ -1,4 +1,4 @@
-# 18.7 Dirty Flags and Dirty Regions
+# 18.7 Dirty Tracking and Dirty Regions
 
 Once the editor has an in-memory representation of the screen, a natural question arises:
 

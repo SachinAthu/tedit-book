@@ -27,7 +27,7 @@ Finally, the chapter compared alternative representations — direct terminal ou
 
 The central idea is that **the Screen Buffer describes what the screen should look like; it does not decide what belongs in each cell**. That decision is the Renderer's responsibility and is the subject of the next chapter.
 
-The chosen representation is consistent with **ADR-017: Rendering Model and Frame Representation**, which records the decision to represent the completed frame in an in-memory Editor Screen Buffer.
+The concrete cell-based representation is recorded as **ADR-018: Screen Buffer Representation**, while the rendering model that motivates it is recorded in **ADR-017: Rendering Model and Frame Representation**.
 
 ## Exercises
 

@@ -115,6 +115,8 @@ The rendering process becomes easier to reason about because the Screen Buffer r
 
 It also prevents the terminal from becoming part of the state-construction process. The renderer does not need to construct half of a frame, write it to the terminal, construct another part, and continue until the screen is complete. Instead, the frame is assembled first and output afterwards.
 
+Building the frame in application-managed memory before presenting it is known as **off-screen rendering**. The Screen Buffer is our off-screen surface: the renderer draws the complete frame into it, and only then is the result sent to the terminal.
+
 For our editor, this is especially useful because we have already chosen a full-redraw rendering strategy. Each rendering cycle produces a complete frame, and the Screen Buffer provides the in-memory representation of that frame before it is emitted to the terminal.
 
 The Screen Buffer therefore does not introduce another authoritative model into the architecture. It introduces a **temporary visual representation** that makes the transition from application state to terminal output explicit and manageable.

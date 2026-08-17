@@ -93,7 +93,7 @@ Chapter 18 answers this question by introducing the **Screen Buffer**, the concr
 - frame construction
 - screen dimensions
 - cells and characters
-- dirty flags
+- dirty tracking
 - frame comparison
 - when a redraw is necessary
 
