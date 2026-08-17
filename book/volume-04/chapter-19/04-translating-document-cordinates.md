@@ -1,0 +1,537 @@
+# 19.4 Translating Document Coordinates to Screen Coordinates
+
+The Renderer works with two different coordinate systems.
+
+The Document uses **logical coordinates** to describe positions within the text. The Screen Buffer uses **screen coordinates** to describe positions within the terminal.
+
+The Renderer must translate between them.
+
+The basic relationship is:
+
+```text
+Document Coordinates
+        │
+        │ Viewport offset
+        ▼
+Screen Coordinates
+```
+
+This translation is necessary because the document and the terminal represent different spaces.
+
+## Document Coordinates
+
+A position inside the Document is identified by a row and a column.
+
+For example:
+
+```text
+Hello
+Terminal
+Editor
+```
+
+The character `m` in `Terminal` might be represented as:
+
+```text
+row    = 1
+column = 4
+```
+
+These coordinates describe the character's position within the Document.
+
+They do not describe where that character currently appears on the physical terminal.
+
+The Document's coordinates remain stable even when the user scrolls.
+
+## Screen Coordinates
+
+The Screen Buffer also uses rows and columns, but these refer to terminal positions.
+
+For example:
+
+```text
++----------------------------------+
+|                                  |  screen row 0
+|                                  |  screen row 1
+|                                  |  screen row 2
+|                                  |  screen row 3
++----------------------------------+
+| Status Bar                       |  screen row 4
++----------------------------------+
+| Message Bar                      |  screen row 5
++----------------------------------+
+```
+
+A screen coordinate therefore answers a different question:
+
+> Where should this content appear in the current frame?
+
+The same document position can appear at different screen positions as the Viewport changes.
+
+## Why the Coordinates Are Different
+
+Consider a document containing many lines:
+
+```text
+Document
+────────────────
+Row 0
+Row 1
+Row 2
+Row 3
+Row 4
+Row 5
+Row 6
+Row 7
+Row 8
+Row 9
+```
+
+Suppose the document area can display only five rows.
+
+If the Viewport begins at row 0:
+
+```text
+Document          Screen
+
+Row 0  ─────────→ Row 0
+Row 1  ─────────→ Row 1
+Row 2  ─────────→ Row 2
+Row 3  ─────────→ Row 3
+Row 4  ─────────→ Row 4
+```
+
+Now suppose the user scrolls down and the Viewport begins at row 5:
+
+```text
+Document          Screen
+
+Row 5  ─────────→ Row 0
+Row 6  ─────────→ Row 1
+Row 7  ─────────→ Row 2
+Row 8  ─────────→ Row 3
+Row 9  ─────────→ Row 4
+```
+
+The document coordinates have not changed.
+
+Only their screen representation has changed.
+
+This is the fundamental purpose of the Viewport.
+
+## Vertical Coordinate Translation
+
+Let:
+
+- `document_row` be the row in the Document.
+- `viewport_row` be the first visible document row.
+- `screen_row` be the corresponding row in the document area.
+
+The basic relationship is:
+
+```text
+screen_row = document_row - viewport_row
+```
+
+For example, if:
+
+```text
+document_row = 12
+viewport_row = 10
+```
+
+then:
+
+```text
+screen_row = 12 - 10
+           = 2
+```
+
+So document row 12 appears at screen row 2 within the document area.
+
+This calculation does not decide whether the Viewport should be 10. It simply uses the Viewport value that already exists.
+
+The logic that changes the Viewport when the cursor approaches an edge belongs to Chapter 20.
+
+## Horizontal Coordinate Translation
+
+The same principle applies horizontally.
+
+Suppose a line contains:
+
+```text
+The terminal text editor
+```
+
+and the visible horizontal region begins at column 4.
+
+Then a document column is translated into a screen column by subtracting the horizontal viewport offset.
+
+Conceptually:
+
+```text
+screen_column =
+    document_column - viewport_column
+```
+
+For example:
+
+```text
+document_column = 10
+viewport_column = 4
+
+screen_column = 10 - 4
+              = 6
+```
+
+The character at document column 10 therefore appears at screen column 6.
+
+Again, the Renderer uses the current horizontal viewport offset. It does not decide how that offset changes.
+
+## Document Area Coordinates
+
+There is one additional detail.
+
+The first row of the Screen Buffer is not necessarily the first row available to document content.
+
+Our frame contains fixed interface elements:
+
+```text
++----------------------------------+
+| Document row 0                   |
+| Document row 1                   |
+| Document row 2                   |
+| ...                              |
++----------------------------------+
+| Status Bar                       |
++----------------------------------+
+| Message Bar                      |
++----------------------------------+
+```
+
+In the current design, the document area begins at the top of the terminal, so its first screen row is zero.
+
+Therefore, the vertical translation for document content can be expressed directly as:
+
+```text
+screen_row = document_row - viewport_row
+```
+
+The Status Bar and Message Bar occupy their own fixed screen rows below the document area.
+
+Keeping these regions separate prevents document content from being rendered into the fixed interface.
+
+## Translating the Cursor
+
+The same coordinate transformation applies to the Cursor.
+
+The Cursor component maintains the logical position:
+
+```text
+cursor_row
+cursor_column
+```
+
+The Renderer must convert that logical position into a screen position.
+
+For example:
+
+```text
+Cursor
+document row    = 15
+document column = 8
+
+Viewport
+row    = 12
+column = 3
+```
+
+The resulting position is:
+
+```text
+screen row    = 15 - 12 = 3
+screen column =  8 -  3 = 5
+```
+
+Therefore, the terminal cursor belongs at:
+
+```text
+(screen row 3, screen column 5)
+```
+
+Conceptually:
+
+```text
+Logical Cursor
+      │
+      │ document coordinates
+      ▼
++------------------+
+|     Renderer     |
++------------------+
+      │
+      │ screen coordinates
+      ▼
+Terminal Cursor
+```
+
+The Renderer does not move the logical Cursor to make this happen.
+
+It only determines where the existing logical Cursor should be displayed.
+
+## The Cursor and the Visible Region
+
+A cursor position can only be translated into a meaningful screen position when the cursor is inside the visible region.
+
+For example, if:
+
+```text
+viewport_row = 10
+cursor_row   = 15
+```
+
+then:
+
+```text
+screen_row = 5
+```
+
+The cursor is visible if the document area contains at least six rows.
+
+But if:
+
+```text
+viewport_row = 20
+cursor_row   = 15
+```
+
+then:
+
+```text
+screen_row = -5
+```
+
+The cursor is above the visible region.
+
+A correctly maintained Viewport should normally prevent this situation during ordinary editing. The Viewport's responsibility is to keep the cursor visible when required.
+
+This is one of the reasons the Cursor and Viewport work together conceptually, even though they remain separate pieces of state.
+
+The detailed rules for maintaining that relationship belong in Chapter 20.
+
+## Screen Coordinates Are Frame-Specific
+
+Document coordinates describe persistent logical positions.
+
+Screen coordinates describe positions in the **current frame**.
+
+This distinction is important.
+
+Suppose the cursor is logically at:
+
+```text
+document row    = 20
+document column = 5
+```
+
+With one viewport:
+
+```text
+viewport row    = 20
+viewport column = 0
+```
+
+the cursor appears at:
+
+```text
+screen row    = 0
+screen column = 5
+```
+
+After scrolling:
+
+```text
+viewport row    = 15
+viewport column = 2
+```
+
+the same logical cursor appears at:
+
+```text
+screen row    = 5
+screen column = 3
+```
+
+Nothing about the Document or Cursor changed.
+
+Only the visual mapping changed.
+
+```text
+Same logical position
+        │
+        ├── Viewport A ──→ Screen position A
+        │
+        └── Viewport B ──→ Screen position B
+```
+
+This is an important property of a viewport-based rendering system.
+
+## Keeping Logical State Independent
+
+The separation between coordinate systems prevents presentation details from leaking into the core editor state.
+
+The Cursor should not need to know:
+
+- where the Status Bar is,
+- how many rows the terminal has,
+- whether the Message Bar is visible,
+- how the Screen Buffer is allocated.
+
+It only needs to know its logical document position.
+
+Similarly, the Document should not know anything about screen coordinates.
+
+The Renderer performs the translation at the presentation boundary:
+
+```text
+Document Position
+       │
+Cursor Position
+       │
+Viewport
+       │
+       ▼
+    Renderer
+       │
+       ▼
+Screen Position
+```
+
+This keeps the core model independent from terminal dimensions and layout.
+
+## A Complete Example
+
+Consider a terminal with a document area large enough to display five rows.
+
+The Document contains:
+
+```text
+Row 10: alpha
+Row 11: beta
+Row 12: gamma
+Row 13: delta
+Row 14: epsilon
+Row 15: zeta
+```
+
+Suppose:
+
+```text
+viewport_row = 12
+```
+
+The visible document is:
+
+```text
+gamma
+delta
+epsilon
+zeta
+...
+```
+
+The mapping becomes:
+
+```text
+Document row       Screen row
+─────────────       ──────────
+12                  0
+13                  1
+14                  2
+15                  3
+```
+
+Now suppose the Cursor is at:
+
+```text
+cursor_row    = 14
+cursor_column = 3
+```
+
+The Renderer calculates:
+
+```text
+screen_row    = 14 - 12 = 2
+screen_column = 3
+```
+
+The cursor therefore appears on the third visible document row at column 3.
+
+The logical state remains:
+
+```text
+Cursor:
+row    = 14
+column = 3
+```
+
+Only its screen representation is different.
+
+## Coordinate Translation as a Rendering Responsibility
+
+At this point, we can define the Renderer responsibility more precisely:
+
+> **The Renderer converts logical positions in the Document into positions within the current Screen Buffer.**
+
+This applies to:
+
+- document rows,
+- document columns,
+- cursor position,
+- visible text.
+
+The Renderer does not change the logical coordinates. It uses them together with the current Viewport to determine where their visual representation belongs.
+
+The relationship can therefore be summarized as:
+
+```text
+                 Editor State
+                      │
+          ┌───────────┼───────────┐
+          ▼           ▼           ▼
+       Document     Cursor     Viewport
+          │           │           │
+          └───────────┼───────────┘
+                      ▼
+                  Renderer
+                      │
+                      ▼
+              Screen Coordinates
+                      │
+                      ▼
+                Screen Buffer
+```
+
+## Engineering Insight
+
+Keeping document coordinates and screen coordinates separate is more than a convenient implementation detail.
+
+It is an architectural boundary.
+
+The Document and Cursor describe the editor in terms of **logical content**. The Renderer describes that content in terms of **terminal presentation**.
+
+That separation means a change in terminal size, viewport position, or screen layout does not require changing the underlying Document or Cursor.
+
+The same logical editor state can therefore produce different visual frames depending on the current Viewport and Screen Size.
+
+This is the foundation on which scrolling will operate. Chapter 20 will take the next step by defining how the Viewport changes as the Cursor moves through content that does not fit within the visible document area.
+
+## Summary
+
+Document coordinates describe positions within the text; screen coordinates describe positions within the current frame. The Renderer translates between them by subtracting the Viewport offset, so `screen_row = document_row - viewport_row` and `screen_column = document_column - viewport_column`, and it applies the same translation to the Cursor.
+
+Because screen coordinates are frame-specific, the logical Cursor and Document remain stable even as the viewport changes.
+
+Now that the coordinate translation is established, the next section examines the Status Bar, which presents the current file, modified state, and cursor position as fixed interface information.
+
+Continue to **Section 19.5, Rendering the Status Bar**.

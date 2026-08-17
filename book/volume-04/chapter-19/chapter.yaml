@@ -1,0 +1,17 @@
+chapter: 19
+title: Renderer
+volume: 4
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 19.1 What the Renderer Is Responsible For —> 01-what-renderer-responsible.md
+  - 19.2 From Editor State to a Visual Frame —> 02-editor-state-to-visual-frame.md
+  - 19.3 Rendering the Document Area —> 03-rendering-document-area.md
+  - 19.4 Translating Document Coordinates to Screen Coordinates —> 04-translating-document-cordinates.md
+  - 19.5 Rendering the Status Bar —> 05-rendering-status-bar.md
+  - 19.6 Rendering the Message Bar —> 06-rendering-message-bar.md
+  - 19.7 Rendering the Cursor —> 07-rendering-cursor.md
+  - 19.8 Rendering Order —> 08-rendering-order.md
+  - 19.9 Design Alternatives —> 09-design-alternatives.md
+  - 19.10 Complexity and Trade-offs —> 10-complexity-and-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md
