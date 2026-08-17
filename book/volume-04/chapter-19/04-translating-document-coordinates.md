@@ -437,7 +437,7 @@ gamma
 delta
 epsilon
 zeta
-...
+(empty)
 ```
 
 The mapping becomes:

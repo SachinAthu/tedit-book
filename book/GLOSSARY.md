@@ -656,6 +656,41 @@ Volume III, Chapter 12
 
 Architectural overview: Volume II, Chapter 8. Implementation: Volume III, Chapter 12.
 
+## Document Area
+
+**Definition**
+
+The region of the screen that displays the visible portion of the Document. The document area occupies the terminal rows above the fixed interface elements (the Status Bar and Message Bar), and its height is the terminal height minus those reserved rows. The Renderer draws the visible document lines into this region, stopping at its lower boundary.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Renderer
+- Viewport
+- Document
+- Status Bar
+- Message Bar
+
+## Document Coordinates
+
+**Definition**
+
+The logical coordinate system that identifies positions within the Document using a row and a column. Document coordinates describe where a character or the Cursor is within the text, independent of which portion of the document is currently visible on screen. The Renderer translates document coordinates into screen coordinates when building a frame.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Screen Coordinates
+- Viewport
+- Cursor
+- Renderer
+
 ## Double Buffering
 
 **Definition**
@@ -1432,6 +1467,23 @@ Volume I, Chapter 2
 - Register
 - Process
 
+## Message Bar
+
+**Definition**
+
+The fixed interface region at the bottom of the screen that displays short-lived status and error messages, such as "File saved" or "Unable to open file". The Message Bar presents the current status message from the Editor State and is cleared when no message exists; it never becomes part of the Document and never affects the Dirty Flag.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Status Bar
+- Renderer
+- Editor State
+- Dirty Flag
+
 ## Modifier Key
 
 **Definition**
@@ -1732,7 +1784,7 @@ Volume I, Chapter 5
 
 **Definition**
 
-The subsystem responsible for generating the visual representation of the editor and drawing it to the terminal.
+The presentation component of the editor: a read-only projection that transforms the current Editor State into a complete visual frame. The Renderer reads the Document, Cursor, Viewport, and related state and writes the resulting frame into the Screen Buffer, without modifying the state it renders. It does not read input, execute commands, or convert the frame into terminal output — that final step belongs to the terminal-facing layer.
 
 **First Introduced**
 
@@ -1742,6 +1794,9 @@ Volume IV, Chapter 19
 
 - Frame
 - Viewport
+- Editor Screen Buffer
+- Editor State
+- Screen Buffer
 
 **Notes**
 
@@ -1884,6 +1939,23 @@ Volume IV, Chapter 18
 **Notes**
 
 Distinct from the terminal emulator's Character Cell, which belongs to the terminal. The Screen Buffer is composed of screen cells and is examined in detail in Chapter 18.
+
+## Screen Coordinates
+
+**Definition**
+
+The coordinate system that identifies positions within the terminal display, using a screen row and a screen column. Screen coordinates describe where content appears in the current frame; the same document position can appear at different screen coordinates as the Viewport changes. The Renderer translates document coordinates into screen coordinates when building a frame.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Document Coordinates
+- Viewport
+- Screen Cell
+- Renderer
 
 ## Separation of Concerns
 
@@ -2128,6 +2200,28 @@ Volume III, Chapter 12
 
 - Application State
 - Stateful Program
+
+## Status Bar
+
+**Definition**
+
+The fixed interface region below the document area that displays persistent information about the current editing session, such as the current filename, the modified state (Dirty Flag), and the cursor position. The Status Bar is derived entirely from Editor State and is rendered without modifying that state.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Message Bar
+- Dirty Flag
+- Cursor
+- Renderer
+- Editor State
+
+**Notes**
+
+Detailed treatment: Volume IV, Chapter 21.
 
 ## Success Criteria
 
@@ -2432,8 +2526,6 @@ Project Documentation
 
 The following concepts are expected to be added as the manuscript develops:
 
-- Status Bar
-- Message Bar
 - Scroll Offset
 - Horizontal Scrolling
 - Vertical Scrolling

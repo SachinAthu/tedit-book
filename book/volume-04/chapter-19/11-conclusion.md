@@ -27,6 +27,8 @@ The central idea is:
 
 Rendering observes state; commands change state. The Renderer never writes back into the Editor State, which remains the single source of truth.
 
+The read-only, immediate-mode renderer is recorded as **ADR-017: Rendering Model and Frame Representation**, and the buffer it populates as **ADR-018: Screen Buffer Representation**.
+
 ## Exercises
 
 ### Review Questions
@@ -75,7 +77,7 @@ Rendering is read-only. If the Renderer changed the Dirty Flag, the current file
 
 ### Rendering the cursor before determining its final screen position
 
-The Cursor is positioned only after the document area, Status Bar, and Message Bar have been drawn, using the completed frame. Determining its position earlier risks basing it on an incomplete layout.
+The Cursor's screen position is derived from the logical Cursor and Viewport and emitted only after the rest of the frame is finalized. Positioning it too early risks having the terminal cursor's escape sequence overwritten by subsequent frame content.
 
 ### Forgetting empty documents and empty lines
 

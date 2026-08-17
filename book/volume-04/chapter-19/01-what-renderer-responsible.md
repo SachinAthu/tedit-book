@@ -62,7 +62,7 @@ This includes:
 2. Rendering the Status Bar.
 3. Rendering the Message Bar.
 4. Determining the visible screen position of the cursor.
-5. Writing the resulting frame representation to the terminal.
+5. Writing the resulting frame into the Screen Buffer (which is then converted into terminal output by the terminal-facing layer).
 
 Conceptually:
 
@@ -319,7 +319,7 @@ Input and Commands
  represents the state
 ```
 
-That contract will make the remaining rendering system easier to reason about as we add document drawing, the Status Bar, the Message Bar, and cursor positioning.
+That contract is what keeps the rest of the rendering system predictable and easy to reason about.
 
 ## Summary
 

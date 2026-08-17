@@ -4,7 +4,7 @@ The Cursor is the visual indicator that shows the user where the next editing op
 
 The Cursor itself is part of the editor's logical state. The Renderer is responsible for taking that logical position and representing it at the appropriate location in the current frame.
 
-The architecture defines the Cursor as maintaining a document position and a screen position, while the Renderer consumes the current Editor State to generate the complete frame.
+The architecture defines the Cursor as maintaining a logical document position (a row and a column). The screen position is derived from it by the Renderer, which consumes the current Editor State to generate the complete frame.
 
 The relationship is:
 

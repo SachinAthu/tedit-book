@@ -101,13 +101,13 @@ Selective rendering
     └── Greater implementation complexity
 ```
 
-For a terminal editor, the screen is relatively small and the rendering pipeline benefits substantially from simplicity. The project therefore accepts the cost of reconstructing the visible frame in exchange for a predictable and easy-to-reason-about Renderer. The ADR explicitly records that incremental or dirty-region rendering remains a possible future optimization if profiling later demonstrates a need for it.
+For a terminal editor, the screen is relatively small and the rendering pipeline benefits substantially from simplicity. The project therefore accepts the cost of reconstructing the visible frame in exchange for a predictable and easy-to-reason-about Renderer. ADR-018 explicitly records that incremental or dirty-region rendering remains a possible future optimization if profiling later demonstrates a need for it.
 
 The important distinction from Chapter 18 is that the Screen Buffer's **storage cost** is bounded by terminal dimensions, while this section considers the **work required to construct and output each frame**.
 
 ## Summary
 
-Constructing a complete frame costs `O(rows × columns)` in both time and space, bounded by the terminal dimensions rather than by the size of the Document, and the Screen Buffer is reused across frames.
+Constructing a complete frame costs `O(rows × columns)` in time, and the Screen Buffer's storage is bounded by the same `O(rows × columns)`; both are limited by the terminal dimensions rather than by the size of the Document, and the buffer is reused across frames.
 
 Full redraw deliberately trades the potential savings of selective updates for a predictable, simple Renderer, leaving incremental or dirty-region rendering as a possible future optimization.
 
