@@ -4,5 +4,15 @@ volume: 4
 
 sections:
   - Introduction —> 00-introduction.md
-  - 18.1  —> 01-.md
-  - Summary, Exercises, Next Chapter Preview —> 10-conclusion.md
+  - 18.1 The Screen Buffer as an Intermediate Representation —> 01-screen-buffer-as-intermediate-representation.md
+  - 18.2 What a Screen Cell Represents —> 02-what-screen-cell-represents.md
+  - 18.3 Buffer Dimensions —> 03-buffer-dimensions.md
+  - 18.4 The Screen Buffer and Editor State —> 04-screen-buffer-editor-state.md
+  - 18.5 Frame Generation —> 05-frame-generation.md
+  - 18.6 From Frame to Terminal Output —> 06-frame-to-terminal-output.md
+  - 18.7 Dirty Flags and Dirty Regions —> 07-dirty-flags-dirty-regions.md
+  - 18.8 Why Full Redraw Makes the Screen Buffer Simple —> 08-why-full-redraw-screen-buffer-simple.md
+  - 18.9 Screen Buffer Lifecycle —> 09-screen-buffer-lifecycle.md
+  - 18.10 Design Alternatives —> 10-design-alternatives.md
+  - 18.11 Complexity and Trade-offs —> 11-complexity-and-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md
