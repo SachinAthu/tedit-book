@@ -194,18 +194,11 @@ Tradeoffs.
 - Viewport
 - Offsets
 
-## **Chapter 21 — Status Bar**
-
-- Filename
-- Position
-- Modified flag
-- Messages
-
 ---
 
 # **Volume V — File System**
 
-## **Chapter 22 — File I/O**
+## **Chapter 21 — File I/O**
 
 - Loading
 - Saving
@@ -213,7 +206,7 @@ Tradeoffs.
 - Permissions
 - Large files
 
-## **Chapter 23 — Text Encoding**
+## **Chapter 22 — Text Encoding**
 
 - ASCII
 - UTF-8
@@ -222,7 +215,7 @@ Tradeoffs.
 - CRLF
 - LF
 
-## **Chapter 24 — File Safety**
+## **Chapter 23 — File Safety**
 
 - Temporary files
 - Atomic saves
@@ -235,27 +228,27 @@ Tradeoffs.
 
 This is where the book becomes much deeper than a typical tutorial.
 
-## **Chapter 25 — Complexity Analysis**
+## **Chapter 24 — Complexity Analysis**
 
 - Big-O
 - Memory usage
 - Cache locality
 - Latency
 
-## **Chapter 26 — Arrays and Strings**
+## **Chapter 25 — Arrays and Strings**
 
 - Insertion
 - Deletion
 - Resizing
 
-## **Chapter 27 — Gap Buffer**
+## **Chapter 26 — Gap Buffer**
 
 - Theory
 - Implementation
 - Advantages
 - Disadvantages
 
-## **Chapter 28 — Piece Table**
+## **Chapter 27 — Piece Table**
 
 Used by VS Code.
 
@@ -263,14 +256,14 @@ Used by VS Code.
 - Operations
 - Complexity
 
-## **Chapter 29 — Rope**
+## **Chapter 28 — Rope**
 
 Used by very large editors.
 
 - Balancing
 - Performance
 
-## **Chapter 30 — Comparing Text Buffers**
+## **Chapter 29 — Comparing Text Buffers**
 
 Which editor uses what?
 
@@ -286,32 +279,32 @@ Which editor uses what?
 
 # **Volume VII — Professional Features**
 
-## **Chapter 31 — Search**
+## **Chapter 30 — Search**
 
 - Linear search
 - Incremental search
 - Regex
 
-## **Chapter 32 — Undo / Redo**
+## **Chapter 31 — Undo / Redo**
 
 - Command Pattern
 - Snapshots
 - Operation stacks
 
-## **Chapter 33 — Syntax Highlighting**
+## **Chapter 32 — Syntax Highlighting**
 
 - Lexer
 - Parser
 - Tokens
 - Themes
 
-## **Chapter 34 — Configuration**
+## **Chapter 33 — Configuration**
 
 - Settings
 - Key bindings
 - Theme
 
-## **Chapter 35 — Multiple Buffers**
+## **Chapter 34 — Multiple Buffers**
 
 - Documents
 - Tabs
@@ -321,35 +314,35 @@ Which editor uses what?
 
 # **Volume VIII — Software Engineering**
 
-## **Chapter 36 — Testing**
+## **Chapter 35 — Testing**
 
 - Unit tests
 - Integration
 - Manual
 - Regression
 
-## **Chapter 37 — Debugging**
+## **Chapter 36 — Debugging**
 
 - gdb
 - Assertions
 - Logging
 - Profiling
 
-## **Chapter 38 — Performance**
+## **Chapter 37 — Performance**
 
 - Rendering
 - Memory
 - Large files
 - Optimization
 
-## **Chapter 39 — Portability**
+## **Chapter 38 — Portability**
 
 - Linux
 - macOS
 - Windows
 - WSL
 
-## **Chapter 40 — Packaging**
+## **Chapter 39 — Packaging**
 
 - CMake
 - Release
@@ -359,33 +352,33 @@ Which editor uses what?
 
 # **Volume IX — Advanced Topics**
 
-## **Chapter 41 — Plugin Architecture**
+## **Chapter 40 — Plugin Architecture**
 
 - Interfaces
 - ABI
 - Dynamic loading
 
-## **Chapter 42 — Language Server Protocol (LSP)**
+## **Chapter 41 — Language Server Protocol (LSP)**
 
 - Overview
 - Diagnostics
 - Completion
 - Hover
 
-## **Chapter 43 — Tree-sitter**
+## **Chapter 42 — Tree-sitter**
 
 - Incremental parsing
 - Syntax trees
 - Highlighting
 
-## **Chapter 44 — Terminal Graphics**
+## **Chapter 43 — Terminal Graphics**
 
 - True color
 - Images
 - Mouse
 - Kitty protocol
 
-## **Chapter 45 — Modern Editors**
+## **Chapter 44 — Modern Editors**
 
 How these editors are built:
 
@@ -406,43 +399,43 @@ Architecture comparison.
 
 This is the implementation volume.
 
-## **Chapter 46 — Milestone 1**
+## **Chapter 45 — Milestone 1**
 
 Initialize terminal
 
-## **Chapter 47 — Milestone 2**
+## **Chapter 46 — Milestone 2**
 
 Renderer
 
-## **Chapter 48 — Milestone 3**
+## **Chapter 47 — Milestone 3**
 
 Cursor
 
-## **Chapter 49 — Milestone 4**
+## **Chapter 48 — Milestone 4**
 
 Insertion
 
-## **Chapter 50 — Milestone 5**
+## **Chapter 49 — Milestone 5**
 
 Deletion
 
-## **Chapter 51 — Milestone 6**
+## **Chapter 50 — Milestone 6**
 
 Line splitting
 
-## **Chapter 52 — Milestone 7**
+## **Chapter 51 — Milestone 7**
 
 File loading
 
-## **Chapter 53 — Milestone 8**
+## **Chapter 52 — Milestone 8**
 
 Saving
 
-## **Chapter 54 — Milestone 9**
+## **Chapter 53 — Milestone 9**
 
 Scrolling
 
-## **Chapter 55 — Milestone 10**
+## **Chapter 54 — Milestone 10**
 
 Final polish
 

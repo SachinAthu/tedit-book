@@ -1,0 +1,19 @@
+chapter: 20
+title: Scrolling
+volume: 4
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 20.1 Document Coordinates and Screen Coordinates —> 01-document-screen-coordinates.md
+  - 20.2 The Viewport —> 02-viewport.md
+  - 20.3 Vertical Scrolling —> 03-vertical-scrolling.md
+  - 20.4 Horizontal Scrolling —> 04-horizontal-scrolling.md
+  - 20.5 Keeping the Cursor Visible —> 05-keeping-cursor-visible.md
+  - 20.6 Scrolling and Cursor Movement —> 06-scrolling-cursor-movement.md
+  - 20.7 Scrolling After Editing—> 07-scrolling-after-editing.md
+  - 20.8 Viewport Boundaries —> 08-viewport-boundaries.md
+  - 20.9 Interaction with the Renderer —> 09-interaction-with-renderer.md
+  - 20.10 Design Alternatives —> 10-design-alternatives.md
+  - 20.11 Complexity and Trade-offs —> 11-complexity-trade-offs.md
+  - 20.12 Common Scrolling Bugs —> 12-common-scrolling-bugs.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md
