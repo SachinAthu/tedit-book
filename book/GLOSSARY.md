@@ -1103,6 +1103,23 @@ Volume II, Chapter 10
 - Forward Declaration
 - Information Hiding
 
+## Horizontal Scrolling
+
+**Definition**
+
+Scrolling that changes the Viewport's `viewport_column` offset to control which columns of a long line are visible. Because the editor does not use soft wrapping, a long line remains a single document line and horizontal scrolling exposes different portions of it as the Cursor moves horizontally.
+
+**First Introduced**
+
+Volume IV, Chapter 20
+
+**Related Terms**
+
+- Scrolling
+- Vertical Scrolling
+- Viewport
+- Soft Wrapping
+
 # I
 
 ## Immediate-Mode Rendering
@@ -1989,6 +2006,24 @@ Volume I, Chapter 3
 - Terminal Emulator
 - Viewport
 
+## Scrolling
+
+**Definition**
+
+The process of changing the Viewport's offsets so that the Cursor remains within the visible region of the terminal. When the Cursor's logical position moves outside the visible area, scrolling adjusts `viewport_row` and `viewport_column`; scrolling is not cursor movement, and the Document itself never changes.
+
+**First Introduced**
+
+Volume IV, Chapter 20
+
+**Related Terms**
+
+- Viewport
+- Vertical Scrolling
+- Horizontal Scrolling
+- Cursor
+- Renderer
+
 ## Shell
 
 **Definition**
@@ -2037,6 +2072,23 @@ Volume II, Chapter 8
 - Editor State
 - State Ownership
 - Data Flow
+
+## Soft Wrapping
+
+**Definition**
+
+A display strategy in which a long document line is shown across multiple terminal rows while the underlying Document still contains a single line. Wrapping exists only for presentation, so it complicates the mapping between document coordinates and screen coordinates. Our editor uses horizontal scrolling instead, which preserves the simple row-and-column model.
+
+**First Introduced**
+
+Volume IV, Chapter 20
+
+**Related Terms**
+
+- Horizontal Scrolling
+- Viewport
+- Document Coordinates
+- Screen Coordinates
 
 ## Software Requirements Specification (SRS)
 
@@ -2465,13 +2517,28 @@ Volume III, Chapter 13
 - Piece Table
 - Rope
 
+## Vertical Scrolling
+
+**Definition**
+
+Scrolling that changes the Viewport's `viewport_row` offset to control which rows of the Document are visible in the terminal. When the Cursor moves above or below the visible region, vertical scrolling adjusts `viewport_row` so that the Cursor becomes visible again.
+
+**First Introduced**
+
+Volume IV, Chapter 20
+
+**Related Terms**
+
+- Scrolling
+- Horizontal Scrolling
+- Viewport
+- Cursor
+
 ## Viewport
 
 **Definition**
 
-The visible portion of the document currently displayed on the screen.
-
-The viewport changes as the user scrolls through the document.
+The portion of the Document currently visible in the terminal, identified by two offsets: `viewport_row`, the first visible document row, and `viewport_column`, the first visible column. The Viewport stores only these offsets rather than a copy of the document, and they change as the user scrolls so that the Cursor remains visible.
 
 **First Introduced**
 
@@ -2481,6 +2548,9 @@ Volume III, Chapter 12
 
 - Renderer
 - Cursor
+- Scrolling
+- Document Coordinates
+- Screen Coordinates
 
 **Notes**
 
@@ -2526,9 +2596,6 @@ Project Documentation
 
 The following concepts are expected to be added as the manuscript develops:
 
-- Scroll Offset
-- Horizontal Scrolling
-- Vertical Scrolling
 - Atomic Save
 - Language Server Protocol (LSP)
 - Tree-sitter

@@ -94,10 +94,10 @@ Our editor uses two offsets:
 ```text
 Viewport
 ├── viewport_row
-└── column_offset
+└── viewport_column
 ```
 
-`viewport_row` controls vertical scrolling, while `column_offset` controls horizontal scrolling.
+`viewport_row` controls vertical scrolling, while `viewport_column` controls horizontal scrolling.
 
 This design is simple and maps directly to the terminal's two-dimensional display area. It also fits naturally with the Cursor's row-and-column coordinates.
 

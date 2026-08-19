@@ -44,7 +44,7 @@ The most important takeaway:
 
 > **The Cursor identifies a position in the Document. The Viewport determines which part of that Document is visible. Scrolling changes the Viewport so that the Cursor remains visible.**
 
-The Viewport's offsets are part of the Editor State whose single-writer ownership was established in **ADR-007: State Ownership**, and the scrolling model renders each frame within the full-redraw strategy of **ADR-002: Rendering Strategy**.
+The central design choice — representing the Viewport as two offsets (`viewport_row` and `viewport_column`) and using horizontal scrolling instead of soft wrapping — is recorded as **ADR-019: Viewport and Scrolling Model**. The Viewport's offsets are part of the Editor State whose single-writer ownership was established in **ADR-007: State Ownership**, and the scrolling model renders each frame within the full-redraw strategy of **ADR-002: Rendering Strategy**.
 
 ## Exercises
 
@@ -72,29 +72,43 @@ The Viewport's offsets are part of the Editor State whose single-writer ownershi
 
 ## Preview of the Next Chapter
 
-This chapter established how the Viewport determines which part of the document is visible. The next question is what the editor communicates _around_ that document:
+Chapter 20 completes the Rendering Engine by explaining how the **Viewport** keeps the logical Cursor within the visible terminal region. The next volume moves from displaying the document to persisting it.
 
-> We can now scroll through a document, but the editor still does not tell the user which file is open, where the cursor is, or whether changes are unsaved. The next chapter defines the Status Bar and Message Bar.
+Chapter 21 will examine how the editor moves document data between memory and the file system:
 
-Chapter 21 moves from **what portion of the document is visible** to **what information the editor communicates around that document**.
+- Loading a document from disk
+- Saving the in-memory Document
+- Handling file I/O errors
+- Permissions and failure cases
+- Considerations when working with large files
 
-It will cover:
-
-- filename
-- cursor position
-- modified state
-- status information
-- message display
-
-This also creates a clean progression:
+The central transition is:
 
 ```text
-Chapter 19
-How the Renderer draws the editor
-        ↓
 Chapter 20
-How the Viewport determines what is visible
-        ↓
+Document
+   │
+   ▼
+Viewport
+   │
+   ▼
+Renderer
+   │
+   ▼
+Terminal
+
 Chapter 21
-How the Status Bar communicates editor state
+Document
+   │
+   ▼
+File Manager
+   │
+   ▼
+File System
 ```
+
+The key architectural distinction will remain:
+
+> **The Document is the editable in-memory representation; the file on disk is persistent storage.**
+
+Chapter 21 will therefore introduce file operations without revisiting the Document model or Renderer. The focus shifts from **what the user sees** to **how the editor loads and persists the data being edited**.

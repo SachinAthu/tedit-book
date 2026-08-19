@@ -291,3 +291,21 @@ A terminal screen is a grid of positions, so a cell per position maps directly o
 Trade-off: The cell buffer stores a cell for every visible position even when much of the screen is empty or unchanged, and full redraw regenerates the entire frame rather than updating only changed regions. These costs are accepted because terminal screens are small and the project prioritizes a simple, predictable rendering pipeline over incremental-rendering optimizations; dirty-region tracking remains a deferred optimization if profiling later justifies it.
 
 First referenced: Chapter 18
+
+---
+
+# ADR-019
+
+Viewport and Scrolling Model
+
+Decision:
+
+Represent the visible region of the document with a Viewport that stores only two integer offsets — `viewport_row`, the first visible document row, and `viewport_column`, the first visible column — rather than a copy of the document. Scrolling keeps the Cursor visible by adjusting these offsets, and the editor uses horizontal scrolling (moving `viewport_column` to expose different columns of a single long line) instead of soft wrapping.
+
+Reason:
+
+The terminal can display only a portion of the document, so the editor must record which portion is visible. Storing just two offsets keeps the Viewport's state constant (`O(1)` space), avoids duplicating the document, and makes keeping the cursor visible a matter of a few coordinate comparisons (`O(1)` time). Horizontal scrolling preserves the simple row/column coordinate model established by the Cursor and the Renderer, maintaining a one-to-one mapping between document rows and screen rows. Soft wrapping would break that mapping by spreading a single document row across multiple screen rows, requiring the editor to calculate wrapped screen lines, determine the cursor's visual row, and map screen positions back to document positions. The project requirements also explicitly exclude soft wrapping.
+
+Trade-off: Horizontal scrolling means a very long line cannot be viewed in full at once — the user scrolls horizontally to see later portions of the line, whereas soft wrapping would show the entire line across multiple rows. The two-offset model likewise provides no smooth scrolling, scroll margins, split windows, or independently scrolling views; those features become justified only when the interface itself grows more complex. These costs are accepted for the baseline editor, which prioritizes simplicity, predictable behavior, and educational value over advanced interface behavior.
+
+First referenced: Chapter 20
