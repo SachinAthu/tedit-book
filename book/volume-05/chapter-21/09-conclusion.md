@@ -29,7 +29,7 @@ The most important takeaway:
 
 > **The Document represents what the user is editing. The File Manager handles how that content is transferred to and from persistent storage — and reports success only when the transfer actually succeeded.**
 
-The File Manager's narrow, single-purpose boundary follows **ADR-009: Component Responsibilities**. The Document remains part of the single source of truth governed by **ADR-006: Centralized Editor State**, and the Dirty Flag is updated under the ownership rules of **ADR-007: State Ownership**.
+The central design choice — the full in-memory Document with a full-save persistence model behind a dedicated File Manager — is recorded as **ADR-020: File Persistence Model**. The File Manager's narrow, single-purpose boundary follows **ADR-009: Component Responsibilities**, and the Dirty Flag is updated under the ownership rules of **ADR-007: State Ownership**.
 
 ## Exercises
 

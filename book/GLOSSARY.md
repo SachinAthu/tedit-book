@@ -836,6 +836,22 @@ Volume II, Chapter 9
 - Renderer
 - Input Handler
 
+## errno
+
+**Definition**
+
+A variable the operating system sets when many system calls fail, identifying the reason for the failure. The File Manager inspects `errno` after a failed operation and converts it into a human-readable message using functions such as `strerror()` or `perror()`, rather than exposing the raw numeric value to the user.
+
+**First Introduced**
+
+Volume V, Chapter 21
+
+**Related Terms**
+
+- File Manager
+- File Descriptor
+- File Permission
+
 # F
 
 ## Function Key
@@ -903,6 +919,10 @@ Volume II, Chapter 8
 - Command Engine
 - Dirty Flag
 
+**Notes**
+
+Architectural overview: Volume II, Chapter 8. Detailed treatment: Volume V, Chapter 21.
+
 ## File Descriptor
 
 **Definition**
@@ -920,6 +940,26 @@ Volume I, Chapter 3
 - Standard Error
 - Process
 - PTY
+
+**Notes**
+
+Detailed treatment: Volume V, Chapter 21.
+
+## File Permission
+
+**Definition**
+
+Rules enforced by the operating system that determine whether a particular user may read, write, or otherwise access a file. Reading and writing are separate permissions, so a file may be loadable but not writable; the operating system — not the editor — remains the authority over these restrictions.
+
+**First Introduced**
+
+Volume V, Chapter 21
+
+**Related Terms**
+
+- File Manager
+- File Descriptor
+- errno
 
 ## Frame
 
@@ -1400,6 +1440,23 @@ Volume I, Chapter 5
 - Raw Mode
 - termios
 - Echo
+
+## Loading
+
+**Definition**
+
+The one-way transfer of a file's contents from persistent storage into the in-memory Document. Loading opens the file, reads its bytes, constructs the Document from those bytes, and closes the file descriptor; the file on disk remains unchanged until the user explicitly saves.
+
+**First Introduced**
+
+Volume V, Chapter 21
+
+**Related Terms**
+
+- Saving
+- File Manager
+- Document
+- File Descriptor
 
 ## Lookahead
 
@@ -2023,6 +2080,39 @@ Volume IV, Chapter 20
 - Horizontal Scrolling
 - Cursor
 - Renderer
+
+## Saving
+
+**Definition**
+
+The explicit operation that serializes the Document and writes its contents to persistent storage. Saving is distinct from editing: editing changes the in-memory Document, while saving makes those changes persistent. The Dirty Flag is cleared only after a successful save.
+
+**First Introduced**
+
+Volume V, Chapter 21
+
+**Related Terms**
+
+- Loading
+- Serialization
+- File Manager
+- Dirty Flag
+
+## Serialization
+
+**Definition**
+
+The process of converting the Document's in-memory representation — a collection of lines — into the byte sequence that will be written to the file. Serialization is the step that turns the editor's structured Document into the flat sequence of bytes a file stores.
+
+**First Introduced**
+
+Volume V, Chapter 21
+
+**Related Terms**
+
+- Saving
+- Document
+- Loading
 
 ## Shell
 

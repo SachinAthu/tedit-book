@@ -309,3 +309,21 @@ The terminal can display only a portion of the document, so the editor must reco
 Trade-off: Horizontal scrolling means a very long line cannot be viewed in full at once — the user scrolls horizontally to see later portions of the line, whereas soft wrapping would show the entire line across multiple rows. The two-offset model likewise provides no smooth scrolling, scroll margins, split windows, or independently scrolling views; those features become justified only when the interface itself grows more complex. These costs are accepted for the baseline editor, which prioritizes simplicity, predictable behavior, and educational value over advanced interface behavior.
 
 First referenced: Chapter 20
+
+---
+
+# ADR-020
+
+File Persistence Model
+
+Decision:
+
+Introduce a dedicated File Manager as the single boundary between the editor and the file system, and adopt a full-document persistence model: loading reads the entire file into an in-memory Document, and saving serializes and rewrites the complete Document to disk. Reject incremental persistence, memory mapping, and lazy or partial loading as the baseline strategy.
+
+Reason:
+
+The File Manager gives file persistence a single, narrow responsibility (ADR-009), so POSIX file APIs remain localized to one component rather than spreading through the Command Engine, Document, and Renderer. Loading the whole document keeps the editor's core model simple: the Document in memory is the authoritative text being edited, and the file on disk is merely its persistent image. A full save is easy to understand and reason about — the file always receives the complete current state of the Document, avoiding the bookkeeping needed to track which regions changed. This matches the project's priority on simplicity and educational value.
+
+Trade-off: Full-document persistence ties memory usage, load time, and save time to document size — all `O(n)` in the number of bytes — so very large files can be slow to load or save and expensive to hold in memory. Incremental persistence or memory mapping could reduce some of these costs but would introduce substantial additional complexity: tracking modified regions, maintaining consistency between memory and disk, and handling partial updates and interrupted writes. For a small, single-document educational editor those costs are not justified, and the model can be revisited if requirements change.
+
+First referenced: Chapter 21
