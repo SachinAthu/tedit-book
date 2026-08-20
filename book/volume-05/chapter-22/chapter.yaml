@@ -1,0 +1,21 @@
+chapter: 22
+title: Text Encoding
+volume: 5
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 22.1 Bytes Are Not Characters —> 01-bytes-are-not-characters.md
+  - 22.2 Character Sets, Unicode, and Encodings —> 02-character-sets-unicode-encodings.md
+  - 22.3 ASCII —> 03-ASCII.md
+  - 22.4 Unicode —> 04-unicode.md
+  - 22.5 UTF-8 —> 05-utf8.md
+  - 22.6 UTF-8 and the Text Buffer —> 06-utf8-and-text-buffer.md
+  - 22.7 Byte Positions vs Character Positions —> 07-byte-positions-character-positions.md
+  - 22.8 Valid and Invalid UTF-8 —> 08-valid-invalid-utf8.md
+  - 22.9 Line Endings —> 09-line-endings.md
+  - 22.10 LF vs CRLF —> 10-lf-crlf.md
+  - 22.11 Line Ending Policy —> 11-line-ending-policy.md
+  - 22.12 Encoding and Saving —> 12-encoding-and-saving.md
+  - 22.13 Encoding Strategy for Our Editor —> 13-encoding-strategy-for-editor.md
+  - 22.14 Complexity and Trade-offs —> 14-complexity-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 15-conclusion.md
