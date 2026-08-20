@@ -1,0 +1,79 @@
+# Volume V — File System
+
+# Chapter 21 — File I/O
+
+## Introduction
+
+So far, our editor has existed almost entirely in memory.
+
+The **Document** stores the text being edited, the **Cursor** identifies the current editing position, the **Viewport** determines which portion of the document is visible, and the **Renderer** turns the current editor state into a frame displayed by the terminal.
+
+But an editor that can only modify text in memory would not be very useful.
+
+At some point, the text must cross the boundary between memory and persistent storage:
+
+```text
+             File System
+                  │
+                Load
+                  │
+                  ▼
+            +-----------+
+            |  Document |
+            +-----------+
+                  │
+                Edit
+                  │
+                  ▼
+           Modified Document
+                  │
+                Save
+                  │
+                  ▼
+             File System
+```
+
+This is the responsibility of **File I/O**.
+
+When the user opens a file, the editor must read data from the file system and construct the in-memory Document. When the user saves, the editor must take the current Document and write its contents back to disk.
+
+This sounds straightforward, but file I/O introduces an important boundary into our architecture. The editor's Document is an in-memory representation of text, while the file system deals with persistent byte streams. The **File Manager** sits between these two worlds and coordinates the transfer without making the rest of the editor dependent on operating-system file APIs.
+
+File operations can also fail for reasons outside the editor's control. A file may not exist, permissions may prevent access, a read or write operation may fail, or the available memory may be insufficient for a large document. A well-designed editor must treat these situations as part of normal operation rather than assuming that every file operation succeeds.
+
+This chapter therefore focuses on the ordinary lifecycle of document persistence:
+
+```text
+Open
+  ↓
+Read
+  ↓
+Build Document
+  ↓
+Edit in Memory
+  ↓
+Save
+  ↓
+Write to Disk
+```
+
+We will also examine the limitations of our in-memory editing model, particularly when working with large files. More advanced techniques for making file updates safer—such as temporary files, atomic saves, and crash recovery—will be addressed separately in Chapter 23.
+
+The goal is not merely to learn how to call POSIX file APIs. It is to understand **where file I/O belongs in an editor's architecture, how data moves across the memory–storage boundary, and what can go wrong along the way**.
+
+## Learning Objectives
+
+By the end of this chapter, you should be able to:
+
+- Explain the difference between the in-memory **Document** and the file stored on disk.
+- Describe the responsibilities of the **File Manager**.
+- Explain how an existing file is loaded into the editor.
+- Explain how the current Document is saved back to disk.
+- Understand the role of file descriptors in file operations.
+- Handle common file I/O failures without terminating the editor unexpectedly.
+- Explain how file permissions affect reading and writing.
+- Understand why `read()` and `write()` operations may not process all requested bytes at once.
+- Explain how large files affect an editor that keeps the entire Document in memory.
+- Analyze the time and space complexity of loading and saving files.
+- Identify the trade-offs of the editor's simple in-memory persistence model.
+- Understand how file operations integrate with the existing Editor State and runtime architecture.

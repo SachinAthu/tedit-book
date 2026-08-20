@@ -1,0 +1,15 @@
+chapter: 21
+title: File I/O
+volume: 5
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 21.1 The File Manager's Responsibility —> 01-file-manager-responsibilities.md
+  - 21.2 Loading a File —> 02-loading-a-file.md
+  - 21.3 Saving a File —> 03-saving-a-file.md
+  - 21.4 File I/O Errors —> 04-file-io-errors.md
+  - 21.5 File Permissions and the Operating System —> 05-file-permissions-operating-system.md
+  - 21.6 Large Files —> 06-large-files.md
+  - 21.7 File I/O in the Runtime Model —> 07-file-io-in-runtime-model.md
+  - 21.8 Complexity and Trade-offs —> 08-complexity-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 09-conclusion.md

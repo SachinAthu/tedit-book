@@ -890,7 +890,7 @@ Volume II, Chapter 7
 
 **Definition**
 
-The component responsible for loading documents from disk into memory and saving the current document back to disk. The File Manager reads and writes files through operating system interfaces and updates the Editor State to reflect the result of file operations, such as clearing the Dirty Flag after a successful save.
+The component responsible for loading documents from disk into memory and saving the current document back to disk. The File Manager reads and writes files through operating system interfaces and reports the result of file operations to the rest of the editor, which updates the Editor State accordingly — for example, the Command Engine clears the Dirty Flag only after the File Manager reports a successful save.
 
 **First Introduced**
 
