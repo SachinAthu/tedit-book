@@ -318,12 +318,30 @@ File Persistence Model
 
 Decision:
 
-Introduce a dedicated File Manager as the single boundary between the editor and the file system, and adopt a full-document persistence model: loading reads the entire file into an in-memory Document, and saving serializes and rewrites the complete Document to disk. Reject incremental persistence, memory mapping, and lazy or partial loading as the baseline strategy.
+Introduce a dedicated File Manager as the single boundary between the editor and the file system, and adopt a full-document persistence model: loading reads the entire file, decodes its UTF-8 bytes into Unicode code points to build the in-memory Document, and saving encodes those code points back into UTF-8 and rewrites the complete document to disk. Reject incremental persistence, memory mapping, and lazy or partial loading as the baseline strategy.
 
 Reason:
 
 The File Manager gives file persistence a single, narrow responsibility (ADR-009), so POSIX file APIs remain localized to one component rather than spreading through the Command Engine, Document, and Renderer. Loading the whole document keeps the editor's core model simple: the Document in memory is the authoritative text being edited, and the file on disk is merely its persistent image. A full save is easy to understand and reason about — the file always receives the complete current state of the Document, avoiding the bookkeeping needed to track which regions changed. This matches the project's priority on simplicity and educational value.
 
-Trade-off: Full-document persistence ties memory usage, load time, and save time to document size — all `O(n)` in the number of bytes — so very large files can be slow to load or save and expensive to hold in memory. Incremental persistence or memory mapping could reduce some of these costs but would introduce substantial additional complexity: tracking modified regions, maintaining consistency between memory and disk, and handling partial updates and interrupted writes. For a small, single-document educational editor those costs are not justified, and the model can be revisited if requirements change.
+Trade-off: Full-document persistence ties memory usage to the number of code points and load/save time to the number of bytes (UTF-8 decoding on load, encoding on save), so very large files can be slow to load or save and expensive to hold in memory. Incremental persistence or memory mapping could reduce some of these costs but would introduce substantial additional complexity: tracking modified regions, maintaining consistency between memory and disk, and handling partial updates and interrupted writes. For a small, single-document educational editor those costs are not justified, and the model can be revisited if requirements change.
 
 First referenced: Chapter 21
+
+---
+
+# ADR-021
+
+Text Encoding Strategy
+
+Decision:
+
+Store the Document's text as decoded Unicode code points, one code point per element, arranged line by line. Use UTF-8 only at the file boundary: the File Manager decodes UTF-8 bytes into code points when loading and encodes code points back into UTF-8 bytes when saving. Store logical lines without line-ending bytes, recognizing both LF and CRLF on load and writing a single canonical line ending (LF) on save.
+
+Reason:
+
+Storing code points gives the Document a fixed-width element per character, so a cursor column, a line length, and a character position are all measured in code points rather than bytes. This removes the byte/character mismatch from inside the Document — cursor movement, insertion, deletion, and length computation all operate directly on characters. UTF-8 remains the encoding of the file on disk because it is compact, ASCII-compatible, and standard on Linux. Keeping the encoding at the boundary confines byte-level concerns to loading and saving, where the File Manager already owns the transfer.
+
+Trade-off: A code point requires up to four bytes of storage even for ASCII text, which stores as one byte in UTF-8, so the in-memory Document can be larger than the file it came from. The editor also gains a decode step on load and an encode step on save. In exchange, the core editing model becomes simpler and more predictable. Full grapheme-cluster handling (combining marks, emoji sequences) is deliberately out of scope: the editor treats one code point as one character.
+
+First referenced: Chapter 22

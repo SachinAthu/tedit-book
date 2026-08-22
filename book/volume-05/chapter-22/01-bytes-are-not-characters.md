@@ -153,7 +153,7 @@ Logical representation
       Text
 ```
 
-The bytes remain the underlying storage representation, while the characters they encode are the logical text the editor operates on.
+The UTF-8 bytes are the file's representation on disk. The Document stores the decoded characters — the Unicode code points — that those bytes represent, so the byte-level encoding is handled at the boundary rather than inside the Document.
 
 ## Why This Matters for an Editor
 
@@ -190,3 +190,9 @@ Characters
 ```
 
 Bytes are the physical representation stored in the file. Characters are part of the logical text represented by those bytes. An encoding such as UTF-8 defines the relationship between the two.
+
+## Summary
+
+Bytes are the physical representation stored in a file, while characters are the logical text those bytes represent. An encoding such as UTF-8 defines the relationship between the two, and the number of bytes in a sequence is not necessarily the number of characters it represents.
+
+In the next section, we will separate the related but distinct concepts of **character sets, Unicode, and encodings**.

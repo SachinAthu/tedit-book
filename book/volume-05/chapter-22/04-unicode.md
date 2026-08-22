@@ -121,7 +121,7 @@ with the understanding that the final visual representation may involve more tha
 
 Without Unicode, the editor would be limited to a small character repertoire.
 
-With Unicode and UTF-8, the Document can represent text from many writing systems while retaining a relatively simple byte-oriented storage representation.
+With Unicode and UTF-8, the Document can represent text from many writing systems while retaining a relatively simple storage representation based on decoded code points.
 
 This also introduces an important engineering consequence:
 
@@ -146,3 +146,9 @@ necessarily 1 byte
 That difference will affect operations that need to locate or traverse characters.
 
 The next step is therefore to examine **UTF-8 itself**: how Unicode code points are encoded into one or more bytes, and what properties of that encoding are important to a text editor.
+
+## Summary
+
+Unicode assigns an abstract code point to each character independent of its byte representation. A code point is not the same as its bytes, and it is not always the same as a single user-perceived character.
+
+In the next section, we will examine **UTF-8**, the encoding that turns Unicode code points into one or more bytes.

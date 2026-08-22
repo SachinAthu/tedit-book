@@ -134,3 +134,9 @@ The key property to remember is:
 This means the editor can process ordinary ASCII text using the familiar one-byte representation while still supporting the much larger Unicode character set through UTF-8.
 
 The important complication begins when a character requires more than one byte. That is the behavior we examine next.
+
+## Summary
+
+ASCII defines 128 characters using seven bits, and UTF-8 deliberately preserves the exact ASCII byte values. As a result, every ASCII file is also valid UTF-8, but ASCII text is only the simple one-byte case of a wider system.
+
+In the next section, we will examine **Unicode**, the code-point system that extends text beyond ASCII.

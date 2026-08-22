@@ -1,17 +1,32 @@
 # Chapter Summary
 
-Summarize:
+Text Encoding answers the question that file I/O left open: **what do the bytes in a file actually mean?**
 
-- Files contain bytes.
-- Encodings give those bytes meaning.
-- Unicode defines code points; UTF-8 encodes them as bytes.
-- ASCII is compatible with UTF-8.
-- UTF-8 is variable-width.
-- Byte offsets and character positions can differ.
-- Line endings are another representation-level concern.
-- LF and CRLF represent line boundaries differently.
-- The editor should separate logical lines from physical line-ending bytes.
-- The project's encoding policy should be explicit.
+The chapter separated four concepts that are often conflated. A **file** contains bytes; an **encoding** gives those bytes meaning; **Unicode** assigns a unique code point to each character; and **UTF-8** is the encoding that turns those code points into bytes. ASCII is the simple case — its 128 characters occupy one byte each, and UTF-8 deliberately preserves those exact byte values, so every ASCII file is also a valid UTF-8 file.
+
+UTF-8 is a variable-width encoding. A character may occupy one, two, three, or four bytes, which means the number of bytes in a text sequence is not necessarily the number of characters it represents. This is why byte offsets and character positions can differ.
+
+The chapter's key decision concerns where those two representations live. The Document stores each line as a sequence of **decoded Unicode code points**, not as UTF-8 bytes:
+
+```text
+File (UTF-8 bytes)
+     │
+     │ decode on load
+     ▼
+Document (code points)
+     │
+     │ encode on save
+     ▼
+File (UTF-8 bytes)
+```
+
+This confines the byte/character distinction to the boundary owned by the File Manager. Inside the Document, a cursor column, a line length, and an editing position are all code-point positions, so the editor never operates on half of a multi-byte sequence. The cost is a larger in-memory representation and a decode/encode step at each boundary, accepted for the simpler editing model they buy. This strategy is recorded as **ADR-021: Text Encoding Strategy**.
+
+Line endings are the second representation-level concern. A logical line break may be stored as `LF` (`\n`) or `CRLF` (`\r\n`). The editor separates logical lines from their physical line-ending bytes: it recognizes both on load, stores lines without any line-ending bytes, and writes a canonical `LF` ending on save.
+
+The most important takeaway:
+
+> **A file is a sequence of bytes; a document is a sequence of characters. The Document stores those characters as code points, and UTF-8 is the encoding that connects them to the file's bytes.**
 
 ## Exercises
 
@@ -22,38 +37,54 @@ Summarize:
 3. Why is ASCII compatible with UTF-8?
 4. Why can byte offsets not always be used as character positions?
 5. What is the difference between LF and CRLF?
+6. Why does the Document store code points rather than UTF-8 bytes?
 
 ### Thought Experiments
 
-- What happens if an editor deletes one byte from the middle of a multi-byte UTF-8 sequence?
-- What happens if a CRLF file is loaded without removing `\r`?
-- Why would treating every byte as a character work for English text but fail for international text?
+1. What happens if an editor deletes one byte from the middle of a multi-byte UTF-8 sequence?
+2. What happens if a CRLF file is loaded without removing `\r`?
+3. Why would treating every byte as a character work for English text but fail for international text?
+4. The Document stores code points, but a character the user sees may be several code points (a base character plus a combining mark). What would the Cursor have to track to handle that?
 
 ### Optional Challenge
 
-Design a function that walks through a UTF-8 line and identifies the beginning of each code point without converting the entire line into another representation.
+Design the File Manager's decode step: a function that reads a UTF-8 byte buffer and produces a sequence of code points, deciding what to do when it encounters an invalid byte sequence.
 
 ## Common Mistakes
 
-A concise section covering mistakes such as:
+### Assuming one character equals one byte
 
-- assuming one character equals one byte
-- confusing Unicode with UTF-8
-- treating `\r\n` as two logical line breaks
-- counting UTF-8 bytes as characters
-- splitting a UTF-8 sequence in the middle
-- assuming every file is valid UTF-8
-- silently mixing byte offsets and character positions
+True only for ASCII. UTF-8 characters may occupy up to four bytes, so byte-counting logic breaks for international text.
 
-These mistakes are especially valuable because they expose bugs that can otherwise look completely mysterious.
+### Confusing Unicode with UTF-8
+
+Unicode defines code points; UTF-8 defines how those code points are encoded as bytes. They are not the same thing, and treating them as interchangeable hides the byte/character distinction.
+
+### Treating `\r\n` as two logical line breaks
+
+CRLF is one line break expressed as two bytes. Splitting on `\n` without also removing the preceding `\r` leaves a stray carriage return in the document's visible text.
+
+### Counting UTF-8 bytes as characters
+
+A five-byte sequence may represent only four characters. Using a byte count where a character count is expected produces wrong cursor positions and status information.
+
+### Splitting a UTF-8 sequence in the middle
+
+Deleting or inserting at a byte offset can land between the bytes of a single code point, corrupting the character. The Document avoids this by storing code points, so its positions are always character boundaries.
+
+### Assuming every file is valid UTF-8
+
+A file may contain bytes that do not form valid UTF-8. The editor needs an explicit policy — reject, replace, or otherwise handle invalid sequences — rather than allowing decoding to fail unpredictably.
+
+### Silently mixing byte offsets and character positions
+
+The two coordinate systems coincide for ASCII but diverge for UTF-8. Mixing them is a common source of cursor and editing bugs that appear only with non-English text.
 
 ## Preview of the Next Chapter
 
-Chapter 22 establishes **what the bytes mean**.
+Chapter 22 established **what the bytes mean**. The next question is how to change them safely.
 
-Chapter 23 should establish **how to safely modify those bytes on disk**.
-
-The next chapter can therefore focus entirely on:
+Chapter 23 will examine **File Safety**:
 
 - temporary files
 - atomic saves
@@ -63,4 +94,4 @@ The next chapter can therefore focus entirely on:
 - recovery strategies
 - preserving the user's original file
 
-This keeps Chapter 23 clearly separate from Chapter 21's basic file I/O and Chapter 22's encoding concerns.
+The next chapter can therefore focus entirely on the safety of writing, separate from Chapter 21's basic file I/O and Chapter 22's encoding concerns.

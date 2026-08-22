@@ -1445,7 +1445,7 @@ Volume I, Chapter 5
 
 **Definition**
 
-The one-way transfer of a file's contents from persistent storage into the in-memory Document. Loading opens the file, reads its bytes, constructs the Document from those bytes, and closes the file descriptor; the file on disk remains unchanged until the user explicitly saves.
+The one-way transfer of a file's contents from persistent storage into the in-memory Document. Loading opens the file, reads its UTF-8 bytes, decodes those bytes into Unicode code points to construct the Document, and closes the file descriptor; the file on disk remains unchanged until the user explicitly saves.
 
 **First Introduced**
 
@@ -2102,7 +2102,7 @@ Volume V, Chapter 21
 
 **Definition**
 
-The process of converting the Document's in-memory representation — a collection of lines — into the byte sequence that will be written to the file. Serialization is the step that turns the editor's structured Document into the flat sequence of bytes a file stores.
+The process of encoding the Document's Unicode code points into the UTF-8 byte sequence that will be written to the file. Serialization is the step that turns the editor's structured Document — a collection of lines of code points — into the flat sequence of bytes a file stores.
 
 **First Introduced**
 
@@ -2492,7 +2492,7 @@ Volume I, Chapter 5
 
 **Definition**
 
-The in-memory data structure that stores the editable contents of the current document.
+The in-memory data structure that stores the editable contents of the current document as a collection of lines, each holding its text as a sequence of Unicode code points.
 
 All editing operations modify the Text Buffer rather than the file on disk.
 
@@ -2593,7 +2593,7 @@ Volume I, Chapter 3
 
 **Definition**
 
-The document representation adopted by our editor, in which a document is stored as a collection of independently stored text lines, each holding its own sequence of characters. This model matches the user's line-oriented mental model of text and makes operations such as splitting, merging, rendering, and cursor positioning natural, while keeping implementation simple. Character edits still shift characters within a single line, so very long lines can be costly to edit.
+The document representation adopted by our editor, in which a document is stored as a collection of independently stored text lines, each holding its own sequence of characters (Unicode code points). This model matches the user's line-oriented mental model of text and makes operations such as splitting, merging, rendering, and cursor positioning natural, while keeping implementation simple. Character edits still shift characters within a single line, so very long lines can be costly to edit.
 
 **First Introduced**
 

@@ -88,7 +88,7 @@ Each line is an independent sequence of characters.
 
 The complete document is therefore a collection of these sequences.
 
-In C, the eventual implementation will use a dynamically sized collection of strings. The exact implementation details will be introduced when we begin implementing the Document module.
+In C, the eventual implementation will use a dynamically sized collection of lines, where each line is stored as a sequence of Unicode code points rather than as encoded bytes. The exact implementation details will be introduced when we begin implementing the Document module.
 
 For now, the important idea is the structure:
 

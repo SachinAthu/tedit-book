@@ -152,3 +152,9 @@ The File Manager is responsible for the file-system boundary, while the encoding
 This separation is important. File I/O answers **how bytes are read and written**. Encoding answers **how those bytes represent text**.
 
 With that distinction established, we can now look more closely at ASCII and its special relationship with UTF-8.
+
+## Summary
+
+A character set defines which characters are available, Unicode assigns each character an abstract code point, and an encoding such as UTF-8 maps those code points to bytes. These are three distinct concepts, and confusing them hides the byte/character distinction.
+
+In the next section, we will examine **ASCII**, the simple case whose one-byte characters provide the baseline for understanding UTF-8.
