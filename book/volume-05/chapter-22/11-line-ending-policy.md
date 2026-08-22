@@ -1,4 +1,4 @@
-# 22.11 — Line Ending Policy
+# 22.11 Line Ending Policy
 
 Now that we understand the difference between LF and CRLF, we need to make an explicit architectural decision for our editor.
 
@@ -450,7 +450,7 @@ Preservation, on the other hand, minimizes changes to existing files but require
 
 For our educational baseline, we choose **simplicity and determinism over exact preservation**.
 
-This decision should be recorded as an architectural decision rather than left implicit in the file-loading or saving code. A future version of the editor can revisit the decision if user expectations or compatibility requirements change.
+This decision is recorded as **ADR-021: Text Encoding Strategy**, so the canonical-LF policy is an explicit architectural contract rather than an accidental consequence of the file-loading or saving code. A future version of the editor can revisit the decision if user expectations or compatibility requirements change.
 
 The important point is that such a change would be a deliberate policy change—not an accidental consequence of implementation.
 

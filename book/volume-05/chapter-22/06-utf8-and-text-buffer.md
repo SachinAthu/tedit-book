@@ -1,4 +1,4 @@
-## 22.6 UTF-8 and the Text Buffer
+# 22.6 UTF-8 and the Text Buffer
 
 In Chapter 13, we chose a **vector of lines** as the representation of the Document. Each line was described as an independent sequence of characters:
 

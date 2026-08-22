@@ -272,6 +272,23 @@ Volume I, Chapter 2
 - Unicode
 - UTF-8
 
+## Character Set
+
+**Definition**
+
+A defined collection of characters that can be represented, independent of how those characters are stored as bytes. A character set answers the question of which characters are available — for example, ASCII defines 128 characters — but does not by itself specify the byte representation; that is the role of a character encoding such as UTF-8.
+
+**First Introduced**
+
+Volume V, Chapter 22
+
+**Related Terms**
+
+- Character Encoding
+- Unicode
+- ASCII
+- UTF-8
+
 ## Code Point
 
 **Definition**
@@ -1457,6 +1474,27 @@ Volume I, Chapter 5
 - Raw Mode
 - termios
 - Echo
+
+## Line Ending
+
+**Definition**
+
+The byte sequence that marks where one logical line ends and the next begins in a file. The two conventions our editor recognizes are **LF** — the single byte `0A` (Line Feed), used on Unix/Linux — and **CRLF** — the two bytes `0D 0A` (Carriage Return followed by Line Feed), used on Windows. A line ending belongs to the file representation, not to the Document's logical lines: the editor stores lines without any line-ending bytes, recognizes both LF and CRLF when loading, and writes a single canonical LF ending when saving.
+
+**First Introduced**
+
+Volume V, Chapter 22
+
+**Related Terms**
+
+- Loading
+- Saving
+- Serialization
+- File Manager
+
+**Notes**
+
+The canonical-LF save policy is recorded in ADR-021: Text Encoding Strategy.
 
 ## Loading
 

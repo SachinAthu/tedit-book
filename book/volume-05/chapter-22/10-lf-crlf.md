@@ -1,4 +1,4 @@
-# 22.10 — LF vs CRLF
+# 22.10 LF vs CRLF
 
 The two line-ending conventions most relevant to our editor are **LF** and **CRLF**.
 

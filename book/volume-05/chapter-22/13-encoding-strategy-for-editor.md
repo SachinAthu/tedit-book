@@ -1,4 +1,4 @@
-# 22.13 — Encoding Strategy for Our Editor
+# 22.13 Encoding Strategy for Our Editor
 
 We have now examined the individual pieces of text representation:
 

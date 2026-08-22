@@ -342,7 +342,7 @@ Text Encoding Strategy
 
 Decision:
 
-Store the Document's text as decoded Unicode code points, one code point per element, arranged line by line. Use UTF-8 only at the file boundary: the File Manager decodes UTF-8 bytes into code points when loading and encodes code points back into UTF-8 bytes when saving. Store logical lines without line-ending bytes, recognizing both LF and CRLF on load and writing a single canonical line ending (LF) on save.
+Store the Document's text as decoded Unicode code points, one code point per element, arranged line by line. Use UTF-8 only at the file boundary: the File Manager decodes UTF-8 bytes into code points when loading and encodes code points back into UTF-8 bytes when saving. Store logical lines without line-ending bytes, recognizing both LF and CRLF on load and writing a single canonical line ending (LF) on save. Every logical line boundary — including the one after the final line — is serialized as LF, so a saved file always ends with a trailing newline.
 
 Reason:
 

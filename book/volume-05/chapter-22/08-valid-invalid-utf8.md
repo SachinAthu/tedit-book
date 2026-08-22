@@ -1,4 +1,4 @@
-# 22.8 — Valid and Invalid UTF-8
+# 22.8 Valid and Invalid UTF-8
 
 UTF-8 is designed to encode Unicode text, but not every sequence of bytes is valid UTF-8.
 
@@ -338,7 +338,7 @@ The Cursor can operate on logical character positions.
 
 The Document can perform insertion and deletion using its character representation.
 
-The Renderer can convert characters back into UTF-8 when producing terminal output.
+The Renderer can convert characters back into UTF-8 when producing terminal output, since the terminal—like the file—is another external byte boundary.
 
 And the File Manager can encode the Document when saving.
 

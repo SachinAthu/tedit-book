@@ -1,4 +1,4 @@
-# 22.14 — Complexity and Trade-offs
+# 22.14 Complexity and Trade-offs
 
 The encoding strategy gives the editor a clean separation between file bytes and logical text, but that separation has costs.
 
@@ -140,12 +140,12 @@ This is consistent with the existing Document Representation decision, which acc
 
 Mature editors often use more compact representations. Vim and Neovim, for example, use UTF-8 internally, while Emacs uses a variable-length internal encoding based on UTF-8. Our fixed-width code-point representation is intentionally simpler: it makes the relationship between a logical character and an element in the text buffer explicit, at the cost of additional memory.
 
-| Editor               | Internal text representation                                |
-| -------------------- | ----------------------------------------------------------- |
-| **Vim**              | UTF-8 internally                                            |
-| **Neovim**           | UTF-8 internally                                            |
-| **Emacs**            | Its own variable-length multibyte encoding, based on UTF-8  |
-| **VS Code / Monaco** | JavaScript strings, effectively UTF-16 code units           |
+| Editor               | Internal text representation                               |
+| -------------------- | ---------------------------------------------------------- |
+| **Vim**              | UTF-8 internally                                           |
+| **Neovim**           | UTF-8 internally                                           |
+| **Emacs**            | Its own variable-length multibyte encoding, based on UTF-8 |
+| **VS Code / Monaco** | JavaScript strings, effectively UTF-16 code units          |
 
 ## Full-Document Loading and Saving
 

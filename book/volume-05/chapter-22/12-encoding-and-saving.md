@@ -1,4 +1,4 @@
-# 22.12 — Encoding and Saving
+# 22.12 Encoding and Saving
 
 Loading a file converts its external byte representation into the logical representation used by the Document.
 
@@ -209,6 +209,8 @@ Serialization policy
     ▼
 File
 ```
+
+For the baseline editor, saving always writes a trailing LF after the final line, so every line boundary—including the last one—is serialized as `0A`. This keeps one simple deterministic rule, consistent with the canonical-LF policy established in the previous section.
 
 The exact final-newline policy can therefore be changed without redesigning the Document representation.
 

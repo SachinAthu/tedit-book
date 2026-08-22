@@ -1,4 +1,4 @@
-# 22.9 — Line Endings
+# 22.9 Line Endings
 
 So far, we have treated text primarily as a sequence of characters. A text file, however, contains more than characters.
 
