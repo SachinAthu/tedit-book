@@ -281,6 +281,61 @@ File
 
 Thus, UTF-8 is the **external file representation**, while Unicode code points form the logical representation used by the editor.
 
+## TAB: One Code Point
+
+The examples above used letters such as `c`, `a`, and `é`. The boundary applies in exactly the same way to every other character, including control characters such as TAB.
+
+A literal TAB character is the Unicode code point:
+
+```text
+U+0009
+```
+
+Its UTF-8 encoding is the single byte:
+
+```text
+09
+```
+
+Because TAB is an ASCII character, its UTF-8 encoding is identical to its ASCII byte value, like any other ASCII character.
+
+During loading, the decoder converts:
+
+```text
+File:
+    09
+
+      │ UTF-8 decoding
+
+      ▼
+
+Document:
+    U+0009
+```
+
+and during saving, the encoder performs the reverse conversion:
+
+```text
+Document:
+    U+0009
+
+      │ UTF-8 encoding
+
+      ▼
+
+File:
+    09
+```
+
+This establishes several points:
+
+- U+0009 is **one logical character** — a single code point in the Document, exactly like `A` or `é`.
+- Its visual width is **not** determined by the encoding. The byte `09` says nothing about how many terminal columns the TAB occupies.
+- The Renderer later decides how many terminal columns the TAB occupies. That is a rendering concern, not an encoding concern.
+- The Document does **not** convert TAB into spaces. The Document always stores U+0009; any visual expansion belongs entirely to rendering.
+
+Encoding therefore answers only one question about TAB: which bytes represent it in a file.
+
 ## The Trade-off
 
 This approach simplifies character-oriented operations, but it has a cost.

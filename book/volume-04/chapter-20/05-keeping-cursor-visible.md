@@ -39,12 +39,23 @@ Conceptually:
                        Cursor visible
 ```
 
-The same principle applies horizontally.
+The same principle applies horizontally, with one additional step. The cursor's `column` is a logical Document coordinate, while `viewport_column` is a visual/display coordinate. The two are comparable only after the Renderer's logical-to-visual mapping (Chapter 19) has produced the cursor's **visual column**:
+
+```text
+logical cursor column
+      │
+      │ Renderer (tab expansion)
+      ▼
+cursor visual column
+      │
+      ▼
+scrolling decision
+```
 
 If:
 
 ```text
-cursor_column < viewport_column
+cursor_visual_column < viewport_column
 ```
 
 the cursor is to the left of the visible region, so `viewport_column` must decrease.
@@ -52,10 +63,18 @@ the cursor is to the left of the visible region, so `viewport_column` must decre
 If:
 
 ```text
-cursor_column >= viewport_column + visible_columns
+cursor_visual_column >= viewport_column + visible_columns
 ```
 
 the cursor is to the right of the visible region, so `viewport_column` must increase.
+
+In other words, the scrolling logic keeps the cursor's visual column inside the interval:
+
+```text
+[viewport_column, viewport_column + visible_columns)
+```
+
+On a line without TAB characters, every logical column equals its visual column, and `cursor_visual_column` is simply `cursor.column`. The distinction matters when variable-width characters such as TAB are present, because then the same logical position occupies a different visual position. The Renderer owns that mapping; scrolling only consumes its result.
 
 The important point is that the viewport does not need to move every time the cursor moves. If the cursor remains within the visible region, the offsets remain unchanged.
 

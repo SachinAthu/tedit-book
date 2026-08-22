@@ -31,6 +31,10 @@ A
 
 ↓
 
+Tab
+
+↓
+
 Right Arrow
 
 ↓
@@ -46,6 +50,7 @@ The editor might receive the following byte stream:
 
 ```text
 41
+09
 1B
 5B
 43
@@ -59,6 +64,8 @@ The editor might receive the following byte stream:
 To the operating system, these are simply bytes arriving in sequence.
 
 Nothing in this stream indicates where one key ends and the next begins.
+
+The single byte `09` in the middle of the stream is the Horizontal Tab character. Like `41` for `A`, it is a complete, self-contained input—the parser simply recognizes it and reports a Tab key event.
 
 The responsibility for finding those boundaries belongs entirely to the Input Parser.
 
@@ -405,6 +412,8 @@ The Input Parser is responsible for interpreting those bytes and producing meani
 
 ```text
 KEY_CHARACTER('A')
+
+KEY_TAB
 
 KEY_UP
 

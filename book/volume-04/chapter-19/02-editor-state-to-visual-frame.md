@@ -115,6 +115,8 @@ The Renderer performs the translation between these two representations.
 
 It reads a document line, determines where that line should appear on screen, and places its characters into the corresponding Screen Buffer cells.
 
+Most characters correspond to exactly one cell. TAB is different: one logical character can require several cells, as Section 19.3 will show.
+
 This distinction is important:
 
 ```text

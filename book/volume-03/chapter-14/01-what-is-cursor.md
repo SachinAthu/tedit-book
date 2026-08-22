@@ -120,6 +120,55 @@ Document coordinate
 
 The Renderer is responsible for turning the current Editor State into the visible frame, while the Cursor represents the editing position that exists independently of that rendering process. The runtime model explicitly requires the Renderer to read state rather than modify it.
 
+## Logical Columns Are Not Screen Columns
+
+The logical position also differs from the visual position **horizontally**.
+
+The Document stores Unicode code points. A logical line such as:
+
+```text
+A<TAB>B
+```
+
+contains three logical characters:
+
+```text
+A
+U+0009
+B
+```
+
+The Cursor occupies positions between those logical characters:
+
+```text
+        0   1   2   3
+        A  TAB  B
+         ^   ^   ^
+```
+
+For ordinary characters, a logical column and its visual column often appear to correspond. For TAB they do not. U+0009 is a single logical character, but the terminal may display it across two, four, seven, or eight cells depending on the configured tab-stop width.
+
+The Cursor Engine therefore never needs to know that width. It treats the TAB as one logical character — one position to pass over during movement — and leaves the visual question to the Renderer:
+
+```text
+Document column
+      │
+      ▼
+logical character position
+      │
+      ▼
+Renderer
+      │
+      ▼
+screen/display column
+```
+
+This establishes one of the chapter's central invariants:
+
+> **The Cursor Engine operates in Document coordinates. Visual tab expansion belongs to the Renderer.**
+
+For the same reason, a cursor column is not a UTF-8 byte offset. The Cursor sees logical code-point positions, not the raw bytes that represent them.
+
 ## The Cursor Is Not a Selection
 
 Another important distinction is that our basic Cursor does not represent a selected range of text.
@@ -273,6 +322,7 @@ To summarize what we covered:
 
 - The Cursor is a **logical position** in the Document, not the blinking character on the terminal.
 - It identifies a position with a `cursor_row` and a `cursor_column`.
+- Its column is a **logical character position** within the line, not a terminal screen column or a UTF-8 byte offset.
 - It is **not a selection** — it points to a single editing position.
 - It determines where editing operations such as **Insert**, **Delete**, and **Split** apply.
 - It must **always be valid** within the current Document.

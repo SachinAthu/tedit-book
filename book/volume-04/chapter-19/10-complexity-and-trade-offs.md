@@ -16,6 +16,8 @@ The cost therefore depends primarily on the terminal dimensions, not on the tota
 
 A large document does not make a single frame inherently expensive if only a small portion of it is visible.
 
+Expanding TAB characters adds no asymptotic cost: each visible line is examined once, and its expansion is bounded by the visible width. The per-frame cost therefore remains `O(rows × columns)`.
+
 ## Output Cost
 
 After the frame has been constructed, the completed Screen Buffer must be converted into terminal output.

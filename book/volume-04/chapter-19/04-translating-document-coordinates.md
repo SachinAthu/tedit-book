@@ -155,7 +155,23 @@ The logic that changes the Viewport when the cursor approaches an edge belongs t
 
 ## Horizontal Coordinate Translation
 
-The same principle applies horizontally.
+The same principle applies horizontally, with one additional step.
+
+Horizontally, a logical column is not always a visual column. Most characters occupy exactly one cell, but a TAB expands to several cells. The Renderer therefore performs the horizontal translation in two stages:
+
+```text
+logical column
+      │
+      │ tab expansion
+      ▼
+visual column
+      │
+      │ subtract horizontal viewport offset
+      ▼
+screen column
+```
+
+The first stage converts the Document's logical column into a **visual/display column** by expanding any TAB characters, as described in Section 19.3. The second stage subtracts the horizontal viewport offset.
 
 Suppose a line contains:
 
@@ -163,28 +179,28 @@ Suppose a line contains:
 The terminal text editor
 ```
 
-and the visible horizontal region begins at column 4.
-
-Then a document column is translated into a screen column by subtracting the horizontal viewport offset.
-
-Conceptually:
+with no TAB characters. Every logical column then equals its visual column, and the translation reduces to the familiar subtraction:
 
 ```text
 screen_column =
-    document_column - viewport_column
+    visual_column - viewport_column
 ```
 
 For example:
 
 ```text
-document_column = 10
+visual_column = 10
 viewport_column = 4
 
 screen_column = 10 - 4
               = 6
 ```
 
-The character at document column 10 therefore appears at screen column 6.
+The character at column 10 therefore appears at screen column 6.
+
+When the line does contain TAB characters, the logical and visual columns differ, and the subtraction must use the visual column obtained from the first stage. A logical column cannot always be treated as a visual column. This matters whenever the calculation deals with the terminal's width, because the terminal measures its screen in cells. The rows are unaffected: a TAB never changes which row a character appears on.
+
+How the horizontal offset itself is represented, and how scrolling changes it, is developed in Chapter 20. The important principle here is that horizontal calculations operate on visual columns.
 
 Again, the Renderer uses the current horizontal viewport offset. It does not decide how that offset changes.
 
@@ -278,6 +294,8 @@ Terminal Cursor
 The Renderer does not move the logical Cursor to make this happen.
 
 It only determines where the existing logical Cursor should be displayed.
+
+This example assumes the line contains only characters that occupy one cell each. When the line contains TAB characters, the Renderer first expands the logical cursor column into a visual column and then subtracts the horizontal offset. Section 19.7 examines that case.
 
 ## The Cursor and the Visible Region
 
@@ -486,7 +504,7 @@ At this point, we can define the Renderer responsibility more precisely:
 This applies to:
 
 - document rows,
-- document columns,
+- document columns, including their expansion into visual columns,
 - cursor position,
 - visible text.
 
@@ -528,7 +546,7 @@ This is the foundation on which scrolling will operate. Chapter 20 will take the
 
 ## Summary
 
-Document coordinates describe positions within the text; screen coordinates describe positions within the current frame. The Renderer translates between them by subtracting the Viewport offset, so `screen_row = document_row - viewport_row` and `screen_column = document_column - viewport_column`, and it applies the same translation to the Cursor.
+Document coordinates describe positions within the text; screen coordinates describe positions within the current frame. The Renderer translates between them by subtracting the Viewport offset, so `screen_row = document_row - viewport_row`; horizontally, a logical column is first expanded into a visual column, and then `screen_column = visual_column - viewport_column`. The same translation applies to the Cursor.
 
 Because screen coordinates are frame-specific, the logical Cursor and Document remain stable even as the viewport changes.
 

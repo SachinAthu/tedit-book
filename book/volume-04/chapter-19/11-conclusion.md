@@ -17,7 +17,7 @@ Terminal
 
 The Renderer does not read keyboard input, execute commands, or modify the Document. It consumes the Document, Cursor, Viewport, current file, dirty flag, status message, and screen size, and combines them into a single coherent frame. Because the same Editor State always produces the same visual result, the rendering pipeline is predictable.
 
-The chapter then followed that transformation through each of its stages. The document area is drawn by copying the visible portion of each line into the corresponding screen cells, using the Viewport to map document rows onto screen rows. Document coordinates are translated into screen coordinates by subtracting the viewport offset — `screen_row = document_row - viewport_row` and `screen_column = document_column - viewport_column` — and the same translation applies to the Cursor. The Status Bar and Message Bar are fixed regions derived from editor state: the Status Bar presents the filename, modified state, and cursor position, while the Message Bar presents transient messages that are cleared when no message exists.
+The chapter then followed that transformation through each of its stages. The document area is drawn by copying the visible portion of each line into the corresponding screen cells, using the Viewport to map document rows onto screen rows. Document coordinates are translated into screen coordinates by subtracting the viewport offset — `screen_row = document_row - viewport_row`; horizontally, a logical column is first expanded into a visual column, then `screen_column = visual_column - viewport_column` — and the same translation applies to the Cursor. TAB is the exception to the one-character-one-cell rule: the Renderer expands a TAB to the next tab stop, writes the visual result — never U+0009 — into the Screen Buffer, and maps the Cursor's logical column through the same expansion before positioning it. The Status Bar and Message Bar are fixed regions derived from editor state: the Status Bar presents the filename, modified state, and cursor position, while the Message Bar presents transient messages that are cleared when no message exists.
 
 The Renderer constructs every frame in the same order — prepare the buffer, draw the document area, draw the Status Bar, draw the Message Bar, position the Cursor, then produce terminal output. Its implementation is a single Renderer with clearly separated internal stages, and its time and space cost is `O(rows × columns)`, bounded by the terminal rather than the document.
 
@@ -42,12 +42,14 @@ The read-only, immediate-mode renderer is recorded as **ADR-017: Rendering Model
 7. Why is the Cursor treated as a position within the Document rather than a character stored in it?
 8. What order does the Renderer follow when constructing a frame, and why does the order matter?
 9. What is the time and space complexity of full-frame rendering?
+10. How does the Renderer handle a TAB character, and why can a logical column not always be treated as a visual column?
 
 ### Thought Experiments
 
 1. Suppose the Renderer were allowed to modify the Document while drawing it. What could go wrong when rendering happens frequently?
 2. What would break if document coordinates and screen coordinates were treated as identical?
 3. How would the design change if the editor adopted incremental (dirty-region) rendering instead of full redraw?
+4. What would go wrong if the Renderer replaced every TAB in the Document with spaces to make rendering easier?
 
 ## Common Mistakes
 
@@ -66,6 +68,18 @@ Document coordinates describe positions within the text; screen coordinates desc
 ### Rendering the cursor using document coordinates directly
 
 The Cursor's logical position must be translated through the Viewport before it becomes a screen position. Placing the terminal cursor at the raw document row and column produces a wrong position whenever the viewport is not at the origin.
+
+### Treating TAB as a fixed number of spaces
+
+A TAB advances to the next tab stop, not to a fixed offset. A TAB near the beginning of a line can occupy more cells than a TAB near a tab stop; hard-coding a constant number of spaces produces misaligned output whenever the tab width or the TAB's position changes.
+
+### Writing the tab expansion into the Document
+
+The Document keeps the original U+0009 code point. Tab expansion is a visual effect that belongs in the Screen Buffer. Replacing the TAB with spaces in the Document — or storing the expanded result as a modified document — destroys the separation between logical text and its presentation and changes the text the user is editing.
+
+### Using the logical column as the screen column
+
+When a line contains TAB characters, the Cursor's logical column differs from its visual column. Position calculations that skip tab expansion place the Cursor, and any horizontal scrolling calculations, at the wrong screen position.
 
 ### Allowing long status messages to overwrite adjacent UI
 
@@ -96,7 +110,7 @@ This chapter established how the Renderer populates a complete frame. The next q
 Chapter 20 introduces **Scrolling**. It will cover:
 
 - vertical scrolling
-- horizontal scrolling
+- horizontal scrolling (operating on visual columns when tabs are present)
 - the Viewport and its offsets
 - keeping the Cursor visible within the document area
 

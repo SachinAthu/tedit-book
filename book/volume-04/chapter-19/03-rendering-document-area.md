@@ -83,7 +83,7 @@ Document line
 Screen Buffer
 ```
 
-Each character occupies a screen cell.
+Each ordinary character occupies exactly one screen cell. TAB is an important exception: one logical TAB can occupy several cells, as we examine next.
 
 The Screen Buffer therefore provides a direct representation of the visible text:
 
@@ -94,6 +94,131 @@ Screen row 2 → T e r m i n a l ...
 ```
 
 The Renderer performs this operation for each visible document line.
+
+## Rendering Tab Characters
+
+The Document stores a TAB as the single Unicode code point **U+0009** — one logical character, exactly like `A` or `B` (Chapters 6 and 14). What the user sees, however, is a horizontal advance to the next **tab stop**, which can require more than one screen cell.
+
+This makes TAB the clearest example of a logical character whose visual representation does not correspond to a single terminal cell:
+
+```text
+Document
+  "A<TAB>B"
+      │
+      │ three logical characters
+      ▼
+Renderer
+      │
+      │ tab expansion
+      ▼
+Screen Buffer
+  five cells
+```
+
+### Tab Stops
+
+The editor has a **configurable tab width**. With:
+
+```text
+tab width = 4
+```
+
+the tab stops are located at visual columns:
+
+```text
+0, 4, 8, 12, ...
+```
+
+A TAB advances from the current visual column to the **next** tab stop:
+
+```text
+visual column:   0  1  2  3  4  5  6  7  8 ...
+tab stops:       |           |           |
+```
+
+If the current visual column is `1`, the next tab stop is `4`.
+
+If the current visual column is already `4`, the next tab stop is `8`.
+
+Conceptually, the next tab stop can be computed as:
+
+```text
+next_tab_stop =
+    ((current_column / tab_width) + 1) * tab_width
+```
+
+Here `current_column` is the **visual/display column** — the position reached so far on the screen after any previous expansion — not the Document's logical cursor column. The division is integer division.
+
+The number of cells the TAB occupies is the distance between the two positions:
+
+```text
+cells_occupied =
+    next_tab_stop - current_column
+```
+
+### The Expansion Is Position-Dependent
+
+A TAB does not always occupy the same number of cells.
+
+Consider tab width `4` and the line:
+
+```text
+A<TAB>B
+```
+
+The `A` occupies visual column `0`. The TAB therefore begins at visual column `1` and advances to the next tab stop, `4`, occupying three cells:
+
+```text
++---+---+---+---+---+
+| A |   |   |   | B |
++---+---+---+---+---+
+```
+
+Now consider:
+
+```text
+AB<TAB>C
+```
+
+The `A` and `B` occupy visual columns `0` and `1`. The TAB begins at visual column `2` and advances to the tab stop at `4`, occupying only two cells:
+
+```text
++---+---+---+---+---+
+| A | B |   |   | C |
++---+---+---+---+---+
+```
+
+A TAB must therefore not be treated as a fixed number of spaces. The expansion depends on where the TAB falls relative to the tab stops.
+
+### What the Screen Buffer Receives
+
+The Screen Buffer contains the **visual result**, not the original TAB character.
+
+The Renderer writes the expansion into the required number of cells:
+
+```text
+Document:      A<TAB>B
+
+Screen Buffer: A [ ][ ][ ] B
+```
+
+No cell in the Screen Buffer contains U+0009. The blank cells produced by the expansion are ordinary screen cells whose visible content is empty, exactly like the blank cells that pad short lines:
+
+```text
+Document:    A, TAB, B
+
+Screen:      A, blank cells, B
+```
+
+The blanks are a **rendering representation**, not a modification of the Document. The TAB code point remains in the Document; only the frame contains the expanded result. The Renderer therefore never replaces U+0009 in the Document with spaces — the Document is read-only input to the renderer.
+
+### Where the Tab Width Comes From
+
+The Renderer does not invent the tab width. The value is part of the editor's **Configuration**, introduced with the Editor State in Chapter 12 and made configurable in Chapter 33. The Renderer reads that value when expanding TAB, exactly as it reads the Screen Size when constructing the frame.
+
+Note that TAB — the horizontal tab character — has nothing to do with the editor "tabs" that display multiple document buffers; that concept belongs to Chapter 34.
+
+The implementation of the expansion itself appears in the Renderer milestone (Chapter 46). This chapter establishes only the conceptual rules.
 
 ## Mapping Lines to Screen Rows
 
@@ -276,6 +401,8 @@ long line of text...
 
 The detailed rules for horizontal offsets and horizontal scrolling are deferred to Chapter 20.
 
+When a line contains TAB characters, these horizontal calculations operate on **visual columns** rather than logical columns, because a TAB can occupy several cells. Chapter 20 develops the scrolling rules in detail; Section 19.4 establishes the coordinate translation that makes the distinction precise.
+
 For Chapter 19, the important principle is:
 
 > **The Renderer places only the visible portion of a document line into the Screen Buffer.**
@@ -395,7 +522,7 @@ The Document describes the content. The Renderer determines how much of that con
 
 ## Summary
 
-Rendering the document area means copying the visible portion of each document line into the corresponding Screen Buffer cells. The Renderer maps document rows to screen rows through the Viewport, leaves unused cells blank, preserves empty lines and empty documents, and clips content to the document area's boundaries without ever modifying the Document itself.
+Rendering the document area means copying the visible portion of each document line into the corresponding Screen Buffer cells. The Renderer maps document rows to screen rows through the Viewport, expands TAB characters into the number of cells their visual effect requires, leaves unused cells blank, preserves empty lines and empty documents, and clips content to the document area's boundaries without ever modifying the Document itself.
 
 This keeps the logical Document independent of the terminal dimensions, so the same text can be presented on different terminal sizes.
 

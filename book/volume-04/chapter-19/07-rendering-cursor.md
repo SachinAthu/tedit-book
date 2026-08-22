@@ -99,6 +99,78 @@ Visual Cursor
 
 The Renderer performs the translation. It does not modify the logical Cursor to make the values match.
 
+## Cursor Position with Tab Characters
+
+The Cursor's logical column counts one position per code point in the line. A TAB is one code point, so it occupies exactly one logical column (Chapter 14). Its visual width, however, can span several cells.
+
+When the Renderer positions the Cursor, it must therefore convert the logical column into a visual column before applying the Viewport translation:
+
+```text
+Logical Cursor
+(logical column)
+      │
+      │ tab expansion
+      ▼
+Visual Cursor
+(visual column)
+      │
+      │ Viewport translation
+      ▼
+Terminal Cursor
+(screen column)
+```
+
+Consider a line containing a TAB:
+
+```text
+A<TAB>B
+```
+
+With tab width `4`, the `A` occupies visual column `0`, the TAB advances from visual column `1` to visual column `4`, and the `B` occupies visual column `4`:
+
+```text
++---+---+---+---+---+
+| A |   |   |   | B |
++---+---+---+---+---+
+```
+
+The Cursor can sit between any two characters. Suppose the Cursor is positioned **after** the TAB — the position before `B`. Its logical column is:
+
+```text
+cursor_column = 2
+```
+
+because two characters — `A` and the TAB — precede the position.
+
+The Renderer expands the characters up to that position and finds the visual column:
+
+```text
+A      → occupies visual column 0
+TAB    → advances from column 1 to the next tab stop, 4
+```
+
+so the Cursor belongs at:
+
+```text
+visual_column = 4
+```
+
+The Renderer then applies the Viewport translation to that visual column to obtain the screen column.
+
+The logical position therefore stays:
+
+```text
+logical position: after TAB
+```
+
+while its visual representation becomes:
+
+```text
+visual column after the tab expansion
+```
+
+This translation is a **Renderer responsibility**. The Cursor Engine continues to operate in logical columns and never needs to know the tab width. Tab-stop widths, tab expansion, and any other character-width questions are rendering concerns that belong to the Renderer, not to the Cursor Engine (Chapter 14).
+
 ## The Cursor Is Not Part of the Document
 
 The Cursor is a position within the Document, not a character stored in it.
@@ -563,7 +635,7 @@ This separation becomes especially important when the terminal is resized or the
 
 ## Summary
 
-The Cursor is a logical position within the Document, not a character stored in it. The Renderer translates that logical position into a screen position using the Viewport, ensures it falls within the document area, and leaves the actual terminal cursor placement to the terminal-facing layer.
+The Cursor is a logical position within the Document, not a character stored in it. The Renderer translates that logical position into a screen position using the Viewport, ensures it falls within the document area, and leaves the actual terminal cursor placement to the terminal-facing layer. When the line contains TAB characters, the Renderer first expands the logical column into a visual column before applying the Viewport translation; the Cursor Engine itself keeps operating in logical columns.
 
 Because the logical Cursor and its screen position are distinct, the Cursor remains stable while its visual position can change from frame to frame.
 

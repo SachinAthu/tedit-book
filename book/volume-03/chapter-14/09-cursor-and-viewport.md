@@ -193,6 +193,20 @@ screen_column =
 
 The formulas are intentionally independent of the terminal itself. The Renderer can use these screen coordinates when constructing the frame, while the Cursor continues to operate entirely in Document coordinates.
 
+These formulas also assume that every logical character occupies exactly one terminal cell. That assumption holds for most characters but not for TAB, which the terminal may display across several cells. The real translation therefore runs:
+
+```text
+logical column
+      │
+      ▼
+display column
+      │
+      ▼
+screen column
+```
+
+with the logical-to-display step performed by the Renderer, not by the Cursor Engine. Tab-stop widths, tab expansion, and any other character-width questions are rendering concerns that belong to the Renderer; the Cursor Engine never needs to know them.
+
 ## The Cursor Does Not Move Because the Viewport Moves
 
 Scrolling can make the Cursor appear to move on the screen even though its logical position has not changed.

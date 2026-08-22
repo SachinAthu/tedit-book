@@ -215,6 +215,12 @@ Move to the next tab stop
 
 Many of these control characters are still widely used today.
 
+**TAB**, however, deserves special attention because a text editor treats it differently from most other control characters.
+
+Historically, TAB was a device command: it moved the print head to the next tab stop. In a text editor, pressing the Tab key produces **content** instead. The editor inserts the Horizontal Tab character itself—one logical character with ASCII value **9**—into the document as ordinary text.
+
+A tab is not several spaces. It is a single character, stored in the document exactly like any other character. How much horizontal space it occupies on the screen is not decided by the input system; that is a rendering concern addressed later in this book.
+
 ## ASCII in Different Number Bases
 
 Throughout this book, you will encounter ASCII values written in several different forms.

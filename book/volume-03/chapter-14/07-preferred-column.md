@@ -163,6 +163,14 @@ Preferred Column
 
 This allows the Cursor to temporarily occupy a position different from the user's preferred horizontal position without losing that position.
 
+## Preferred Column Is a Logical Column
+
+The preferred column lives in the same coordinate space as the cursor column: it is measured in **logical characters**, not in terminal cells.
+
+A line containing TAB characters will be displayed wider than its logical length, but that visual width plays no role here. The preferred column records how many logical characters from the beginning of the line the user intends to maintain, and vertical movement preserves that count even when a TAB appears along the way. The Cursor Engine never needs to know how many cells the TAB will occupy.
+
+The relationship between a logical column and the number of terminal cells it occupies is resolved later, when the Renderer converts Document coordinates into screen coordinates.
+
 ## Moving Through Lines of Different Lengths
 
 Consider the following sequence:

@@ -41,7 +41,7 @@ Document
       final useful position
 ```
 
-The same principle applies horizontally. The `viewport_column` should be constrained by the length of the relevant content and the available terminal width.
+The same principle applies horizontally. The `viewport_column` should be constrained by the **visual extent** of the rendered content — the width the line occupies after tab expansion (Chapter 19) — and the available terminal width.
 
 It is useful to distinguish four different boundaries:
 

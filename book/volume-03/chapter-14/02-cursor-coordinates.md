@@ -131,6 +131,32 @@ This distinction will become especially important when we discuss insertion and 
 
 For now, we can think of the column as representing the position at which the next editing operation applies.
 
+More precisely, the column is a **logical character position**: one column per Unicode code point stored in the line. Every character counts exactly once, including TAB (U+0009).
+
+Consider:
+
+```text
+A<TAB>B
+```
+
+The line contains three code points — `A`, TAB, and `B` — and therefore four cursor positions:
+
+```text
+   A   TAB   B
+|   |     |   |
+0   1     2   3
+```
+
+The TAB counts as one logical character even though the terminal will later display it across several cells. Its visual width is a rendering concern; for the Cursor, U+0009 is a character exactly like `A` or `B`.
+
+The column is also not a byte offset. In a line such as:
+
+```text
+A<TAB>é
+```
+
+the Cursor sees logical code-point positions to step through — `A`, TAB, `é` — regardless of how many UTF-8 bytes each occupies in the file. Bytes belong at the file boundary; the Cursor works in logical character positions.
+
 ## Cursor Position as a Pair
 
 The complete logical position is therefore:
@@ -373,6 +399,7 @@ The Cursor position is described by a pair of coordinates: `cursor_row` and `cur
 To summarize what we covered:
 
 - The row identifies a line in the Document; the column identifies a position within that line.
+- The column is a **logical character position** — one per code point, including TAB — never a terminal cell count or a UTF-8 byte offset.
 - Explicit coordinates give the **Command Engine**, **editing logic**, **Renderer**, and **Viewport** a simple, shared interface.
 - The Cursor must always satisfy its **validity invariants**: `0 <= row < line_count` and `0 <= column <= current length`.
 - Every movement operation must preserve those invariants.

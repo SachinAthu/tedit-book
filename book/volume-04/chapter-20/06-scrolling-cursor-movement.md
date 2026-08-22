@@ -59,7 +59,7 @@ if (cursor_row < viewport_row)
     viewport_row = cursor_row;
 ```
 
-The same principle applies to horizontal movement.
+The same principle applies to horizontal movement, with the logical-to-visual step established in Section 20.5: the editor first obtains the cursor's visual column from the Renderer's mapping, then compares it against `viewport_column` and the visible width.
 
 This separation is important architecturally. The Cursor is responsible for determining whether a requested movement is valid and updating its logical position. The Viewport is responsible for ensuring that position remains visible. Neither component needs to know how the terminal is actually rendered.
 

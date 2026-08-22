@@ -550,7 +550,7 @@ Volume II, Chapter 7
 
 The logical editing position within the document, described by a row and a column, where the next editing operation will occur.
 
-The cursor is a logical position in the Document rather than the blinking character on the terminal; the terminal cursor is only its visual representation. It must always remain a valid position within the current document.
+The cursor is a logical position in the Document rather than the blinking character on the terminal; the terminal cursor is only its visual representation. It must always remain a valid position within the current document. Its column is a logical character position within the line — one per Unicode code point, including TAB — not a terminal screen column or a UTF-8 byte offset; visual expansion of characters such as TAB belongs to the Renderer.
 
 **First Introduced**
 
@@ -1147,7 +1147,7 @@ Volume II, Chapter 10
 
 **Definition**
 
-Scrolling that changes the Viewport's `viewport_column` offset to control which columns of a long line are visible. Because the editor does not use soft wrapping, a long line remains a single document line and horizontal scrolling exposes different portions of it as the Cursor moves horizontally.
+Scrolling that changes the Viewport's `viewport_column` offset to control which visual/display columns of a long line are visible. Because the editor does not use soft wrapping, a long line remains a single document line and horizontal scrolling exposes different portions of it as the Cursor moves horizontally.
 
 **First Introduced**
 
@@ -1708,7 +1708,7 @@ Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI,
 
 **Definition**
 
-A value stored alongside the cursor that records the horizontal position the user intends to maintain while moving vertically. When the cursor moves up or down onto a line too short to hold that column, the cursor's actual column is temporarily clamped to the end of the line while the preferred column is preserved, so the original horizontal position can be restored on a longer line. Horizontal movement (Left/Right) establishes a new preferred column; vertical movement (Up/Down) preserves it.
+A value stored alongside the cursor that records the horizontal position the user intends to maintain while moving vertically. When the cursor moves up or down onto a line too short to hold that column, the cursor's actual column is temporarily clamped to the end of the line while the preferred column is preserved, so the original horizontal position can be restored on a longer line. Horizontal movement (Left/Right) establishes a new preferred column; vertical movement (Up/Down) preserves it. Like the cursor's column, the preferred column is measured in logical character positions, not in terminal cells.
 
 **First Introduced**
 
@@ -2628,7 +2628,7 @@ Volume IV, Chapter 20
 
 **Definition**
 
-The portion of the Document currently visible in the terminal, identified by two offsets: `viewport_row`, the first visible document row, and `viewport_column`, the first visible column. The Viewport stores only these offsets rather than a copy of the document, and they change as the user scrolls so that the Cursor remains visible.
+The portion of the Document currently visible in the terminal, identified by two offsets: `viewport_row`, the first visible document row, and `viewport_column`, the first visible visual/display column of the rendered line. `viewport_row` counts document rows; `viewport_column` counts visual columns — the display coordinates the Renderer produces after expanding characters such as TAB — and is not a UTF-8 byte offset or a logical Document character index. The Viewport stores only these offsets rather than a copy of the document, and they change as the user scrolls so that the Cursor remains visible.
 
 **First Introduced**
 

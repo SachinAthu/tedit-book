@@ -209,6 +209,12 @@ Although hiding and showing the cursor may seem like a minor detail, it is an ex
 
 As our renderer becomes more sophisticated in later volumes, cursor visibility will become a standard part of every rendering cycle rather than an optional enhancement.
 
+## Note — Cursor Appearance
+
+The appearance of the cursor is controlled by the terminal emulator, not directly by the text editor. Different terminals may render the same cursor position using different styles, such as a blinking vertical bar, a block, or an underline. The editor only determines the cursor's logical position and sends the appropriate terminal control sequences; the terminal decides how that position is visually represented.
+
+We can therefore treat the logical cursor position separately from its visual appearance.
+
 ## Summary
 
 The cursor is more than just a marker for text input—it is also part of the terminal's user interface. ANSI escape sequences allow applications to temporarily hide the cursor during screen updates and restore it once rendering is complete, reducing flicker and creating a smoother visual experience.

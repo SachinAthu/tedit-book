@@ -78,6 +78,8 @@ Terminal Cursor
 
 This separation follows the architecture established earlier in the book. `Editor State` is the application's single source of truth, while the Cursor is responsible for representing the logical editing position. The Renderer reads that state and ultimately translates it into something visible on the terminal.
 
+The same rule applies horizontally. The cursor's column counts **logical characters** in the Document line, and characters such as TAB are expanded into terminal cells only later, by the Renderer.
+
 The Cursor Engine therefore sits at an important boundary between the Document, the Viewport, and the eventual rendering system.
 
 This chapter will develop the rules behind that system before we implement them. We will examine horizontal and vertical movement, cursor boundaries, the preferred column, and the relationship between the logical cursor and the Viewport.
@@ -123,6 +125,7 @@ By the end of this chapter, you should be able to:
 - Distinguish between a logical Document position and a terminal screen position.
 - Represent a cursor using row and column coordinates.
 - Explain the difference between a character position and an insertion position.
+- Explain why every logical character, including TAB, occupies exactly one column of the Cursor's logical position.
 - Define the rules for horizontal cursor movement.
 - Define the rules for vertical cursor movement.
 - Explain why different line lengths make vertical movement more complicated.

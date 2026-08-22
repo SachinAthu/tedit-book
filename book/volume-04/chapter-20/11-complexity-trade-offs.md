@@ -8,7 +8,7 @@ Keeping the cursor visible requires checking the cursor against the viewport bou
 
 ```text
 cursor_row
-cursor_column
+cursor_visual_column
 viewport_row
 viewport_column
 ```
@@ -20,6 +20,8 @@ O(1)
 ```
 
 The cost does not depend on the size of the document. Whether the document contains 100 lines or 100,000 lines, determining whether the cursor is outside the current viewport requires the same basic comparisons.
+
+These comparisons operate in the coordinate spaces established in this chapter: rows are logical document rows, and horizontal positions are visual columns. Obtaining the cursor's visual column requires the Renderer's tab expansion, whose cost is part of rendering (Chapter 19), not part of the viewport adjustment itself.
 
 ## Space Complexity
 

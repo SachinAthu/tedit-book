@@ -43,6 +43,24 @@ An editor may correctly increase `viewport_column` when the cursor moves right b
 
 The result is that the cursor can move left logically while the visible text remains horizontally displaced.
 
+## Horizontal Scrolling Ignores Tab Expansion
+
+A subtler bug is comparing the cursor's logical column directly against `viewport_column` on lines that contain TAB characters.
+
+Because `viewport_column` counts visual columns while `cursor.column` counts logical code points (Chapters 14 and 19), the two are not comparable before the Renderer's expansion. A line such as:
+
+```text
+A<TAB>123456789
+```
+
+places the cursor after the TAB at logical column `2` but visual column `4`. A check written as:
+
+```text
+cursor_column >= viewport_column + visible_columns
+```
+
+therefore decides at the wrong position and either scrolls unnecessarily or leaves the cursor off screen. The check must use the cursor's visual column obtained from the Renderer's logical-to-visual mapping.
+
 ## Scrolling Based on Screen Position
 
 Scrolling decisions should be based on the Cursor's **document coordinates**, not on the position where the Renderer previously displayed it.
@@ -69,6 +87,6 @@ This keeps scrolling predictable and prevents different commands from implementi
 
 ## Summary
 
-Most scrolling bugs stem from off-by-one boundary errors, negative offsets, or misplaced scrolling responsibility. The rule "update the Cursor, ensure it is visible, then render" keeps the behavior consistent.
+Most scrolling bugs stem from off-by-one boundary errors, negative offsets, coordinate-space mismatches, or misplaced scrolling responsibility. The rule "update the Cursor, ensure it is visible, then render" keeps the behavior consistent.
 
 In the next section, the **chapter summary** consolidates the Cursor–Viewport model and previews the next chapter.

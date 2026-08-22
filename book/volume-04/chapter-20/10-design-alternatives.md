@@ -99,7 +99,7 @@ Viewport
 
 `viewport_row` controls vertical scrolling, while `viewport_column` controls horizontal scrolling.
 
-This design is simple and maps directly to the terminal's two-dimensional display area. It also fits naturally with the Cursor's row-and-column coordinates.
+This design is simple and maps directly to the terminal's two-dimensional display area. It also fits naturally with the coordinate model established by the Cursor and the Renderer: document rows map one-to-one to screen rows, and visual columns map directly to screen columns through `viewport_column`.
 
 The main advantages are:
 

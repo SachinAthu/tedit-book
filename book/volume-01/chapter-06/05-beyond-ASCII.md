@@ -190,9 +190,13 @@ A              41
 ?              3F
 
 Space          20
+
+Tab            09
 ```
 
 For English text, UTF-8 behaves almost identically to ASCII.
+
+The Tab key belongs to this group. Pressing it produces the single byte **09**, the UTF-8 encoding of the Horizontal Tab character, whose Unicode code point is **U+0009**. There is nothing special about this byte sequence: a tab is an ordinary code point in Unicode, exactly like `A` (U+0041) or `7` (U+0037), and our editor stores it in the document as one logical character.
 
 ## Multi-Byte Characters
 

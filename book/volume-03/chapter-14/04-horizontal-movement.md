@@ -147,6 +147,48 @@ otherwise
 
 The important point is that the maximum Cursor position is determined by the **length of the current line**.
 
+## Movement Counts Logical Characters
+
+Left and Right move the Cursor by one **logical character**, not by one terminal cell.
+
+Consider:
+
+```text
+A<TAB>B
+```
+
+with cursor positions:
+
+```text
+   A   TAB   B
+|   |     |   |
+0   1     2   3
+```
+
+Starting at the beginning:
+
+```text
+|A<TAB>B
+```
+
+pressing Right moves past `A`:
+
+```text
+A|<TAB>B
+```
+
+Pressing Right again moves past the entire TAB:
+
+```text
+A<TAB>|B
+```
+
+The Cursor jumps across the whole TAB in one step. It does not step through every visual terminal cell that the TAB will occupy on screen.
+
+The line length used by the boundary checks is likewise the number of logical characters in the line. For `A<TAB>B` that length is three, so the valid columns are `0` through `3` — regardless of whether the TAB is later displayed across 2, 4, 7, or 8 cells.
+
+The Cursor Engine therefore does not need the configured tab width. How many cells a TAB occupies is a rendering question, answered later when the logical position is converted into a screen position.
+
 ## Horizontal Movement Is Relative to the Current Line
 
 The Cursor's row does not change during ordinary horizontal movement.
@@ -550,6 +592,7 @@ To summarize what we covered:
 
 - **Left** moves one position toward the beginning of the line, never below column `0`.
 - **Right** moves one position toward the end of the line, never beyond the current line length.
+- Both move by **one logical character** — a TAB counts as a single character, no matter how many terminal cells it will occupy.
 - The valid range is always `0 <= cursor_column <= current_line_length`, so the maximum depends on the line the Cursor is currently on.
 - Both the beginning and the end of a line are valid positions, including on empty lines.
 - Horizontal movement is **local to the current line**; it stops at line boundaries rather than silently crossing into another line.

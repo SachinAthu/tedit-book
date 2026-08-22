@@ -82,6 +82,8 @@ Some examples include:
 
 Many of these actions originated with mechanical devices, yet they continue to exist in modern terminals.
 
+**TAB** occupies a special position among these characters. Its original purpose was a device action—move to the next tab stop—but in a modern text editor the Tab key is usually treated as **text input**. The editor inserts the Horizontal Tab character (ASCII value **9**) into the document as a single logical character, just as it would insert `A` or `7`. How much horizontal space that character occupies on the screen is a separate, rendering-level question that the input layer does not answer.
+
 ## The Ctrl Key
 
 The **Ctrl** key has a special purpose.
@@ -283,6 +285,16 @@ becomes:
 0x03
 ```
 
+And the **Tab** key produces:
+
+```text
+Tab
+
+↓
+
+0x09
+```
+
 From the application's perspective, these are simply incoming bytes.
 
 It is the application's responsibility to decide what those bytes mean.
@@ -314,6 +326,8 @@ Read Byte
 
 Save Command
 ```
+
+Tab follows a different path. Bytes **17** and **19** become commands, but our editor maps byte **9** to **text**: pressing Tab inserts the Horizontal Tab character—one logical character—into the document rather than executing a command.
 
 The mapping between a control character and an editor command is entirely a design decision made by the application.
 

@@ -64,6 +64,7 @@ Learn what actually happens before your program even starts.
 - Function keys
 - Ctrl shortcuts
 - Parsing input
+- Tab input
 
 ---
 
@@ -144,6 +145,7 @@ Tradeoffs.
   - Horizontal
   - Vertical
 - Preferred column
+- Logical column vs visual column
 - Scrolling interaction
 
 ## **Chapter 15 — Input Engine**
@@ -185,14 +187,18 @@ Tradeoffs.
 - Status bar
 - Message bar
 - Cursor
+- Logical-to-visual cursor positioning
 - Viewport
 
 ## **Chapter 20 — Scrolling**
 
-- Vertical
-- Horizontal
+- Vertical scrolling
+- Horizontal scrolling
+- Logical vs visual coordinates
 - Viewport
-- Offsets
+- Viewport offsets
+- Cursor visibility
+- Visual-column-based horizontal scrolling
 
 ---
 
@@ -303,6 +309,7 @@ Which editor uses what?
 - Settings
 - Key bindings
 - Theme
+- Tab width
 
 ## **Chapter 34 — Multiple Buffers**
 

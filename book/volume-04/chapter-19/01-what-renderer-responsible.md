@@ -58,7 +58,7 @@ For each frame, the Renderer is responsible for constructing the visible interfa
 
 This includes:
 
-1. Rendering the visible document lines.
+1. Rendering the visible document lines, including expanding characters such as TAB into the required number of cells.
 2. Rendering the Status Bar.
 3. Rendering the Message Bar.
 4. Determining the visible screen position of the cursor.
@@ -262,6 +262,42 @@ while the remaining cells are blank and the lower rows contain the Status Bar an
 The important point is that the Screen Buffer does not independently know what a document, cursor, or status message means.
 
 The Renderer does.
+
+## Logical Characters and Visual Cells
+
+The Renderer converts logical characters into visual terminal cells:
+
+```text
+Logical character
+      │
+      ▼
+Renderer
+      │
+      ▼
+Visual terminal cells
+```
+
+For most characters the relationship is one-to-one: the logical character `A` becomes a single screen cell containing `A`.
+
+TAB is the important exception. The Document stores TAB as the single Unicode code point **U+0009** — one logical character, exactly like `A` or `7` (Chapters 6 and 14). When rendered, however, it advances the visual column to the next tab stop, which can require several terminal cells:
+
+```text
+Document:            A<TAB>B
+                       │
+                       ▼
+Renderer (tab width 4)
+                       │
+                       ▼
+Screen Buffer cells:  A [ ][ ][ ] B
+```
+
+The Renderer calculates how many visual cells the TAB requires. The Document remains unchanged; the U+0009 code point is never replaced with spaces.
+
+This gives us the chapter's central invariant:
+
+> **The Renderer is responsible for converting logical characters into visual terminal cells. TAB is one logical character but may occupy multiple visual columns.**
+
+The exact rules for expanding TAB — tab stops, the configurable tab width, and what the Screen Buffer receives — are examined in Section 19.3.
 
 ## A Complete Responsibility Boundary
 

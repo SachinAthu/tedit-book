@@ -104,9 +104,59 @@ becomes:
 KEY_CTRL_C
 ```
 
+Pressing Tab produces:
+
+```text
+09
+```
+
+which the parser translates into:
+
+```text
+KEY_TAB
+```
+
 The important observation is that the rest of the editor never works directly with these byte values.
 
 Instead, it receives a consistent representation regardless of how the terminal encoded the original input.
+
+## A Complete Example: The Tab Key
+
+The Tab key is a good illustration of how these layers cooperate, because its journey passes through every stage of the architecture.
+
+When the user presses Tab, the terminal sends the single byte **09** through `stdin`. From the input system's point of view, this is an ordinary, self-contained input—no different from the byte **41** produced by the A key.
+
+The Input Parser reads that byte and produces an abstract key event:
+
+```text
+KEY_TAB
+```
+
+The parser does **not** decide what the editor should do with this event. In particular, it does not decide whether a tab should be expanded into spaces. That decision, if the editor makes one at all, belongs to a higher layer.
+
+Our editor's Input Engine maps `KEY_TAB` to a Tab action, and the Command Engine executes that action by inserting the Horizontal Tab character into the Document:
+
+```text
+Terminal
+  │
+  │ input bytes (09)
+  ▼
+Input Parser
+  │
+  │ abstract key event (KEY_TAB)
+  ▼
+Input Engine / Command layer
+  │
+  │ Tab action
+  ▼
+Document
+  │
+  │ U+0009
+  ▼
+Logical text
+```
+
+The Document therefore stores **one logical character**—the Unicode code point **U+0009**—not a sequence of spaces. A tab is not "four spaces" or "eight spaces"; it is a single character, exactly like `A` or `7`. How much horizontal space that character occupies on the screen is a **rendering** concern, deliberately deferred until we study the Renderer.
 
 ## A Common Event Representation
 

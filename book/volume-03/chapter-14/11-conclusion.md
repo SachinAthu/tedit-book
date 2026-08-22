@@ -2,7 +2,7 @@
 
 The **Cursor** answers a single question: _where in the Document is the user currently positioned?_ It represents a **logical position** in the Document, not the blinking character on the terminal — the terminal cursor is only a visual representation produced by the Renderer much later.
 
-That logical position is described by two coordinates, `cursor_row` and `cursor_column`. The row identifies a line in the Document, and the column identifies a position within that line. Because the column points _between_ characters, a line of five characters has six valid positions, and the end of a line is just as valid as its beginning.
+That logical position is described by two coordinates, `cursor_row` and `cursor_column`. The row identifies a line in the Document, and the column identifies a position within that line. Because the column points _between_ characters, a line of five characters has six valid positions, and the end of a line is just as valid as its beginning. The column counts **logical characters**: a TAB (U+0009) is one logical character and therefore one position of the cursor column, no matter how many terminal cells the Renderer later gives it.
 
 The Cursor must always be valid: `0 <= cursor_row < line_count` and `0 <= cursor_column <= current_line_length`. Every movement operation preserves these invariants rather than leaving another component to repair an invalid position afterward.
 
@@ -31,10 +31,11 @@ These rules form the behavioral contract that the Cursor implementation will lat
 
 1. What is the difference between a logical cursor and a terminal cursor?
 2. Why are there potentially six cursor positions in a five-character line?
-3. Why is a preferred column necessary for vertical movement?
-4. Why shouldn't the Renderer own cursor movement?
-5. Why must cursor coordinates be validated?
-6. Why does horizontal movement update the preferred column while vertical movement preserves it?
+3. Why does a line containing `A<TAB>B` have four cursor positions even though the TAB may occupy several terminal cells?
+4. Why is a preferred column necessary for vertical movement?
+5. Why shouldn't the Renderer own cursor movement?
+6. Why must cursor coordinates be validated?
+7. Why does horizontal movement update the preferred column while vertical movement preserves it?
 
 ### Thought Experiments
 
@@ -59,6 +60,7 @@ starting with the cursor at the beginning of the first line (`row = 0`, `column 
 ## Common Mistakes
 
 - Treating the terminal cursor as the editor cursor.
+- Assuming the cursor column is a terminal screen column — the column counts logical characters, and a TAB occupies one logical position regardless of its visual width.
 - Allowing the cursor to move outside the document.
 - Losing the preferred column during vertical movement.
 - Assuming every line has the same length.

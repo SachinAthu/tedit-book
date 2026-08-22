@@ -1,6 +1,6 @@
 # 20.4 Horizontal Scrolling
 
-Vertical scrolling determines which **rows** of the document are visible. Horizontal scrolling performs the same job for **columns**.
+Vertical scrolling determines which **rows** of the document are visible. Horizontal scrolling performs the same job horizontally, but in a different coordinate space: it operates on **visual/display columns** — the columns the Renderer produces when it expands the logical line into terminal cells (Chapter 19) — rather than on the Document's logical columns.
 
 A line may be longer than the terminal's available width. For example, suppose the terminal can display only 20 columns:
 
@@ -70,6 +70,46 @@ The viewport therefore maintains the same basic invariant as vertical scrolling:
 
 > **The cursor must remain within the visible horizontal region.**
 
+## Why Visual Columns Matter
+
+The examples so far contain no TAB characters, so every logical column coincides with its visual column. That is not always true.
+
+Suppose `tab_width = 4` and the document line is:
+
+```text
+A<TAB>123456789
+```
+
+The Document contains eleven logical characters: `A`, the TAB, and the nine digits (Chapter 14). The Renderer expands the TAB, so the same line occupies more visual columns:
+
+```text
+visual:     A···123456789
+visual col: 012345678901234567...
+```
+
+The TAB is one logical character at logical column `1`, but it spans visual columns `1` through `3`; the `1` begins at visual column `4`. Therefore:
+
+```text
+viewport_column = 4
+```
+
+means "the viewport begins at visual column 4" — at the digit `1`, which is only the third logical character. It does **not** mean "the viewport begins at the fourth logical character."
+
+Horizontal scrolling must operate in the visual coordinate space, because that is the space in which the terminal displays the line and in which the Renderer measures it:
+
+```text
+logical cursor column
+      │
+      │ Renderer (tab expansion)
+      ▼
+visual cursor column
+      │
+      ▼
+horizontal scrolling decision
+```
+
+Tab expansion itself belongs to the Renderer (Chapter 19). The scrolling logic consumes the visual columns the Renderer produces; it never computes tab widths itself.
+
 The two directions can be represented independently:
 
 ```text
@@ -85,12 +125,12 @@ The two directions can be represented independently:
    scrolling         scrolling
 ```
 
-This gives the editor a two-dimensional viewport over the document. The `viewport_row` determines which document rows are visible, while `viewport_column` determines which columns of those rows are visible.
+This gives the editor a two-dimensional viewport over the document. The `viewport_row` determines which document rows are visible, while `viewport_column` determines which visual columns of those rows are visible.
 
 Horizontal scrolling is especially important because the editor does not use soft wrapping. A long line remains a single document line; the viewport simply exposes different portions of it as the cursor moves horizontally.
 
 ## Summary
 
-Horizontal scrolling mirrors vertical scrolling for columns. Because the editor does not use soft wrapping, long lines remain single document lines and `viewport_column` exposes different portions of them as the cursor moves.
+Horizontal scrolling mirrors vertical scrolling horizontally, but in visual/display columns rather than logical columns: the Renderer expands the logical line (including TABs) into visual columns, and `viewport_column` then exposes different portions of those visual columns. Because the editor does not use soft wrapping, long lines remain single document lines and the viewport exposes different portions of them as the cursor moves.
 
 In the next section, we will formalize the invariant that ties both directions together: **keeping the cursor visible** within the viewport.
