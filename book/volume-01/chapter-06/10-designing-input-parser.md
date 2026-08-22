@@ -132,7 +132,7 @@ The Input Parser reads that byte and produces an abstract key event:
 KEY_TAB
 ```
 
-The parser does **not** decide what the editor should do with this event. In particular, it does not decide whether a tab should be expanded into spaces. That decision, if the editor makes one at all, belongs to a higher layer.
+The parser does **not** decide what the editor should do with this event. In particular, it does not decide whether a tab should be expanded into spaces. That decision belongs to a higher layer — the Renderer, which expands TAB into screen cells (Chapter 19).
 
 Our editor's Input Engine maps `KEY_TAB` to a Tab action, and the Command Engine executes that action by inserting the Horizontal Tab character into the Document:
 

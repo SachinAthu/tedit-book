@@ -151,7 +151,7 @@ The Viewport can maintain a horizontal offset:
 viewport_column
 ```
 
-This identifies the first document column currently visible on the screen.
+This identifies the first document column currently visible on the screen. For now this model assumes every logical character occupies exactly one terminal cell; Chapter 20 defines `viewport_column` in the Renderer's visual space, where TAB expansion applies.
 
 The Cursor's horizontal screen position is then conceptually:
 
@@ -193,13 +193,13 @@ screen_column =
 
 The formulas are intentionally independent of the terminal itself. The Renderer can use these screen coordinates when constructing the frame, while the Cursor continues to operate entirely in Document coordinates.
 
-These formulas also assume that every logical character occupies exactly one terminal cell. That assumption holds for most characters but not for TAB, which the terminal may display across several cells. The real translation therefore runs:
+These formulas also assume that every logical character occupies exactly one terminal cell. That assumption holds for most characters but not for TAB, which the terminal may display across several cells. Chapter 20 therefore redefines `viewport_column` itself in that display space, so the subtraction here holds only when no variable-width character precedes the viewport. The real translation therefore runs:
 
 ```text
 logical column
       │
       ▼
-display column
+visual/display column
       │
       ▼
 screen column

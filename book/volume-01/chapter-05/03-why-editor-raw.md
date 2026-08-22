@@ -113,7 +113,7 @@ For example:
 | Ctrl+Q   | Quit the editor                            |
 | Ctrl+F   | Find text                                  |
 | Ctrl+G   | Go to a line                               |
-| Tab      | Insert indentation                         |
+| Tab      | Insert tab character (U+0009)                         |
 | Escape   | Change editor state or cancel an operation |
 
 These shortcuts are commands, not text.

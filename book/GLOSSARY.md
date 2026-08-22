@@ -1160,6 +1160,23 @@ Volume IV, Chapter 20
 - Viewport
 - Soft Wrapping
 
+## Horizontal Tab
+
+**Definition**
+
+The Unicode control character **U+0009** (also written `\t`), which the editor stores in the Document as a single logical character, exactly like `A` or `7`. In UTF-8 a Horizontal Tab is encoded as the single byte `09`. It is one code point, so it occupies one logical column; how many terminal cells it spans when displayed is decided by the Renderer's tab expansion, never by the Document or the encoding.
+
+**First Introduced**
+
+Volume I, Chapter 6
+
+**Related Terms**
+
+- Control Character
+- Code Point
+- UTF-8
+- ASCII
+
 # I
 
 ## Immediate-Mode Rendering
@@ -1457,6 +1474,23 @@ Volume V, Chapter 21
 - File Manager
 - Document
 - File Descriptor
+
+## Logical Column
+
+**Definition**
+
+A horizontal position measured in Unicode code points within a logical Document line. The Cursor's column is a logical column: one per code point, including TAB (U+0009), and never a UTF-8 byte offset or a terminal screen column. A logical column becomes a visual column only when the Renderer prepares a frame.
+
+**First Introduced**
+
+Volume III, Chapter 14
+
+**Related Terms**
+
+- Visual/Display Column
+- Screen Column
+- Code Point
+- Cursor
 
 ## Lookahead
 
@@ -2013,6 +2047,23 @@ Volume IV, Chapter 18
 **Notes**
 
 Distinct from the terminal emulator's Character Cell, which belongs to the terminal. The Screen Buffer is composed of screen cells and is examined in detail in Chapter 18.
+
+## Screen Column
+
+**Definition**
+
+A horizontal position within the current terminal frame, measured in terminal cells. Screen columns describe where content appears on screen, and the same document position can map to a different screen column as the Viewport changes. The Renderer produces a screen column by first expanding a logical column into a visual column and then subtracting `viewport_column`.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Screen Coordinates
+- Visual/Display Column
+- Logical Column
+- Viewport
 
 ## Screen Coordinates
 
@@ -2662,6 +2713,23 @@ Volume I, Chapter 3
 - PTY
 - Terminal Emulator
 - Console
+
+## Visual/Display Column
+
+**Definition**
+
+The intermediate horizontal coordinate that sits between a logical column and a screen column. A logical column counts code points, while a visual/display column counts terminal cells; the Renderer produces visual columns by expanding characters such as TAB, then subtracts `viewport_column` to reach a screen column. On a line without variable-width characters, every logical column equals its visual column.
+
+**First Introduced**
+
+Volume IV, Chapter 19
+
+**Related Terms**
+
+- Logical Column
+- Screen Column
+- Renderer
+- Horizontal Tab
 
 # W
 

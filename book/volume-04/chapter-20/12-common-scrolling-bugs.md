@@ -47,13 +47,7 @@ The result is that the cursor can move left logically while the visible text rem
 
 A subtler bug is comparing the cursor's logical column directly against `viewport_column` on lines that contain TAB characters.
 
-Because `viewport_column` counts visual columns while `cursor.column` counts logical code points (Chapters 14 and 19), the two are not comparable before the Renderer's expansion. A line such as:
-
-```text
-A<TAB>123456789
-```
-
-places the cursor after the TAB at logical column `2` but visual column `4`. A check written as:
+Because `viewport_column` counts visual columns while `cursor.column` counts logical code points (Chapters 14 and 19), the two are not comparable before the Renderer's expansion. Consider the line `A<TAB>123456789` from Section 20.4: after the TAB, the cursor is at logical column `2` but visual column `4`. A check written as:
 
 ```text
 cursor_column >= viewport_column + visible_columns

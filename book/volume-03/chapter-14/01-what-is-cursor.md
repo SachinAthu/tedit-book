@@ -146,7 +146,7 @@ The Cursor occupies positions between those logical characters:
          ^   ^   ^
 ```
 
-For ordinary characters, a logical column and its visual column often appear to correspond. For TAB they do not. U+0009 is a single logical character, but the terminal may display it across two, four, seven, or eight cells depending on the configured tab-stop width.
+For ordinary characters, a logical column and its visual column often appear to correspond. For TAB they do not. U+0009 is a single logical character, but the terminal may display it across two, four, seven, or eight cells depending on the configured tab width (`tab_width`, Chapter 12).
 
 The Cursor Engine therefore never needs to know that width. It treats the TAB as one logical character — one position to pass over during movement — and leaves the visual question to the Renderer:
 
@@ -160,7 +160,7 @@ logical character position
 Renderer
       │
       ▼
-screen/display column
+screen column
 ```
 
 This establishes one of the chapter's central invariants:

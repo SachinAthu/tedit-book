@@ -205,6 +205,7 @@ For example:
 | `KEY_BACKSPACE`      | Backspace was pressed               |
 | `KEY_DELETE`         | Delete was pressed                  |
 | `KEY_ENTER`          | Enter was pressed                   |
+| `KEY_TAB`            | Tab was pressed                     |
 | `KEY_CTRL_S`         | Ctrl+S was entered                  |
 | `KEY_CTRL_Q`         | Ctrl+Q was entered                  |
 

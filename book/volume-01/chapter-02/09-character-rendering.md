@@ -119,7 +119,7 @@ Consider the following example.
 
 Rather than thinking about pixels, it is helpful to imagine a spreadsheet.
 
-Every character occupies one cell.
+Every displayed character occupies one cell.
 
 Each cell has a **row** and a **column**.
 
@@ -215,7 +215,7 @@ Charlie   95
 
 With proportional spacing, maintaining neat alignment would become much more difficult.
 
-Monospaced fonts solve this problem by ensuring that every character occupies one cell in the grid.
+Monospaced fonts solve this problem by ensuring that every displayed character occupies one cell in the grid. (Control characters such as TAB are expanded by the application, not drawn as glyphs — Chapter 19.)
 
 This is why virtually every terminal emulator uses a monospaced font by default.
 
@@ -320,7 +320,7 @@ Terminal applications position content using rows and columns within a character
 
 **Using proportional fonts in terminal applications**
 
-Terminal interfaces rely on consistent character widths to maintain alignment. Monospaced fonts ensure that every character occupies exactly one cell, making tables, source code, and text layouts predictable.
+Terminal interfaces rely on consistent character widths to maintain alignment. Monospaced fonts ensure that every displayed character occupies exactly one cell, making tables, source code, and text layouts predictable.
 
 
 ## Summary

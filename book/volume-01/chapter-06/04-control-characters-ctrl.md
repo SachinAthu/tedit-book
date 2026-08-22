@@ -75,14 +75,14 @@ Some examples include:
 | --------- | --------------- | ----------------------------------- |
 | `BEL`     | Bell            | Ring the terminal bell              |
 | `BS`      | Backspace       | Move one position left              |
-| `TAB`     | Horizontal Tab  | Move to the next tab stop           |
+| `TAB`     | Horizontal Tab  | Move to the next tab stop (device action)           |
 | `LF`      | Line Feed       | Advance to the next line            |
 | `CR`      | Carriage Return | Return to the beginning of the line |
 | `ESC`     | Escape          | Begin an escape sequence            |
 
 Many of these actions originated with mechanical devices, yet they continue to exist in modern terminals.
 
-**TAB** occupies a special position among these characters. Its original purpose was a device action—move to the next tab stop—but in a modern text editor the Tab key is usually treated as **text input**. The editor inserts the Horizontal Tab character (ASCII value **9**) into the document as a single logical character, just as it would insert `A` or `7`. How much horizontal space that character occupies on the screen is a separate, rendering-level question that the input layer does not answer.
+**TAB** occupies a special position among these characters. Its original purpose was a device action—move to the next tab stop—but in a modern text editor the Tab key is usually treated as **text input**. The editor inserts the Horizontal Tab character (ASCII value **9**) into the document as a single logical character, just as it would insert `A` or `7`. Section 6.10 traces the Tab key through the complete pipeline; its visual width is a rendering concern (Chapter 19).
 
 ## The Ctrl Key
 

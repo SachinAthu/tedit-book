@@ -96,6 +96,7 @@ For the baseline editor, the initial mapping can be represented as:
 | `KEY_BACKSPACE`    | `DELETE_PREVIOUS_CHARACTER` |
 | `KEY_DELETE`       | `DELETE_CHARACTER`          |
 | `KEY_ENTER`        | `SPLIT_LINE`                |
+| `KEY_TAB`          | `INSERT_CHARACTER(U+0009)`  |
 | `KEY_CTRL_S`       | `SAVE_DOCUMENT`             |
 | `KEY_CTRL_Q`       | `QUIT_EDITOR`               |
 

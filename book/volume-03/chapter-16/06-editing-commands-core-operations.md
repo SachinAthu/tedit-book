@@ -24,7 +24,7 @@ This keeps the command layer focused on coordination rather than duplicating the
 
 ## Insert Character
 
-The `INSERT_CHARACTER` command represents a request to insert a character at the current cursor position.
+The `INSERT_CHARACTER` command represents a request to insert a character at the current cursor position. The character is a single Unicode code point (Chapter 22); inserting a TAB therefore inserts U+0009, one logical character (Chapter 6).
 
 Conceptually:
 

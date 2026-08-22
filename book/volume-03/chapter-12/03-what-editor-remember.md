@@ -159,6 +159,8 @@ Examples include:
 - Display preferences
 - Feature options
 
+Tab width controls how the Renderer expands TAB characters (Chapter 19); changing it never modifies the Document.
+
 Our initial implementation will keep configuration intentionally simple, but designing a place for it now makes future extensions much easier.
 
 ## Bringing Everything Together

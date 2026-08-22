@@ -108,7 +108,7 @@ visual cursor column
 horizontal scrolling decision
 ```
 
-Tab expansion itself belongs to the Renderer (Chapter 19). The scrolling logic consumes the visual columns the Renderer produces; it never computes tab widths itself.
+tab expansion itself belongs to the Renderer (Chapter 19). The scrolling logic consumes the visual columns the Renderer produces; it never computes tab widths itself.
 
 The two directions can be represented independently:
 

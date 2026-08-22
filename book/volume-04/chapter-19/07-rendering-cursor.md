@@ -126,13 +126,7 @@ Consider a line containing a TAB:
 A<TAB>B
 ```
 
-With tab width `4`, the `A` occupies visual column `0`, the TAB advances from visual column `1` to visual column `4`, and the `B` occupies visual column `4`:
-
-```text
-+---+---+---+---+---+
-| A |   |   |   | B |
-+---+---+---+---+---+
-```
+With tab width `4`, the TAB spans visual columns `1` through `3`, so the `B` begins at visual column `4` (as worked out in Section 19.3).
 
 The Cursor can sit between any two characters. Suppose the Cursor is positioned **after** the TAB — the position before `B`. Its logical column is:
 
@@ -142,14 +136,7 @@ cursor_column = 2
 
 because two characters — `A` and the TAB — precede the position.
 
-The Renderer expands the characters up to that position and finds the visual column:
-
-```text
-A      → occupies visual column 0
-TAB    → advances from column 1 to the next tab stop, 4
-```
-
-so the Cursor belongs at:
+The Renderer expands the characters up to that position using the same rule from Section 19.3 and finds the visual column `4`:
 
 ```text
 visual_column = 4

@@ -182,6 +182,8 @@ Examples might include:
 - Display preferences
 - Future editor options
 
+Tab width is read by the Renderer when it expands TAB characters into screen cells (Chapter 19); changing it never modifies the Document.
+
 Unlike the document or cursor, configuration typically changes infrequently. Nevertheless, it still belongs in the Editor State because it influences how the editor behaves during execution.
 
 Our initial implementation will use only a small number of configuration settings, but organizing them into a dedicated component makes it straightforward to add more in the future.
