@@ -1,0 +1,19 @@
+chapter: 23
+title: File Safety
+volume: 5
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 23.1 Why File Safety Matters —> 01-why-file-safety-matters.md
+  - 23.2 What Can Go Wrong During a Save? —> 02-what-can-go-wrong.md
+  - 23.3 Temporary Files —> 03-temporary-files.md
+  - 23.4 Atomic Replacement —> 04-atomic-replacement.md
+  - 23.5 Durability - Atomic Is Not the Same as Durable —> 05-atomic-not-same-as-durable.md
+  - 23.6 Crash Scenarios —> 06-crash-scenarios.md
+  - 23.7 Recovery After a Failed Save —> 07-recovery-after-failed-save.md
+  - 23.8 What If the Save Fails? —> 08-what-if-save-fails.md
+  - 23.9 Atomic Save and File Metadata —> 09-atomic-save-file-metadata.md
+  - 23.10 Our File Safety Strategy —> 10-file-safety-strategy.md
+  - 23.11 What We Are Not Building —> 11-what-we-not-building.md
+  - 23.12 Design Alternatives and Trade-offs —> 12-design-alternatives-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md
