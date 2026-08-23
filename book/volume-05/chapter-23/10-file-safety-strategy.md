@@ -6,6 +6,8 @@ It is time to make the design decision explicit.
 
 Our editor will use a **full-document, temporary-file-and-atomic-replacement strategy**. This builds directly on the persistence model established by ADR-020 and the UTF-8 boundary defined by ADR-021. The Document remains the complete in-memory working state, while the File Manager is responsible for turning that state into a persistent file.
 
+This strategy is recorded as **ADR-022: File Safety Strategy**, so it is an explicit architectural contract rather than an accidental consequence of the file-saving code.
+
 ## Baseline Decision
 
 When the user saves, our editor will:

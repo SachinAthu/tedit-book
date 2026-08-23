@@ -87,7 +87,7 @@ Chapter 22 established **what the bytes mean**. The next question is how to chan
 Chapter 23 will examine **File Safety**:
 
 - temporary files
-- atomic saves
+- atomic replacement
 - partial writes
 - interrupted saves
 - crash scenarios

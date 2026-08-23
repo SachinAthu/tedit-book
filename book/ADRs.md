@@ -351,3 +351,21 @@ Storing code points gives the Document a fixed-width element per character, so a
 Trade-off: A code point requires up to four bytes of storage even for ASCII text, which stores as one byte in UTF-8, so the in-memory Document can be larger than the file it came from. The editor also gains a decode step on load and an encode step on save. In exchange, the core editing model becomes simpler and more predictable. Full grapheme-cluster handling (combining marks, emoji sequences) is deliberately out of scope: the editor treats one code point as one logical character.
 
 First referenced: Chapter 22
+
+---
+
+# ADR-022
+
+File Safety Strategy
+
+Decision:
+
+Adopt a safe-save strategy in which saving prepares the complete new version of the document in a Temporary File and then commits it by atomically replacing the destination file using a single atomic filesystem operation such as `rename()`. Create the Temporary File in the same directory as the destination so the replacement remains within one filesystem. Keep the Dirty Flag set until the final replacement succeeds, report failures through the Message Bar, and return control to the Event Loop after recoverable errors. A failed save must never make the editor believe the current Document has been successfully saved. Deliberately defer for the baseline editor: durability beyond atomic replacement (such as `fsync()` and directory synchronization), preservation of file metadata (permissions, ownership, timestamps), and automatic crash recovery from leftover Temporary Files.
+
+Reason:
+
+Directly truncating and rewriting the destination can destroy the last valid version if an error occurs before the new contents have been completely written. Preparing the new version separately in a Temporary File moves the risky construction work away from the user's existing file, and requesting an atomic replacement prevents the destination from ever exposing a deliberately partial or missing intermediate state. Keeping the Dirty Flag set until the final replacement succeeds ensures the editor never reports the document as saved when it is not, and continuing the Event Loop after recoverable errors keeps the editor usable. Deferring durability, metadata preservation, and automatic recovery keeps the baseline implementation simple and understandable, consistent with the project's priority on educational value.
+
+Trade-off: The strategy turns each save into a two-phase prepare-and-commit operation, requiring space for a Temporary File, an extra write, and a rename, and a save can now fail at additional steps. It still does not guarantee survival of a power loss, does not preserve the original file's metadata, and does not recover unsaved work after a crash. These costs are accepted in exchange for protecting the last known-good version of the file while a save is in progress.
+
+First referenced: Chapter 23

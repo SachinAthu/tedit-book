@@ -109,6 +109,8 @@ means:
 
 The result of the operation must be checked, and the save process must respond appropriately to failures.
 
+The most subtle case is a **partial write**: a single `write()` may transfer fewer bytes than requested, so even a "successful" call can leave only part of the document on disk. Chapter 21 examined this in detail; the lesson carries directly into the safe-save strategy, which must therefore assume that such failures are possible.
+
 The same principle applies to other file operations involved in the save process.
 
 ## Filesystem or Permission Problems

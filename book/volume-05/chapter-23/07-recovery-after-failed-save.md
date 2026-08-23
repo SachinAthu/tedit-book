@@ -64,67 +64,28 @@ Write temporary file
         X
       Failure
         │
-        ├── Keep destination unchanged
-        ├── Keep Document in memory
-        ├── Keep Dirty Flag = true
-        └── Report the error
+        └── Keep destination unchanged
 ```
 
 The user can then decide what to do next.
 
 ## The In-Memory Document Is Still the Working Version
 
-A failed save does not undo the user's edits.
+A failed save does not undo the user's edits. Suppose the user changed `Project deadline: Friday` to `Project deadline: Monday`, and the save fails.
 
-Suppose the user changed:
-
-```text
-Old document:
-
-Project deadline: Friday
-```
-
-to:
-
-```text
-Current Document:
-
-Project deadline: Monday
-```
-
-The save fails.
-
-The editor should continue holding:
-
-```text
-Document
-    │
-    ▼
-Project deadline: Monday
-```
-
-while the file on disk may still contain:
-
-```text
-notes.txt
-    │
-    ▼
-Project deadline: Friday
-```
-
-This is an important distinction:
+The editor should continue holding the Monday version in memory while the file on disk still contains Friday:
 
 ```text
 Memory
    │
-   └── Latest working version
+   └── Latest working version — Monday
 
 Disk
    │
-   └── Last successfully saved version
+   └── Last successfully saved version — Friday
 ```
 
-The Dirty Flag represents this difference.
+The Dirty Flag represents this difference:
 
 ```text
 Dirty = true
@@ -277,10 +238,9 @@ The baseline editor will:
 
 1. Write the new document to a temporary file.
 2. Replace the destination only after the temporary file has been successfully written.
-3. Keep the Dirty Flag set when saving fails.
-4. Report the failure through the Message Bar.
-5. Remove incomplete temporary files when appropriate.
-6. Continue editing when the failure is recoverable.
+3. Remove incomplete temporary files when appropriate.
+
+The failed-save contract—keeping the Document and Dirty Flag, reporting through the Message Bar, and continuing the Event Loop—is defined in the next section.
 
 We will **not** implement a complete automatic crash-recovery system in the baseline editor.
 
@@ -304,31 +264,7 @@ User can try again
 
 ## Recovery and the Editor Lifecycle
 
-A failed save should normally not terminate the editor.
-
-The runtime model already establishes that recoverable errors should return control to the Event Loop.
-
-Therefore:
-
-```text
-Save Command
-     │
-     ▼
-File Manager
-     │
-     X
-   Failure
-     │
-     ▼
-Message Bar
-     │
-     ▼
-Event Loop continues
-```
-
-The user can then correct the problem—for example, by freeing disk space or choosing another file—and attempt to save again.
-
-This is preferable to terminating the application and potentially losing the latest in-memory changes.
+A failed save should normally not terminate the editor and lose the latest in-memory changes. The runtime model already establishes that recoverable errors return control to the Event Loop, so the user can correct the problem—for example, by freeing disk space or choosing another file—and attempt to save again.
 
 ## Recovery Is Different from Backup
 

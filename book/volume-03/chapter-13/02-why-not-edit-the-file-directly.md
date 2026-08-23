@@ -122,7 +122,7 @@ Consider what could happen if a power failure or system crash occurred while the
 
 The file might be left only partially updated, resulting in corrupted or incomplete data.
 
-By keeping changes in memory and writing them only during a save operation, the editor greatly reduces the number of times the file is modified. This makes it easier to detect and report file I/O errors and preserves the original file until the user intentionally replaces it. More advanced techniques for protecting files during saving, such as temporary files and atomic saves, will be discussed later in the book.
+By keeping changes in memory and writing them only during a save operation, the editor greatly reduces the number of times the file is modified. This makes it easier to detect and report file I/O errors and preserves the original file until the user intentionally replaces it. More advanced techniques for protecting files during saving, such as temporary files and atomic replacement, will be discussed later in the book.
 
 ## Engineering Insight
 

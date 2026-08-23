@@ -1,4 +1,4 @@
-# 23.9 Atomic Save and File Metadata
+# 23.9 Atomic Replacement and File Metadata
 
 Atomic replacement solves one important problem:
 
@@ -21,6 +21,32 @@ Permissions: 0644
 ```
 
 A newly created Temporary File may have different metadata. After replacement, the resulting `document.txt` may therefore not have exactly the same metadata as the original.
+
+## Why Replacing a File Changes Its Metadata
+
+The reason lies in how files are stored. A directory entry—the name `document.txt`—points to an **inode**, the filesystem object that holds the file's contents together with its metadata: permissions, ownership, timestamps, and other attributes.
+
+A direct overwrite writes through the same inode, so the file's permissions and ownership survive the save:
+
+```text
+Document
+    │
+    ▼ write in place
+document.txt ──► inode A ──► same metadata (permissions, ownership)
+```
+
+An atomic replacement works differently. The editor never edits the destination's inode. Instead, `rename()` changes the directory entry to point at the **Temporary File's inode**, which carries metadata of its own:
+
+```text
+Before:
+document.txt     ──► inode A ──► old contents, original metadata
+document.txt.tmp ──► inode B ──► new contents, Temporary File's metadata
+
+After rename():
+document.txt     ──► inode B ──► new contents, Temporary File's metadata
+```
+
+The original inode is no longer referenced by the directory entry, so the original file's metadata does not survive the replacement. The resulting `document.txt` therefore reflects the Temporary File's permissions, ownership, and timestamps rather than the previous version's.
 
 This leads to an important distinction:
 

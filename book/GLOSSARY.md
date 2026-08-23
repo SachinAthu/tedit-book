@@ -155,6 +155,38 @@ Volume II, Chapter 7
 - Functional Requirement
 - Non-Functional Requirement (NFR)
 
+## Atomic Replacement
+
+**Definition**
+
+A mechanism that replaces the contents of a file as one indivisible operation, so that the destination never exposes a deliberately partial or missing intermediate state. In our editor, the File Manager prepares the complete new version in a Temporary File and then asks the operating system to replace the destination with it using `rename()`, which is atomic only when the source and destination are on the same filesystem.
+
+**First Introduced**
+
+Volume V, Chapter 23
+
+**Related Terms**
+
+- Atomicity
+- Temporary File
+- Durability
+- File Manager
+
+## Atomicity
+
+**Definition**
+
+The property of an operation that it appears to happen as one indivisible action, with no intentionally exposed intermediate state. Atomicity describes how a change happens; it is distinct from durability, which describes whether a successful change survives a later failure such as a crash or power loss.
+
+**First Introduced**
+
+Volume V, Chapter 23
+
+**Related Terms**
+
+- Atomic Replacement
+- Durability
+
 # B
 
 ## Buffer
@@ -707,6 +739,21 @@ Volume IV, Chapter 19
 - Viewport
 - Cursor
 - Renderer
+
+## Durability
+
+**Definition**
+
+The property that a successfully completed change remains preserved after the system subsequently experiences a failure such as a crash or power loss. Atomicity describes how a change happens; durability describes whether the successful change survives a failure. A successful atomic replacement alone does not guarantee durability—stronger guarantees may require synchronization mechanisms such as `fsync()`.
+
+**First Introduced**
+
+Volume V, Chapter 23
+
+**Related Terms**
+
+- Atomicity
+- Atomic Replacement
 
 ## Double Buffering
 
@@ -2489,6 +2536,22 @@ Volume I, Chapter 3
 - Terminal
 - Video Terminal
 
+## Temporary File
+
+**Definition**
+
+An intermediate file created during a save operation to construct the complete new version of the document without modifying the existing destination. The editor writes the new contents to the Temporary File and only replaces the destination with it after the write succeeds. The Temporary File is not a second editable Document; it is a persistence mechanism used during the save operation.
+
+**First Introduced**
+
+Volume V, Chapter 23
+
+**Related Terms**
+
+- File Manager
+- Atomic Replacement
+- Document
+
 ## Terminal
 
 **Definition**
@@ -2792,7 +2855,6 @@ Project Documentation
 
 The following concepts are expected to be added as the manuscript develops:
 
-- Atomic Save
 - Language Server Protocol (LSP)
 - Tree-sitter
 - Syntax Highlighting

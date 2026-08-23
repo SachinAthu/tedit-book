@@ -57,7 +57,7 @@ Save
 Write to Disk
 ```
 
-We will also examine the limitations of our in-memory editing model, particularly when working with large files. More advanced techniques for making file updates safer—such as temporary files, atomic saves, and crash recovery—will be addressed separately in Chapter 23.
+We will also examine the limitations of our in-memory editing model, particularly when working with large files. More advanced techniques for making file updates safer—such as temporary files, atomic replacement, and crash recovery—will be addressed separately in Chapter 23.
 
 The goal is not merely to learn how to call POSIX file APIs. It is to understand **where file I/O belongs in an editor's architecture, how data moves across the memory–storage boundary, and what can go wrong along the way**.
 

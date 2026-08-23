@@ -40,7 +40,7 @@ The most important takeaway:
 
 > **Never destroy the previous valid version before the new version is known to be safe—and when a save fails, leave the Document, the Dirty Flag, the Message Bar, and the original file all reflecting that nothing was saved.**
 
-The final design is the **full-document, temporary-file-and-atomic-replacement strategy**, building on ADR-020 and ADR-021 and keeping saving `O(N)`. It guarantees that a partial Temporary File never becomes the destination and a failed save never clears the Dirty Flag, and it explicitly leaves metadata preservation and systems such as backups, journaling, autosave, versioning, and automatic recovery for later.
+The final design is the **full-document, temporary-file-and-atomic-replacement strategy**, building on ADR-020 and ADR-021, recorded as **ADR-022: File Safety Strategy**, and keeping saving `O(n)`. It guarantees that a partial Temporary File never becomes the destination and a failed save never clears the Dirty Flag, and it explicitly leaves metadata preservation and systems such as backups, journaling, autosave, versioning, and automatic recovery for later.
 
 ## Exercises
 

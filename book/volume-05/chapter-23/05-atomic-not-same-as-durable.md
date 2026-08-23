@@ -1,4 +1,4 @@
-# 23.5 Durability: Atomic Is Not the Same as Durable
+# 23.5 Durability - Atomic Is Not the Same as Durable
 
 Atomic replacement solves an important problem, but it does not answer every question about safe file persistence.
 

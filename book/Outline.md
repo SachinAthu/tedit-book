@@ -325,10 +325,18 @@ Design before writing code.
 
 ## **Chapter 23 — File Safety**
 
-- Temporary files
-- Atomic saves
-- Recovery
-- Crash scenarios
+- 23.1 Why File Safety Matters
+- 23.2 What Can Go Wrong During a Save?
+- 23.3 Temporary Files
+- 23.4 Atomic Replacement
+- 23.5 Durability - Atomic Is Not the Same as Durable
+- 23.6 Crash Scenarios
+- 23.7 Recovery After a Failed Save
+- 23.8 What If the Save Fails?
+- 23.9 Atomic Replacement and File Metadata
+- 23.10 Our File Safety Strategy
+- 23.11 What We Are Not Building
+- 23.12 Design Alternatives and Trade-offs
 
 ---
 

@@ -66,7 +66,7 @@ The requirement does **not** mention:
 - the POSIX file APIs,
 - buffering strategies,
 - temporary files,
-- atomic saves,
+- atomic replacement,
 - error handling,
 - data structures.
 

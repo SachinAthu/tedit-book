@@ -239,8 +239,8 @@ Editor remains usable
 This invariant is more important than the exact error message, cleanup strategy, or internal function structure. It gives the rest of the architecture a clear contract:
 
 - **File Manager:** attempt persistence and report success or failure.
-- **Command Engine:** coordinate the save command.
-- **Editor State:** retain the current Document and correct Dirty Flag.
+- **Command Engine:** coordinate the save command, keep the current Document, and update the Dirty Flag based on the reported result.
+- **Editor State:** hold the state values that result from the save attempt.
 - **Message Bar:** communicate the result to the user.
 - **Renderer:** display the current state without modifying it.
 - **Event Loop:** continue after recoverable errors.
@@ -251,4 +251,4 @@ The safe-save algorithm can now be described precisely because we know what must
 
 A failed save must keep the Document in memory, keep the Dirty Flag set, report the error through the Message Bar, and continue the Event Loop whenever the failure is recoverable. No matter which internal step fails, the user gets a predictable response: the editor never believes the save succeeded when it did not.
 
-In the next section, we will examine what atomic replacement does and does not preserve about the original file: **Atomic Save and File Metadata**.
+In the next section, we will examine what atomic replacement does and does not preserve about the original file: **Atomic Replacement and File Metadata**.
