@@ -11,9 +11,8 @@ sections:
   - 23.5 Durability - Atomic Is Not the Same as Durable —> 05-atomic-not-same-as-durable.md
   - 23.6 Crash Scenarios —> 06-crash-scenarios.md
   - 23.7 Recovery After a Failed Save —> 07-recovery-after-failed-save.md
-  - 23.8 What If the Save Fails? —> 08-what-if-save-fails.md
-  - 23.9 Atomic Replacement and File Metadata —> 09-atomic-replacement-file-metadata.md
-  - 23.10 Our File Safety Strategy —> 10-file-safety-strategy.md
-  - 23.11 What We Are Not Building —> 11-what-we-not-building.md
-  - 23.12 Design Alternatives and Trade-offs —> 12-design-alternatives-trade-offs.md
-  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md
+  - 23.8 Atomic Replacement and File Metadata —> 08-atomic-replacement-file-metadata.md
+  - 23.9 Our File Safety Strategy —> 09-file-safety-strategy.md
+  - 23.10 What We Are Not Building —> 10-what-we-not-building.md
+  - 23.11 Design Alternatives and Trade-offs —> 11-design-alternatives-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md

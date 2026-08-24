@@ -105,7 +105,7 @@ Does file exist?
  └── No  ──► Create and open
 ```
 
-The SRS requires the editor to create a new file when saving a document that does not already exist.
+The SRS (Chapter 7) requires the editor to create a new file when saving a document that does not already exist.
 
 Opening the destination can fail just as opening a source file can fail. For example, the user may not have permission to write to the destination.
 

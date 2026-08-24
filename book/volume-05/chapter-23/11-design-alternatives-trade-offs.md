@@ -1,4 +1,4 @@
-# 23.12 Design Alternatives and Trade-offs
+# 23.11 Design Alternatives and Trade-offs
 
 There is more than one way to save a document safely. The strategies differ in how much protection they provide, but also in how much state and implementation complexity they introduce.
 

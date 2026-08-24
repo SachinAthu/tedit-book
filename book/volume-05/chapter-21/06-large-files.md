@@ -179,7 +179,7 @@ Straightforward editing
 Predictable behavior
 ```
 
-The SRS explicitly assumes that sufficient memory is available to load the entire document and defines the editor as an educational, single-document system rather than a large-file editing engine.
+The SRS (Chapter 7) explicitly assumes that sufficient memory is available to load the entire document and defines the editor as an educational, single-document system rather than a large-file editing engine.
 
 This is therefore a conscious architectural limitation rather than an accidental omission.
 

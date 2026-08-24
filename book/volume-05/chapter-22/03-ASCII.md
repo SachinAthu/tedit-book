@@ -88,7 +88,7 @@ Its bytes can be represented as:
 
 ```text
 48 65 6C 6C 6F 0A
-57 6F 72 6C 64
+57 6F 72 6C 64 0A
 ```
 
 Every visible character occupies one byte, and the line-feed character is also represented by a single byte.

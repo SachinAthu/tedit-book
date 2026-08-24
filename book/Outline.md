@@ -332,11 +332,10 @@ Design before writing code.
 - 23.5 Durability - Atomic Is Not the Same as Durable
 - 23.6 Crash Scenarios
 - 23.7 Recovery After a Failed Save
-- 23.8 What If the Save Fails?
-- 23.9 Atomic Replacement and File Metadata
-- 23.10 Our File Safety Strategy
-- 23.11 What We Are Not Building
-- 23.12 Design Alternatives and Trade-offs
+- 23.8 Atomic Replacement and File Metadata
+- 23.9 Our File Safety Strategy
+- 23.10 What We Are Not Building
+- 23.11 Design Alternatives and Trade-offs
 
 ---
 

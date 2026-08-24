@@ -4,8 +4,8 @@ mode: subagent
 model: opencode-go/deepseek-v4-pro
 temperature: 0.2
 permission:
-edit: deny
-bash: deny
+  edit: deny
+  bash: deny
 ---
 
 ---

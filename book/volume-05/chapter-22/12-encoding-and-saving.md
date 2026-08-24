@@ -257,19 +257,21 @@ An empty Document is another useful boundary case.
 
 If the Document contains no text, the serializer must decide what byte stream represents it.
 
-The simplest representation is:
+The key observation is that an empty Document contains **no logical lines**, and therefore no line boundaries to serialize:
 
 ```text
-Document
+Empty Document
     │
     ▼
-No lines / empty content
+No lines, no line boundaries
     │
     ▼
-Empty file
+Empty file (zero bytes)
 ```
 
 That produces a file with zero bytes.
+
+This is consistent with the canonical-LF policy rather than an exception to it. The rule is that every logical line boundary — including the one after the final line — is serialized as `0A`. A Document with one or more lines therefore always ends with a trailing newline, while an empty Document has no line boundaries and simply ends as an empty file.
 
 Again, this is a serialization concern.
 

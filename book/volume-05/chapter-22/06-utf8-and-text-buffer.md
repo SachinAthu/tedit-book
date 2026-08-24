@@ -1,5 +1,7 @@
 # 22.6 UTF-8 and the Text Buffer
 
+Before continuing, one naming point deserves to be made explicit. Throughout this chapter, **Text Buffer** and **Document** refer to the same concept: the Document is the logical object that represents the text being edited, and the Text Buffer is its internal in-memory representation (see GLOSSARY.md). The two terms are used interchangeably.
+
 In Chapter 13, we chose a **vector of lines** as the representation of the Document. Each line was described as an independent sequence of characters:
 
 ```text

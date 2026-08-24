@@ -69,6 +69,26 @@ Write temporary file
 
 The user can then decide what to do next.
 
+The primary purpose of the safe-save process is precisely to avoid destroying that previous valid version unnecessarily. The editor attempts to move the destination from `Version A` to `Version B`:
+
+```text
+Current Document (Version B)
+        │
+        ▼
+Temporary File
+        │
+   save fails
+        │
+        ▼
+Original File still Version A
+```
+
+If an intermediate step fails, the editor should not replace the original file prematurely. The exact state after a failure depends on which stage failed, but the central safety principle remains the same:
+
+> **Do not intentionally replace the known-good destination until the new version is ready for replacement.**
+
+This is why the Temporary File exists in the first place.
+
 ## The In-Memory Document Is Still the Working Version
 
 A failed save does not undo the user's edits. Suppose the user changed `Project deadline: Friday` to `Project deadline: Monday`, and the save fails.
@@ -138,8 +158,8 @@ Is it a valid recovery candidate?
   No    Yes
    │     │
    ▼     ▼
-Remove  Offer
-file    recovery
+ Remove  Offer
+ file    recovery
 ```
 
 However, this requires additional rules that our baseline editor does not currently have.
@@ -240,7 +260,7 @@ The baseline editor will:
 2. Replace the destination only after the temporary file has been successfully written.
 3. Remove incomplete temporary files when appropriate.
 
-The failed-save contract—keeping the Document and Dirty Flag, reporting through the Message Bar, and continuing the Event Loop—is defined in the next section.
+The failed-save contract—keeping the Document and Dirty Flag, reporting through the Message Bar, and continuing the Event Loop—is defined in the remainder of this section.
 
 We will **not** implement a complete automatic crash-recovery system in the baseline editor.
 
@@ -295,6 +315,210 @@ Safe replacement
 
 It is an intermediate artifact of the current save operation, not a historical version-management system.
 
+## A Failed Save Does Not Undo the Document
+
+Suppose the file on disk contains `Hello`, and the user changes the Document in memory to `Hello, world!`. The editor now has:
+
+```text
+Document in memory:   Hello, world!
+File on disk:         Hello
+Dirty Flag:           true
+```
+
+The user presses `Ctrl+S`, and the save fails because the filesystem reports an error.
+
+The editor should **not** restore the Document to `Hello`. The user's edit was valid; only its persistence failed. After the failed save, the state remains exactly as above.
+
+The editor should therefore treat the failed save as a failure to persist the current state—not as a failure of the editing operation itself.
+
+```text
+Editing succeeded
+        │
+        ▼
+Document changed
+        │
+        ▼
+Saving failed
+        │
+        ▼
+Document remains changed
+```
+
+The user's work remains available in memory.
+
+## Different Failures, Same User-Level Rule
+
+The internal cause of the failure may differ—Temporary File creation, writing, closing, or the atomic replacement may each fail. These are technically different failures.
+
+From the user's perspective, however, the important result is the same:
+
+```text
+Save did not complete
+```
+
+Therefore, the editor should consistently:
+
+1. Keep the current Document.
+2. Keep the Dirty Flag set.
+3. Report the failure through the Message Bar.
+4. Continue running when the error is recoverable.
+
+This gives the user a predictable response regardless of which internal operation failed.
+
+## The Message Bar Is the User's Feedback Channel
+
+The user needs to know that the save did not succeed:
+
+```text
+Error: Could not save file
+Error: Permission denied
+Error: No space left on device
+```
+
+The exact wording is an implementation concern, but the architectural responsibility is clear. The File Manager encounters the filesystem error, the Command Engine coordinates the command's result, the Editor State records the resulting application state, and the Renderer displays the Message Bar before the Event Loop waits for the next event.
+
+```text
+File Manager → save failed → Command Engine → Editor State
+                                                ├── Dirty = true
+                                                └── Status Message = error → Renderer → Message Bar
+```
+
+The Renderer remains read-only. It does not decide whether the save succeeded or failed; it simply displays the current state. This preserves the architecture's separation between state management, persistence, and presentation.
+
+## The Event Loop Should Continue
+
+A failed save is normally a recoverable runtime error. The user might be able to correct a permissions problem, free disk space, change the destination, continue editing, or try saving again. Terminating the entire application because one save operation failed would be unnecessarily destructive.
+
+```text
+             Save Command → File Manager
+                            ┌─────┴─────┐
+                         Success      Failure
+                            │           │
+                            ▼           ▼
+                       Dirty=false   Dirty=true → Message Bar → Event Loop → wait for next event
+```
+
+This is consistent with the broader runtime principle that recoverable errors should not terminate the editor.
+
+## What Happens to the Temporary File?
+
+A failed safe save may leave a Temporary File behind:
+
+```text
+document.txt
+document.txt.tmp
+```
+
+Whether it can be removed safely depends on where the failure occurred and what the implementation knows about its state. In the normal case, the File Manager should clean up temporary artifacts it no longer needs.
+
+But there is an important trade-off. A Temporary File may contain part or all of the user's latest Document. If the application crashes at an unfortunate point, that file could potentially become useful for recovery. Temporary-file cleanup is therefore not merely housekeeping; it is related to the editor's recovery policy.
+
+Our baseline editor does not attempt to build a complete crash-recovery system. Recovery candidates may exist, but automatically discovering, validating, presenting, and restoring them would require additional mechanisms beyond the basic safe-save design.
+
+For the baseline implementation, the primary goal remains:
+
+```text
+Protect the destination
+        +
+Preserve the in-memory Document
+        +
+Report the failure
+```
+
+## Retrying the Save
+
+A failed save does not prevent another attempt. The user can press `Ctrl+S` again:
+
+```text
+First attempt:   Save → Failure → Dirty = true, Message shown
+Second attempt:  Save → Success → Dirty = false
+```
+
+The important property is that the editor never needs to reconstruct the Document from the file on disk. The in-memory Document already represents the user's intended current version. This is one of the major advantages of maintaining the entire Document in memory: the file on disk is the persistent representation, while the in-memory Document remains the authoritative working state during the editing session.
+
+## A Failed Save Is Not the Same as a Failed Edit
+
+It is useful to separate two very different kinds of failure.
+
+- **Editing failure:** an editing operation fails to modify the Document, leaving the Document unchanged.
+- **Persistence failure:** the editing operation already succeeded, but saving the resulting Document fails.
+
+```text
+Edit → Document changed → Save → Save fails
+```
+
+In the second case, the Document must remain changed.
+
+This distinction prevents an especially dangerous design mistake: treating the disk copy as though it were the authoritative state of the editing session. It is not. The Document is the working state; the file is the persisted state. The purpose of saving is to make the persisted state catch up with the working state. When saving fails, the persisted state simply stays older, and the Dirty Flag communicates exactly this condition.
+
+## The State After a Failed Save
+
+We can now describe the complete, deterministic state transition:
+
+```text
+Before save:   Document = Version B,  Dirty = true,   Status = normal
+During save:   Document = Version B,  Dirty = true,   Status = saving
+On failure:    Document = Version B,  Dirty = true,   Status = save error
+```
+
+The Renderer displays the resulting status, and the Event Loop continues. A retry then branches the outcome:
+
+```text
+              Save → File Manager
+                      ┌────┴────┐
+                   Failure   Success
+                      │         │
+                      ▼         ▼
+                  Dirty=true  Dirty=false → Render Frame
+```
+
+This makes the failure behavior deterministic and easy to reason about.
+
+## Why We Do Not Silently Retry
+
+One possible design is to automatically retry a failed save several times. For our editor, this is unnecessary complexity. Many filesystem failures are not transient, so retrying does not help if the user lacks permission or the filesystem is full. Automatic retries can also delay the Event Loop and make the editor appear unresponsive.
+
+A simpler policy keeps the editor's behavior predictable and preserves user control:
+
+```text
+Attempt once
+    ↓
+Report result
+    ↓
+Let the user decide what to do next
+```
+
+## The Important Invariant
+
+The failed-save behavior can be reduced to one invariant:
+
+> **A failed save must never make the editor believe that the current Document has been successfully saved.**
+
+That means:
+
+```text
+Save fails
+    ↓
+Document remains current
+    ↓
+Dirty Flag remains true
+    ↓
+Error is reported
+    ↓
+Editor remains usable
+```
+
+This invariant is more important than the exact error message, cleanup strategy, or internal function structure. It gives the rest of the architecture a clear contract:
+
+- **File Manager:** attempt persistence and report success or failure.
+- **Command Engine:** coordinate the save command, keep the current Document, and update the Dirty Flag based on the reported result.
+- **Editor State:** hold the state values that result from the save attempt.
+- **Message Bar:** communicate the result to the user.
+- **Renderer:** display the current state without modifying it.
+- **Event Loop:** continue after recoverable errors.
+
+The safe-save algorithm can now be described precisely because we know what must happen when every stage succeeds or fails.
+
 ## Engineering Insight
 
 Recovery should be designed around explicit guarantees rather than assumptions.
@@ -316,6 +540,6 @@ For our baseline editor, the answer is intentionally conservative:
 
 ## Summary
 
-After a failed save, the original file should remain protected, the in-memory Document remains the authoritative working version, and the Dirty Flag stays set. A Temporary File may hold useful data, but discovering, validating, and offering it for recovery is a separate system that our baseline editor deliberately does not build.
+After a failed save, the original file must remain protected, the in-memory Document remains the authoritative working version, and the Dirty Flag stays set. No matter which internal step fails, the editor keeps the Document, keeps the Dirty Flag set, reports the error through the Message Bar, and continues the Event Loop whenever the failure is recoverable — it never believes the save succeeded when it did not. A Temporary File may hold useful data, but discovering, validating, and offering it for recovery is a separate system that our baseline editor deliberately does not build.
 
-In the next section, we will focus on the user-visible rules the editor follows when a save does not succeed: **What If the Save Fails?**
+In the next section, we will examine what atomic replacement does and does not preserve about the original file: **Atomic Replacement and File Metadata**.

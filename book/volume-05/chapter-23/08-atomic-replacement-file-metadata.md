@@ -1,4 +1,4 @@
-# 23.9 Atomic Replacement and File Metadata
+# 23.8 Atomic Replacement and File Metadata
 
 Atomic replacement solves one important problem:
 

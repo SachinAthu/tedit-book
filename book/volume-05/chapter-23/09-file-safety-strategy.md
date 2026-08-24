@@ -1,4 +1,4 @@
-# 23.10 Our File Safety Strategy
+# 23.9 Our File Safety Strategy
 
 We have now examined the main problems involved in safely saving a document: incomplete writes, crashes, failed I/O operations, atomic replacement, durability, recovery, and the Dirty Flag.
 
