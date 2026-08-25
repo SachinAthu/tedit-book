@@ -58,6 +58,23 @@ Volume I, Chapter 4
 - ANSI Escape Sequence
 - Normal Screen Buffer
 
+## Amortized Complexity
+
+**Definition**
+
+An analysis method that determines the cost of a data structure's operations by distributing the cost of occasional expensive operations across an entire sequence of operations, rather than judging a single operation in isolation. The amortized cost of an insertion can be much smaller than the cost of the occasional resize, but amortized analysis does not make the expensive operation physically faster, so it is considered alongside worst-case behavior when evaluating an interactive editor.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Worst Case
+- Average Case
+- Time Complexity
+- Complexity Analysis
+
 ## ANSI Escape Sequence
 
 **Definition**
@@ -187,7 +204,58 @@ Volume V, Chapter 23
 - Atomic Replacement
 - Durability
 
+## Average Case
+
+**Definition**
+
+The expected cost of an operation across a representative distribution of inputs or states. Average-case analysis depends on assumptions about which inputs are likely, which is why worst-case analysis is often easier to trust when evaluating whether a design can tolerate large inputs in an interactive application.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Best Case
+- Worst Case
+- Complexity Analysis
+- Time Complexity
+
 # B
+
+## Best Case
+
+**Definition**
+
+The possible cost of an operation under the most favorable arrangement of its input or state. The best case shows how cheaply an operation can finish, but it does not describe how the operation normally behaves, so it is not a reliable basis for choosing a design.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Average Case
+- Worst Case
+- Time Complexity
+- Big-O Notation
+
+## Big-O Notation
+
+**Definition**
+
+A notation that describes how the resource requirements of an operation grow as its input size increases, focusing on the growth rate rather than on constant factors or exact execution time. An operation whose work grows proportionally with its input is described as `O(n)`. Big-O is a model of growth, not a measurement of speed.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Complexity Analysis
+- Time Complexity
+- Space Complexity
+- Input Size
 
 ## Buffer
 
@@ -222,6 +290,59 @@ Volume II, Chapter 10
 - CMake
 
 # C
+
+## Cache Locality
+
+**Definition**
+
+A measure of how efficiently a program accesses memory, based on whether its access patterns make effective use of the CPU cache. Temporal locality describes reusing the same data soon, and spatial locality describes accessing nearby data, so contiguous layouts combined with sequential access tend to perform better in practice even at the same Big-O complexity.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Temporal Locality
+- Spatial Locality
+- Main Memory (RAM)
+- Complexity Analysis
+
+## Complexity Analysis
+
+**Definition**
+
+The study of how an operation's use of computational resources grows as its input grows. The editor analyzes each operation together with the data structure that implements it, identifying the relevant input size, the work performed, and how that work scales, because the representation of text determines which operations are cheap and which become expensive as the document grows.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Time Complexity
+- Space Complexity
+- Big-O Notation
+- Input Size
+- Amortized Complexity
+- Latency
+
+## Constant Time
+
+**Definition**
+
+The complexity classification of an operation that performs a bounded amount of work which does not grow with the input size, written `O(1)`. Constant time means the amount of work is unaffected by the size of the input; it does not imply that the operation is fast in absolute terms.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Big-O Notation
+- Linear Time
+- Quadratic Time
+- Time Complexity
 
 ## CMake
 
@@ -1364,6 +1485,21 @@ Volume I, Chapter 6
 
 The Input Parser is the middle of three input stages. The Input Handler (introduced in Volume II, Chapter 8) reads raw bytes; the Input Parser translates those bytes into key events; the Input Engine (introduced in Volume III, Chapter 15) maps those events to editor commands.
 
+## Input Size
+
+**Definition**
+
+The measure of the input that is relevant to a particular operation. An editor has several such measures—the number of document lines, the length of an affected line, the total number of characters, the encoded file size in bytes, or the visible screen dimensions—so the input size must be defined before an operation's complexity can be described.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Complexity Analysis
+- Time Complexity
+
 ## Information Hiding
 
 **Definition**
@@ -1473,6 +1609,22 @@ Volume III, Chapter 15
 
 # L
 
+## Latency
+
+**Definition**
+
+The delay between an action and the corresponding result becoming visible to the user. Complexity describes how work scales, while latency is the observed delay for a particular execution, so an expensive operation inside one event-loop iteration becomes visible as latency between a key press and the updated screen.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Time Complexity
+- Complexity Analysis
+- Event Loop
+
 ## Layered Architecture
 
 **Definition**
@@ -1504,6 +1656,23 @@ Volume II, Chapter 10
 - Object File
 - Build System
 - Compilation
+
+## Linear Time
+
+**Definition**
+
+The complexity classification of an operation whose work grows proportionally to its input size, written `O(n)`. Many text-processing operations that scan the data they touch have linear time. The notation describes the growth rate, not an exact instruction count.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Big-O Notation
+- Constant Time
+- Quadratic Time
+- Time Complexity
 
 ## Line Buffering
 
@@ -1935,6 +2104,25 @@ Volume I, Chapter 3
 - File Descriptor
 - Virtual Console
 
+# Q
+
+## Quadratic Time
+
+**Definition**
+
+The complexity classification of an operation whose work grows with the square of its input size, written `O(n²)`. A common pattern compares many elements with many other elements, so doubling the input can multiply the amount of work by approximately four.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Big-O Notation
+- Constant Time
+- Linear Time
+- Time Complexity
+
 # R
 
 ## Rope
@@ -2079,6 +2267,38 @@ Volume II, Chapter 7
 - Non-Functional Requirement (NFR)
 
 # S
+
+## Space Complexity
+
+**Definition**
+
+A measure of how the memory required by an operation grows with its input. The editor distinguishes the memory occupied by the existing document from the additional memory an operation requires—such as the `O(1)` additional space of a few temporary variables or the `O(C)` space of a complete temporary copy. Reducing one resource cost can increase another, so time and space must be considered together.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Time Complexity
+- Big-O Notation
+- Complexity Analysis
+- Cache Locality
+
+## Spatial Locality
+
+**Definition**
+
+The property that when a program accesses one memory location, it is likely to access nearby memory locations soon afterward. Sequential processing of a contiguous structure such as an array exhibits strong spatial locality and makes effective use of the CPU cache.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Temporal Locality
+- Cache Locality
 
 ## SGR (Select Graphic Rendition)
 
@@ -2536,6 +2756,21 @@ Volume I, Chapter 3
 - Terminal
 - Video Terminal
 
+## Temporal Locality
+
+**Definition**
+
+The property that data accessed recently is likely to be accessed again soon. Repeatedly reusing the same data, such as a frequently read value, exhibits temporal locality and allows the CPU cache to serve the accesses quickly.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Spatial Locality
+- Cache Locality
+
 ## Temporary File
 
 **Definition**
@@ -2656,6 +2891,23 @@ Volume III, Chapter 13
 
 - Document
 - Cursor
+
+## Time Complexity
+
+**Definition**
+
+A measure of how the amount of computational work performed by an operation grows as its input grows, independent of the specific machine, compiler, or implementation details. Time and space complexity are analyzed separately because additional memory can sometimes be traded for less work.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Space Complexity
+- Complexity Analysis
+- Big-O Notation
+- Latency
 
 ## TTY
 
@@ -2851,6 +3103,23 @@ Project Documentation
 - Git
 - Repository
 
+## Worst Case
+
+**Definition**
+
+The possible cost of an operation under the most expensive arrangement of its input or state for an input of a particular size. Worst-case analysis is especially useful for an interactive editor because the maximum work an operation may perform can surface directly as user-visible latency.
+
+**First Introduced**
+
+Volume VI, Chapter 24
+
+**Related Terms**
+
+- Best Case
+- Average Case
+- Amortized Complexity
+- Time Complexity
+
 # Future Terms
 
 The following concepts are expected to be added as the manuscript develops:
@@ -2858,7 +3127,6 @@ The following concepts are expected to be added as the manuscript develops:
 - Language Server Protocol (LSP)
 - Tree-sitter
 - Syntax Highlighting
-- Cache Locality
 
 # Maintenance Rules
 
