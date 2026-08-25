@@ -5,7 +5,7 @@ volume: 6
 sections:
   - Introduction —> 00-introduction.md
   - 24.1 Why Complexity Matters —> 01-why-complexity-matters.md
-  - 24.2 What Does "Cost" Mean? —> 02-what-cost-mean.md
+  - 24.2 What Does "Cost" Mean? —> 02-what-does-cost-mean.md
   - 24.3 Measuring Input Size —> 03-measuring-input-size.md
   - 24.4 Big-O Notation —> 04-big-o-notation.md
   - 24.5 Best Case, Average Case, and Worst Case —> 05-best-average-worst-case.md
@@ -14,4 +14,4 @@ sections:
   - 24.8 Cache Locality —> 08-cache-locality.md
   - 24.9 Latency in an Interactive Editor —> 09-latency-in-interactive-editor.md
   - 24.10 Amortized Complexity —> 10-amortized-complexity.md
-  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md

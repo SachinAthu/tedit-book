@@ -78,15 +78,7 @@ Two `O(n)` algorithms can behave very differently because of constant factors, m
 
 The same logical operation can have very different costs under different representations. Complexity must be analyzed together with the data structure that implements the operation.
 
-## Preview of the Next Chapter
-
-End the chapter by creating the motivation for Chapter 25.
-
-The key conclusion:
-
-> **The data structure determines what operations are cheap and what operations are expensive.**
-
-## Preview of Chapter 25 — Arrays and Strings
+## Preview of the nexy chapter
 
 In the next chapter, we begin applying the complexity concepts from Chapter 24 to the simplest text representation: **arrays and strings**.
 

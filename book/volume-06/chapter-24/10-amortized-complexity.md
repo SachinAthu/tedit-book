@@ -20,7 +20,7 @@ Consider a dynamic array.
 
 Most of the time, adding an element may be straightforward:
 
-```text id="z7n3wy"
+```text
 [A][B][C][D]
              ↑
           new item
@@ -30,7 +30,7 @@ If the array still has unused capacity, the new element can be placed directly i
 
 But eventually the array becomes full:
 
-```text id="5plq5h"
+```text
 [A][B][C][D]
             full
 ```
@@ -50,7 +50,7 @@ That particular insertion can therefore be significantly more expensive than the
 
 Suppose the array starts with capacity for four elements:
 
-```text id="5p6f0q"
+```text
 Capacity: 4
 
 [A][B][C][D]
@@ -58,7 +58,7 @@ Capacity: 4
 
 Adding another element requires resizing:
 
-```text id="8m3jrr"
+```text
 Old storage
 
 [A][B][C][D]
@@ -86,7 +86,7 @@ Most insertions happen without resizing.
 
 A typical sequence might look like:
 
-```text id="aj5xqs"
+```text
 Insert → cheap
 Insert → cheap
 Insert → cheap
@@ -111,7 +111,7 @@ Suppose we perform many insertions into a dynamically growing array.
 
 Some individual operations may require a large amount of work:
 
-```text id="1k4m6b"
+```text
 Normal insertion
     → small cost
 
@@ -143,7 +143,7 @@ Instead, it analyzes a **sequence of operations** and distributes the cost of oc
 
 Conceptually:
 
-```text id="6xv9fz"
+```text
 Average-case analysis
     ↓
 Depends on expected inputs
@@ -165,7 +165,7 @@ Likewise, the character storage associated with a line may need to grow when tex
 
 A resizing operation may therefore occasionally require:
 
-```text id="1xv95a"
+```text
 Allocate larger storage
         ↓
 Copy existing elements
@@ -183,7 +183,7 @@ Imagine an array whose capacity grows when it becomes full.
 
 Suppose the capacities are:
 
-```text id="2z6cwh"
+```text
 4
 8
 16
@@ -198,22 +198,22 @@ The important observation is that the array does not resize after every insertio
 
 Instead:
 
-```text id="9cy0rt"
-4 insertions
+```text
+4 insertions fill the initial capacity
     ↓
-resize
+next insertion triggers a resize
 
-4 more insertions
+3 more insertions fit in the new capacity
     ↓
-resize
+next insertion triggers a resize
 
-8 more insertions
+7 more insertions fit in the new capacity
     ↓
-resize
+next insertion triggers a resize
 
-16 more insertions
+15 more insertions fit in the new capacity
     ↓
-resize
+next insertion triggers a resize
 ```
 
 As the capacity grows, each resize provides room for more future insertions.
@@ -224,7 +224,7 @@ The expensive copying work is therefore spread over an increasing number of oper
 
 Without amortized analysis, we might see a resize operation and focus only on its immediate cost:
 
-```text id="1t4dwy"
+```text
 Resize
   ↓
 copy many elements
@@ -234,7 +234,7 @@ expensive
 
 With amortized analysis, we consider the larger sequence:
 
-```text id="1g5d4c"
+```text
 Many cheap insertions
         +
 Occasional expensive resize
@@ -254,7 +254,7 @@ Amortized complexity does not make the operation cheaper.
 
 The distinction is:
 
-```text id="8yuj9n"
+```text
 Actual operation
     ↓
 May be expensive
@@ -276,7 +276,7 @@ That tells us that the total cost across many insertions is efficient.
 
 But occasionally:
 
-```text id="5v0qcf"
+```text
 User presses a key
         ↓
 Resize occurs
@@ -290,7 +290,7 @@ The user may still experience a temporary increase in latency.
 
 This is why we should keep both ideas in mind:
 
-```text id="h9q8g7"
+```text
 Amortized complexity
     ↓
 Overall efficiency of a sequence

@@ -6,7 +6,7 @@ For an interactive editor, this distinction matters because editing happens one 
 
 Consider a simple interaction:
 
-```text id="p6j3qd"
+```text
 User action
     │
     ▼
@@ -25,7 +25,7 @@ The user experiences the time between the action and the visible result as a del
 
 Suppose inserting a character requires only a small, bounded amount of work:
 
-```text id="f0b4kf"
+```text
 Key press
    │
    ▼
@@ -47,7 +47,7 @@ Consider an operation whose work grows with the length of a line.
 
 For a short line:
 
-```text id="4h6zv5"
+```text
 100 characters
       ↓
 small amount of work
@@ -57,7 +57,7 @@ little visible delay
 
 For a very long line:
 
-```text id="u6g4g1"
+```text
 1,000,000 characters
       ↓
 much more work
@@ -79,7 +79,7 @@ An editor does not perform one edit and stop.
 
 A user may type:
 
-```text id="w6qlm5"
+```text
 H
 e
 l
@@ -106,7 +106,7 @@ Latency describes the **observed delay** for a particular execution.
 
 For example:
 
-```text id="3y8h93"
+```text
 Algorithm
     ↓
 O(n)
@@ -134,7 +134,7 @@ If the answer is yes, we need to understand why.
 
 For example:
 
-```text id="70t0lq"
+```text
 Insert character
        │
        ▼
@@ -160,7 +160,7 @@ Different representations can make the same editing operation affect very differ
 
 For example:
 
-```text id="d5r8o4"
+```text
 Representation A
 Insert
    ↓
@@ -209,7 +209,7 @@ Operation cost
 Potential user-visible latency
 ```
 
-Understanding this relationship prepares us to study **amortized complexity**, where an individual operation can sometimes be expensive while the cost of a sequence of operations remains efficient overall.
+Yet this relationship describes a single operation. Because an editor repeats the same operations many times during a session, we also need to know how an operation's cost behaves across a sequence of repeated actions.
 
 ## Summary
 

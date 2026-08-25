@@ -60,7 +60,7 @@ Document
    └── Line N
 ```
 
-If the document contains `N` logical characters, we can use `N` as the input size for operations that potentially examine the entire document.
+If the document contains `C` logical characters, we can use `C` as the input size for operations that potentially examine the entire document.
 
 For example, an operation that scans every character in the document has a cost that grows with the total amount of text:
 
@@ -74,9 +74,9 @@ Large document
 More text to scan
 ```
 
-We might describe such an operation as `O(N)` when `N` represents the total number of characters.
+We might describe such an operation as `O(C)` when `C` represents the total number of characters.
 
-However, this does not mean that every editor operation should use total document size as its `N`.
+However, this does not mean that every editor operation should use total document size as its `C`.
 
 ## Line Length
 
