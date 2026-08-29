@@ -4,6 +4,14 @@ volume: 6
 
 sections:
   - Introduction —> 00-introduction.md
-  - 25.1  —> 01-.md
-
+  - 25.1 Why Arrays Matter to a Text Editor —> 01-why-arrays-matter.md
+  - 25.2 Contiguous Memory and Indexing —> 02-contiguous-memory-indexing.md
+  - 25.3 Fixed-Size Arrays —> 03-fixed-size-arrays.md
+  - 25.4 Dynamic Arrays —> 04-dynamic-arrays.md
+  - 25.5 Growing a Dynamic Array —> 05-growing-dynamic-array.md
+  - 25.6 Array Insertion —> 06-array-insertion.md
+  - 25.7 Array Deletion —> 07-array-deletion.md
+  - 25.8 Strings as Arrays of Characters —> 08-strings-as-array-of-characters.md
+  - 25.9 Building a Dynamic String —> 09-building-a-dynamic-string.md
+  - 25.10 Design Alternatives and Trade-offs —> 10-design-alternatives-trade-offs.md
   - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md
