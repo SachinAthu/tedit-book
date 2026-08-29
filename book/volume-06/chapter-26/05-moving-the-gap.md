@@ -63,7 +63,7 @@ abc[____]def
 To move the gap right, that character is copied into the beginning of the gap:
 
 ```text
-abc d[___]ef
+abcd[____]ef
     ^
 ```
 
@@ -76,7 +76,7 @@ abc[____]def
 
 Move gap right:
 
-abc d[___]ef
+abcd[____]ef
 ```
 
 The gap has moved one position to the right.
@@ -129,19 +129,19 @@ The characters cross the gap one at a time:
 abc[____]defgh
     ↓
 
-abcd[___]efgh
+abcd[____]efgh
     ↓
 
-abcde[__]fgh
+abcde[____]fgh
     ↓
 
-abcdef[_]gh
+abcdef[____]gh
 ```
 
 The logical document never changes:
 
 ```text
-abcdef gh
+abcdefgh
 ```
 
 Only the location of the gap changes.
@@ -165,7 +165,7 @@ A small cursor movement can be inexpensive:
 ```text
 abc[____]def
     ↓
-abcd[___]ef
+abcd[____]ef
 ```
 
 A large jump can be much more expensive:
@@ -246,8 +246,6 @@ When the cursor moves, the workspace moves with it.
 When the user edits, the workspace is consumed or expanded.
 
 This is the central mechanism that makes the gap buffer different from an ordinary contiguous array.
-
-The next section will use this mechanism to examine the operation the gap buffer is specifically designed to optimize: **insertion**.
 
 ## Summary
 

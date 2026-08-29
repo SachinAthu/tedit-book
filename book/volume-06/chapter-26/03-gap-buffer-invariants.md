@@ -34,15 +34,15 @@ These ranges represent:
 
 ## The Gap Boundaries
 
-Suppose the buffer has a capacity of 16:
+Suppose the buffer has a capacity of 14 and the document is `HelloWorld`:
 
 ```text
 Index:
 
- 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
-+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-| H | e | l | l | o |   |   |   |   | W | o | r | l | d |   |   |
-+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 0 1 2 3 4 5 6 7 8 9 10 11 12 13
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+| H | e | l | l | o |   |   |   |   | W | o | r | l | d |
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+
                   ↑                       ↑
               gap_start                gap_end
 ```
@@ -52,7 +52,7 @@ Here:
 ```text
 gap_start = 5
 gap_end   = 9
-capacity  = 16
+capacity  = 14
 ```
 
 The gap occupies indexes:
@@ -77,26 +77,22 @@ gap_size = 9 - 5
 The number of characters before the gap is:
 
 ```text
-gap_start
+gap_start = 5
 ```
 
 The number of characters after the gap is:
 
 ```text
-capacity - gap_end
+capacity - gap_end = 14 - 9
+                  = 5
 ```
 
 Therefore, the logical document length is:
 
 ```text
 logical_length = gap_start + (capacity - gap_end)
-```
-
-For this example:
-
-```text
-logical_length = 5 + (16 - 9)
-               = 12
+               = 5 + 5
+               = 10
 ```
 
 The four unused positions are not part of the logical document.

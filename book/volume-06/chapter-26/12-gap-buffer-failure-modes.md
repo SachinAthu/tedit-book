@@ -82,7 +82,7 @@ abc[____]def
 The correct result of moving the gap right is:
 
 ```text
-abcd[___]ef
+abcd[____]ef
 ```
 
 An incorrect copy direction can overwrite characters before they have been moved.

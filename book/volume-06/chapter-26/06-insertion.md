@@ -270,10 +270,8 @@ No shifting of following text
 
 This is the fundamental optimization provided by the gap buffer.
 
-The next section examines the corresponding deletion operation and why deleting near the gap can also avoid moving the remaining text.
-
 ## Summary
 
-Insertion writes a character into the gap and advances `gap_start`, leaving the text after the canvas in place. Consecutive insertions at the same position each consume one gap position, so sequence of nearby characters is cheap. Once the gap is exhausted, the buffer must grow, an operation that can cost `O(n)`.
+Insertion writes a character into the gap and advances `gap_start`, leaving the text after the gap in place. Consecutive insertions at the same position each consume one gap position, so a sequence of nearby characters is cheap. Once the gap is exhausted, the buffer must grow, an operation that can cost `O(n)`.
 
 In the next section, we will examine the corresponding deletion operation and why deleting near the gap can also avoid moving the remaining text.

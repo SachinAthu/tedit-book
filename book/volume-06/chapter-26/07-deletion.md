@@ -295,10 +295,8 @@ Shift all following characters
 O(n)
 ```
 
-The next section examines what happens when repeated insertions consume the available gap and the buffer must create more space.
-
 ## Summary
 
-Deletion enlarges the gap instead of shifting the remaining text. Backspace removes the character before the cursor and advances `gap_start` backward, while Delete removes the character after the cursor and advances `gap_end` forward. When the gap is already at the editing position, both operations are `O(1)`.
+Deletion enlarges the gap instead of shifting the remaining text. Backspace removes the character before the cursor and moves `gap_start` backward, while Delete removes the character after the cursor and moves `gap_end` forward. When the gap is already at the editing position, both operations are `O(1)`.
 
 In the next section, we will examine what happens when repeated insertions consume the available gap and the buffer must create more space.

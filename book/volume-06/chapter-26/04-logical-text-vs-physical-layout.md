@@ -96,8 +96,8 @@ For example:
 ```text
 Physical array:
 
-Index:   0 1 2 3 4 5 6 7 8 9 10 11
-         H e l l o _ _ _ W o  r  l
+Index:   0 1 2 3 4 5 6 7 8 9 10 11 12 13
+         H e l l o _ _ _ _ W o  r  l  d
 ```
 
 The logical character `W` appears immediately after `Hello`, but physically it occurs after the gap.
@@ -186,8 +186,6 @@ Physical storage
 The gap sits exactly between the two logical portions.
 
 This relationship is what allows the data structure to make insertion and deletion near the cursor efficient.
-
-The next section examines the operation that maintains this relationship when the cursor moves: **moving the gap itself**.
 
 ## Summary
 

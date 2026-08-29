@@ -202,6 +202,8 @@ Trade-off: The vector of lines does not eliminate the fundamental cost of editin
 
 First referenced: Chapter 13
 
+Note: The gap buffer alternative is studied in detail in Chapter 26, which examines its layout, invariants, operations, growth, and trade-offs. Chapter 26 Section 9 confirms that adopting a gap buffer would not require redesigning the Document abstraction — the representation is an implementation detail behind the Document's interface.
+
 ---
 
 # ADR-014

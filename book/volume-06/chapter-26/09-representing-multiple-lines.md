@@ -141,13 +141,14 @@ Hello
 World
 ```
 
-With a per-line representation, the operation naturally becomes:
+With a per-line representation, the operation naturally becomes one line's gap buffer being split into two lines, each with its own gap buffer:
 
 ```text
-One Gap Buffer
-      │
-      ▼
-Split into two buffers
+One line with one gap buffer
+            │
+            ▼
+Split into two lines,
+each with its own gap buffer
 
 Hello[...]
 World[...]

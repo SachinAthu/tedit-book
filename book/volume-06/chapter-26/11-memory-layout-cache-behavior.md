@@ -1,8 +1,8 @@
-# 26.11 — Memory Layout and Cache Behavior
+# 26.11 Memory Layout and Cache Behavior
 
 A gap buffer remains an array-based data structure, so its elements are stored in a contiguous region of memory. This gives it an important performance characteristic: **good spatial locality** for many operations.
 
-Chapter 25 introduced cache locality as a general property of contiguous data structures. Here, we can apply that idea directly to the gap buffer.
+Chapter 24 introduced cache locality as a general property of contiguous data structures, and Chapter 25 applied it to arrays. Here, we can apply that idea directly to the gap buffer.
 
 ## Contiguous Storage
 
@@ -67,7 +67,7 @@ and the gap moves to the right.
 Characters must be copied across the gap:
 
 ```text
-abc d[___]efgh
+abcd[____]efgh
 ```
 
 Repeated movement therefore performs memory reads and writes over the affected region.
@@ -209,8 +209,6 @@ the data structure may have to move a much larger region.
 Thus the memory behavior reinforces the workload conclusion from the previous section:
 
 > A gap buffer benefits from localized editing, while large movements can generate significant memory traffic.
-
-The next section will examine what can go wrong when maintaining this physical layout, focusing on the **correctness invariants and common implementation failure modes**.
 
 ## Summary
 

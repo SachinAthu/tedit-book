@@ -1030,6 +1030,23 @@ Volume VI, Chapter 25
 
 # E
 
+## Editing Locality
+
+**Definition**
+
+The property of interactive text editing that users tend to perform many consecutive edits near the current cursor position before moving elsewhere. The gap buffer is designed around editing locality: while editing remains local, the gap stays positioned at the cursor and operations stay cheap, but large cursor movements force the gap to relocate, paying a cost proportional to the distance traveled. Editing locality is temporal locality applied to document positions rather than memory addresses.
+
+**First Introduced**
+
+Volume VI, Chapter 26
+
+**Related Terms**
+
+- Temporal Locality
+- Spatial Locality
+- Gap Buffer
+- Cursor
+
 ## Escape Character (ESC)
 
 **Definition**
@@ -1359,6 +1376,27 @@ Volume II, Chapter 7
 
 # G
 
+## Gap
+
+**Definition**
+
+The unused region reserved inside a gap buffer's underlying array at the current editing position. The gap is storage, not document text: it is invisible to the logical document, and characters before and after it form the logical text. Insertion consumes the gap, deletion enlarges it, and moving the gap relocates it without changing the document. The gap exists to absorb repeated local edits so that the characters that follow the cursor do not have to shift.
+
+**First Introduced**
+
+Volume VI, Chapter 26
+
+**Related Terms**
+
+- Gap Buffer
+- Gap Buffer Invariant
+- Logical Position
+- Physical Position
+
+**Notes**
+
+Conceptual overview: Volume III, Chapter 13. Detailed treatment: Volume VI, Chapter 26.
+
 ## Gap Buffer
 
 **Definition**
@@ -1371,6 +1409,10 @@ Volume III, Chapter 13
 
 **Related Terms**
 
+- Gap
+- Gap Buffer Invariant
+- Logical Position
+- Physical Position
 - Vector of Lines
 - Piece Table
 - Rope
@@ -1379,6 +1421,25 @@ Volume III, Chapter 13
 **Notes**
 
 Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 26.
+
+## Gap Buffer Invariant
+
+**Definition**
+
+The rule that a valid gap buffer must always satisfy: `0 ≤ gap_start ≤ gap_end ≤ capacity`. Every position before `gap_start` contains document data, every position from `gap_start` up to `gap_end` is unused, and every position from `gap_end` to `capacity` contains document data. Insertion, deletion, gap movement, and resizing must each leave the buffer satisfying this invariant.
+
+**First Introduced**
+
+Volume VI, Chapter 26
+
+**Related Terms**
+
+- Gap
+- Gap Buffer
+- Capacity
+- Logical Position
+- Physical Position
+- Contiguous Storage
 
 ## Game Loop
 
@@ -1901,6 +1962,24 @@ Volume III, Chapter 14
 - Screen Column
 - Code Point
 - Cursor
+- Logical Position
+
+## Logical Position
+
+**Definition**
+
+A position within the document as the user understands it, where characters form one continuous sequence. In a gap buffer, the logical position differs from the physical position whenever the gap has any size, because the unused region splits the document's characters across both sides of the array. Renderers and document operations must treat the logical sequence as the document while the buffer manages the physical layout.
+
+**First Introduced**
+
+Volume VI, Chapter 26
+
+**Related Terms**
+
+- Physical Position
+- Gap Buffer
+- Gap
+- Logical Column
 
 ## Lookahead
 
@@ -2143,6 +2222,23 @@ Volume II, Chapter 10
 - Header File
 - Source File
 - Build System
+
+## Physical Position
+
+**Definition**
+
+An index within the underlying array where a character is actually stored, as opposed to its position in the logical document. In a gap buffer the two coordinate systems differ because the unused gap shifts the physical index of every character after the gap by the size of the gap. A gap buffer must translate between logical and physical positions whenever it reads, writes, or interprets document data.
+
+**First Introduced**
+
+Volume VI, Chapter 26
+
+**Related Terms**
+
+- Logical Position
+- Gap Buffer
+- Gap
+- Contiguous Storage
 
 ## Piece Table
 
@@ -2943,6 +3039,7 @@ Volume VI, Chapter 24
 
 - Spatial Locality
 - Cache Locality
+- Editing Locality
 
 ## Temporary File
 

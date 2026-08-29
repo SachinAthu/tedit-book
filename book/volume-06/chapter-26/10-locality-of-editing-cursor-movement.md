@@ -224,8 +224,6 @@ The **workload** matters.
 
 A gap buffer can provide excellent performance for one pattern of editing and less favorable performance for another, even when both workloads contain the same number of insertions and deletions.
 
-The next section applies the memory and cache concepts from Chapter 25 specifically to the physical layout of a gap buffer.
-
 ## Summary
 
 The gap buffer's advantage depends on the editing workload. Users typically edit in local bursts, so once the gap is positioned at the cursor, many consecutive insertions and deletions reuse the same unused space with `O(1)` cost. After a large cursor movement, the gap must relocate, paying a movement cost proportional to the distance traveled. Editing locality therefore determines whether the buffer performs well.
