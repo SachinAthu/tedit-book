@@ -777,7 +777,7 @@ Piece tables become much more interesting when an editor needs to support:
 
 These are precisely the kinds of problems we will encounter when the book moves into more advanced data structures.
 
-The project roadmap deliberately places the detailed **Piece Table** discussion in Volume VI, Chapter 28, after the reader has studied arrays, strings, complexity, and the gap buffer.
+The project roadmap deliberately places the detailed **Piece Table** discussion in Volume VI, Chapter 27, after the reader has studied arrays, strings, complexity, and the gap buffer.
 
 That separation is intentional.
 

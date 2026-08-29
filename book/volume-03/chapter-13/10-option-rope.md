@@ -20,7 +20,7 @@ The central idea is:
 
 This becomes particularly useful when documents are large and editing operations need to remain efficient even when changes occur throughout the document.
 
-The project outline intentionally introduces Rope here as the fifth representation in Chapter 13, while the detailed treatment of balancing and performance is reserved for Volume VI, Chapter 29.
+The project outline intentionally introduces Rope here as the fifth representation in Chapter 13, while the detailed treatment of balancing and performance is reserved for Volume VI, Chapter 28.
 
 ## The Basic Idea
 
@@ -741,7 +741,7 @@ A rope would make the Document considerably more complicated without providing a
 
 Therefore, just like the piece table and gap buffer, the rope is something we should **understand before deciding against it**, rather than something we need to implement immediately.
 
-The detailed implementation, balancing strategies, and performance characteristics of ropes belong in Volume VI, Chapter 29.
+The detailed implementation, balancing strategies, and performance characteristics of ropes belong in Volume VI, Chapter 28.
 
 ## Summary
 

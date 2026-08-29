@@ -162,7 +162,7 @@ The gap can therefore make repeated edits near the same position very efficient.
 
 The trade-off is additional complexity. The gap must be moved when the cursor moves far away, and the buffer may need to be resized when the available gap becomes too small.
 
-We will study gap buffers in much greater detail in **Chapter 27**.
+We will study gap buffers in much greater detail in **Chapter 26**.
 
 ## A Piece Table
 
@@ -197,7 +197,7 @@ However, a piece table is considerably more complicated than a simple vector of 
 
 It is therefore not a data structure we want to introduce merely because it is powerful. We first need to understand the requirements and trade-offs that justify its complexity.
 
-We will examine piece tables in detail in **Chapter 28**.
+We will examine piece tables in detail in **Chapter 27**.
 
 ## Rope
 
@@ -221,7 +221,7 @@ However, the benefits come with additional complexity.
 
 The editor must maintain the tree structure, and operations such as insertion, deletion, balancing, and position lookup become more sophisticated.
 
-Ropes will be discussed in greater depth in **Chapter 29**.
+Ropes will be discussed in greater depth in **Chapter 28**.
 
 ## Comparing the Five Approaches
 

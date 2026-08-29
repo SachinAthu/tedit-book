@@ -12,7 +12,7 @@ The project's architecture deliberately chose a vector of independently stored l
 
 A fixed array provides the simplest representation:
 
-```text id="5g5y0k"
+```text
 [A][B][C][D][E][F][G][H]
 ```
 
@@ -37,7 +37,7 @@ A fixed array is therefore useful when the size is known or tightly constrained,
 
 A dynamic array keeps the same contiguous representation while allowing its capacity to grow:
 
-```text id="w85kkl"
+```text
 [A][B][C][D][ ][ ][ ][ ]
 ```
 
@@ -67,7 +67,7 @@ A linked list takes a very different approach.
 
 Instead of storing elements next to one another, each element is associated with a link to another element:
 
-```text id="t7y8n6"
+```text
 [A] → [B] → [C] → [D] → [E]
 ```
 
@@ -98,7 +98,7 @@ A Gap Buffer keeps text in a contiguous array but deliberately maintains an unus
 
 Conceptually:
 
-```text id="7dz1gs"
+```text
 [A][B][C][D][ ][ ][ ][ ][E][F][G][H]
              <---- gap ---->
 ```
@@ -132,7 +132,7 @@ Instead of repeatedly modifying one contiguous copy of the entire document, it r
 
 Conceptually:
 
-```text id="1h8m6a"
+```text
 Original text
       │
       ├── piece ──► original storage
@@ -170,7 +170,7 @@ Instead of representing the entire sequence as one contiguous array, a Rope orga
 
 Conceptually:
 
-```text id="g4s47a"
+```text
              Document
              /      \
          Text A    Text B
@@ -195,7 +195,7 @@ The text is divided into manageable pieces rather than requiring one large conti
 
 A Rope becomes more attractive as document size and editing workload increase, particularly when the limitations of contiguous storage become significant.
 
-Its balancing and performance characteristics will be examined later in the book.
+Its balancing and performance characteristics will be examined in **Chapter 28**.
 
 ## Comparing the Alternatives
 
@@ -218,7 +218,7 @@ The important lesson is that there is **no universally best text representation*
 
 Our editor currently favors the simplest representation:
 
-```text id="t4i1yq"
+```text
 Document
    │
    ▼
@@ -234,7 +234,7 @@ The project's requirements prioritize simplicity, readability, and educational v
 
 The trade-off is that the underlying character sequences still have the costs we have studied:
 
-```text id="t9e9w3"
+```text
 Simple representation
         │
         ├── Easy to understand
@@ -262,7 +262,7 @@ A Rope does not automatically make every other representation obsolete.
 
 Each structure changes the balance between:
 
-```text id="s3f7w1"
+```text
 simplicity
      ↕
 access

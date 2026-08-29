@@ -16,7 +16,7 @@ The desired result is:
 [A][B][X][C][D][E]
 ```
 
-The problem is that `C`, `D`, and `E` already occupy the positions where they need to remain after the insertion.
+The problem is that the positions where `C`, `D`, and `E` must end up—indexes `3`, `4`, and `5`—are already occupied, so those elements cannot stay where they are.
 
 The existing elements must therefore move.
 
@@ -102,20 +102,23 @@ Before:
        ↑   ↑   ↑
        C   D   E
 
-
-After shifting:
+Step 1: copy E → index 5
 
 [A][B][C][D][E][E]
-       ↑   ↑   ↑
-       C   D   E
+              ↑
+        copied E
 
-then:
+Step 2: copy D → index 4
 
 [A][B][C][D][D][E]
+          ↑
+    copied D
 
-then:
+Step 3: copy C → index 3
 
 [A][B][C][C][D][E]
+       ↑
+ copied C
 ```
 
 Finally:

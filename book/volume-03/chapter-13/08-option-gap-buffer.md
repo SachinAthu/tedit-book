@@ -509,7 +509,7 @@ Quite the opposite.
 
 Understanding the gap buffer helps us see **why more sophisticated text editors need specialized data structures**.
 
-We will return to gap buffers in much greater depth in **Chapter 27**, where we will study their implementation, performance characteristics, and trade-offs in detail.
+We will return to gap buffers in much greater depth in **Chapter 26**, where we will study their implementation, performance characteristics, and trade-offs in detail.
 
 ## Engineering Insight
 

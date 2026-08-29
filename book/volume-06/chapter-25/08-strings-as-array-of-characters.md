@@ -159,7 +159,7 @@ That distinction is especially important for our editor.
 
 The editor's Document does **not** use raw C strings as its fundamental text representation.
 
-The encoding strategy established earlier stores decoded Unicode code points in the Document, organized line by line. UTF-8 is handled when data crosses the file boundary during loading and saving.
+The encoding strategy established earlier—recorded as **ADR-021: Text Encoding Strategy**—stores decoded Unicode code points in the Document, organized line by line. UTF-8 is handled when data crosses the file boundary during loading and saving.
 
 Conceptually:
 

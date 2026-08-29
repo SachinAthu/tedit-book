@@ -77,7 +77,7 @@ When inserting into an array, elements move **right** to make room:
 [A][B][ ][C][D][E]
 ```
 
-When deleting an element, elements move **left** to close the gap:
+When deleting an element, elements move **left** to close the gap. Suppose the element that was at index 2 has already been removed:
 
 ```text
 [A][B][ ][C][D][E]
@@ -86,7 +86,7 @@ When deleting an element, elements move **left** to close the gap:
 [A][B][C][D][E]
 ```
 
-For deletion, processing the elements from left to right is natural because each element is moved into the position immediately before it:
+For deletion, processing the elements from left to right is natural because each element is moved into the position immediately before it. Here `C`, `D`, and `E` each move left by one position:
 
 ```text
 C → index 2

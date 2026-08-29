@@ -82,9 +82,9 @@ This predictable layout is the foundation of direct array access.
 
 ## Why Contiguity Matters
 
-Suppose the editor needs the character at column 500 of a line.
+Suppose the editor needs the code point at column 500 of a line.
 
-With an array, the character's location can be calculated directly from the beginning of the character sequence and its index.
+With an array, the code point's location can be calculated directly from the beginning of the character sequence and its index.
 
 ```text
 Line

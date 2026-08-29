@@ -14,7 +14,7 @@ A **dynamic array** keeps the contiguous representation and adds `data`, `length
 
 We then traced the two operations that dominate editing. **Insertion** shifts elements to the right, moving from the end toward the insertion point so no element is overwritten before it has been moved, and only then places the new character. **Deletion** shifts the following elements to the left to close the gap and decreases the length, without necessarily shrinking the capacity. Both costs depend on position: editing near the beginning of a long line can require moving almost the entire sequence.
 
-Applied to text, a **C string** is a contiguous sequence of bytes terminated by a null byte; finding its end means scanning rather than consulting a stored length. The editor's Document deliberately does not use C strings: it stores decoded Unicode code points, line by line, with UTF-8 handled only at the file boundary. A **dynamic string** captures the growable pattern with three fields—`data`, `length`, and `capacity`—separating the logical size of the text from the physical memory allocated to store it.
+Applied to text, a **C string** is a contiguous sequence of bytes terminated by a null byte; finding its end means scanning rather than consulting a stored length. The editor's Document deliberately does not use C strings: per **ADR-021: Text Encoding Strategy**, it stores decoded Unicode code points, line by line, with UTF-8 handled only at the file boundary. A **dynamic string** captures the growable pattern with three fields—`data`, `length`, and `capacity`—separating the logical size of the text from the physical memory allocated to store it.
 
 Finally, we placed this representation in context. A dynamic array is not the only way to store editable text. We compared fixed arrays, dynamic arrays, linked lists, Gap Buffers, Piece Tables, and Ropes, each balancing simplicity, indexed access, modification cost, memory usage, and complexity. There is no universally best representation; the appropriate choice depends on the workload.
 
@@ -58,7 +58,7 @@ The most important takeaway:
 
 ### Thought Experiments
 
-1. A document contains a single line of one million characters stored in a contiguous array. The cursor is near the beginning, and the user inserts a character. Roughly how much work is performed, and what does that imply about latency for that key press?
+1. Using the insertion procedure from Section 25.6, consider a line of one million characters stored in a contiguous array. The user inserts a character at the cursor near the beginning of the line. How many elements move, and why is the operation effectively `O(n)`? What does that imply about latency for that key press?
 2. When would a fixed-size array be the right choice even though it cannot grow? Give an example from the editor where the amount of storage is known in advance.
 3. A dynamic string has `length = 10` and `capacity = 16`. How many more characters can be appended before a resize is required, and what happens on the resize if the array grows by doubling?
 4. What invariant is violated if `length` is allowed to exceed `capacity`? What kinds of bugs would that produce, and how would you detect them in a debug build?

@@ -126,7 +126,7 @@ Old storage
 
 New storage
 
-[A][B][C][D][E][F][G][H][ ][ ][ ][ ]
+[A][B][C][D][E][F][G][H][ ][ ][ ][ ][ ][ ][ ][ ]
 ```
 
 The existing elements must be copied into the new allocation.
@@ -135,13 +135,13 @@ Afterward:
 
 ```text
 length   = 8
-capacity = 12
+capacity = 16
 ```
 
 The new element can then be added:
 
 ```text
-[A][B][C][D][E][F][G][H][I][ ][ ][ ]
+[A][B][C][D][E][F][G][H][I][ ][ ][ ][ ][ ][ ][ ]
 ```
 
 The exact growth factor is a design choice. What matters at this stage is the mechanism:

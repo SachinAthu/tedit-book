@@ -140,6 +140,26 @@ Volume II, Chapter 8
 - Architecture (Software Architecture)
 - Constraint
 
+## Array
+
+**Definition**
+
+A data structure that stores a collection of elements in a defined order, where each element can be accessed by its position, or index. The elements occupy a contiguous region of memory, so the address of an indexed element can be calculated directly from the base address, making indexed access fast and predictable. For a text editor, a line maps naturally onto an array of characters; array-based storage is simple and provides efficient reading, but inserting or deleting elements in the middle requires moving the elements that follow to preserve the contiguous sequence.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Contiguous Storage
+- Fixed-Size Array
+- Dynamic Array
+- Length
+- Capacity
+- Vector of Lines
+- Text Buffer
+
 ## ASCII
 
 **Definition**
@@ -308,6 +328,46 @@ Volume VI, Chapter 24
 - Main Memory (RAM)
 - Complexity Analysis
 
+## Capacity
+
+**Definition**
+
+The total number of elements that an array's allocated storage can hold, as opposed to the length, which is the number of elements currently in use. Unused capacity remains part of the allocation but not part of the sequence, letting a dynamic array accept future insertions without immediately allocating new storage. Distinguishing length from capacity is central to dynamic arrays and dynamic strings.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Length
+- Fixed-Size Array
+- Dynamic Array
+- Dynamic String
+- Resizing
+- Array
+
+**Notes**
+
+A C string complicates the accounting: the allocated storage must also accommodate its null terminator, which belongs to the representation rather than to the logical text length.
+
+## Contiguous Storage
+
+**Definition**
+
+A memory layout in which the elements of a sequence occupy one continuous region of memory, each element following the previous one at a predictable distance. Contiguity is what makes array indexing direct — the address of an element follows from its base address and index — and it also makes array insertion and deletion costly, because elements must move to keep the sequence continuous. A dynamic array changes the size of its storage but preserves contiguity within each allocation.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Array
+- Main Memory (RAM)
+- Cache Locality
+- Dynamic Array
+
 ## Complexity Analysis
 
 **Definition**
@@ -455,6 +515,25 @@ Volume I, Chapter 6
 **Related Terms**
 
 - Unicode
+- UTF-8
+- Character Encoding
+
+## C String
+
+**Definition**
+
+In C, a sequence of characters (bytes) stored in a contiguous array and terminated by a null byte (`'\0'`). The null byte marks the end of the string, so C functions such as `strlen()` determine its length by scanning rather than by reading a stored length. Because a C `char` represents a byte, a C string is fundamentally a byte sequence: for simple ASCII text it looks like a sequence of characters, but multi-byte encodings such as UTF-8 break that equivalence. The editor's Document instead stores decoded Unicode code points and does not use C strings as its fundamental text representation.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Null Terminator
+- Dynamic String
+- Array
+- Code Point
 - UTF-8
 - Character Encoding
 
@@ -909,6 +988,46 @@ Volume I, Chapter 5
 - Raw Mode
 - termios
 
+## Dynamic Array
+
+**Definition**
+
+An array whose capacity can change at runtime. It maintains a reference to its contiguous storage together with an explicit length and capacity; when an insertion requires more space than the current capacity, it grows by allocating a larger region, copying the existing elements into it, and releasing the old storage. Growing by a substantial factor (such as doubling) keeps resizes rare, so the amortized cost of appending stays low. Resizing does not change the fundamentals of the representation: the elements remain contiguous within each allocation.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Array
+- Fixed-Size Array
+- Capacity
+- Length
+- Resizing
+- Amortized Complexity
+- Vector of Lines
+
+## Dynamic String
+
+**Definition**
+
+A growable sequence of characters built from the dynamic-array model. It stores three pieces of information: `data`, a pointer to contiguous character storage; `length`, the number of characters currently in the string; and `capacity`, the amount of storage available. Unlike a C string, it knows its length explicitly rather than scanning for a null terminator, and its allocation can grow as characters are added. The same pattern of pointer, logical size, and allocated capacity describes many growable collections in systems programming.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- C String
+- Null Terminator
+- Dynamic Array
+- Length
+- Capacity
+- Array
+- Vector of Lines
+
 # E
 
 ## Escape Character (ESC)
@@ -1146,6 +1265,24 @@ Volume V, Chapter 21
 - File Descriptor
 - errno
 
+## Fixed-Size Array
+
+**Definition**
+
+An array whose capacity is determined when its storage is created and cannot change for the lifetime of the array. A fixed-size array is simple to understand, allocate, and index, predictable in memory usage, and efficient when the required size is known in advance. It cannot, however, represent text that grows while the user types, so editable document lines require the variable capacity of a dynamic array; fixed sizes remain appropriate for bounded data such as the editor's screen dimensions.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Array
+- Dynamic Array
+- Capacity
+- Length
+- Contiguous Storage
+
 ## Frame
 
 **Definition**
@@ -1241,7 +1378,7 @@ Volume III, Chapter 13
 
 **Notes**
 
-Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 27.
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 26.
 
 ## Game Loop
 
@@ -1641,6 +1778,25 @@ Volume II, Chapter 8
 - Low Coupling
 - Module
 
+## Length
+
+**Definition**
+
+The number of elements currently belonging to a sequence, as opposed to the capacity, which is the amount of storage available. In a dynamic array or dynamic string with unused capacity, the length is smaller than the capacity, and operations such as appending change the length without changing the allocation. A C string, by contrast, does not store its length and must find it by scanning for the null terminator.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- Capacity
+- Fixed-Size Array
+- Dynamic Array
+- Dynamic String
+- C String
+- Null Terminator
+
 ## Linker
 
 **Definition**
@@ -1915,6 +2071,23 @@ Volume II, Chapter 7
 - Software Requirements Specification (SRS)
 - Constraint
 
+## Null Terminator
+
+**Definition**
+
+The zero-valued byte `'\0'` that marks the end of a C string in memory. Because a C string does not store its length, C functions determine where the string ends by scanning until they encounter the terminator. The terminator is part of the storage representation — it consumes a byte of the allocation — rather than part of the logical text, and it is distinct from the character `'0'`. A dynamic string that tracks its length explicitly does not need to scan for a terminator.
+
+**First Introduced**
+
+Volume VI, Chapter 25
+
+**Related Terms**
+
+- C String
+- Length
+- Dynamic String
+- UTF-8
+
 # O
 
 ## Object File
@@ -1990,7 +2163,7 @@ Volume III, Chapter 13
 
 **Notes**
 
-Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 27.
 
 ## Preferred Column
 
@@ -2144,7 +2317,7 @@ Volume III, Chapter 13
 
 **Notes**
 
-Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 29.
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
 
 ## Raw Mode
 
