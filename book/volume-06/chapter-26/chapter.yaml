@@ -1,0 +1,19 @@
+chapter: 26
+title: Gap Buffer
+volume: 6
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 26.1 Why a Gap Buffer? —> 01-why-gap-buffer.md
+  - 26.2 The Basic Idea —> 02-basic-idea.md
+  - 26.3 Gap Buffer Invariants —> 03-gap-buffer-invariants.md
+  - 26.4 Logical Text vs Physical Layout —> 04-logical-text-vs-physical-layout.md
+  - 26.5 Moving the Gap —> 05-moving-the-gap.md
+  - 26.6 Insertion —> 06-insertion.md
+  - 26.7 Deletion —> 07-deletion.md
+  - 26.8 Growing the Gap —> 08-growing-the-gap.md
+  - 26.9 Representing Multiple Lines —> 09-representing-multiple-lines.md
+  - 26.10 Locality of Editing and Cursor Movement —> 10-locality-of-editing-cursor-movement.md
+  - 26.11 Memory Layout and Cache Behavior —> 11-memory-layout-cache-behavior.md
+  - 26.12 Gap Buffer Failure Modes —> 12-gap-buffer-failure-modes.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md
