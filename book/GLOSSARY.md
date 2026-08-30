@@ -42,6 +42,23 @@ Volume X, Chapter Y
 
 # A
 
+## Add Buffer
+
+**Definition**
+
+The buffer in a Piece Table that stores text introduced during editing. Newly inserted text is appended to the Add Buffer, which therefore only grows; existing contents are never modified or removed. Because the Add Buffer is append-only, text that is later deleted from the logical document can remain stored in the buffer, and its physical size is not a reliable indicator of the current document's length.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Original Buffer
+- Piece Descriptor
+- Logical Document
+
 ## Alternate Screen Buffer
 
 **Definition**
@@ -1964,6 +1981,25 @@ Volume III, Chapter 14
 - Cursor
 - Logical Position
 
+## Logical Document
+
+**Definition**
+
+The current document text as assembled from a Piece Table's pieces. The logical document is obtained by traversing the ordered piece sequence in order and reading the referenced ranges from the Original Buffer and Add Buffer; it does not need to occupy one contiguous region of memory. Because editing changes the piece description rather than the stored characters, the logical document can change while the underlying buffers remain stable.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Piece Descriptor
+- Piece Sequence
+- Original Buffer
+- Add Buffer
+- Logical Position
+
 ## Logical Position
 
 **Definition**
@@ -2186,6 +2222,23 @@ Volume II, Chapter 10
 - Source File
 - Incremental Build
 
+## Original Buffer
+
+**Definition**
+
+The buffer in a Piece Table that holds the document's initial contents, exactly as they were when the file was loaded. During normal editing the Original Buffer is never modified: pieces reference ranges of it, and new text is placed in the Add Buffer instead. This immutability makes the Original Buffer a stable source of text whose positions can be referenced by pieces for the lifetime of the document.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Add Buffer
+- Piece Descriptor
+- Logical Document
+
 # P
 
 ## Off-Screen Rendering
@@ -2240,6 +2293,59 @@ Volume VI, Chapter 26
 - Gap
 - Contiguous Storage
 
+## Piece Descriptor
+
+**Definition**
+
+A small piece of metadata in a Piece Table that identifies a contiguous range of text inside one of the underlying buffers. A descriptor records the `source` (which buffer contains the text), the `offset` (where the range begins in that buffer), and the `length` (how many characters the range covers). A piece descriptor references text rather than containing it, so editing changes which ranges are included and how they are ordered without rewriting the stored characters.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Piece Sequence
+- Original Buffer
+- Add Buffer
+- Logical Document
+
+## Piece Fragmentation
+
+**Definition**
+
+The structural growth of a Piece Table in which repeated edits divide larger pieces into many smaller ones, increasing the number of piece descriptors needed to describe the current document. Fragmentation is a growth in the *description* of the document, not in the buffers themselves: the stored text remains contiguous while the piece sequence becomes more fragmented. Because position lookup and traversal operate on pieces, a fragmented Piece Table pays increasing metadata and traversal costs over a long editing session.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Piece Descriptor
+- Piece Sequence
+- Logical Document
+
+## Piece Sequence
+
+**Definition**
+
+The ordered list of piece descriptors in a Piece Table that determines the current logical document. Following the pieces in order and reading the referenced ranges of text produces the document; the buffers alone do not define the document's order. Insertions and deletions alter this sequence — adding, removing, splitting, or reordering descriptors — while leaving the underlying buffers stable.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Piece Descriptor
+- Original Buffer
+- Add Buffer
+- Logical Document
+
 ## Piece Table
 
 **Definition**
@@ -2252,6 +2358,11 @@ Volume III, Chapter 13
 
 **Related Terms**
 
+- Original Buffer
+- Add Buffer
+- Piece Descriptor
+- Piece Sequence
+- Piece Fragmentation
 - Gap Buffer
 - Vector of Lines
 - Rope
@@ -2260,6 +2371,25 @@ Volume III, Chapter 13
 **Notes**
 
 Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 27.
+
+## Piece Table Invariant
+
+**Definition**
+
+A rule that must remain true before and after every operation for a Piece Table to remain a valid representation of the document. The core invariants are: every piece references a valid range within its source buffer; the Original Buffer is never modified; the Add Buffer only grows; piece order defines document order; each piece's length determines exactly how much text it represents; and the logical document is the concatenation of all active pieces in sequence. Checking these invariants turns them from documentation into a practical tool for debugging operations such as splitting and deletion.
+
+**First Introduced**
+
+Volume VI, Chapter 27
+
+**Related Terms**
+
+- Piece Table
+- Piece Descriptor
+- Piece Sequence
+- Original Buffer
+- Add Buffer
+- Logical Document
 
 ## Preferred Column
 

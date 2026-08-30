@@ -1,0 +1,20 @@
+chapter: 27
+title: Piece Table
+volume: 6
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 27.1 Why Another Text Buffer? —> 01-why-another-text-buffer.md
+  - 27.2 The Core Idea of a Piece Table —> 02-core-idea-of-piece-table.md
+  - 27.3 The Two Immutable Buffers —> 03-two-immutable-buffers.md
+  - 27.4 Piece Descriptors —> 04-piece-descriptors.md
+  - 27.5 Reconstructing the Document —> 05-reconstructing-document.md
+  - 27.6 Inserting Text —> 06-inserting-text.md
+  - 27.7 Deleting Text —> 07-deleting-text.md
+  - 27.8 Editing Through Repeated Operations —> 08-editing-through-repeated-operations.md
+  - 27.9 Piece Table Invariants —> 09-piece-table-invariants.md
+  - 27.10 Locating a Position in the Piece Table —> 10-locating-position-in-piece-table.md
+  - 27.11 Complexity and Performance —> 11-complexity-and-performance.md
+  - 27.12 Strengths, Limitations, and Trade-offs —> 12-strengths-limitations-trade-offs.md
+  - 27.13 When Would You Choose a Piece Table? —> 13-when-choose-piece-table.md
+  - Summary, Exercises, Next Chapter Preview —> 14-conclusion.md

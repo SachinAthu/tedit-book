@@ -202,7 +202,7 @@ Trade-off: The vector of lines does not eliminate the fundamental cost of editin
 
 First referenced: Chapter 13
 
-Note: The gap buffer alternative is studied in detail in Chapter 26, which examines its layout, invariants, operations, growth, and trade-offs. Chapter 26 Section 9 confirms that adopting a gap buffer would not require redesigning the Document abstraction — the representation is an implementation detail behind the Document's interface.
+Note: The gap buffer alternative is studied in detail in Chapter 26, which examines its layout, invariants, operations, growth, and trade-offs. Chapter 26 Section 9 confirms that adopting a gap buffer would not require redesigning the Document abstraction — the representation is an implementation detail behind the Document's interface. The piece table alternative is studied in detail in Chapter 27, which builds the structure from its two immutable buffers and piece descriptors and examines insertion, deletion, invariants, position lookup, and trade-offs. Chapter 27 Section 13 confirms the same conclusion for a piece table: because the Document abstraction separates higher-level editor behavior from the concrete representation, the representation can be replaced without forcing the Command Engine, Cursor, or Renderer to understand its internals. The project deliberately does not adopt either alternative; the baseline Document remains a vector of lines.
 
 ---
 
