@@ -46,7 +46,7 @@ Hello world
 and the Add Buffer contains:
 
 ```text
-beautiful
+"beautiful "
 ```
 
 The piece sequence is:
@@ -68,7 +68,7 @@ Original[0..6)
 produces:
 
 ```text
-Hello
+"Hello "
 ```
 
 ### Piece 2
@@ -80,7 +80,7 @@ Add[0..10)
 produces:
 
 ```text
-beautiful
+"beautiful "
 ```
 
 ### Piece 3
@@ -111,7 +111,7 @@ Original Buffer
   │       │
   │       └──────────────┐
   ▼                      ▼
-Hello                    world
+"Hello "               "world"
   ▲                      ▲
   │                      │
   │                      │
@@ -119,15 +119,15 @@ Hello                    world
              │    │
 Add Buffer   │    │
 ┌────────────┘    │
-│ beautiful       │
+│ "beautiful "    │
 └─────────────────┘
        │
        ▼
-   beautiful
+   "beautiful "
 
 Piece order:
 
-Hello → beautiful → world
+"Hello " → "beautiful " → "world"
 
 Logical document:
 
@@ -224,7 +224,7 @@ The piece sequence might be:
 ```text
 Original[0..3)
 Add[0..3)
-Original[3..3)
+Original[3..6)
 ```
 
 giving:
@@ -325,7 +325,7 @@ After an insertion:
 ```text
 Original[0..6)
 Add[0..10)
-Original[6..5)
+Original[6..11)
 
         ↓
 
@@ -359,7 +359,7 @@ Original Buffer
 Hello world
 
 Add Buffer
-beautiful
+"beautiful "
 ```
 
 The piece referencing the Add Buffer is simply removed from the active sequence.
@@ -368,7 +368,7 @@ The pieces become:
 
 ```text
 Original[0..6)
-Original[6..5)
+Original[6..11)
 ```
 
 which reconstructs:

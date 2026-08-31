@@ -39,7 +39,7 @@ beautiful
 The Add Buffer still contains:
 
 ```text
-beautiful
+"beautiful "
 ```
 
 Nothing is erased from it.
@@ -69,7 +69,7 @@ Original Buffer
 
 Add Buffer
 ┌──────────────┐
-│ beautiful    │
+│ "beautiful " │
 └──────────────┘
 ```
 
@@ -105,7 +105,7 @@ The Add Buffer itself is untouched.
 ```text
 Add Buffer
 
-beautiful
+"beautiful "
    ▲
    │
 no active piece references this range
@@ -306,13 +306,13 @@ The result might leave:
 
 ```text
 P1 → Original[0..3)
-P3 → Original[9..11)
+P3 → Original[8..11)
 ```
 
 which produces:
 
 ```text
-Helld
+Helrld
 ```
 
 The exact offsets depend on the selected range, but the mechanism is consistent:

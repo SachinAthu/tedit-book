@@ -1,6 +1,6 @@
 # Chapter Summary
 
-A **piece table** represents a document as two stable text buffers plus an ordered sequence of piece descriptors. The **Original Buffer** holds the document's initial contents without ever being modified, while the **Add Buffer** grows as new text is inserted. Each **piece descriptor** is a `(source, offset, length)` reference that selects a range inside one of the buffers, and the **logical document** is whatever those references produce when read in sequence.
+A **Piece Table** represents a document as two stable text buffers plus an ordered sequence of piece descriptors. The **Original Buffer** holds the document's initial contents without ever being modified, while the **Add Buffer** grows as new text is inserted. Each **piece descriptor** is a `(source, offset, length)` reference that selects a range inside one of the buffers, and the **logical document** is whatever those references produce when read in sequence.
 
 Editing therefore changes the _description_ of the document rather than the stored text:
 
@@ -12,7 +12,7 @@ Add Buffer ──────┘
 
 Insertion appends text to the Add Buffer, splits the piece containing the insertion point, and inserts a new descriptor. Deletion removes, shortens, or splits descriptors so that the selected range stops participating in the document. Neither operation rewrites the existing characters—a fundamental shift from the mutable, contiguous representations studied in earlier chapters.
 
-This design carries consequences. Repeated editing can fragment the piece structure and let the Add Buffer retain deleted text, so the physical representation can diverge from the logical document. Position lookup, traversal, and memory usage all grow with the piece count, making metadata as important as text. The piece table's strengths—stable text, preserved original content, edits without moving characters—and its costs—fragmentation, indirection, retained text—come from the same decision. As with the gap buffer, the question is not which representation is better, but whose trade-offs fit the editor's workload.
+This design carries consequences. Repeated editing can fragment the piece structure and let the Add Buffer retain deleted text, so the physical representation can diverge from the logical document. Position lookup, traversal, and memory usage all grow with the piece count, making metadata as important as text. The Piece Table's strengths—stable text, preserved original content, edits without moving characters—and its costs—fragmentation, indirection, retained text—come from the same decision. As with the gap buffer, the question is not which representation is better, but whose trade-offs fit the editor's workload.
 
 ## Exercises
 
@@ -63,7 +63,7 @@ Repeated edits can turn one large piece into many small ones. Fragmentation grow
 
 ### Mixing logical positions with source-buffer positions
 
-Users and editor commands work in logical document positions; the piece table stores text at buffer offsets. Failing to translate between them produces wrong edits, especially when pieces come from both buffers.
+Users and editor commands work in logical document positions; the Piece Table stores text at buffer offsets. Failing to translate between them produces wrong edits, especially when pieces come from both buffers.
 
 ## Preview of the Next Chapter
 

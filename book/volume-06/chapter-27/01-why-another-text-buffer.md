@@ -88,7 +88,7 @@ The inserted text is placed into a separate buffer:
 ```text
 Add Buffer
 
-very
+"very "
 ```
 
 The logical document can then be described as:
@@ -133,7 +133,7 @@ Original Buffer
 
 Add Buffer
 ┌─────────────────────────┐
-│ very                    │
+│ "very "                 │
 └─────────────────────────┘
 
 Piece sequence

@@ -129,7 +129,7 @@ For example:
 ```text
 Add Buffer
 
-beautiful
+"beautiful "
 ```
 
 can become:
@@ -137,7 +137,7 @@ can become:
 ```text
 Add Buffer
 
-beautiful very
+"beautiful very "
 ```
 
 when another insertion occurs.
@@ -358,7 +358,7 @@ Valid.
 Contains the newly appended text:
 
 ```text
-beautiful
+"beautiful "
 ```
 
 Valid.

@@ -64,14 +64,14 @@ Suppose the user inserts:
 very
 ```
 
-The Add Buffer becomes:
+The inserted text is stored together with the space that follows it, so the Add Buffer receives five characters:
 
 ```text
 Add Buffer
 
 0    4
 ──────
-very
+very 
 ```
 
 If the user later inserts:
@@ -80,7 +80,7 @@ If the user later inserts:
 fast
 ```
 
-the new text is appended:
+the new text is appended in the same way:
 
 ```text
 Add Buffer
@@ -88,7 +88,7 @@ Add Buffer
 0         1
 0123456789
 ──────────
-very fast
+very fast 
 ```
 
 Existing text in the Add Buffer is not moved or overwritten.
@@ -125,7 +125,7 @@ The quick brown fox
 then that piece represents:
 
 ```text
-The
+"The "  (T, h, e, and a space)
 ```
 
 Another piece might refer to the Add Buffer:
@@ -140,7 +140,7 @@ Length: 5
 which represents:
 
 ```text
-very
+"very "  (v, e, r, y, and a space)
 ```
 
 A third piece could refer back to the Original Buffer:
@@ -175,9 +175,9 @@ Original Buffer
 └──────────────────────────┘
 
 Add Buffer
-┌──────────────────────────┐
-│ very                     │
-└──────────────────────────┘
+┌──────────────┐
+│ "very "      │
+└──────────────┘
 ```
 
 ### Logical document
@@ -238,9 +238,9 @@ The Add Buffer becomes:
 
 ```text
 Add Buffer
-┌───────────┐
-│ beautiful │
-└───────────┘
+┌──────────────┐
+│ "beautiful " │
+└──────────────┘
 ```
 
 The original piece can no longer describe the document by itself.
@@ -268,9 +268,9 @@ Original Buffer
 "Hello "                "world"
 
 Add Buffer
-┌──────────────┐
-│ beautiful    │
-└──────────────┘
+┌────────────────┐
+│ "beautiful "   │
+└────────────────┘
        │
        ▼
    "beautiful "

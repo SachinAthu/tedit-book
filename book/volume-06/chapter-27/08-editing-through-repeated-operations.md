@@ -33,7 +33,7 @@ Original Buffer
 Hello world
 ```
 
-and the initial piece table is simple:
+and the initial Piece Table is simple:
 
 ```text
 P1 → Original[0..11)
@@ -50,7 +50,7 @@ between `Hello ` and `world`.
 The Add Buffer becomes:
 
 ```text
-beautiful
+"beautiful "
 ```
 
 and the pieces become:
@@ -82,7 +82,7 @@ The Add Buffer grows:
 ```text
 Add Buffer
 
-beautiful very
+"beautiful very "
 ```
 
 The existing text does not move.
@@ -107,7 +107,7 @@ Notice what has happened.
 The Add Buffer contains the inserted text in the order in which it was added:
 
 ```text
-beautiful very
+"beautiful very "
 ```
 
 but the logical document uses it in a different order:
@@ -131,7 +131,7 @@ The corresponding piece can simply be removed from the active piece sequence.
 The Add Buffer remains:
 
 ```text
-beautiful very
+"beautiful very "
 ```
 
 The piece sequence becomes:
@@ -461,7 +461,7 @@ Hello very world
 The Add Buffer still contains:
 
 ```text
-beautiful very
+"beautiful very "
 ```
 
 ### Operation 4

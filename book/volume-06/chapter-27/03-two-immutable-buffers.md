@@ -91,7 +91,7 @@ The text is appended to the Add Buffer:
 Add Buffer
 
 ┌──────────────┐
-│ very         │
+│ "very "      │
 └──────────────┘
 ```
 
@@ -110,9 +110,9 @@ Instead, it appends the new text:
 ```text
 Add Buffer
 
-┌─────────────────────┐
-│ very fast            │
-└─────────────────────┘
+┌──────────────────────┐
+│ "very fast "         │
+└──────────────────────┘
 ```
 
 The important rule is:
@@ -228,7 +228,7 @@ Original Buffer
 
 Add Buffer
 ┌─────────────────┐
-│ beautiful       │
+│ "beautiful "    │
 └─────────────────┘
 ```
 
@@ -242,7 +242,7 @@ Original Buffer
 
 Add Buffer
 ┌──────────────────────────┐
-│ beautiful very           │
+│ "beautiful very "        │
 └──────────────────────────┘
 ```
 
@@ -261,7 +261,7 @@ For example:
 ```text
 Add Buffer
 ┌──────────────────────────────┐
-│ beautiful very               │
+│ "beautiful very "            │
 └──────────────────────────────┘
        ▲              ▲
        │              │

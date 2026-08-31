@@ -78,6 +78,7 @@ The `offset` identifies where the piece begins inside its source buffer.
 Suppose the Original Buffer contains:
 
 ```text
+0         1
 0123456789
 Hello world
 ```
@@ -90,10 +91,10 @@ offset = 0
 length = 6
 ```
 
-references:
+references the first six characters of the buffer — `"Hello "`, including the space after `Hello`:
 
 ```text
-Hello
+"Hello "
 ```
 
 A different piece could use:
@@ -172,7 +173,7 @@ Original
 The piece does **not** contain:
 
 ```text
-Hello
+"Hello "
 ```
 
 Instead, it contains something equivalent to:
@@ -256,7 +257,7 @@ and:
 ```text
 Add Buffer
 
-beautiful
+"beautiful "
 ```
 
 Suppose the pieces are:
@@ -319,7 +320,7 @@ Original Buffer
 Hello world
 ```
 
-The initial piece table contains one piece:
+The initial Piece Table contains one piece:
 
 ```text
 Pieces
@@ -346,7 +347,7 @@ The Add Buffer becomes:
 ```text
 Add Buffer
 
-beautiful
+"beautiful "
 ```
 
 The original piece is divided around the insertion point:
@@ -364,7 +365,7 @@ The new piece references the Add Buffer:
 ```text
 Add Buffer
 
-beautiful
+"beautiful "
     │
     ▼
     P2

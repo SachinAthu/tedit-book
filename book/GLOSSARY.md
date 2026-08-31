@@ -2004,7 +2004,7 @@ Volume VI, Chapter 27
 
 **Definition**
 
-A position within the document as the user understands it, where characters form one continuous sequence. In a gap buffer, the logical position differs from the physical position whenever the gap has any size, because the unused region splits the document's characters across both sides of the array. Renderers and document operations must treat the logical sequence as the document while the buffer manages the physical layout.
+A position within the document as the user understands it, where characters form one continuous sequence. A logical position is independent of how the text is physically stored: in a gap buffer it differs from the physical position whenever the gap has any size, because the unused region splits the document's characters across both sides of the array, and in a piece table it corresponds to a place inside the ordered piece sequence rather than a buffer offset. Renderers and document operations must treat the logical sequence as the document while the representation manages the physical layout.
 
 **First Introduced**
 
@@ -2013,6 +2013,8 @@ Volume VI, Chapter 26
 **Related Terms**
 
 - Physical Position
+- Piece Sequence
+- Piece Table
 - Gap Buffer
 - Gap
 - Logical Column

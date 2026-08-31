@@ -42,6 +42,12 @@ beautiful
 
 between `Hello ` and `world`.
 
+The insertion point is immediately before `world`, so the inserted text is stored together with the space that separates it from `world`:
+
+```text
+"beautiful "
+```
+
 The insertion position is:
 
 ```text
@@ -68,7 +74,7 @@ The inserted text is first added to the Add Buffer:
 Add Buffer
 
 ┌──────────────┐
-│ beautiful    │
+│ "beautiful " │
 └──────────────┘
 ```
 
@@ -151,9 +157,9 @@ P3
 produces:
 
 ```text
-Hello
-beautiful
-world
+"Hello "
+"beautiful "
+"world"
 ```
 
 or:
@@ -189,7 +195,7 @@ Original Buffer
 
 Add Buffer
 ┌──────────────┐
-│ beautiful    │
+│ "beautiful " │
 └──────────────┘
 
 Pieces
@@ -236,10 +242,10 @@ at position zero:
 ^
 ```
 
-The Add Buffer receives:
+The inserted text is stored together with the space that separates it from the existing text, so the Add Buffer receives nine characters:
 
 ```text
-Welcome:
+"Welcome: "
 ```
 
 The existing piece remains intact:
@@ -411,7 +417,7 @@ The Add Buffer grows:
 ```text
 Add Buffer
 
-beautiful very
+"beautiful very "
 ```
 
 The Piece Table can then reference another range of the Add Buffer.
@@ -424,15 +430,15 @@ The structure might conceptually become:
 
 ```text
 Original[0..6)
-Add[0..10)
 Add[10..15)
+Add[0..10)
 Original[6..11)
 ```
 
 which produces:
 
 ```text
-Hello beautiful very world
+Hello very beautiful world
 ```
 
 The precise piece boundaries depend on the insertion positions and the implementation's piece-management policy, but the underlying principle remains the same.
