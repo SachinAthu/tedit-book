@@ -2158,6 +2158,23 @@ Volume I, Chapter 2
 - Register
 - Process
 
+## Memline
+
+**Definition**
+
+Vim's internal system for storing buffer text. Vim's conceptual model of a buffer is line-oriented, but Memline runs underneath it, organizing text using line segments and supporting efficient access to the lines that make up a buffer. Memline therefore demonstrates that an editor's simple conceptual model does not have to match its underlying storage machinery: developers can think in terms of lines and cursor positions while the implementation uses more sophisticated storage beneath.
+
+**First Introduced**
+
+Volume VI, Chapter 29
+
+**Related Terms**
+
+- Buffer
+- Text Buffer
+- Vector of Lines
+- Text Buffer Workload
+
 ## Message Bar
 
 **Definition**
@@ -2448,6 +2465,25 @@ Volume VI, Chapter 27
 - Original Buffer
 - Add Buffer
 - Logical Document
+
+## Piece Tree
+
+**Definition**
+
+The text buffer used by Visual Studio Code, described by its developers as a multiple-buffer piece table organized with a red-black tree and optimized around the editor's line-based model. It extends the Piece Table by adding a tree structure, so that navigating and modifying a large collection of pieces remains practical even for documents with thousands or millions of lines and frequent edits at arbitrary locations. The Piece Tree illustrates how more demanding workloads can justify a more sophisticated text representation.
+
+**First Introduced**
+
+Volume VI, Chapter 29
+
+**Related Terms**
+
+- Piece Table
+- Piece Descriptor
+- Piece Sequence
+- Rope
+- Text Buffer
+- Text Buffer Workload
 
 ## Preferred Column
 
@@ -3407,6 +3443,31 @@ Volume III, Chapter 13
 
 - Document
 - Cursor
+- Vector of Lines
+- Gap Buffer
+- Piece Table
+- Rope
+- Text Buffer Workload
+
+## Text Buffer Workload
+
+**Definition**
+
+The pattern of document sizes, edit frequencies, edit locations, and supporting operations that a particular editor must handle. Because different editors face different workloads, there is no single "best" text buffer: each text representation is chosen because its trade-offs fit the editor's expected requirements. A small editor working with a single document may favor a simple vector of lines, while an editor handling millions of lines, frequent edits, and many position queries may justify a more sophisticated structure such as a piece tree or a rope.
+
+**First Introduced**
+
+Volume VI, Chapter 29
+
+**Related Terms**
+
+- Text Buffer
+- Vector of Lines
+- Gap Buffer
+- Piece Table
+- Piece Tree
+- Rope
+- Editing Locality
 
 ## Time Complexity
 
