@@ -345,50 +345,85 @@ This is where the book becomes much deeper than a typical tutorial.
 
 ## **Chapter 24 — Complexity Analysis**
 
-- Big-O
-- Memory usage
-- Cache locality
-- Latency
+- 24.1 Why Complexity Matters
+- 24.2 What Does "Cost" Mean?
+- 24.3 Measuring Input Size
+- 24.4 Big-O Notation
+- 24.5 Best Case, Average Case, and Worst Case
+- 24.6 Time Complexity of Editor Operations
+- 24.7 Space Complexity
+- 24.8 Cache Locality
+- 24.9 Latency in an Interactive Editor
+- 24.10 Amortized Complexity
 
 ## **Chapter 25 — Arrays and Strings**
 
-- Insertion
-- Deletion
-- Resizing
+- 25.1 Why Arrays Matter to a Text Editor
+- 25.2 Contiguous Memory and Indexing
+- 25.3 Fixed-Size Arrays
+- 25.4 Dynamic Arrays
+- 25.5 Growing a Dynamic Array
+- 25.6 Array Insertion
+- 25.7 Array Deletion
+- 25.8 Strings as Arrays of Characters
+- 25.9 Building a Dynamic String
+- 25.10 Design Alternatives and Trade-offs
 
 ## **Chapter 26 — Gap Buffer**
 
-- Theory
-- Implementation
-- Advantages
-- Disadvantages
+- 26.1 Why a Gap Buffer?
+- 26.2 The Basic Idea
+- 26.3 Gap Buffer Invariants
+- 26.4 Logical Text vs Physical Layout
+- 26.5 Moving the Gap
+- 26.6 Insertion
+- 26.7 Deletion
+- 26.8 Growing the Gap
+- 26.9 Representing Multiple Lines
+- 26.10 Locality of Editing and Cursor Movement
+- 26.11 Memory Layout and Cache Behavior
+- 26.12 Gap Buffer Failure Modes
 
 ## **Chapter 27 — Piece Table**
 
-Used by VS Code.
-
-- Architecture
-- Operations
-- Complexity
+- 27.1 Why Another Text Buffer?
+- 27.2 The Core Idea of a Piece Table
+- 27.3 The Two Immutable Buffers
+- 27.4 Piece Descriptors
+- 27.5 Reconstructing the Document
+- 27.6 Inserting Text
+- 27.7 Deleting Text
+- 27.8 Editing Through Repeated Operations
+- 27.9 Piece Table Invariants
+- 27.10 Locating a Position in the Piece Table
+- 27.11 Complexity and Performance
+- 27.12 Strengths, Limitations, and Trade-offs
+- 27.13 When Would You Choose a Piece Table?
 
 ## **Chapter 28 — Rope**
 
-Used by very large editors.
-
-- Balancing
-- Performance
+- 28.1 Why Another Text Representation?
+- 28.2 The Central Idea of a Rope
+- 28.3 How Text Is Stored
+- 28.4 Finding a Position in a Rope
+- 28.5 Concatenation and Splitting
+- 28.6 Insertion and Deletion
+- 28.7 Balancing the Tree
+- 28.8 Rope Complexity
+- 28.9 Leaf Size and Granularity
+- 28.10 Memory Layout and Cache Behavior
+- 28.11 Rope Workloads and Scaling
 
 ## **Chapter 29 — Comparing Text Buffers**
 
-Which editor uses what?
-
-- Nano
-- Vim
-- Emacs
-- VS Code
-- Helix
-- Zed
-- Sublime
+- 29.1 From Data Structures to Real Editors
+- 29.2 Nano
+- 29.3 Vim
+- 29.4 Emacs
+- 29.5 VS Code
+- 29.6 Helix and Zed
+- 29.7 Sublime Text
+- 29.8 Which Editor Uses What?
 
 ---
 

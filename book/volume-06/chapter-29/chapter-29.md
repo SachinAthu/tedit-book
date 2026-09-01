@@ -19,7 +19,7 @@ The goal is not to determine a single "best" text buffer or to imitate these lar
 Readers should be able to:
 
 - explain why a text-buffer representation cannot be judged in isolation and why an editor's requirements determine its choice
-- describe the text-buffer approaches of Nano, Vim, Emacs, VS Code, Helix, Zed, and Sublime Text
+- describe the text-buffer approaches of Nano, Vim, Emacs, VS Code, Helix, and Zed, and what is and is not publicly known about Sublime Text
 - distinguish an editor's conceptual model of the document from its underlying data structure
 - explain why the locality of editing can justify a gap buffer
 - explain why large documents and frequent edits can justify a piece-based structure
@@ -94,7 +94,7 @@ Document
    └── Line 3
 ```
 
-The editor can work with individual lines while the cursor maintains a row and column position. Inserting or deleting characters primarily affects the current line, while Enter and line-boundary operations affect the collection of lines.
+The editor can work with individual lines while the cursor maintains a row and column position. Inserting or deleting characters primarily affects the current line, while Enter and line-boundary operations affect the collection of lines. Nano's own implementation stores these lines as a doubly-linked list rather than as a contiguous vector; what matters for the lesson is the line-oriented model, not the exact container.
 
 This approach has an important engineering advantage: **the representation is easy to understand**.
 
@@ -130,7 +130,7 @@ That leads us to Vim.
 
 Vim provides a useful contrast with Nano because its requirements are considerably broader.
 
-Vim is still fundamentally line-oriented. Its documentation defines a **buffer** as containing lines of text, and distinguishes those stored buffer lines from the logical and screen lines produced for display.
+Vim is still fundamentally line-oriented. Its documentation defines a **buffer** as containing lines of text, and distinguishes those stored buffer lines from the logical and screen lines produced for display. Here "buffer" carries Vim's meaning—an editable document in memory—rather than the temporary storage buffer introduced earlier in this book.
 
 Internally, however, Vim does not simply keep the entire document as a basic vector of strings. Its source contains a dedicated **memline** system for storing buffer text. This system organizes text using line segments and supports efficient access to the lines that make up a buffer.
 
@@ -165,9 +165,9 @@ For our editor, there is no need to introduce Vim's additional storage machinery
 
 ## 29.4 Emacs
 
-GNU Emacs provides one of the clearest real-world examples of a **gap buffer**.
+GNU Emacs provides one of the clearest real-world examples of a **gap buffer** (Chapter 26).
 
-Emacs buffers are implemented using an invisible gap in the text. Insertions fill the gap, while deletions enlarge it. When editing moves to another location, Emacs moves the gap to that location before performing the operation. The GNU Emacs documentation explicitly describes this design. ([GNU][1])
+Emacs buffers are implemented using an invisible gap in the text. Insertions fill the gap, while deletions enlarge it. When editing moves to another location, Emacs moves the gap to that location before performing the operation. The GNU Emacs documentation explicitly describes this design.
 
 Conceptually:
 
@@ -220,7 +220,7 @@ Added Text Buffer ────┤
               Logical Document
 ```
 
-This is related to the piece table we studied earlier, but the implementation adds a tree structure to make navigating and modifying a large collection of pieces more practical.
+This is related to the piece table we studied earlier (Chapter 27), but the implementation adds a tree structure to make navigating and modifying a large collection of pieces more practical.
 
 The reason for that additional complexity is important.
 
@@ -295,7 +295,7 @@ This illustrates the same principle we encountered with VS Code:
 
 Zed provides an even more interesting example.
 
-Zed's developers describe its fundamental text-storage structure as a **rope implemented using a B-tree/SumTree structure**. The structure stores chunks of text and maintains additional information that allows the editor to efficiently translate between text offsets and positions such as rows and columns. ([Zed][1])
+Zed's developers describe its fundamental text-storage structure as a **rope implemented using a B-tree/SumTree structure**. The structure stores chunks of text and maintains additional information that allows the editor to efficiently translate between text offsets and positions such as rows and columns.
 
 Conceptually:
 
@@ -444,28 +444,52 @@ This chapter answered a question left open by the previous four: which text buff
 
 Nano shows that a small editor can favor simplicity: a line-oriented buffer maps directly to the terminal's row-and-column model. Vim shows that a simple conceptual model can hide sophisticated internals—its buffer is line-oriented from the user's perspective, while dedicated storage machinery manages the text underneath. Emacs demonstrates that editing workload can justify a gap buffer, keeping writable space near the cursor. VS Code shows that large documents and frequent edits can justify a piece tree. Helix and Zed show how modern requirements—large documents, frequent position queries, syntax-aware operations, and concurrency—can justify tree-based text storage such as a rope. Sublime Text reminds us that observed performance does not reveal an internal data structure, and that we should separate what we know from what we infer.
 
-The progression across these editors is more useful than the individual names:
-
-```text
-Simple editor
-     │
-     ▼
-Simple representation
-
-More demanding workload
-     │
-     ▼
-Specialized representation
-
-More complex requirements
-     │
-     ▼
-More sophisticated representation
-```
-
 For our own editor, the conclusion is direct. Our project is deliberately small, single-document, and educational, so a simple vector-of-lines Document is the appropriate choice. The lesson of this chapter is not to imitate larger editors, but to understand how their requirements led to their designs—and to recognize that the same reasoning applies to our own architecture.
 
-### Preview of the Next Chapter
+## Exercises
+
+### Review Questions
+
+- Why is "which text buffer is best?" the wrong question to ask?
+- What text-buffer approach does each of the seven editors use?
+- How does Vim's buffer concept differ from the storage machinery that implements it?
+- Why is a gap buffer a natural fit for Emacs's editing workload?
+- What requirements lead VS Code to a piece tree, and Helix and Zed to a rope?
+- Why can observed performance alone not reveal an editor's internal data structure?
+- Why is a vector of lines an appropriate representation for our own editor?
+
+### Thought Experiments
+
+- Imagine our editor's documents suddenly needed to handle files with millions of lines. Which operations in a vector-of-lines Document would come under pressure first, and which of the seven editors' approaches would address them?
+- Pick a concrete workload—a large log file, or a source file edited in many small bursts—and decide which representation best fits it, using the reasoning of this chapter.
+- Suppose you discover that an editor you use is built on a rope. Does that alone justify a rope for your own editor? Explain.
+- If our editor later required concurrency or syntax-aware editing, how would the choice of text buffer change?
+
+## Common Mistakes
+
+### Assuming every modern editor uses a rope
+
+Some do—Helix and Zed—but Emacs uses a gap buffer, VS Code uses a piece tree, and others keep their implementation private. There is no single "modern" text representation.
+
+### Inferring a data structure from observed performance
+
+An editor can be fast and responsive with several different internal structures. Observing behavior does not identify the structure that produces it, as the Sublime Text example shows.
+
+### Confusing an editor's conceptual model with its implementation
+
+Vim's buffer is line-oriented from the user's perspective, yet its storage is implemented by a dedicated system underneath. A simple conceptual model can hide sophisticated machinery.
+
+### Assuming a simple interface means a simple implementation
+
+Nano's interface is simple, and Vim's conceptual model is line-oriented, but the underlying storage can still be specialized. Simplicity of interface does not imply simplicity of internals.
+
+### Choosing a structure because another editor uses it
+
+A representation is justified by your own editor's requirements and workload, not by what a larger editor happens to use. The same reasoning that guides each editor's choice should guide ours.
+
+## Preview of the Next Chapter
+
+**Chapter 30 — Search**
 
 With the text-buffer chapter complete, we now move from **how text is stored** to **how users find text inside the document**.
 
