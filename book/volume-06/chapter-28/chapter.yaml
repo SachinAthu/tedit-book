@@ -1,0 +1,18 @@
+chapter: 28
+title:
+volume: 6
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 28.1 Why Another Text Representation? —> 01-why-another-text-representation.md
+  - 28.2 The Central Idea of a Rope —> 02-central-idea-of-a-rope.md
+  - 28.3 How Text Is Stored —> 03-how-text-is-stored.md
+  - 28.4 Finding a Position in a Rope —> 04-finding-a-position.md
+  - 28.5 Concatenation and Splitting —> 05-concatenation-and-splitting.md
+  - 28.6 Insertion and Deletion —> 06-insertion-and-deletion.md
+  - 28.7 Balancing the Tree —> 07-balancing-the-tree.md
+  - 28.8 Rope Complexity —> 08-rope-complexity.md
+  - 28.9 Leaf Size and Granularity —> 09-leaf-size-and-granularity.md
+  - 28.10 Memory Layout and Cache Behavior —> 10-memory-layout-cache-behavior.md
+  - 28.11 Rope Workloads and Scaling —> 11-rope-workloads-and-scaling.md
+  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md
