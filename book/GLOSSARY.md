@@ -1733,6 +1733,24 @@ Volume II, Chapter 10
 - `static` (Internal Linkage)
 - Separation of Concerns
 
+## Internal Node
+
+**Definition**
+
+In a Rope, a node that organizes other nodes rather than containing document text itself. An internal node connects its children and may hold metadata such as a subtree weight describing how much text lies below it. The root is typically an internal node, while the leaves it organizes hold the actual text fragments.
+
+**First Introduced**
+
+Volume VI, Chapter 28
+
+**Related Terms**
+
+- Rope
+- Leaf Node
+- Subtree Weight
+- Rope Balancing
+- Logical Document
+
 ## Instruction Cycle
 
 **Definition**
@@ -1855,6 +1873,42 @@ Volume II, Chapter 8
 - Architecture (Software Architecture)
 - Low Coupling
 - Module
+
+## Leaf Granularity
+
+**Definition**
+
+The chosen size of the text fragments stored in a Rope's leaves. Very small leaves reduce the amount of text handled in a local edit but create many nodes and structural overhead, while very large leaves reduce tree overhead but make modifying text inside a leaf more expensive. The appropriate granularity balances these costs and depends on the workload rather than on a single universally correct value.
+
+**First Introduced**
+
+Volume VI, Chapter 28
+
+**Related Terms**
+
+- Rope
+- Leaf Node
+- Internal Node
+- Rope Balancing
+- Cache Locality
+
+## Leaf Node
+
+**Definition**
+
+In a Rope, a node at the bottom of the tree that stores an actual fragment of document text. Leaves are the nodes that physically hold the document's characters, so reading the leaves from left to right reproduces the logical document. This contrasts with internal nodes, which organize fragments but do not themselves contain document text.
+
+**First Introduced**
+
+Volume VI, Chapter 28
+
+**Related Terms**
+
+- Rope
+- Internal Node
+- Leaf Granularity
+- Subtree Weight
+- Logical Document
 
 ## Length
 
@@ -2407,6 +2461,23 @@ Volume III, Chapter 14
 
 - Cursor
 
+## Pointer Chasing
+
+**Definition**
+
+The memory-access pattern that occurs when a data structure stores related objects in separate, non-adjacent memory locations, forcing the processor to follow a pointer before it learns where the next object it needs is located. Pointer-based structures such as a Rope pay this cost repeatedly, and when the referenced objects are not already in cache, each access can require waiting on slower memory. This makes cache locality as important as Big-O when estimating practical performance.
+
+**First Introduced**
+
+Volume VI, Chapter 28
+
+**Related Terms**
+
+- Rope
+- Cache Locality
+- Spatial Locality
+- Temporal Locality
+
 ## Private Mode Sequence
 
 **Definition**
@@ -2542,10 +2613,33 @@ Volume III, Chapter 13
 - Piece Table
 - Vector of Lines
 - Text Buffer
+- Leaf Node
+- Internal Node
+- Subtree Weight
+- Rope Balancing
+- Leaf Granularity
 
 **Notes**
 
 Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
+
+## Rope Balancing
+
+**Definition**
+
+The process of maintaining a Rope's tree so that its height stays within a useful bound relative to the amount of text it represents. Repeated insertions, deletions, and concatenations can skew the tree into a chain that degrades navigation and editing from logarithmic toward linear cost. Balancing—achieved through weights, rotations, or occasional rebuilding, rather than perfect symmetry—preserves the performance properties that make a Rope attractive.
+
+**First Introduced**
+
+Volume VI, Chapter 28
+
+**Related Terms**
+
+- Rope
+- Internal Node
+- Subtree Weight
+- Leaf Granularity
+- Amortized Complexity
 
 ## Raw Mode
 
@@ -3121,6 +3215,24 @@ Volume IV, Chapter 19
 **Notes**
 
 Detailed treatment: Volume IV, Chapter 21.
+
+## Subtree Weight
+
+**Definition**
+
+Metadata attached to a node in a Rope that records how many logical characters are represented by that node's subtree. Because each internal node knows how much text lies in its children, a Rope can locate a logical document position by comparing it against those weights and descending the appropriate branch, skipping over whole regions without reading every preceding character. A subtree weight is navigation information, not document text.
+
+**First Introduced**
+
+Volume VI, Chapter 28
+
+**Related Terms**
+
+- Rope
+- Internal Node
+- Leaf Node
+- Logical Position
+- Rope Balancing
 
 ## Success Criteria
 
