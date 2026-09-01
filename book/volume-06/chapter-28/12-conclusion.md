@@ -33,6 +33,14 @@ This design carries consequences. An unbalanced Rope can degenerate into a chain
 - What trade-off does leaf size create?
 - How does a Rope's memory layout differ from a contiguous representation's?
 
+### Thought Experiments
+
+- Insert text repeatedly at the beginning of a large document.
+- Delete large blocks scattered across the document.
+- Build a Rope by repeated concatenation on one side.
+- Predict how the tree shape, height, and leaf count change.
+- Judge whether a Rope's complexity is justified for a small editor.
+
 ## Common Mistakes
 
 ### Confusing the logical and physical views

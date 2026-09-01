@@ -179,9 +179,9 @@ This information is commonly called a **weight**.
 Consider:
 
 ```text
-                         [20]
+                         [21]
                         /    \
-                     [11]    [9]
+                     [11]    [10]
                     /   \    / \
                    A     B  C   D
 ```
@@ -204,14 +204,14 @@ characters.
 If:
 
 ```text
-C = "from "        → 5 characters
+C = " from "       → 6 characters
 D = "Rope"         → 4 characters
 ```
 
 then the right subtree contains:
 
 ```text
-5 + 4 = 9
+6 + 4 = 10
 ```
 
 characters.
@@ -219,7 +219,7 @@ characters.
 Therefore the entire Rope contains:
 
 ```text
-11 + 9 = 20
+11 + 10 = 21
 ```
 
 characters.
@@ -237,9 +237,9 @@ With weights, the tree can guide the search.
 Starting at:
 
 ```text
-                         [20]
+                         [21]
                         /    \
-                     [11]    [9]
+                     [11]    [10]
 ```
 
 we know that the first `11` characters belong to the left subtree.
@@ -249,9 +249,9 @@ Position `14` therefore cannot be entirely inside those first `11` characters.
 We move into the right subtree.
 
 ```text
-                         [20]
+                         [21]
                         /    \
-                     [11]    [9]
+                     [11]    [10]
                               ↑
 ```
 
@@ -274,9 +274,9 @@ The root node represents the complete logical sequence.
 For example:
 
 ```text
-                       [20]
+                       [21]
                       /    \
-                   [11]    [9]
+                   [11]    [10]
 ```
 
 means:

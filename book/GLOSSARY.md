@@ -2039,7 +2039,7 @@ Volume III, Chapter 14
 
 **Definition**
 
-The current document text as assembled from a Piece Table's pieces. The logical document is obtained by traversing the ordered piece sequence in order and reading the referenced ranges from the Original Buffer and Add Buffer; it does not need to occupy one contiguous region of memory. Because editing changes the piece description rather than the stored characters, the logical document can change while the underlying buffers remain stable.
+The current document text as the user and editor understand it: a single continuous sequence of characters that is independent of how the text is physically represented. In a Piece Table, the logical document is assembled by traversing the ordered piece sequence and reading the referenced ranges from the Original Buffer and Add Buffer, so it does not need to occupy one contiguous region of memory. In a Rope, the same logical sequence is reproduced by reading the leaves from left to right across the tree. In every representation the logical document can change through editing, and because the editor may store it in pieces rather than as contiguous characters, its physical layout can diverge from its logical sequence.
 
 **First Introduced**
 
@@ -2052,6 +2052,8 @@ Volume VI, Chapter 27
 - Piece Sequence
 - Original Buffer
 - Add Buffer
+- Rope
+- Leaf Node
 - Logical Position
 
 ## Logical Position
@@ -2597,50 +2599,6 @@ Volume VI, Chapter 24
 
 # R
 
-## Rope
-
-**Definition**
-
-A text representation that organizes a document as a tree of text fragments rather than as one large contiguous sequence. Each leaf holds a portion of the document, and the tree structure allows the editor to locate and modify regions without moving the entire document, which scales well to very large files. The editor must maintain and balance the tree, making ropes more complex to implement than a vector of lines.
-
-**First Introduced**
-
-Volume III, Chapter 13
-
-**Related Terms**
-
-- Gap Buffer
-- Piece Table
-- Vector of Lines
-- Text Buffer
-- Leaf Node
-- Internal Node
-- Subtree Weight
-- Rope Balancing
-- Leaf Granularity
-
-**Notes**
-
-Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
-
-## Rope Balancing
-
-**Definition**
-
-The process of maintaining a Rope's tree so that its height stays within a useful bound relative to the amount of text it represents. Repeated insertions, deletions, and concatenations can skew the tree into a chain that degrades navigation and editing from logarithmic toward linear cost. Balancing—achieved through weights, rotations, or occasional rebuilding, rather than perfect symmetry—preserves the performance properties that make a Rope attractive.
-
-**First Introduced**
-
-Volume VI, Chapter 28
-
-**Related Terms**
-
-- Rope
-- Internal Node
-- Subtree Weight
-- Leaf Granularity
-- Amortized Complexity
-
 ## Raw Mode
 
 **Definition**
@@ -2655,6 +2613,22 @@ Volume I, Chapter 5
 
 - Canonical Mode
 - termios
+
+## Register
+
+**Definition**
+
+A tiny storage location built directly into the CPU used to hold temporary data during instruction execution. Registers are extremely fast but limited in number and capacity.
+
+**First Introduced**
+
+Volume I, Chapter 2
+
+**Related Terms**
+
+- CPU
+- Main Memory
+- Instruction Cycle
 
 ## Renderer
 
@@ -2712,6 +2686,22 @@ Volume IV, Chapter 17
 - Frame
 - Renderer
 
+## Requirements Traceability
+
+**Definition**
+
+A professional practice in which every architectural component, test case, and implementation feature can be traced back to one or more requirement identifiers. Traceability ensures that every part of the system exists for a defined purpose and helps prevent unnecessary complexity, making it easier to manage changes as a project evolves.
+
+**First Introduced**
+
+Volume II, Chapter 7
+
+**Related Terms**
+
+- Functional Requirement
+- Software Requirements Specification (SRS)
+- Non-Functional Requirement (NFR)
+
 ## Retained-Mode Rendering
 
 **Definition**
@@ -2729,37 +2719,49 @@ Volume IV, Chapter 17
 - Frame
 - Renderer
 
-## Register
+## Rope
 
 **Definition**
 
-A tiny storage location built directly into the CPU used to hold temporary data during instruction execution. Registers are extremely fast but limited in number and capacity.
+A text representation that organizes a document as a tree of text fragments rather than as one large contiguous sequence. Each leaf holds a portion of the document, and the tree structure allows the editor to locate and modify regions without moving the entire document, which scales well to very large files. The editor must maintain and balance the tree, making ropes more complex to implement than a vector of lines.
 
 **First Introduced**
 
-Volume I, Chapter 2
+Volume III, Chapter 13
 
 **Related Terms**
 
-- CPU
-- Main Memory
-- Instruction Cycle
+- Gap Buffer
+- Piece Table
+- Vector of Lines
+- Text Buffer
+- Leaf Node
+- Internal Node
+- Subtree Weight
+- Rope Balancing
+- Leaf Granularity
 
-## Requirements Traceability
+**Notes**
+
+Conceptual overview: Volume III, Chapter 13. Detailed implementation: Volume VI, Chapter 28.
+
+## Rope Balancing
 
 **Definition**
 
-A professional practice in which every architectural component, test case, and implementation feature can be traced back to one or more requirement identifiers. Traceability ensures that every part of the system exists for a defined purpose and helps prevent unnecessary complexity, making it easier to manage changes as a project evolves.
+The process of maintaining a Rope's tree so that its height stays within a useful bound relative to the amount of text it represents. Repeated insertions, deletions, and concatenations can skew the tree into a chain that degrades navigation and editing from logarithmic toward linear cost. Balancing—achieved through weights, rotations, or occasional rebuilding, rather than perfect symmetry—preserves the performance properties that make a Rope attractive.
 
 **First Introduced**
 
-Volume II, Chapter 7
+Volume VI, Chapter 28
 
 **Related Terms**
 
-- Functional Requirement
-- Software Requirements Specification (SRS)
-- Non-Functional Requirement (NFR)
+- Rope
+- Internal Node
+- Subtree Weight
+- Leaf Granularity
+- Amortized Complexity
 
 # S
 

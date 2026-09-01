@@ -1,0 +1,16 @@
+chapter: 29
+title: Comparing Text Buffers
+volume: 6
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 29.1 From Data Structures to Real Editors —> 01-from-data-structures.md
+  - 29.2 Nano —> 02-.md
+  - 29.3 Vim —> 03-.md
+  - 29.4 Emacs —> 04-.md
+  - 29.5 VS Code —> 05-.md
+  - 29.6 Helix and Zed —> 06-.md
+  - 29.7 Sublime Text —> 07-.md
+  - 29.8 Which Editor Uses What? —> 08-.md
+  - 29.9 What This Means for Our Editor —> 09-.md
+  - Summary, Exercises, Next Chapter Preview —> 10-conclusion.md

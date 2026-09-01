@@ -250,7 +250,7 @@ Resulting Rope
 
 The important point is that balancing is part of maintaining the **data structure invariant**, not merely an optional optimization performed whenever convenient.
 
-# Different Ways to Balance
+## Different Ways to Balance
 
 There is no single balancing algorithm shared by every Rope implementation.
 
@@ -351,7 +351,7 @@ The broader idea is:
 
 This introduces another engineering trade-off between immediate maintenance work and occasional rebuilding.
 
-# Perfect Balance Is Not the Goal
+## Perfect Balance Is Not the Goal
 
 It is tempting to think that a balanced Rope should look perfectly symmetrical:
 
@@ -438,7 +438,7 @@ The Rope does not eliminate cost.
 
 It decides **when to pay the cost of maintaining its structure**.
 
-# Balancing and Amortized Performance
+## Balancing and Amortized Performance
 
 This also introduces an important distinction between the cost of one operation and the cost of a sequence of operations.
 
@@ -521,7 +521,7 @@ A more accurate statement is:
 
 That distinction matters.
 
-# Balancing Does Not Fix Everything
+## Balancing Does Not Fix Everything
 
 Even a perfectly balanced Rope can have other performance costs.
 

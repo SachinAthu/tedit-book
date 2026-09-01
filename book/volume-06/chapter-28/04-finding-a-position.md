@@ -45,9 +45,9 @@ This is similar to the distinction established earlier between a logical documen
 Consider this Rope:
 
 ```text
-                     [20]
+                     [22]
                     /    \
-                 [12]    [8]
+                 [12]    [10]
                 /   \    / \
                A     B  C   D
 ```
@@ -67,8 +67,8 @@ The important information is:
 
 ```text
 Left subtree  → 12 characters
-Right subtree →  8 characters
-Total         → 20 characters
+Right subtree → 10 characters
+Total         → 22 characters
 ```
 
 The root therefore tells us something useful immediately:
@@ -84,9 +84,9 @@ Suppose we want to find logical position `5`.
 We start at the root:
 
 ```text
-                     [20]
+                     [22]
                     /    \
-                 [12]    [8]
+                 [12]    [10]
                   ↑
 ```
 
@@ -133,9 +133,9 @@ Now suppose we want position `15`.
 At the root:
 
 ```text
-                     [20]
+                     [22]
                     /    \
-                 [12]    [8]
+                 [12]    [10]
                          ↑
 ```
 

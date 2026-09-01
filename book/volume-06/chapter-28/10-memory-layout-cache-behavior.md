@@ -828,3 +828,5 @@ The important lesson is simple:
 > **A data structure's shape in theory and its layout in memory are two different things.**
 
 For a Rope, understanding both is necessary to understand its actual performance.
+
+The next section applies these ideas to the workloads that motivate a Rope, examining **how Rope behavior scales across different editing patterns rather than treating document size alone as the deciding factor.**

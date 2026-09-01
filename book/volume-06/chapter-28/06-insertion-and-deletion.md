@@ -259,7 +259,7 @@ End insertion       → Existing + New
 
 The middle case simply requires a split first.
 
-# Deletion
+## Deletion
 
 Deletion can be expressed using the same primitives.
 
@@ -410,7 +410,7 @@ The size of the deleted region does not necessarily determine how much of the re
 
 That is one of the important reasons tree-based representations can be attractive for large documents.
 
-# Line Operations
+## Line Operations
 
 A text editor also needs to handle line boundaries.
 
@@ -456,7 +456,7 @@ A line break is simply part of the document sequence.
 
 The editor's higher-level Document model can interpret those boundaries as lines.
 
-# Why This Differs from a Gap Buffer
+## Why This Differs from a Gap Buffer
 
 The difference becomes clearer when we compare the conceptual operations.
 
@@ -507,7 +507,7 @@ Neither strategy is universally superior.
 
 The important question is which workload each representation handles well.
 
-# The Cost Has Moved
+## The Cost Has Moved
 
 We can now see a recurring pattern.
 

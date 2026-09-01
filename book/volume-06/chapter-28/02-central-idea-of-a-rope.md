@@ -224,9 +224,9 @@ A Rope also needs a way to determine how much text exists within different parts
 Consider:
 
 ```text
-                     [11]
+                     [16]
                     /    \
-                  [6]    [5]
+                  [11]    [5]
                  /  \    /  \
                 A    B  C    D
 ```
