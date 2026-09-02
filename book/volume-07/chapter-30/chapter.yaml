@@ -1,0 +1,20 @@
+chapter: 30
+title: Search
+volume: 7
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 30.1 Why Search Is More Than Finding Text —> 01-search-more-finding-text.md
+  - 30.2 The Search Problem —> 02-the-search-problem.md
+  - 30.3 Linear Search —> 03-linear-search.md
+  - 30.4 Searching Across Lines —> 04-searching-across-lines.md
+  - 30.5 Search State —> 05-search-state.md
+  - 30.6 Incremental Search —> 06-incremental-search.md
+  - 30.7 Regular Expressions —> 07-regular-expressions.md
+  - 30.8 Regex Changes the Problem —> 08-regex-changes-the-problem.md
+  - 30.9 Search User Experience —> 09-search-user-experience.md
+  - 30.10 Search Performance —> 10-search-performance.md
+  - 30.11 Design Alternatives and Trade-offs —> 11-design-alternatives-trade-offs.md
+  - 30.12 Common Search Bugs —> 12-common-search-bugs.md
+  - 30.13 What We Are Not Building —> 13-what-we-are-not-building.md
+  - Summary, Exercises, Next Chapter Preview —> 14-conclusion.md

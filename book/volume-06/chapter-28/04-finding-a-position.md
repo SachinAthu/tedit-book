@@ -17,7 +17,7 @@ First, we need to establish what position means.
 Suppose the document is:
 
 ```text
-Hello world from Rope
+Hello world! from Rope
 ```
 
 and we number its characters from the beginning:
