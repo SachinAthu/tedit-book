@@ -425,7 +425,7 @@ This gives us a useful separation of concerns:
 
 Regex therefore changes the complexity **inside** the search subsystem without requiring a fundamentally different editor architecture.
 
-The next section connects search to the complete editor architecture and examines how the feature should fit into the existing Input Engine, Command Engine, Editor State, Document, Cursor, Viewport, and Renderer.
+The next section steps back from matching rules and examines search from the user's point of view.
 
 ## Summary
 

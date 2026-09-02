@@ -167,7 +167,7 @@ It can be useful when commands need additional capabilities such as:
 
 However, those requirements are outside the scope of the current editor.
 
-The existing project plan places the deeper Command Pattern and undo/redo discussion in Chapter 32.
+The existing project plan places the deeper Command Pattern and undo/redo discussion in Chapter 31.
 
 Introducing the full pattern here would therefore solve problems that the current editor does not yet have.
 
