@@ -1630,6 +1630,24 @@ Volume II, Chapter 11
 - Renderer
 - Retained-Mode Rendering
 
+## Incremental Search
+
+**Definition**
+
+An interactive search model in which the editor searches again as the user types, updating the current match after each change to the query rather than waiting for the complete query. Incremental search does not require a new search algorithm — it can reuse the same literal (linear) search — but it turns search into a continuous interaction among the query, search state, the Document, and the existing editor state. A query that currently has no match does not end the search; the user can keep typing, delete characters, change direction, or cancel.
+
+**First Introduced**
+
+Volume VII, Chapter 30
+
+**Related Terms**
+
+- Search
+- Linear Search
+- Search State
+- Search Match
+- Regular Expression
+
 ## Input Engine
 
 **Definition**
@@ -1944,6 +1962,24 @@ Volume II, Chapter 10
 - Object File
 - Build System
 - Compilation
+
+## Linear Search
+
+**Definition**
+
+The simplest search strategy: examine the Document's text from one candidate position to the next until the query is found or the relevant text is exhausted. Linear search requires no index, no preprocessing, and no additional representation of the Document; it works directly with the text representation already in memory, traversing the Document's logical lines to report matches in logical coordinates. Its cost grows with the amount of text examined, and repeated searches may rescan the same text, a trade-off that becomes more important once search is interactive.
+
+**First Introduced**
+
+Volume VII, Chapter 30
+
+**Related Terms**
+
+- Search
+- Search Match
+- Incremental Search
+- Linear Time
+- Document
 
 ## Linear Time
 
@@ -2666,6 +2702,23 @@ Volume I, Chapter 2
 - Main Memory
 - Instruction Cycle
 
+## Regular Expression
+
+**Definition**
+
+A pattern that describes a set of possible text sequences rather than one exact sequence. In the editor, a regular-expression search interprets the query as a pattern — introducing special characters, pattern interpretation or compilation, and invalid-pattern errors — while still producing the same kind of logical match (a start position and a length) as literal search. Regular expressions are an optional, more expressive matching strategy layered on top of literal search, not a replacement for it.
+
+**First Introduced**
+
+Volume VII, Chapter 30
+
+**Related Terms**
+
+- Search
+- Search Match
+- Linear Search
+- Incremental Search
+
 ## Renderer
 
 **Definition**
@@ -3288,6 +3341,66 @@ Volume II, Chapter 7
 - Functional Requirement
 - Minimum Viable Editor (MVE)
 - Feature Creep
+
+## Search
+
+**Definition**
+
+The editor feature that locates occurrences of a query within the Document and navigates between them. Search is a system feature rather than a string-matching function: it introduces temporary search state and works with the existing Document, Cursor, Viewport, Renderer, and Message Bar, reporting matches as logical Document positions with a start position and length. The editor decides what to do with a search result — moving the Cursor, adjusting the Viewport, and rendering are handled by the existing architecture, not by the search operation itself.
+
+**First Introduced**
+
+Volume VII, Chapter 30
+
+**Related Terms**
+
+- Search State
+- Search Match
+- Linear Search
+- Incremental Search
+- Regular Expression
+- Document
+- Cursor
+- Viewport
+
+**Notes**
+
+The baseline search design includes literal search, incremental search, next and previous navigation, search direction, optional wrapping, and regex matching. Replacement is separate from search: search observes the Document without modifying it, while replacement would require an editing operation.
+
+## Search Match
+
+**Definition**
+
+The result of a successful search, described by a start position and a length expressed in the Document's logical coordinate system rather than as a screen position. A match is not just the matched text: the editor may need its length to determine where the match ends, where the next search should continue, or to represent matches of varying length such as those produced by regular expressions. One query can produce many matches, and the editor tracks which one is currently selected.
+
+**First Introduced**
+
+Volume VII, Chapter 30
+
+**Related Terms**
+
+- Search
+- Search State
+- Document Coordinates
+- Cursor
+
+## Search State
+
+**Definition**
+
+The temporary information the editor retains while a search interaction is active: the query, the current match, the search direction, and whether a search is active (and, in some designs, the position from which the search session began). Search state exists only while the search is relevant, is owned by the search feature rather than by the Document or Cursor, and remains distinct from the Cursor even though a search result eventually moves the Cursor.
+
+**First Introduced**
+
+Volume VII, Chapter 30
+
+**Related Terms**
+
+- Search
+- Search Match
+- Incremental Search
+- Cursor
+- Editor State
 
 # T
 
