@@ -24,7 +24,7 @@ Integration — cursor, dirty flag, grouping
 Engineering — memory, limits, and bugs
 ```
 
-We first clarify what an undo operation means, then compare snapshot-based history with operation-based history. We examine how undo and redo form a two-stack state machine, decide which actions belong in history, and integrate undo with cursor state and the Dirty Flag. Finally, we study grouping and coarse coalescing, memory and performance, history limits, design alternatives, and the bugs that undo/redo implementations commonly introduce.
+We first clarify what an undo operation means, then compare snapshot-based history with operation-based history. We examine how undo and redo form a two-stack state machine, decide which actions belong in history, and integrate undo with cursor state and the Dirty Flag. Finally, we study grouping and coalescing, memory and performance, history limits, design alternatives, and the bugs that undo/redo implementations commonly introduce.
 
 ## Learning Objectives
 
@@ -39,4 +39,5 @@ By the end of this chapter, you should be able to:
 - Describe how undo and redo relate to the Dirty Flag.
 - Explain how grouping and coalescing shape history at user-action granularity.
 - Evaluate the memory and performance costs of the baseline undo design.
-- Compare history-limiting policies and common undo/redo bugs.
+- Compare history-limiting policies and weigh the design alternatives and their trade-offs.
+- Recognize common undo/redo bugs.

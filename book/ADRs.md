@@ -371,3 +371,39 @@ Directly truncating and rewriting the destination can destroy the last valid ver
 Trade-off: The strategy turns each save into a two-phase prepare-and-commit operation, requiring space for a Temporary File, an extra write, and a rename, and a save can now fail at additional steps. It still does not guarantee survival of a power loss, does not preserve the original file's metadata, and does not recover unsaved work after a crash. These costs are accepted in exchange for protecting the last known-good version of the file while a save is in progress.
 
 First referenced: Chapter 23
+
+---
+
+# ADR-023
+
+Search Strategy
+
+Decision:
+
+Adopt direct linear search over the Document as the baseline search strategy, implemented as an editor feature that works with the existing architecture rather than as a separate search system. Search locates a query within the Document and reports each match as a logical Document position paired with a length, leaving cursor movement, Viewport adjustment, and rendering to the components that already own them. The baseline supports literal search, next and previous match navigation, forward and backward direction, optional wrap-around, and incremental search that reuses the same linear search as the query changes; regular-expression matching is supported as an optional, more expressive strategy layered on top of literal search. Introduce a small, temporary Search State — the query, direction, current match, and whether a search is active — owned by the search feature and distinct from the Cursor. Deliberately defer: a search index, cached search results, fuzzy search, a full regex-engine implementation, unrestricted multi-line matching, replace, persistent match highlighting, search history, and multi-document search.
+
+Reason:
+
+Search in an editor is a system feature, not a string-matching function. The Document already owns the text, the Cursor owns the logical position, the Viewport owns the visible region, and the Renderer owns presentation; a search feature that duplicated any of those responsibilities would become a second editor. Linear search keeps the baseline simple: it requires no index, no preprocessing, no additional representation, and no synchronization with a copy of the Document, and it produces results the existing components can consume directly. Incremental search changes the interaction — re-searching as the query changes — but not the underlying algorithm. Regular expressions add expressiveness while still producing the same logical match, so their complexity can be contained inside the search subsystem. Deferring indexes, caching, replace, and other enhancements keeps the feature within the project's scope while leaving room to optimize later behind the same search interface.
+
+Trade-off: Linear search can rescan the same text during repeated searches, and incremental search may perform many searches as the query changes; regex adds pattern-interpretation cost. A search index or cached results could reduce repeated work, but only by introducing additional memory, update costs, and synchronization between two representations of the Document. Optimization is deferred until a measured workload justifies it.
+
+First referenced: Chapter 30
+
+---
+
+# ADR-024
+
+Undo / Redo History Model
+
+Decision:
+
+Adopt operation-based undo/redo history modeled as a two-stack state machine. Keep an **Undo Stack** of performed operations that can be reversed and a **Redo Stack** of undone operations that can be reapplied; each history entry is a self-contained undo record describing the document-changing operation plus the information required to reverse it. Reject snapshot-based history (preserving complete document states) as the baseline strategy. Define the three fundamental transitions explicitly: a new edit pushes onto the Undo Stack and clears the Redo Stack; Undo pops the most recent entry, applies its inverse, and moves the record to the Redo Stack; Redo pops from the Redo Stack, reapplies the original operation, and moves the record back to the Undo Stack. Only document-changing commands enter history; navigation, scrolling, searching, and similar view-level commands do not. Group and coalesce compatible operations so history reflects user-meaningful actions rather than every low-level mutation. Restore the cursor position associated with an edit on undo and redo. Never drive the Dirty Flag from history: the flag reflects whether the current Document matches the saved version, evaluated against the save point (or an equivalent reference state) rather than derived from the undo/redo stacks.
+
+Reason:
+
+Undo requires history, and operation-based records are change-sized rather than document-sized: a small edit to a large document retains only the changed data, whereas a snapshot would copy the entire state. Stacks are the natural representation because operations must be reversed in the opposite order from which they were executed, and the two-stack model provides both backward movement (undo) and forward movement (redo) within a single linear history. Clearing the Redo Stack on a new edit is what keeps history a single linear path rather than a set of disconnected branches, and the state-machine formulation makes that rule explicit and less error-prone. Recording only document-changing commands keeps history meaningful for the user, while grouping and coalescing bridge the gap between the Command Engine's low-level operations and the user's mental model of one action. Restoring cursor position makes undo feel like reversing the user's last edit, and keeping the Dirty Flag independent of history is required for correctness: undoing back to the saved contents should make the document clean even when history is non-empty, and undoing to a still-modified state should leave it dirty.
+
+Trade-off: Operation-based history demands that every record contain all information required to reverse the operation, which is more complex than the conceptually simple but memory-expensive snapshot approach; large insertions or deletions can still produce sizable records. A policy for limiting history (unlimited, maximum operation count, or memory budget) is required so that a long session cannot consume unbounded memory, and discarding the oldest entries permanently removes the ability to undo to those earlier states even though the current Document is unaffected. This replaces the Command Pattern deferral recorded in ADR-016: the editor now retains the information necessary to reverse commands that modify the Document.
+
+First referenced: Chapter 31

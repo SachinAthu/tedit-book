@@ -110,9 +110,11 @@ Editor State
 ├── Document
 ├── Cursor
 ├── Viewport
-├── Mode
-├── Status information
-└── Message information
+├── Current File
+├── Dirty Flag
+├── Screen Size
+├── Status Message
+└── Configuration
 ```
 
 A command may modify one of these components without modifying the document.

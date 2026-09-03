@@ -31,6 +31,8 @@ the existing editor architecture.
 
 Search introduces a small amount of temporary search state and reuses the existing Document, Cursor, Viewport, Renderer, and Message Bar. It finds text and reports a logical match; the editor decides what to do with the result. The baseline design keeps search simple with a direct search of the Document, and deliberately leaves search indexes, fuzzy matching, a full regex engine, replace, and persistent highlighting out of scope.
 
+The baseline search strategy — direct linear search with no index, with incremental search and optional regex matching layered on top — is recorded as **ADR-023: Search Strategy**.
+
 ## Exercises
 
 ### Review Questions

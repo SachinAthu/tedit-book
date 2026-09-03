@@ -48,7 +48,7 @@ The important lessons are:
 
 ### Design Exercise
 
-Compare a snapshot-based system with an operation-based system for a 10 MB document and 10,000 small edits. Estimate the memory each approach requires, the cost of creating a history entry, and how the two systems behave when the user undoes back to the beginning of the session.
+1. Compare a snapshot-based system with an operation-based system for a 10 MB document and 10,000 small edits. Estimate the memory each approach requires, the cost of creating a history entry, and how the two systems behave when the user undoes back to the beginning of the session.
 
 ## Preview of the Next Chapter
 

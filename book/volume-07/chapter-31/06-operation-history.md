@@ -272,7 +272,7 @@ State C
 State D
 ```
 
-This model connects the Command Pattern with the two-stack state machine from the previous section.
+This model connects the Command Pattern with the two-stack state machine examined later in this chapter.
 
 The **command record describes the transition**, while the **undo and redo stacks determine which transitions can currently be traversed**.
 

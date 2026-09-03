@@ -497,7 +497,7 @@ Snapshot granularity can be summarized as:
 | --------------------- | -------------- | -----------: | ---------: |
 | Every low-level edit  | Very fine      |         High |        Low |
 | Grouped edits         | Coarser        |        Lower |   Moderate |
-| Large state intervals | Coarse         |        Lower |   Moderate |
+| Large state intervals | Coarse         |       Lowest |   Moderate |
 
 The correct choice depends on what the editor considers a meaningful editing action.
 

@@ -192,7 +192,7 @@ For example:
 
 ```text
 Deleted character: 'l'
-Position: 2
+Position: 3
 ```
 
 The editor can then reconstruct:

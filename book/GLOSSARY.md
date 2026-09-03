@@ -519,6 +519,23 @@ Volume V, Chapter 22
 - ASCII
 - UTF-8
 
+## Coalescing
+
+**Definition**
+
+A specific form of history grouping in which compatible adjacent operations are automatically merged into a single history entry, for example repeated character insertions merged into one "type word" operation. Coalescing reduces the number of history entries while preserving the user's expected undo behavior, but it must only merge operations that genuinely belong to the same user action; merging across a context boundary such as a cursor movement would produce a history entry whose meaning no longer matches the user's actions.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Grouping
+- Operation History
+- Undo Stack
+- Undo
+
 ## Code Point
 
 **Definition**
@@ -645,6 +662,24 @@ Volume II, Chapter 8
 **Notes**
 
 Architectural overview: Volume II, Chapter 8. Detailed treatment: Volume III, Chapter 16.
+
+## Command Pattern
+
+**Definition**
+
+The approach to undo/redo in which an editing action is represented as a record that describes both what changed and what is required to reverse it. A command record stores the operation type, position, affected data, and any other information needed to reconstruct the previous state, so the editor can undo by applying the inverse and redo by reapplying the original operation. In this chapter, the Command Pattern is primarily a history representation built on the existing Command Engine rather than a reason to redesign command dispatch.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Command
+- Operation History
+- Undo Record
+- Snapshot
+- Undo
 
 ## Command Type
 
@@ -1507,6 +1542,23 @@ Volume I, Chapter 4
 - Terminal Emulator
 - Capability Database
 
+## Grouping
+
+**Definition**
+
+The history-system technique of combining several low-level operations into one logical history entry so that undo and redo operate at user-action granularity. Grouping changes the granularity of history without requiring the underlying editing operations to become a single operation, and it must decide where one user action ends and another begins. A grouped history entry typically records the cursor position before and after the group so that undo and redo restore the correct editing position as a unit.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Coalescing
+- Operation History
+- Undo Stack
+- Undo
+
 # H
 
 ## Heap
@@ -1784,6 +1836,23 @@ Volume I, Chapter 2
 - CPU
 - Program Counter
 - Machine Instruction
+
+## Inverse Operation
+
+**Definition**
+
+An operation that transforms a document state back to the state that existed before another operation was performed. If an operation transforms `A → B`, its inverse transforms `B → A`; for example, the inverse of an insertion is a deletion, and the inverse of a deletion is an insertion. Operation-based undo works by applying the inverse operation recorded in an undo record, while redo reapplies the original operation.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo
+- Redo
+- Operation History
+- Undo Record
 
 # K
 
@@ -2333,6 +2402,25 @@ Volume II, Chapter 10
 - Source File
 - Incremental Build
 
+## Operation History
+
+**Definition**
+
+An ordered collection of undoable commands that represents the document's editing past. Each entry describes one meaningful editing action together with the information required to reverse it, and the order matters because operations must be undone in the opposite order from which they were executed. The operation history is kept separate from the Document and is typically represented as an undo stack and a redo stack.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo Stack
+- Redo Stack
+- Undo Record
+- Inverse Operation
+- Command Pattern
+- Snapshot
+
 ## Original Buffer
 
 **Definition**
@@ -2685,6 +2773,40 @@ Volume I, Chapter 5
 
 - Canonical Mode
 - termios
+
+## Redo
+
+**Definition**
+
+The editor operation that moves forward through the editing history by reapplying an operation that was previously undone. Redo takes the most recent entry from the redo stack, applies its original forward operation (not the inverse used to undo it), and moves the record back to the undo stack. A new edit after an undo discards the redo stack, so redo is only available along the current linear editing path.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo
+- Undo Stack
+- Redo Stack
+- Operation History
+
+## Redo Stack
+
+**Definition**
+
+The second half of the undo/redo history model: the collection of operations that have been undone and can potentially be reapplied. When an operation is undone, it moves from the undo stack to the redo stack; redo moves it back. The most important rule is that a new edit after an undo clears the redo stack, because reapplying a redo operation after a different edit would follow a history branch that no longer corresponds to the current Document. The redo stack therefore represents the currently undone portion of the linear editing history rather than an archive of old operations.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo Stack
+- Redo
+- Undo
+- Operation History
 
 ## Register
 
@@ -3104,6 +3226,39 @@ Volume II, Chapter 8
 - Editor State
 - State Ownership
 - Data Flow
+
+## Snapshot
+
+**Definition**
+
+A saved representation of the Document's state at a particular point in time, created before an edit so that Undo can restore it. A snapshot must preserve its own complete copy of the state it represents, independent from the active Document, or later edits would corrupt the historical state. Snapshots make undo conceptually simple—the editor restores a previous state rather than reconstructing it from operation details—but each snapshot consumes memory and copying work proportional to the state preserved.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Snapshot Granularity
+- Operation History
+- Undo
+- Undo Stack
+
+## Snapshot Granularity
+
+**Definition**
+
+The design choice of how much state each snapshot preserves and how often snapshots are created. A snapshot may contain the entire Document or only the portions of Editor State that belong to editing history, and the editor may create a snapshot before every edit or group several related edits into one historical state. Snapshot granularity is a user-experience policy backed by a storage strategy: it determines both memory consumption and how precisely Undo reflects the user's editing actions.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Snapshot
+- Operation History
+- Undo
 
 ## Soft Wrapping
 
@@ -3615,6 +3770,76 @@ Volume I, Chapter 3
 - Terminal
 
 # U
+
+## Undo
+
+**Definition**
+
+The editor operation that moves backward through the editing history by reversing the most recent undoable change. Undo takes an operation from the undo stack, applies its inverse to the Document, and moves the record to the redo stack. Undo requires history: the editor can only reverse a change for which it retains enough information to reconstruct the previous state, and it may also restore cursor position associated with the edit.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Redo
+- Undo Stack
+- Redo Stack
+- Undo Record
+- Operation History
+- Snapshot
+
+## Undo Record
+
+**Definition**
+
+A record of an undoable document-changing operation together with the information required to reverse it. An undo record must preserve everything the inverse operation cannot reconstruct from the current Document—for example, the deleted text of a deletion—rather than attempting to describe the complete document. It captures the semantic editing action so that undo reverses the change that actually occurred.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo
+- Operation History
+- Inverse Operation
+- Command Pattern
+- Snapshot
+
+## Undo Stack
+
+**Definition**
+
+The stack of operations that have already been performed and can currently be reversed, representing what can be undone rather than an archival list of everything that ever happened. Because operations must be reversed in the opposite order from which they were executed, the undo stack follows Last In, First Out (LIFO) behavior: the most recent operation is the first candidate for Undo.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo
+- Redo Stack
+- Redo
+- Operation History
+
+## Undoable Action
+
+**Definition**
+
+A document-changing command that the user would reasonably expect Undo to reverse, such as inserting or deleting text, splitting or merging lines, or replacing text. Commands that only change the view or interact with the surrounding system—cursor movement, scrolling, searching, showing a message—are normally not undoable. Undo history should therefore contain meaningful reversible editing actions rather than every command or internal state change.
+
+**First Introduced**
+
+Volume VII, Chapter 31
+
+**Related Terms**
+
+- Undo
+- Operation History
+- Command
 
 ## Use Case
 

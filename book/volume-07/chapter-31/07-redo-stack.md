@@ -302,7 +302,7 @@ This simple rule provides predictable behavior while keeping the history model s
 
 ## Summary
 
-The redo stack holds the undocument portion of the editing history—operations that were undone and can be reapplied. Undo moves an operation from the undo stack to the redo stack, redo moves it back, and a new edit after an undo discards the redo stack so history remains a single linear path.
+The redo stack holds the undone portion of the editing history—operations that were undone and can be reapplied. Undo moves an operation from the undo stack to the redo stack, redo moves it back, and a new edit after an undo discards the redo stack so history remains a single linear path.
 
 Now that both stacks are defined, the next section presents undo and redo together as a state machine.
 

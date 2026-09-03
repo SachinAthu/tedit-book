@@ -288,7 +288,9 @@ Editor State
 ├── Viewport
 ├── Current File
 ├── Dirty Flag
-└── ...
+├── Screen Size
+├── Status Message
+└── Configuration
 ```
 
 We should therefore distinguish between a **document snapshot** and a **complete editor-state snapshot**.

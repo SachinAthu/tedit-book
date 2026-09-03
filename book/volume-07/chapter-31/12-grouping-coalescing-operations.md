@@ -313,7 +313,7 @@ Before group:
 hello|
 
 After group:
-hello world|
+hellohello|
 
 Undo:
 hello|

@@ -12,7 +12,7 @@ sections:
   - 31.6 Operation History —> 06-operation-history.md
   - 31.7 The Redo Stack —> 07-redo-stack.md
   - 31.8 Undo / Redo State Machine —> 08-undo-redo-state-machine.md
-  - 31.9 What Counts as an Undoable Action? —> 09-what-counts-undoble.md
+  - 31.9 What Counts as an Undoable Action? —> 09-what-counts-undoable.md
   - 31.10 Cursor Position and Editor State —> 10-cursor-position-editor-state.md
   - 31.11 Undo, Redo, and the Dirty Flag —> 11-undo-redo-dirty-flag.md
   - 31.12 Grouping and Coalescing Operations —> 12-grouping-coalescing-operations.md
