@@ -26,7 +26,6 @@ might be displayed conceptually as:
 keyword    identifier    operator    number
    │            │            │          │
    ▼            ▼            ▼          ▼
-
   int         count          =         42;
 ```
 

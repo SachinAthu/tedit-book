@@ -117,6 +117,8 @@ could produce:
 (0,14) → (0,15)   PUNCTUATION
 ```
 
+Here `count` is shown as `IDENTIFIER`, its raw token classification; a later syntax-analysis stage may refine it to `VARIABLE`, `FUNCTION`, or `TYPE` as discussed in Section 32.5.
+
 These ranges are expressed using logical Document coordinates.
 
 They are not screen coordinates.

@@ -388,7 +388,7 @@ A lexer might identify regions such as:
 
 | Text                     | Token type  |     Start | Length |
 | ------------------------ | ----------- | --------: | -----: |
-| `// Calculate the total` | COMMENT     |  `(0, 0)` |     23 |
+| `// Calculate the total` | COMMENT     |  `(0, 0)` |     22 |
 | `int`                    | KEYWORD     |  `(1, 0)` |      3 |
 | `total`                  | IDENTIFIER  |  `(1, 4)` |      5 |
 | `=`                      | OPERATOR    | `(1, 10)` |      1 |

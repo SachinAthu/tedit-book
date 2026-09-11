@@ -1595,6 +1595,43 @@ Volume II, Chapter 10
 - Forward Declaration
 - Information Hiding
 
+## Highlight Class
+
+**Definition**
+
+A semantic category that describes how a region of source text should be treated by the presentation layer, independent of any particular visual appearance. Highlight classes such as `KEYWORD`, `STRING`, `COMMENT`, and `NUMBER` describe what the text represents rather than how it should be colored; a Theme later maps each class to an actual visual style. A highlight class is distinct from a token type: a Token records what the text is syntactically, while a highlight class records which semantic presentation category applies.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Token
+- Theme
+- Visual Style
+- Highlighting Mode
+- Syntax Highlighting
+- Document
+
+## Highlighting Mode
+
+**Definition**
+
+The selected language whose syntax rules the syntax subsystem applies to a Document. The highlighting mode acts as metadata that controls analysis: it selects a Language Definition, which in turn drives the Lexer and subsequent stages, while the Document itself remains language-neutral. A highlighting mode may also disable highlighting entirely for a plain-text document.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Language Definition
+- Highlight Class
+- Syntax Highlighting
+- Lexer
+- Document
+
 ## Horizontal Scrolling
 
 **Definition**
@@ -1929,6 +1966,24 @@ Volume III, Chapter 15
 
 # L
 
+## Language Definition
+
+**Definition**
+
+A description of the vocabulary and rules that the syntax subsystem understands for one language, such as its keywords, numeric-literal forms, string and comment delimiters, operators, and punctuation. A language definition describes how a Document should be interpreted rather than containing the document itself, which is what allows the same editor to support many languages by supplying different definitions.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Highlighting Mode
+- Lexer
+- Token
+- Syntax Highlighting
+- Document
+
 ## Latency
 
 **Definition**
@@ -2015,6 +2070,41 @@ Volume VI, Chapter 25
 - Dynamic String
 - C String
 - Null Terminator
+
+## Lexer
+
+**Definition**
+
+The component that performs lexical analysis: it reads the Document's characters and divides them into meaningful lexical units called Tokens. The Lexer reads without editing, determines token boundaries, tracks lexical context such as strings and comments, and classifies each token, without choosing colors or emitting escape sequences. Its position in the pipeline is after the Document and before the Parser.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Lexical Analysis
+- Token
+- Parser
+- Syntax Highlighting
+- Document
+
+## Lexical Analysis
+
+**Definition**
+
+The process of reading a character sequence and identifying its lexical units (Tokens) and their types. Because strings, comments, and multi-character operators depend on earlier context, lexical analysis is a stateful scan rather than a set of independent character checks. It answers what the pieces of text are, whereas parsing answers how those pieces relate.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Lexer
+- Token
+- Parser
+- Syntax Highlighting
 
 ## Linker
 
@@ -2456,6 +2546,24 @@ Volume IV, Chapter 18
 - Double Buffering
 - Full Redraw
 - Frame
+
+## Parser
+
+**Definition**
+
+The component that reasons about the relationships between tokens to determine structure. The Parser answers "how are these pieces related?"—distinguishing, for example, an identifier that names a function from one that names a variable—in contrast to the Lexer, which only identifies the pieces. A syntax highlighter's parser is deliberately lightweight: it need not build a full syntax tree or understand program correctness, only enough structure to classify regions for highlighting.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Lexer
+- Token
+- Lexical Analysis
+- Highlight Class
+- Syntax Highlighting
 
 ## Project Structure
 
@@ -3557,6 +3665,43 @@ Volume VII, Chapter 30
 - Cursor
 - Editor State
 
+## Syntax Highlighting
+
+**Definition**
+
+The editor feature that analyzes the Document's text and derives structured information—tokens, syntax relationships, and highlight classes—so the Renderer can present different regions distinctly. Syntax highlighting is derived information rather than part of the Document: it describes the text without modifying it, never emits escape sequences, and can always be discarded and regenerated from the Document.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Highlight Class
+- Lexer
+- Parser
+- Theme
+- Highlighting Mode
+- Derived State
+- Document
+- Renderer
+
+## Syntax State
+
+**Definition**
+
+The lexical context carried across line boundaries during analysis—for example, whether a line begins inside a string or a block comment. Because a line's meaning can depend on earlier lines, syntax analysis propagates this state forward and can stop re-analyzing once the state becomes stable again.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Lexical Analysis
+- Syntax Highlighting
+- Document
+
 # T
 
 ## Teletype (TTY)
@@ -3737,6 +3882,23 @@ Volume VI, Chapter 29
 - Rope
 - Editing Locality
 
+## Theme
+
+**Definition**
+
+The mapping from Highlight Classes to actual visual styles. A Theme answers "how should this category look?" independently of language analysis, so changing the theme never requires re-lexing the Document, and the same syntax information can be presented with different themes. A Theme is a small, focused component that maps semantic classes to styles and provides a fallback style.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Highlight Class
+- Visual Style
+- Syntax Highlighting
+- Renderer
+
 ## Time Complexity
 
 **Definition**
@@ -3753,6 +3915,24 @@ Volume VI, Chapter 24
 - Complexity Analysis
 - Big-O Notation
 - Latency
+
+## Token
+
+**Definition**
+
+A typed reference to a region of the Document, described by a type, a start position, and a length expressed in the Document's logical coordinate system. A token references text rather than copying it, never owns document text, and is derived from a particular Document state, so it becomes stale and must be regenerated when that state changes. A token type describes what the text is syntactically, distinct from a Highlight Class, which describes which semantic presentation category applies.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Lexer
+- Lexical Analysis
+- Parser
+- Highlight Class
+- Document
 
 ## TTY
 
@@ -3981,6 +4161,23 @@ Volume I, Chapter 3
 - PTY
 - Terminal Emulator
 - Console
+
+## Visual Style
+
+**Definition**
+
+The actual visual attributes—such as a foreground color, a font weight, or a background—that a Theme assigns to a Highlight Class. Visual styles live at the presentation boundary: the syntax subsystem produces semantic classes, and only the Theme decides the physical appearance those classes take on the terminal.
+
+**First Introduced**
+
+Volume VII, Chapter 32
+
+**Related Terms**
+
+- Theme
+- Highlight Class
+- Syntax Highlighting
+- Renderer
 
 ## Visual/Display Column
 

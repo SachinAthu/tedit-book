@@ -1,4 +1,4 @@
-# 32.6 Why Lexing Alone Is Sometimes Not Enough
+# 32.6 Why Lexing Alone Is Not Enough
 
 Lexical analysis is powerful because many syntax-highlighting decisions can be made by examining source text from left to right.
 

@@ -766,3 +766,5 @@ The best solution depends on the requirements of the editor, the languages being
 For this project, the guiding principle is:
 
 > **Start with a small, correct syntax subsystem and preserve the boundaries that allow it to become more sophisticated later.**
+
+The chapter closes by bringing these ideas together in a summary, a set of exercises, and a preview of what comes next in **Chapter 33 — Configuration**.

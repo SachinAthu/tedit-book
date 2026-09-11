@@ -407,3 +407,21 @@ Undo requires history, and operation-based records are change-sized rather than 
 Trade-off: Operation-based history demands that every record contain all information required to reverse the operation, which is more complex than the conceptually simple but memory-expensive snapshot approach; large insertions or deletions can still produce sizable records. A policy for limiting history (unlimited, maximum operation count, or memory budget) is required so that a long session cannot consume unbounded memory, and discarding the oldest entries permanently removes the ability to undo to those earlier states even though the current Document is unaffected. This replaces the Command Pattern deferral recorded in ADR-016: the editor now retains the information necessary to reverse commands that modify the Document.
 
 First referenced: Chapter 31
+
+---
+
+# ADR-025
+
+Syntax Highlighting Baseline
+
+Decision:
+
+Implement syntax highlighting as derived information built by an analysis pipeline layered on top of the Document, using a stateful Lexer plus lightweight contextual analysis as the baseline. The Lexer produces Tokens that reference document regions by logical position rather than copying text; syntax analysis refines those tokens into semantic Highlight Classes; a Theme maps those classes to Visual Styles; and the Renderer draws the result. The Document remains the single authoritative source of text, so highlighting never modifies the text, never stores colors or escape sequences in the buffer, and can always be discarded and regenerated. Deliberately defer: a full parser or syntax tree, a language server, a semantic type checker, and a generalized incremental parsing framework.
+
+Reason:
+
+Syntax highlighting is an information-processing problem, not a coloring problem. Treating it as derived state preserves the architecture established throughout the book: the Document owns text, the Renderer owns presentation, and highlighting sits between them as analysis. Keeping lexical analysis and rendering independent means language knowledge never leaks into presentation, and semantic Highlight Classes give a stable boundary that Themes can map without forcing analysis to change. A stateful Lexer with lightweight context is enough to demonstrate professional principles without prematurely introducing the complexity of advanced parsing.
+
+Trade-off: The pipeline adds a layer of derived state that must be invalidated and regenerated as the Document changes, and lexical analysis alone cannot resolve every highlighting decision, so some limited contextual rules are needed. More sophisticated approaches—full syntax trees or incremental parsing—would improve correctness and efficiency for large, frequently edited documents, but only at the cost of much greater complexity. The design therefore preserves the boundaries that allow a later upgrade to such approaches without redesigning the Document or Renderer.
+
+First referenced: Chapter 32

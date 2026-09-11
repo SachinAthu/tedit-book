@@ -953,8 +953,4 @@ The central performance principle is:
 
 > **Analyze only what has to change, retain only what is useful, and keep the interactive path predictable.**
 
-This leads naturally to the next architectural question.
-
-There are several possible ways to implement syntax highlighting—from simple regular-expression rules to state machines, parser-based approaches, and more advanced syntax-tree systems. Each provides a different balance of simplicity, correctness, extensibility, and performance.
-
-The next section compares these approaches at a high level in **32.14 — Design Alternatives and Trade-offs**.
+There are several possible ways to implement syntax highlighting—from simple regular-expression rules to state machines, parser-based approaches, and more advanced syntax-tree systems. Each provides a different balance of simplicity, correctness, extensibility, and performance. The next section compares these approaches at a high level in **Section 32.14, Design Alternatives and Trade-offs**.
