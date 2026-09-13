@@ -243,3 +243,9 @@ User preferences then modify that baseline.
 This is a subtle but important architectural distinction. It means every component receives a predictable configuration instead of having to handle missing values, and it keeps configuration concerns concentrated in one place.
 
 The next question is therefore not how to write a configuration file, but **where configuration values can come from and which source should take precedence when more than one provides a value**.
+
+## Summary
+
+Every configurable option must have a sensible, valid, conservative default. Defaults make configuration optional, simplify component design, keep behavior predictable, and provide a fallback for settings the user never overrides. Together they guarantee that the editor never enters normal operation with an incomplete or invalid `Configuration`, so a configuration file is an override mechanism rather than a requirement.
+
+The next section examines the sources that can override those defaults and how precedence is decided: **Section 33.5, Configuration Sources and Precedence**.

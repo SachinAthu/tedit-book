@@ -309,3 +309,9 @@ The result is a cleaner system:
 > **Configuration centralizes preferences while keeping behavior decentralized.**
 
 That is the model we will use for the remainder of the chapter.
+
+## Summary
+
+Configuration is **data describing editor policy**, not the behavior that implements it. It is represented as a structured object stored in `EditorState`, owned by a controlled lifecycle, and consumed by the Input Engine, Renderer, and Command Engine. Configuration should be validated before it reaches these components, and for the baseline editor it remains fixed once normal operation begins. This centralizes preferences while keeping behavior decentralized: the configuration is a contract between the outside world and the editor architecture.
+
+Since every component assumes a complete, valid configuration, the next section explains where those starting values come from: **Section 33.4, Default Configuration**.

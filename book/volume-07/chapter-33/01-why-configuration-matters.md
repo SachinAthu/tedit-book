@@ -161,3 +161,9 @@ That boundary allows the same architecture to support different workflows withou
 For our editor, we will therefore treat configuration as a first-class architectural concern—but a deliberately constrained one.
 
 We will first determine **what should be configurable**, then design how those settings are represented, loaded, validated, and consumed by the existing editor components.
+
+## Summary
+
+Configuration separates **policy** from **architecture**. The same editor can support different tab widths, themes, and key bindings for different users without changing how the Document, Cursor, Renderer, or Command Engine are built. Configuration is therefore a controlled boundary between decisions made by the developer and preferences chosen by the user — but it is deliberately constrained so it never becomes a second architecture.
+
+Now that we know why configuration exists, the next section considers which decisions should be configurable at all: **Section 33.2, What Should Be Configurable?**

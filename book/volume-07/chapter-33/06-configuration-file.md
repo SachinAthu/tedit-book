@@ -258,7 +258,7 @@ A configuration file becomes editor policy.
 
 The parsing and validation stages ensure that raw configuration text is transformed into the structured configuration used by the application.
 
-Detailed validation rules will be examined later in **33.11 Configuration Validation**.
+Detailed validation rules will be examined later in **33.8 Configuration Validation**.
 
 ## One Configuration File for the Baseline
 
@@ -316,3 +316,9 @@ Configuration File
 The loader translates external configuration data into the editor's internal configuration model. After that boundary, the rest of the application works with structured configuration rather than raw file contents.
 
 That separation allows the configuration format to evolve without forcing every editor component to understand it.
+
+## Summary
+
+A configuration file is a **persistence mechanism for policy**: it lets users specify their preferences once and have them restored on every startup. The file is not the configuration model itself — a simple, declarative, human-readable format is parsed and validated into structured configuration by a dedicated loading layer. A missing file is not an error (defaults cover it), and configuration I/O stays cleanly separated from document I/O. For the baseline editor, a single user configuration file is sufficient, with additional scopes deferred until requirements justify them.
+
+The next section applies these ideas to the most visible form of configuration: **Section 33.7, Configurable Key Bindings**.

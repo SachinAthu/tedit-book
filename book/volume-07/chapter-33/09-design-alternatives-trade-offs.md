@@ -1,4 +1,4 @@
-## 33.14 Design Alternatives and Trade-offs
+## 33.9 Design Alternatives and Trade-offs
 
 There is no single way to configure an editor. Different approaches provide different balances between simplicity, flexibility, and complexity.
 
@@ -6,7 +6,7 @@ There is no single way to configure an editor. Different approaches provide diff
 
 The simplest approach is to place settings directly in the source code:
 
-```text id="h9v8qf"
+```text
 Code
   │
   ▼
@@ -26,7 +26,7 @@ This is easy to implement and easy to understand, but users cannot change the be
 
 A configuration file separates user preferences from the program:
 
-```text id="w5kq3x"
+```text
 File
   │
   ▼
@@ -47,7 +47,7 @@ This allows preferences to persist between sessions and can be changed without r
 
 Command-line options provide temporary overrides:
 
-```text id="j4h7qk"
+```text
 User Configuration
        │
        ▼
@@ -70,7 +70,7 @@ This is particularly useful for automation, scripts, or one-off sessions.
 
 Environment variables can also provide configuration:
 
-```text id="9qz1pb"
+```text
 Environment
      │
      ▼
@@ -90,7 +90,7 @@ For the baseline editor, environment-variable configuration is therefore unneces
 
 A more advanced editor could allow configuration to change while the editor is running:
 
-```text id="x4g8ns"
+```text
 Running Editor
       │
       ▼
@@ -115,7 +115,7 @@ For this editor, that complexity is not justified by the baseline requirements.
 
 The editor therefore uses a deliberately simple layered model:
 
-```text id="0j6q9x"
+```text
 Built-in Defaults
        ↓
 User Configuration
@@ -136,3 +136,9 @@ Runtime reconfiguration can be introduced later if a future version genuinely re
 The goal of configuration is not to maximize flexibility. It is to provide **useful customization without making the architecture unnecessarily complex**.
 
 For the baseline editor, defaults, persistent user configuration, and optional command-line overrides provide a strong balance between simplicity and usability.
+
+## Summary
+
+There is no single way to configure an editor, and each approach trades off simplicity, flexibility, and complexity. Hard-coded settings are simplest but inflexible; a configuration file adds persistence; command-line options add convenient temporary overrides; and environment variables or runtime reconfiguration add still more complexity without justifying the added cost for this editor. The baseline deliberately chooses a layered model — defaults, user configuration, and optional command-line overrides — all resolved and validated before normal editing begins.
+
+The final section warns against the most common ways this design can go wrong: **Section 33.10, Common Configuration Mistakes**.

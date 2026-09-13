@@ -234,3 +234,9 @@ This is deliberately small.
 The purpose of Chapter 33 is not to turn our editor into an infinitely configurable application. It is to establish a clean mechanism for separating **stable implementation decisions** from **legitimate user preferences**.
 
 That distinction will guide every configuration decision that follows.
+
+## Summary
+
+Configuration has a cost, so a good configuration system exposes the **right** options rather than every option. The key distinction is between user preferences, which different users can reasonably want to change, and implementation decisions, which belong to the architecture. For our editor, that means three categories — editing, input, and display — while data structures, architectural boundaries, and correctness rules stay internal. A deliberately small configuration surface keeps the system useful without suffering from configuration creep.
+
+The next section turns this scope into a concrete representation: **Section 33.3, The Configuration Model**.

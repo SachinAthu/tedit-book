@@ -479,6 +479,8 @@ The configuration boundary owns configuration validation.
 
 The consuming components own the behavior controlled by that configuration.
 
+> **Load configuration once, validate it once, and let every module consume the resulting state.**
+
 This is another application of the project's broader **single-owner principle**: each responsibility should have a clear owner.
 
 ## Configuration Errors Are Different from Runtime Errors
@@ -528,3 +530,9 @@ The goal is not merely to reject bad configuration. It is to make configuration 
 A well-designed configuration system therefore follows a simple rule:
 
 > **Parse what the user wrote, validate what it means, and only then allow the editor to use it.**
+
+## Summary
+
+Configuration validation turns **untrusted external input** into titled, trusted editor state. Parsing determines what the configuration says; validation determines whether that is acceptable. Type, range, and enum checks verify individual settings, while key-binding and cross-setting checks verify that valid values work together. Unknown settings are reported rather than silently ignored, unhelpful errors are replaced with clear diagnostics, and validation happens during startup — in one configuration boundary, not scattered across components — before the Event Loop ever begins.
+
+The next section compares this design to the main alternatives: **Section 33.9, Design Alternatives and Trade-offs**.

@@ -314,3 +314,9 @@ That gives us a predictable rule:
 > **Specific configuration overrides general configuration.**
 
 Most importantly, the editor should resolve these sources **before** normal operation begins. Once the final configuration has been established and validated, the rest of the system can operate against one consistent set of policies rather than reasoning about multiple configuration sources.
+
+## Summary
+
+Real editors draw configuration from several sources — built-in defaults, a user configuration file, and command-line overrides — so precedence must be explicit rather than left to individual components. Our model starts with defaults, applies persistent user overrides, then applies command-line overrides for temporary changes, producing one validated final `Configuration` before the Event Loop begins. Environment variables and live runtime configuration are deliberately deferred. This turns precedence into a question of authority: the most specific source wins.
+
+The next section introduces the persistent source that makes user preferences survive between sessions: **Section 33.6, Configuration File**.

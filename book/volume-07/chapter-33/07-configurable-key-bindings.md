@@ -405,3 +405,9 @@ This preserves the architecture established in earlier chapters while making key
 **A configurable key-binding system should connect inputs to commands, not inputs to implementation details.**
 
 That small distinction keeps configuration declarative, keeps the Input Engine independent of command implementations, and allows users to change editor behavior without changing the architecture of the editor itself.
+
+## Summary
+
+Configurable key bindings connect **input events to commands**, never to implementation details. The Input Engine keeps its role of translating input into commands; configuration simply changes the mapping it uses. One input event resolves to zero or one command, multiple inputs may select the same command, and conflicting or unknown bindings are configuration errors. Commands can be unbound by default, and rebinding a key never changes what a command does. This keeps the selection policy configurable while command behavior and the surrounding architecture stay stable.
+
+Because configuration now accepts user-supplied values, the next section explains how incorrect input is caught before it reaches the editor: **Section 33.8, Configuration Validation**.

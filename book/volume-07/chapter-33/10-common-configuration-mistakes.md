@@ -1,4 +1,4 @@
-# 33.15 Common Configuration Mistakes
+# 33.10 Common Configuration Mistakes
 
 Configuration is deliberately kept separate from the editor's core architecture. Several seemingly convenient designs can undermine that separation.
 
@@ -165,3 +165,9 @@ It does not replace the architecture.
 Most configuration mistakes come from treating configuration as **a second architecture**.
 
 It should remain much simpler: validated data describing user-facing policy, owned through `Editor State`, and consumed by the components responsible for that policy.
+
+## Summary
+
+Most configuration mistakes come from treating configuration as **a second architecture**. Configuration should not be global mutable state, invalid values should never reach `Editor State`, and no module should own its own parser or mix input parsing with key binding. Theme information belongs with the Renderer, not the Document; changing `tab_width` changes display, not stored text; invalid configuration should produce visible diagnostics rather than silent defaults; and configuration must never bypass architectural boundaries. Kept in its proper role, configuration stays what it was meant to be: validated data describing policy.
+
+With the design complete, the chapter closes by consolidating these ideas in the **Chapter Summary**.

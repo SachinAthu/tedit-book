@@ -12,7 +12,6 @@ sections:
   - 33.6 Configuration File —> 06-configuration-file.md
   - 33.7 Configurable Key Bindings —> 07-configurable-key-bindings.md
   - 33.8 Configuration Validation —> 08-configuration-validation.md
-  - 33.9 Configuration and Module Boundaries —> 09-configuration-and-module-boundaries.md
-  - 33.10 Design Alternatives and Trade-offs —> 10-design-alternatives-trade-offs.md
-  - 33.11 Common Configuration Mistakes —> 11-common-configuration-mistakes.md
+  - 33.9 Design Alternatives and Trade-offs —> 09-design-alternatives-trade-offs.md
+  - 33.10 Common Configuration Mistakes —> 10-common-configuration-mistakes.md
   - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md
