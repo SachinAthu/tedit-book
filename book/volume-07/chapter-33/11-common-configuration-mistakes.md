@@ -1,0 +1,167 @@
+# 33.15 Common Configuration Mistakes
+
+Configuration is deliberately kept separate from the editor's core architecture. Several seemingly convenient designs can undermine that separation.
+
+## Treating Configuration as Global Mutable State
+
+Configuration should be owned by `Editor State`, not exposed as arbitrary global variables.
+
+A global mutable configuration makes it difficult to determine who can change a setting and when that change takes effect.
+
+The safer model is:
+
+```text
+Configuration
+      │
+      ▼
+Editor State
+      │
+      ▼
+Components consume it
+```
+
+## Allowing Invalid Values into Editor State
+
+Parsing a configuration file does not make its contents valid.
+
+Invalid values should be rejected before they become part of `Editor State`.
+
+```text
+External Configuration
+        │
+        ▼
+     Validate
+        │
+        ▼
+Valid Editor State
+```
+
+This allows components to operate under well-defined assumptions.
+
+## Giving Every Module Its Own Configuration Parser
+
+The Input Engine should not parse key-binding syntax while the Renderer separately parses theme configuration.
+
+There should be one configuration boundary:
+
+```text
+Configuration File
+       │
+       ▼
+Parse + Validate
+       │
+       ▼
+Editor State
+       │
+   ┌───┼───┐
+   ▼   ▼   ▼
+ Input Renderer Commands
+```
+
+This avoids duplicated parsing logic and unnecessary dependencies.
+
+## Mixing Key Bindings with Input Parsing
+
+Input parsing and key binding are different responsibilities.
+
+The parser determines **what input event occurred**.
+
+The key-binding system determines **which command that event selects**.
+
+```text
+Keyboard Input
+      │
+      ▼
+Input Parser
+      │
+      ▼
+Input Event
+      │
+      ▼
+Key Binding
+      │
+      ▼
+Command
+```
+
+Configuration should change the binding, not redefine how terminal input is parsed.
+
+## Storing Theme Information in the Document
+
+The `Document` represents the text being edited. Theme information describes how that text is presented.
+
+Putting theme information into the document would mix source data with presentation policy.
+
+```text
+Document
+  └── Text
+
+Configuration
+  └── Theme
+```
+
+The Renderer can combine both when producing the screen without making the document aware of the user's visual preferences.
+
+## Changing the Logical Meaning of `TAB`
+
+Changing `tab_width` should change how a tab is **displayed**, not what is stored in the document.
+
+A tab remains one logical tab character:
+
+```text
+Document
+   │
+   └── '\t'
+          │
+          ▼
+     tab_width
+          │
+          ▼
+   Visual representation
+```
+
+This preserves the separation between logical text and visual layout.
+
+## Silently Ignoring Invalid Configuration
+
+Ignoring an unknown setting, malformed key binding, or invalid value can leave the user believing that their configuration is working when it is not.
+
+Clear diagnostics are preferable:
+
+```text
+Invalid Configuration
+        │
+        ▼
+Useful Diagnostic
+        │
+        ▼
+User can correct it
+```
+
+Configuration errors should be visible rather than silently converted into unexpected defaults.
+
+## Allowing Configuration to Bypass Architectural Boundaries
+
+Configuration should not become a mechanism for controlling internal implementation details.
+
+For example, a configuration option should not allow users to redefine module ownership, bypass the Command Engine, or make the Renderer modify the `Document`.
+
+Configuration controls **policy** within boundaries established by the architecture.
+
+```text
+Configuration
+      │
+      ▼
+Allowed Policies
+      │
+      ▼
+Existing Architecture
+```
+
+It does not replace the architecture.
+
+## Engineering Insight
+
+Most configuration mistakes come from treating configuration as **a second architecture**.
+
+It should remain much simpler: validated data describing user-facing policy, owned through `Editor State`, and consumed by the components responsible for that policy.
