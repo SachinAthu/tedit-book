@@ -380,7 +380,7 @@ redo = "Ctrl-Y"
 
 The configuration file describes user policy.
 
-The Input Engine does not need to know where these values came from. By the time normal editing begins, it receives the validated `Configuration` stored in `Editor State`.
+The Input Engine does not need to know where these values came from. By the time normal editing begins, it receives the validated `Configuration` stored in `EditorState`.
 
 ```text
 Configuration File

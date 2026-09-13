@@ -8,7 +8,7 @@ The chapter develops this idea progressively:
 Scope → Model → Defaults → Sources & Precedence → File → Bindings → Validation → Boundaries
 ```
 
-Configuration lives as data inside `Editor State`, is established from defaults and overrides during startup, is validated before the Event Loop begins, and is consumed by the components that need it. It never becomes a second architecture and never replaces the behavior it controls.
+Configuration lives as data inside Editor State, is established from defaults and overrides during startup, is validated before the Event Loop begins, and is consumed by the components that need it. It never becomes a second architecture and never replaces the behavior it controls.
 
 The important lessons are:
 

@@ -126,7 +126,7 @@ That principle prevents a configuration system from becoming an uncontrolled mec
 
 ## Why This Matters for Our Editor
 
-Our requirements already identify several areas where user preferences naturally belong. The editor needs keyboard-driven interaction, a status and message interface, and configurable behavior can be built on top of the existing architecture. The project also already includes `Configuration` as part of the central editor state.
+Our requirements already identify several areas where user preferences naturally belong. The editor needs keyboard-driven interaction, a status and message interface, and configurable behavior can be built on top of the existing architecture. The project also already includes `Configuration` as part of the central Editor State.
 
 The architectural design gives us the necessary boundaries:
 

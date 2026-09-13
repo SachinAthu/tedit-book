@@ -1,8 +1,8 @@
-## 33.9 Design Alternatives and Trade-offs
+# 33.9 Design Alternatives and Trade-offs
 
 There is no single way to configure an editor. Different approaches provide different balances between simplicity, flexibility, and complexity.
 
-### Hard-Coded Settings
+## Hard-Coded Settings
 
 The simplest approach is to place settings directly in the source code:
 
@@ -20,9 +20,7 @@ This is easy to implement and easy to understand, but users cannot change the be
 **Advantage:** Maximum simplicity.
 **Limitation:** Very inflexible.
 
----
-
-### Configuration File Only
+## Configuration File Only
 
 A configuration file separates user preferences from the program:
 
@@ -41,9 +39,7 @@ This allows preferences to persist between sessions and can be changed without r
 **Advantage:** Persistent and user-friendly.
 **Limitation:** Temporary changes require modifying the configuration file.
 
----
-
-### Command-Line Configuration
+## Command-Line Configuration
 
 Command-line options provide temporary overrides:
 
@@ -64,9 +60,7 @@ This is particularly useful for automation, scripts, or one-off sessions.
 **Advantage:** Convenient temporary customization.
 **Limitation:** Not practical for every preference or every interactive setting.
 
----
-
-### Environment Variables
+## Environment Variables
 
 Environment variables can also provide configuration:
 
@@ -84,9 +78,7 @@ They are useful for deployment environments and process-level settings, but they
 
 For the baseline editor, environment-variable configuration is therefore unnecessary.
 
----
-
-### Runtime Configuration
+## Runtime Configuration
 
 A more advanced editor could allow configuration to change while the editor is running:
 
@@ -109,9 +101,7 @@ However, it introduces substantially more complexity. Components must respond to
 
 For this editor, that complexity is not justified by the baseline requirements.
 
----
-
-### The Baseline Choice
+## The Baseline Choice
 
 The editor therefore uses a deliberately simple layered model:
 
@@ -131,7 +121,7 @@ The configuration is established and validated **before normal editing begins**.
 
 Runtime reconfiguration can be introduced later if a future version genuinely requires it.
 
-### Engineering Insight
+## Engineering Insight
 
 The goal of configuration is not to maximize flexibility. It is to provide **useful customization without making the architecture unnecessarily complex**.
 

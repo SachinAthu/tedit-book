@@ -15,11 +15,15 @@ Scope — which decisions deserve to be configurable?
     ↓
 Model — how configuration is represented and stored
     ↓
-Sources — defaults, files, and precedence
+Defaults — every setting needs a valid baseline value
+    ↓
+Sources — user configuration and command-line overrides, with precedence
+    ↓
+File — persisting preferences between sessions
     ↓
 Bindings — mapping input events to commands
     ↓
-Validation — turning untrusted input into editor state
+Validation — turning untrusted input into Editor State
 ```
 
 We begin by defining why configuration matters and which decisions should be configurable at all. We then design the configuration model, its defaults, and how multiple sources combine under a clear precedence rule. Next we design the persistent configuration file, apply the model to key bindings, and define validation so invalid values never reach the editor — including why every module consumes one validated configuration rather than parsing the file itself. We close with the design alternatives and trade-offs, and the common mistakes to avoid.
@@ -35,7 +39,7 @@ By the end of this chapter, you should be able to:
 - Describe the precedence between defaults, user configuration, and command-line overrides.
 - Explain how a configuration file serves as a persistence mechanism for policy.
 - Describe how key bindings map input events to commands without changing command semantics.
-- Explain how type, range, enumeration, and cross-setting validation keep invalid configuration out of `Editor State`.
+- Explain how type, range, enumeration, and cross-setting validation keep invalid configuration out of Editor State.
 - Explain why configuration must have one entry point rather than being parsed by every module.
 - Evaluate the main configuration approaches and their trade-offs.
 - Recognize common configuration mistakes and how to avoid them.

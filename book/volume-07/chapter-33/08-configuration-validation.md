@@ -16,7 +16,7 @@ save = "INVALID-KEY"
 
 These are not programming errors in the editor's implementation. They are **configuration errors**.
 
-The configuration system therefore needs a clear boundary where external configuration is transformed from untrusted input into valid editor state.
+The configuration system therefore needs a clear boundary where external configuration is transformed from untrusted input into valid Editor State.
 
 ## Validation at the Configuration Boundary
 
@@ -428,7 +428,7 @@ Startup
 Event Loop
 ```
 
-The Event Loop should receive an already-valid editor state.
+The Event Loop should receive an already-valid Editor State.
 
 This follows a broader architectural principle used throughout the editor:
 
@@ -521,7 +521,7 @@ Runtime failures must instead be handled when the relevant operation occurs.
 
 ## Engineering Insight
 
-**Validation turns configuration from external input into a trusted part of editor state.**
+**Validation turns configuration from external input into a trusted part of Editor State.**
 
 The editor should not silently accept whatever values happen to appear in a configuration file. Types, ranges, enumerations, key bindings, and conflicts should be checked at the configuration boundary.
 
@@ -533,6 +533,6 @@ A well-designed configuration system therefore follows a simple rule:
 
 ## Summary
 
-Configuration validation turns **untrusted external input** into titled, trusted editor state. Parsing determines what the configuration says; validation determines whether that is acceptable. Type, range, and enum checks verify individual settings, while key-binding and cross-setting checks verify that valid values work together. Unknown settings are reported rather than silently ignored, unhelpful errors are replaced with clear diagnostics, and validation happens during startup — in one configuration boundary, not scattered across components — before the Event Loop ever begins.
+Configuration validation turns **untrusted external input** into trusted Editor State. Parsing determines what the configuration says; validation determines whether that is acceptable. Type, range, and enum checks verify individual settings, while key-binding and cross-setting checks verify that valid values work together. Unknown settings are reported rather than silently ignored, unhelpful errors are replaced with clear diagnostics, and validation happens during startup — in one configuration boundary, not scattered across components — before the Event Loop ever begins.
 
 The next section compares this design to the main alternatives: **Section 33.9, Design Alternatives and Trade-offs**.

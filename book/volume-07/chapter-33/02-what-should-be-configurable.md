@@ -117,6 +117,8 @@ Examples include:
 theme = "dark"
 ```
 
+In the terminology of Chapter 32, a **Theme** is the mapping from highlight classes to visual styles. A `theme` setting does not define that mapping — it selects *which* Theme is active, just as a key binding selects which command an input event triggers.
+
 The Renderer remains responsible for producing the frame. Configuration merely supplies the policy it uses while doing so.
 
 This preserves an important architectural boundary:

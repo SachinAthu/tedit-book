@@ -731,6 +731,63 @@ Volume II, Chapter 10
 - Information Hiding
 - Separation of Concerns
 
+## Configuration
+
+**Definition**
+
+The validated set of editor policies that control how the editor behaves without changing how it is built. Configuration separates **policy** from **architecture**: a configuration value such as tab width, selected theme, or a key binding selects user-facing behavior, while the Document, Cursor, Renderer, and Command Engine remain unchanged. Configuration is represented as structured data owned by `EditorState`, established from defaults and overrides during startup, validated before normal editing begins, and consumed by the components responsible for the policy it describes. Configuration controls policy only; it is never allowed to redefine architectural boundaries, data structures, or correctness rules.
+
+**First Introduced**
+
+Volume VII, Chapter 33
+
+**Related Terms**
+
+- Configuration File
+- Default Configuration
+- Configuration Precedence
+- Editor State
+- Policy
+
+**Notes**
+
+Detailed treatment: Volume VII, Chapter 33. Recorded as ADR-026.
+
+## Configuration File
+
+**Definition**
+
+A persistent, human-readable file from which user preferences are loaded each time the editor starts. The configuration file is not the configuration model itself; it is one source from which that model is populated. A simple declarative format describes **what** the editor should do, not **how** to do it, and a missing file is not an error — it simply means the user has provided no persistent overrides. The baseline editor uses a single user configuration file, overlaid on the built-in defaults.
+
+**First Introduced**
+
+Volume VII, Chapter 33
+
+**Related Terms**
+
+- Configuration
+- Default Configuration
+- Configuration Precedence
+- Policy
+- Editor State
+
+## Configuration Precedence
+
+**Definition**
+
+The explicit rule that determines which value wins when more than one configuration source provides the same setting. The baseline hierarchy is: built-in defaults, then the user's configuration file, then command-line overrides, with the most specific source taking precedence. Precedence is resolved before normal editing begins, so the rest of the editor receives one final, validated `Configuration` rather than reasoning about multiple sources.
+
+**First Introduced**
+
+Volume VII, Chapter 33
+
+**Related Terms**
+
+- Configuration
+- Configuration File
+- Default Configuration
+- Editor State
+
 ## Console
 
 **Definition**
@@ -885,6 +942,23 @@ Volume II, Chapter 8
 - Architecture (Software Architecture)
 - Editor State
   - Event Loop
+
+## Default Configuration
+
+**Definition**
+
+The complete, built-in set of valid configuration values the editor uses when the user provides no overrides. Every configurable option must have a sensible, conservative default, so the editor is immediately usable with no configuration file and components can assume every setting already has a valid value. A default must satisfy the same validation rules as user-provided values, which guarantees the editor never enters normal operation with an incomplete or invalid `Configuration`.
+
+**First Introduced**
+
+Volume VII, Chapter 33
+
+**Related Terms**
+
+- Configuration
+- Configuration File
+- Configuration Precedence
+- Editor State
 
 ## Derived State
 
@@ -2716,6 +2790,23 @@ Volume VI, Chapter 29
 - Rope
 - Text Buffer
 - Text Buffer Workload
+
+## Policy
+
+**Definition**
+
+A user-facing decision about how the editor behaves, in contrast to an architectural decision about how it is built. In the editor, policy describes preferences such as tab width, theme, and key bindings, which different users can reasonably change without altering the underlying architecture. Configuration is the mechanism that carries policy: it controls policy while the architecture controls structure. A good configuration system exposes only legitimate policies and never lets a policy redefine internal implementation details.
+
+**First Introduced**
+
+Volume VII, Chapter 33
+
+**Related Terms**
+
+- Configuration
+- Configuration File
+- Default Configuration
+- Configuration Precedence
 
 ## Preferred Column
 
