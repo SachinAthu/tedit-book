@@ -431,35 +431,87 @@ This is where the book becomes much deeper than a typical tutorial.
 
 ## **Chapter 30 — Search**
 
-- Linear search
-- Incremental search
-- Regex
+- 30.1 Why Search Is More Than Finding Text
+- 30.2 The Search Problem
+- 30.3 Linear Search
+- 30.4 Searching Across Lines
+- 30.5 Search State
+- 30.6 Incremental Search
+- 30.7 Regular Expressions
+- 30.8 Regex Changes the Problem
+- 30.9 Search User Experience
+- 30.10 Search Performance
+- 30.11 Design Alternatives and Trade-offs
+- 30.12 Common Search Bugs
+- 30.13 What We Are Not Building
 
 ## **Chapter 31 — Undo / Redo**
 
-- Command Pattern
-- Snapshots
-- Operation stacks
+- 31.1 Why Undo and Redo Exist
+- 31.2 What Does an Undo Operation Mean?
+- 31.3 Strategy 1 - Snapshots
+- 31.4 Snapshot Granularity
+- 31.5 The Command Pattern
+- 31.6 Operation History
+- 31.7 The Redo Stack
+- 31.8 Undo / Redo State Machine
+- 31.9 What Counts as an Undoable Action?
+- 31.10 Cursor Position and Editor State
+- 31.11 Undo, Redo, and the Dirty Flag
+- 31.12 Grouping and Coalescing Operations
+- 31.13 Memory and Performance
+- 31.14 Limiting Undo History
+- 31.15 Design Alternatives and Trade-offs
+- 31.16 Common Undo / Redo Bugs
 
 ## **Chapter 32 — Syntax Highlighting**
 
-- Lexer
-- Parser
-- Tokens
-- Themes
+- 32.1 Why Syntax Highlighting Exists
+- 32.2 Syntax Highlighting as an Analysis Pipeline
+- 32.3 Lexical Analysis
+- 32.4 Tokens
+- 32.5 From Tokens to Highlight Classes
+- 32.6 Why Lexing Alone Is Not Enough
+- 32.7 Lightweight Syntax Parsing
+- 32.8 Highlighting the Document
+- 32.9 Syntax Highlighting and the Text Buffer
+- 32.10 Themes and Visual Styles
+- 32.11 Language Detection and Highlighting Modes
+- 32.12 Updating Highlighting After Editing
+- 32.13 Performance and Scalability
+- 32.14 Design Alternatives and Trade-offs
 
 ## **Chapter 33 — Configuration**
 
-- Settings
-- Key bindings
-- Theme
-- Tab width
+- 33.1 Why Configuration Matters
+- 33.2 What Should Be Configurable?
+- 33.3 The Configuration Model
+- 33.4 Default Configuration
+- 33.5 Configuration Sources and Precedence
+- 33.6 Configuration File
+- 33.7 Configurable Key Bindings
+- 33.8 Configuration Validation
+- 33.9 Design Alternatives and Trade-offs
+- 33.10 Common Configuration Mistakes
 
 ## **Chapter 34 — Multiple Buffers**
 
-- Documents
-- Tabs
-- Windows
+- 34.1 Why One Document Is No Longer Enough
+- 34.2 Document, Buffer, View, Tab, and Window
+- 34.3 What Belongs to a Buffer?
+- 34.4 Editor-Wide State vs Buffer State vs Window State
+- 34.5 The Buffer Manager
+- 34.6 Switching Between Buffers
+- 34.7 Tabs - Organizing Editing Contexts
+- 34.8 Window Layout and Arrangement
+- 34.9 Rendering Multiple Windows
+- 34.10 Input and Commands in a Multi-Buffer Editor
+- 34.11 File Management with Multiple Buffers
+- 34.12 Buffer Lifecycle
+- 34.13 Scope of Existing Editor Features
+- 34.14 Complexity and Resource Costs
+- 34.15 Design Alternatives and Trade-offs
+- 34.16 Common Multiple-Buffer Mistakes
 
 ---
 

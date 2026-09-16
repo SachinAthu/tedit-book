@@ -95,6 +95,8 @@ Referenced Buffer
 Document
 ```
 
+This is what earlier sections meant by "the active buffer": shorthand for the Referenced Buffer at the end of this chain. Commands target it by resolving this relationship rather than by reading a separate editor-level selection.
+
 Suppose the editor contains:
 
 ```text
@@ -518,7 +520,7 @@ Buffer B becomes dirty
 
 Buffer A remains clean.
 
-This means a global dirty flag is no longer sufficient.
+This means a global Dirty Flag is no longer sufficient.
 
 The command must update the state belonging to the relevant Buffer.
 
@@ -536,10 +538,10 @@ For example:
 
 ```text
 Buffer A
-    └── Undo Stack A
+    └── Undo History A
 
 Buffer B
-    └── Undo Stack B
+    └── Undo History B
 ```
 
 Editing Buffer A changes its history.

@@ -78,7 +78,7 @@ Buffer C → modified
 
 If the user switches from Buffer A to Buffer B, Buffer A must remain marked as modified.
 
-A single editor-wide dirty flag would not be sufficient:
+A single editor-wide Dirty Flag would not be sufficient:
 
 ```text
 Editor

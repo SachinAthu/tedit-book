@@ -61,6 +61,8 @@ Editor-wide State
 └── Configuration
 ```
 
+Note that no "Active Buffer" appears here. The active buffer is not an editor-wide field: it is derived from the window structure — the buffer referenced by the active Window in the active Tab. Storing it as an editor-wide value would create a second source of truth that could fall out of sync with what the active Window displays.
+
 Consider configuration.
 
 A key binding such as a command for saving should normally mean the same thing regardless of which buffer is active. The configuration therefore belongs to the editor rather than to an individual buffer.
@@ -123,7 +125,7 @@ Buffer B
       └── Dirty state B
 ```
 
-The editor has not created a new undo system or dirty flag. It has simply changed the active editing context.
+The editor has not created a new undo system or Dirty Flag. It has simply changed the active editing context.
 
 ## Window-Specific State
 
@@ -330,6 +332,8 @@ Displayed buffer
 
 This does not mean that every implementation must use exactly these structures. The important part is the ownership boundary.
 
+Taken together, the Window-specific values constitute the Window's **View** of its Buffer: the Buffer reference binds the presentation to an editing context, while the Viewport and Cursor are the view state. The View names that presentation binding; the Window owns it (Section 34.2).
+
 A structure can change without changing the principle.
 
 ## Why Ownership Matters
@@ -345,7 +349,7 @@ Editor
 
 Switching between windows would force all windows to share one viewing position.
 
-Suppose the dirty flag is also global:
+Suppose the Dirty Flag is also global:
 
 ```text
 Editor

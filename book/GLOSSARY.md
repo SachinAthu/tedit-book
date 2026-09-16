@@ -308,6 +308,24 @@ Volume I, Chapter 2
 
 - Standard Output
 - Kernel
+- Text Buffer
+- Buffer (Editing Context)
+
+## Buffer (Editing Context)
+
+**Definition**
+
+The in-memory editing context provided by a multi-buffer editor: a Document together with the state that belongs to editing it, such as its file association, modified state, and undo history. A Buffer is distinct from the generic Buffer (temporary I/O storage) and from the Text Buffer (the data structure that represents a Document).
+
+**First Introduced**
+
+Volume VII, Chapter 34
+
+**Related Terms**
+
+- Text Buffer
+- Document
+- Buffer
 
 ## Build System
 
@@ -3795,6 +3813,22 @@ Volume VII, Chapter 32
 
 # T
 
+## Tab
+
+**Definition**
+
+An organizational container for one or more Windows. A Tab groups Views into a navigable workspace; it organizes Windows rather than owning Buffers or Documents, and a single Tab may contain several Windows referencing different Buffers.
+
+**First Introduced**
+
+Volume VII, Chapter 34
+
+**Related Terms**
+
+- Window
+- View
+- Buffer
+
 ## Teletype (TTY)
 
 **Definition**
@@ -3952,6 +3986,8 @@ Volume III, Chapter 13
 - Piece Table
 - Rope
 - Text Buffer Workload
+- Buffer
+- Buffer (Editing Context)
 
 ## Text Buffer Workload
 
@@ -4162,6 +4198,23 @@ Volume I, Chapter 2
 
 # V
 
+## View
+
+**Definition**
+
+The presentation binding between a Buffer and the way it is displayed: a reference to the Buffer together with the view state that describes the presentation — the Viewport and the Cursor. A View identifies which Buffer is presented and from what position, but not the terminal region it occupies; that belongs to the Window. In a simple implementation, View and Window may be represented by the same structure.
+
+**First Introduced**
+
+Volume VII, Chapter 34
+
+**Related Terms**
+
+- Buffer
+- Window
+- Viewport
+- Cursor
+
 ## Video Terminal
 
 **Definition**
@@ -4231,6 +4284,8 @@ Volume III, Chapter 12
 - Scrolling
 - Document Coordinates
 - Screen Coordinates
+- View
+- Window
 
 **Notes**
 
@@ -4288,6 +4343,24 @@ Volume IV, Chapter 19
 - Horizontal Tab
 
 # W
+
+## Window
+
+**Definition**
+
+A rectangular region of the terminal, described by its geometry, that hosts a View. A Window determines where and how large the presented content appears and owns the View's state — its Viewport and Cursor. Several Windows may reference the same Buffer, each maintaining independent View state.
+
+**First Introduced**
+
+Volume VII, Chapter 34
+
+**Related Terms**
+
+- View
+- Viewport
+- Cursor
+- Buffer
+- Tab
 
 ## Working Tree
 

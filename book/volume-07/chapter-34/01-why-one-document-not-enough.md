@@ -95,6 +95,8 @@ Buffer A
 
 the previous editing context should still exist.
 
+For now, the cursor appears as part of the buffer. That placement is simplified. Once the ownership model is refined, the cursor turns out to belong to the **Window** that views the buffer rather than to the buffer itself; Sections 34.3 and 34.4 draw that boundary. The principle illustrated here — that the editing context survives switching — holds regardless of the refinement.
+
 This introduces a fundamental principle for multi-buffer editors:
 
 > **State associated with a document must remain associated with that document while the user works on another document.**
@@ -196,6 +198,6 @@ Chapter 34 makes those assumptions explicit and establishes a model that can sup
 
 ## Summary
 
-A single-document editor cannot support realistic workflows, and simply storing more documents does not solve the underlying problem. What is needed is a collection of independently managed editing contexts, each preserving its own cursor, modified state, and history, with state then classified according to scope — editor-wide, buffer-specific, or window-specific. This reframing is the foundation for everything else in the chapter.
+A single-document editor cannot support realistic workflows, and simply storing more documents does not solve the underlying problem. What is needed is a collection of independently managed editing contexts, each preserving its own contents, modified state, and history, with state then classified according to scope — editor-wide, buffer-specific, or window-specific. This reframing is the foundation for everything else in the chapter.
 
 The next section defines the concepts this classification depends on: **Section 34.2, Document, Buffer, View, Tab, and Window**.

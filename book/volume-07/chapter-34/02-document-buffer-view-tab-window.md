@@ -32,6 +32,26 @@ There are two different documents and two different editing contexts.
 
 The editor therefore needs separate concepts for **content**, **editing context**, and **presentation**.
 
+## A Note on Terminology
+
+The word _buffer_ already appears in this book with two meanings, and this chapter adds a third.
+
+```text
+Buffer (generic)
+    Temporary storage that accumulates data before it is transmitted
+    or processed.                            Volume I, Chapter 2
+
+Text Buffer
+    The in-memory data structure that represents a Document as a
+    collection of lines.                     Volume III, Chapter 12
+
+Buffer (this chapter)
+    An editing context: a Document together with its file
+    association, modified state, and undo history.
+```
+
+Throughout this chapter, **Buffer** means the third: the editor's in-memory editing context. A Buffer contains a Document, and the Document is represented internally by a Text Buffer, so "Text Buffer" is the name of the data structure rather than a synonym for the editing context. The generic I/O meaning of "buffer" from Chapter 2 is unrelated.
+
 ## Document
 
 A **Document** is the logical text being edited.
@@ -112,22 +132,22 @@ The exact division of state between Buffer and other components will be refined 
 
 ## View
 
-A **View** represents a visual presentation of a Buffer.
+A **View** is the presentation binding between a Buffer and the way it is displayed.
 
-It answers a different question:
+It answers:
 
-> Which portion of this buffer is currently being displayed?
+> Which Buffer is presented, and from what position?
 
-For example:
+A View is composed of a reference to the Buffer plus the view state that describes the presentation — the Viewport and the Cursor:
 
 ```text
-Buffer A
-   │
-   ├── Document: main.c
-   │
-   └── View
-         └── lines 80–100
+View
+├── Buffer reference ──► Buffer A ──► Document: main.c
+├── Viewport → lines 80–100
+└── Cursor   → line 92, column 5
 ```
+
+The **Viewport** is the scroll-offset component of a View: it identifies the portion of the Document currently visible. The **Cursor** identifies the editing position within it.
 
 A view does not own another copy of the Document.
 
@@ -199,6 +219,8 @@ Window
 ```
 
 In a simplified implementation, View and Window may be represented by the same structure or closely coupled structures. Architecturally, however, the concepts are useful to distinguish.
+
+The Window owns the View's state — its Viewport and Cursor — while the View binds that presentation to a Buffer.
 
 The **Buffer** answers:
 
@@ -289,13 +311,15 @@ Editor
 
 The relationship between these concepts is easier to understand when expressed as questions:
 
-| Concept  | Main question                              |
-| -------- | ------------------------------------------ |
-| Document | What text exists?                          |
-| Buffer   | What editing context represents that text? |
-| View     | Which part of the buffer is being viewed?  |
-| Window   | Where is that view displayed?              |
-| Tab      | How are one or more windows organized?     |
+| Concept  | Main question                                      |
+| -------- | -------------------------------------------------- |
+| Document | What text exists?                                  |
+| Buffer   | What editing context represents that text?         |
+| View     | Which buffer is presented, and from what position? |
+| Window   | Where is that view displayed?                      |
+| Tab      | How are one or more windows organized?             |
+
+A View is the presentation binding: a Buffer reference together with view state (the Viewport and Cursor). The Window owns that view state and supplies the terminal region in which it appears. In a simple implementation, the two may be represented by one structure.
 
 These distinctions are architectural rather than merely terminological.
 

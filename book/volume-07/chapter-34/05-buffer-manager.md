@@ -152,6 +152,8 @@ Buffer Manager
 
 The active buffer is therefore a relationship between the editor and its buffer collection.
 
+It is not a separately stored editor-level pointer. Later in this chapter, once windows exist, that relationship is realized through the window structure: the active buffer is the buffer referenced by the active Window in the active Tab (Sections 34.7–34.10). The Buffer Manager reports this value on request; it does not maintain a separate active-buffer selection.
+
 Changing the active buffer does not destroy the previous one.
 
 It simply changes which buffer subsequent editing commands target.

@@ -23,12 +23,12 @@ The important lessons are:
 
 ### Review Questions
 
-- What is the difference between a Buffer and a Document?
-- Why should a Window not contain its own copy of a Document?
-- Can two Windows display the same Buffer?
-- Which state belongs to a Buffer?
-- Which state belongs to a Window?
-- Why should undo history normally be buffer-specific?
+1. What is the difference between a Buffer and a Document?
+2. Why should a Window not contain its own copy of a Document?
+3. Can two Windows display the same Buffer?
+4. Which state belongs to a Buffer?
+5. Which state belongs to a Window?
+6. Why should undo history normally be buffer-specific?
 
 ### Thought Experiment
 

@@ -193,6 +193,8 @@ The Buffer represents **what is being edited**.
 
 The Window represents **how and where that editing context is currently viewed**.
 
+Together with the Buffer reference, the Cursor and Viewport form the Window's **View** of the Buffer — the presentation binding defined in Section 34.2.
+
 ## Configuration Remains Editor-Wide
 
 Configuration does not become Buffer-specific merely because there are multiple Buffers.
@@ -264,10 +266,12 @@ Undo history
 An editor-wide command might change:
 
 ```text
-Active Buffer
+Active Tab
 Active Window
 Configuration
 ```
+
+The Active Buffer is absent from this list because it is not a stored field; it is derived from the Active Window. Commands that change the editing target therefore alter the editor's navigational selection — the Active Tab or the Active Window — rather than a separate buffer pointer.
 
 The command therefore does not need a separate implementation for every Buffer.
 

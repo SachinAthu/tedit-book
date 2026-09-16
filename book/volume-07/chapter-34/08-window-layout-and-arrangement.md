@@ -321,7 +321,7 @@ A layout also has practical constraints.
 
 A window that is only one column wide may technically fit inside the terminal, but it may not provide meaningful space for the editor's content.
 
-Similarly, a window with too few rows may not have enough room for its document area, status bar, or message area.
+Similarly, a window with too few rows may not have enough room for its Document Area, Status Bar, or Message Bar.
 
 The layout system may therefore need minimum dimensions:
 

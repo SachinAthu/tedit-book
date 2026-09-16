@@ -34,7 +34,7 @@ The Buffer provides the boundary that separates one editing context from another
 
 ## One Global Dirty Flag
 
-A single dirty flag worked when there was only one editing context:
+A single Dirty Flag worked when there was only one editing context:
 
 ```text
 Editor

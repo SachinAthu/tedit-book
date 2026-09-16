@@ -478,7 +478,7 @@ That frame is composed from multiple Window views:
 
 This is an extension of the existing rendering model rather than a replacement for it.
 
-The Renderer still constructs a complete visual representation before it reaches the terminal. The difference is that the document area is no longer one undivided region.
+The Renderer still constructs a complete visual representation before it reaches the terminal. The difference is that the Document Area is no longer one undivided region.
 
 ## Architectural Consequence
 

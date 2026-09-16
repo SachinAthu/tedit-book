@@ -119,9 +119,9 @@ Suppose the user is editing `main.c`:
 
 ```text
 Buffer A
-    cursor   → line 42, column 8
-    viewport → around line 35
-    dirty    → true
+    Document → main.c
+    Dirty → true
+    Undo history → present
 ```
 
 The user switches to another buffer:
@@ -138,9 +138,11 @@ Active → Buffer A
 
 The expected result is that Buffer A can continue from its previous editing context.
 
-Its state should not have been reset simply because another buffer became active.
+Its Document contents, file association, modified state, and undo history should not have been reset simply because another buffer became active.
 
-This is particularly important for long editing sessions. A user may alternate between several source files repeatedly. Losing the cursor position, viewport, undo history, or modified state every time would make the feature frustrating rather than useful.
+This is particularly important for long editing sessions. A user may alternate between several source files repeatedly. Losing the Document contents, undo history, or modified state every time would make the feature frustrating rather than useful.
+
+The cursor and viewport are deliberately absent from this list. In the ownership model developed later in this chapter, the cursor and viewport belong to the **Window**, not to the Buffer; Sections 34.4 and 34.9 establish that boundary. Switching a Window to another Buffer changes which content its view state describes — a Buffer does not carry a cursor or viewport with it.
 
 ## Switching Does Not Copy Documents
 
@@ -193,6 +195,8 @@ Buffer Collection
 
 Active Buffer → Buffer C
 ```
+
+The active buffer is not stored as a separate editor-level pointer. It is derived from the window structure: whichever buffer the active Window references is the active buffer, which keeps the target of commands in sync with what the user actually sees.
 
 Changing the active buffer should not modify the collection itself.
 
@@ -519,6 +523,6 @@ The next step is to consider how users organize these editing contexts beyond si
 
 ## Summary
 
-Switching buffers is a selection operation, not creation or destruction: it changes which existing editing context is active while preserving each buffer's document, dirty state, cursor, viewport, and undo history. The collection and the active selection remain separate pieces of state, and switching implies neither saving nor discarding changes.
+Switching buffers is a selection operation, not creation or destruction: it changes which existing editing context is active while preserving each buffer's own state — its Document contents, file association, dirty state, and undo history. The cursor and viewport are not part of that preserved state because they belong to the Window, not the Buffer. The collection and the active selection remain separate pieces of state, and switching implies neither saving nor discarding changes.
 
 The next section introduces a higher-level way to organize those contexts: **Section 34.7, Tabs - Organizing Editing Contexts**.
