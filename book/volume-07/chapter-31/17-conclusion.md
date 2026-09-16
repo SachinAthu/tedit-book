@@ -30,6 +30,8 @@ The important lessons are:
 - Undo may need to restore cursor state, and the Dirty Flag is related to history but describes a different question.
 - Snapshots trade simplicity for memory; operation-based history trades simplicity for efficiency.
 
+The baseline history model — operation-based records in a two-stack state machine, with grouped history entries, cursor restoration, and the Dirty Flag kept independent of history — is recorded as **ADR-024: Undo / Redo History Model**.
+
 ## Exercises
 
 ### Review Questions

@@ -19,6 +19,8 @@ The important lessons are:
 - Existing features are not redesigned — each is assigned a precise scope.
 - Most multi-buffer mistakes are ownership mistakes: state assigned to the wrong scope.
 
+The baseline multiple-buffer architecture — Document, Buffer, View, Window, and Tab, with a Buffer Manager owning only the collection and the active buffer derived from the active Window — is recorded as **ADR-027: Multiple Buffer Architecture**.
+
 ## Exercises
 
 ### Review Questions

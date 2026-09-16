@@ -22,6 +22,8 @@ The important lessons are:
 - Highlighting is incrementally maintainable derived state, safely discarded and regenerated from the current Document.
 - A Theme separates semantic classes from terminal styles, and language detection ties a Document to the right rules.
 
+The baseline highlighting pipeline — a stateful Lexer refined by lightweight contextual analysis into semantic Highlight Classes that a Theme maps to Visual Styles, all derived from and regenerable from the Document — is recorded as **ADR-025: Syntax Highlighting Baseline**.
+
 ## Exercises
 
 ### Review Questions

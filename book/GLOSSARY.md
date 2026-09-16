@@ -327,6 +327,29 @@ Volume VII, Chapter 34
 - Document
 - Buffer
 
+## Buffer Manager
+
+**Definition**
+
+The component responsible for the buffer collection and its lifecycle in a multi-buffer editor: creating, looking up, and removing buffers, and co-ordinating the protection of modified buffers before they are destroyed. The Buffer Manager owns the collection — which buffers exist, how they are identified, which is active, and how they are created and destroyed — but never the internal editing state of each Buffer, such as its Document, file association, Dirty Flag, or undo history. It does not store a separate editor-level active buffer: the active buffer is a derived value, resolved as the buffer referenced by the active Window in the active Tab.
+
+**First Introduced**
+
+Volume VII, Chapter 34
+
+**Related Terms**
+
+- Buffer (Editing Context)
+- Buffer
+- Document
+- File Manager
+- Command Engine
+- Editor State
+
+**Notes**
+
+Detailed treatment: Volume VII, Chapter 34. Recorded as ADR-027.
+
 ## Build System
 
 **Definition**

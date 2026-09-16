@@ -43,7 +43,7 @@ Buffer (generic)
 
 Text Buffer
     The in-memory data structure that represents a Document as a
-    collection of lines.                     Volume III, Chapter 12
+    collection of lines.                     Volume III, Chapter 13
 
 Buffer (this chapter)
     An editing context: a Document together with its file

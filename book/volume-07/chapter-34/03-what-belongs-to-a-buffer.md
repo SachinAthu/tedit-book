@@ -66,7 +66,7 @@ The file association therefore describes the relationship between the buffer and
 
 ## Modified State
 
-The modified, or dirty, state must also belong to the individual buffer.
+The modified, or dirty, state must also belong to the individual buffer. The canonical term for this state is the **Dirty Flag**, introduced in Volume III, Chapter 12; "dirty state" is used interchangeably with it throughout this chapter, and "modified" appears descriptively to mean the same thing — a buffer whose Document no longer matches its saved version.
 
 Suppose the editor contains three buffers:
 

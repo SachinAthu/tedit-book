@@ -266,7 +266,7 @@ This also follows the architectural principle of avoiding duplicated representat
 
 The Document representation can also affect practical search performance.
 
-Our Document is organized as logical lines stored in a contiguous collection. Searching through nearby elements can make good use of the processor's memory hierarchy compared with representations that require frequent pointer traversal.
+The Document is stored as a contiguous vector of lines, and each line holds its characters in a contiguous dynamic array. Searching within a line therefore walks contiguous memory, and the line vector gives direct indexed access to whichever line is next. The practical locality benefit is strongest inside a line: its character array is traversed sequentially and fits comfortably in the processor's cache for typical line lengths. Moving from one line to the next does require following a separate allocation, so the Document is not one fully contiguous text region; each line is nevertheless contiguous and array-indexed, giving better cache behavior than representations that scatter characters across many small allocations or require pointer traversal for every step.
 
 This does not change the fundamental complexity of linear search.
 

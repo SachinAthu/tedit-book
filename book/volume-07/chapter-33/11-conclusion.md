@@ -22,6 +22,8 @@ The important lessons are:
 - Invalid configuration should produce clear diagnostics.
 - Configuration controls policy, not architecture.
 
+The baseline configuration model — built-in defaults overlaid by a user configuration file and optional command-line overrides, resolved by explicit precedence and validated before the Event Loop begins — is recorded as **ADR-026: Configuration Model**.
+
 ## Exercises
 
 ### Review Questions
