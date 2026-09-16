@@ -1,0 +1,503 @@
+# 34.7 Tabs - Organizing Editing Contexts
+
+As the number of buffers grows, a flat collection can become difficult to navigate.
+
+A user may have several source files, configuration files, documentation files, and temporary documents open at the same time. Simply knowing that all of these buffers exist does not provide a useful way to organize the current workspace.
+
+This introduces another concept:
+
+> **A tab is an organizational container for one or more windows.**
+
+A tab does not represent a document.
+
+It does not replace a buffer.
+
+It provides a higher-level way to organize the user's current window arrangement.
+
+Conceptually:
+
+```text
+Editor
+├── Tab A
+│   ├── Window A
+│   └── Window B
+│
+└── Tab B
+    └── Window C
+```
+
+Each window then refers to a buffer:
+
+```text
+Tab A
+├── Window A → Buffer A
+└── Window B → Buffer B
+
+Tab B
+└── Window C → Buffer C
+```
+
+This gives the editor several distinct layers of organization.
+
+## Tab Is Not a Buffer
+
+A common source of confusion is treating tabs and buffers as two names for the same concept.
+
+They are not.
+
+A buffer represents an editing context:
+
+```text
+Buffer A
+└── Document A
+```
+
+A tab represents an arrangement of windows:
+
+```text
+Tab A
+├── Window A
+└── Window B
+```
+
+The relationship is therefore:
+
+```text
+Tab
+ │
+ ├── Window ──→ Buffer
+ │
+ └── Window ──→ Buffer
+```
+
+The same buffer could potentially appear in different tabs if the editor permits it.
+
+For example:
+
+```text
+Tab A
+└── Window A ──→ Buffer X
+
+Tab B
+└── Window B ──→ Buffer X
+```
+
+There is still only one Buffer X.
+
+The tabs simply provide different organizational contexts for viewing it.
+
+## Tab Is Not a Window
+
+A tab and a window also have different responsibilities.
+
+A window represents a particular region of the terminal:
+
+```text
+Window
+├── position
+├── size
+├── viewport
+├── cursor
+└── buffer reference
+```
+
+A tab groups windows:
+
+```text
+Tab
+├── Window A
+├── Window B
+└── Window C
+```
+
+The tab does not need to know how text is rendered inside those windows.
+
+Its concern is the organization of the workspace.
+
+This separation becomes especially useful when a tab contains several windows.
+
+## Why Multiple Windows Belong to a Tab
+
+Consider a user working on a feature that involves three files:
+
+```text
+main.c
+editor.c
+editor.h
+```
+
+One possible workspace is:
+
+```text
+┌───────────────────────────┬───────────────────┐
+│                           │                   │
+│         main.c            │      editor.h     │
+│                           │                   │
+│                           │                   │
+├───────────────────────────┤                   │
+│                           │                   │
+│         editor.c          │                   │
+│                           │                   │
+└───────────────────────────┴───────────────────┘
+```
+
+The three windows form one working arrangement.
+
+A tab provides a convenient identity for that arrangement:
+
+```text
+Tab: Editor Work
+    ├── Window 1 → main.c
+    ├── Window 2 → editor.c
+    └── Window 3 → editor.h
+```
+
+The user can then move to another tab representing a different workspace:
+
+```text
+Tab: Editor Work
+    └── source-file arrangement
+
+Tab: Documentation
+    └── documentation arrangement
+```
+
+The buffers continue to exist independently of these organizational choices.
+
+## Tabs Organize Views, Not Documents
+
+This distinction is worth emphasizing.
+
+A tab should not own the document itself.
+
+Instead:
+
+```text
+Tab
+  │
+  ▼
+Windows
+  │
+  ▼
+Buffers
+  │
+  ▼
+Documents
+```
+
+This allows the same document to participate in different viewing arrangements without creating duplicate document contents.
+
+For example:
+
+```text
+             Buffer A
+            /        \
+           /          \
+      Window A      Window B
+          │             │
+        Tab A         Tab B
+```
+
+Both windows can refer to the same buffer.
+
+The document is not copied merely because the user organizes it differently.
+
+## What a Tab Should Remember
+
+A tab needs enough information to restore its window arrangement.
+
+Conceptually, this may include:
+
+```text
+Tab
+├── collection of windows
+├── active window
+└── layout information
+```
+
+The exact representation is an implementation decision.
+
+The important property is that this state describes the **workspace arrangement**, not the contents of the documents.
+
+For example, the tab may remember:
+
+```text
+Tab A
+    Window 1 → Buffer A
+    Window 2 → Buffer B
+    Window 3 → Buffer C
+
+    Active Window → Window 2
+```
+
+When the user returns to Tab A, the editor can restore that arrangement.
+
+## Switching Tabs
+
+Switching tabs is therefore different from switching buffers.
+
+A buffer switch changes which buffer a particular editing context targets.
+
+A tab switch changes which group of windows is currently being displayed.
+
+Consider:
+
+```text
+Tab A
+├── Window A → Buffer A
+└── Window B → Buffer B
+
+Tab B
+└── Window C → Buffer C
+```
+
+If Tab A is active:
+
+```text
+Visible workspace
+├── Buffer A
+└── Buffer B
+```
+
+After switching to Tab B:
+
+```text
+Visible workspace
+└── Buffer C
+```
+
+Buffers A and B have not been closed.
+
+Their state remains intact.
+
+The tab switch simply changes which window arrangement is active.
+
+## Tabs Do Not Change Buffer Ownership
+
+Suppose Buffer A is currently displayed in Tab A:
+
+```text
+Tab A
+└── Window A → Buffer A
+```
+
+The user switches to Tab B.
+
+Buffer A still exists:
+
+```text
+Buffer Manager
+├── Buffer A
+├── Buffer B
+└── Buffer C
+```
+
+Its document, dirty state, undo history, and other buffer-specific information remain unchanged.
+
+This demonstrates another useful distinction:
+
+```text
+Buffer lifetime
+    ≠
+Tab lifetime
+```
+
+A tab can disappear while a buffer remains open.
+
+Likewise, a buffer can stop being displayed by one tab while continuing to exist elsewhere.
+
+## Tabs and Active State
+
+Multiple levels of "active" state can therefore exist.
+
+For example:
+
+```text
+Active Tab
+    ↓
+Tab A
+
+Active Window
+    ↓
+Window B
+
+Displayed Buffer
+    ↓
+Buffer C
+```
+
+These are three different selections.
+
+The active tab identifies the current workspace.
+
+The active window identifies the current region within that workspace.
+
+The window's buffer reference identifies the editing context displayed there.
+
+Keeping these relationships explicit prevents the editor from treating "the current document" as one universal concept.
+
+## A Tab Can Contain One Window
+
+Tabs do not require multiple windows.
+
+The simplest arrangement is:
+
+```text
+Tab A
+└── Window A → Buffer A
+```
+
+This is essentially the familiar single-document experience with an additional organizational layer.
+
+The benefit of the abstraction is that it can later support:
+
+```text
+Tab A
+├── Window A → Buffer A
+└── Window B → Buffer B
+```
+
+without changing the meaning of buffers.
+
+This makes tabs a useful organizational abstraction even for editors that initially support only one window per tab.
+
+## Tabs and Windows Are Structural, Not Textual
+
+It is important not to let the tab hierarchy leak into document state.
+
+The document should not contain information such as:
+
+```text
+Document
+└── current_tab = 2
+```
+
+That would make the document aware of the user interface that happens to display it.
+
+Instead:
+
+```text
+Tab
+    └── Window
+          └── Buffer
+                └── Document
+```
+
+The dependency flows from organization toward content.
+
+The document remains independent of tabs and windows.
+
+This preserves the architecture established earlier:
+
+> **Core document state should not depend on the visual organization used to display it.**
+
+## A Tab Is a Workspace Boundary
+
+A useful mental model is to think of a tab as a **workspace**.
+
+It answers:
+
+> **Which collection of windows and views make up this working arrangement?**
+
+It does not answer:
+
+> What text exists?
+
+That is the responsibility of the Document.
+
+Nor does it answer:
+
+> What editing state belongs to this document?
+
+That is the responsibility of the Buffer.
+
+Nor does it answer:
+
+> Where on the terminal is this content displayed?
+
+That is the responsibility of the Window.
+
+The concepts therefore remain distinct:
+
+```text
+Document → text
+
+Buffer   → editing context
+
+Window   → visual region and view
+
+Tab      → workspace organization
+```
+
+## Why This Separation Matters
+
+Without this separation, an editor can easily develop confusing relationships.
+
+For example, if a tab were treated as a buffer:
+
+```text
+Tab A = main.c
+Tab B = editor.c
+```
+
+the design would have difficulty representing two files side by side.
+
+If a window were treated as a buffer:
+
+```text
+Window A = main.c
+```
+
+the design would imply that the document belongs to its screen region.
+
+If the document itself stored tab or window information, the core data model would become dependent on the user interface.
+
+The layered model avoids all three problems.
+
+## The Resulting Hierarchy
+
+The relationships can now be summarized as:
+
+```text
+                         Editor
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+        Buffer Manager               Tab Manager
+             │                           │
+       ┌─────┼─────┐               ┌─────┴─────┐
+       ▼     ▼     ▼               ▼           ▼
+    Buffer Buffer Buffer         Tab A        Tab B
+       │     │     │               │            │
+       ▼     ▼     ▼          ┌────┴────┐       │
+    Document ...             Window   Window   Window
+                                │        │        │
+                                ▼        ▼        ▼
+                             Buffer    Buffer   Buffer
+```
+
+The diagram deliberately shows that the two hierarchies intersect through references.
+
+Buffers belong to the editor's collection.
+
+Tabs organize windows.
+
+Windows reference buffers.
+
+Documents belong to buffers.
+
+This is more flexible than a simple parent-child ownership tree.
+
+## Summary
+
+There is one particularly important consequence of this model.
+
+A buffer answers **what editing context exists**.
+
+A window answers **how that context is currently viewed**.
+
+A tab answers **how several views are organized together**.
+
+These distinctions allow the editor to evolve without repeatedly redefining the meaning of its core objects.
+
+The next section moves one level deeper and examines **windows and multiple views**. This is where the distinction between a buffer and its visual representation becomes especially important, because several windows may display the same buffer simultaneously.
