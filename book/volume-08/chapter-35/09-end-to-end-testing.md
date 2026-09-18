@@ -31,12 +31,12 @@ Editor State
    └──► Viewport
           │
           ▼
-       Renderer
-          │
-          ▼
-    Screen Buffer
-          │
-          ▼
+Renderer
+           │
+           ▼
+     Editor Screen Buffer
+           │
+           ▼
       Terminal
 ```
 
@@ -548,7 +548,7 @@ Editor State
         Renderer
            │
            ▼
-      Screen Buffer
+      Editor Screen Buffer
 ```
 
 A complete workflow traversing this path provides evidence that the architectural boundaries are not merely theoretical.

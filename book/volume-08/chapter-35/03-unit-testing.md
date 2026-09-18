@@ -470,7 +470,7 @@ A good unit-test suite should make internal refactoring possible without requiri
 
 Consider the Document representation.
 
-The project's baseline uses a vector of lines because it fits the editor's workload and keeps the implementation understandable. More advanced representations such as a gap buffer or piece table are studied later as alternatives.
+The project's baseline uses a vector of lines because it fits the editor's workload and keeps the implementation understandable. More advanced representations such as a gap buffer or piece table were studied earlier in Volume VI as alternatives.
 
 The higher-level behavior, however, does not need to change merely because the internal representation changes.
 

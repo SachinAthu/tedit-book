@@ -796,7 +796,7 @@ It does not establish that:
 
 Those behaviors cross architectural boundaries and therefore belong to integration or other component-level tests.
 
-### Key Principle
+## Key Principle
 
 > Test the Cursor as a logical position state machine: verify movement, boundaries, vertical navigation, preferred-column behavior, and invariants independently of terminal rendering and input handling.
 

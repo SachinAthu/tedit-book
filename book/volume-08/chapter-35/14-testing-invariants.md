@@ -245,7 +245,7 @@ Editor State
 Renderer
      │
      ▼
-Screen Buffer
+Editor Screen Buffer
      │
      ▼
 Terminal Output

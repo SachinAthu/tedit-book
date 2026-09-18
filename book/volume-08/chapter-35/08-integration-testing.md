@@ -66,7 +66,7 @@ Input Engine → Command Engine
 Command Engine → Editor State
 Command Engine → Document / Cursor / Viewport
 File Manager → Document / Buffer
-Renderer → Screen Buffer
+Renderer → Editor Screen Buffer
 ```
 
 The architecture deliberately separates these responsibilities.
@@ -636,7 +636,7 @@ Buffer dirty = false
 
 This is a good example of why integration testing must examine **state transitions**, not merely function return values.
 
-## Testing the Renderer and Screen Buffer
+## Testing the Renderer and the Editor Screen Buffer
 
 The Renderer also has an important integration boundary.
 
@@ -651,7 +651,7 @@ Editor State
 Renderer
      │
      ▼
-Screen Buffer
+Editor Screen Buffer
 ```
 
 For example, given:
@@ -671,7 +671,7 @@ This test does not need to verify the terminal itself.
 
 It verifies that the Renderer correctly consumes editor state and produces the intermediate screen representation.
 
-The Screen Buffer architecture deliberately provides this intermediate boundary, making such testing possible without coupling every rendering test to terminal I/O.
+The Editor Screen Buffer architecture deliberately provides this intermediate boundary, making such testing possible without coupling every rendering test to terminal I/O.
 
 ## Testing the Renderer Without the Terminal
 
@@ -698,7 +698,7 @@ an integration test can stop at:
 Renderer
    │
    ▼
-Screen Buffer
+Editor Screen Buffer
 ```
 
 This makes the test deterministic.
@@ -790,7 +790,7 @@ Command Engine → Document + Buffer
 or:
 
 ```text
-Renderer → Screen Buffer
+Renderer → Editor Screen Buffer
 ```
 
 This provides better diagnostic information.
@@ -971,7 +971,7 @@ A practical integration test plan can be organized around architectural boundari
 | Command Engine → Buffer       | Editing changes Dirty Flag                     |
 | Buffer → File Manager         | Save updates persistence state                 |
 | File Manager → File System    | Logical document is serialized and loaded      |
-| Renderer → Screen Buffer      | Editor state produces correct frame            |
+| Renderer → Editor Screen Buffer | Editor state produces correct frame            |
 | Buffer Manager → Windows      | Buffer switching preserves editing contexts    |
 
 The purpose of the table is not to prescribe one test per row.
@@ -1007,7 +1007,7 @@ However, integration testing still does not establish that the complete applicat
 
 For example, an Input Parser → Input Engine test may prove that an arrow-key sequence becomes the correct command, but it does not prove that a real terminal delivers that sequence correctly under all conditions.
 
-Likewise, a Renderer → Screen Buffer test does not prove that a terminal emulator displays the resulting bytes exactly as expected.
+Likewise, a Renderer → Editor Screen Buffer test does not prove that a terminal emulator displays the resulting bytes exactly as expected.
 
 Those questions belong to end-to-end testing.
 

@@ -1016,7 +1016,24 @@ Volume IV, Chapter 18
 - Editor State
 - Single Source of Truth
 - State Ownership
-- Editor Screen Buffer
+
+## Deterministic Test
+
+**Definition**
+
+A test that, given the same initial state and the same input or operation sequence, produces the same result every time it runs. A deterministic test has no dependence on terminal size, wall-clock timing, keyboard timing, filesystem state, or random data unless those are exactly the property being tested; removing such dependencies makes failures reproducible and the test fast and repeatable.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- Integration Testing
+- End-to-End Testing
+- Regression Testing
+- Test Double
 
 ## Dirty Flag
 
@@ -1213,6 +1230,23 @@ Volume VI, Chapter 26
 - Spatial Locality
 - Gap Buffer
 - Cursor
+
+## End-to-End Testing
+
+**Definition**
+
+The highest automated testing level, which exercises the editor as an assembled system: it begins with an initial external condition, performs a sequence of user-level actions through the complete application, and verifies the resulting observable behavior. End-to-end testing verifies complete user-visible workflows—editing, saving, buffer switching, and terminal lifecycle—rather than internal implementation details and is used for the few but significant workflows that lower-level tests cannot cover.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- Integration Testing
+- Regression Testing
+- Manual Testing
 
 ## Escape Character (ESC)
 
@@ -1989,6 +2023,41 @@ Volume I, Chapter 2
 - Program Counter
 - Machine Instruction
 
+## Integration Testing
+
+**Definition**
+
+A testing level that verifies the contracts and boundaries between components rather than each component in isolation. Integration tests confirm that components interpret and use each other's results correctly—for example, that the Input Parser's key events reach the Input Engine, that the Command Engine coordinates the Document and Cursor, or that a failed save preserves the Dirty Flag. It sits between unit testing and end-to-end testing and concentrates on meaningful architectural boundaries and state transitions.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- End-to-End Testing
+- Regression Testing
+- Deterministic Test
+- Test Double
+
+## Invariant
+
+**Definition**
+
+A property that must remain true while the system is in a valid state, before, during, and after operations. In the editor, invariant tests protect the conditions that must hold whenever a component is valid: the Cursor remains within its logical bounds, the Viewport keeps the Cursor visible, the Input Parser retains a recoverable state, and a failed save never clears the Dirty Flag. Invariant testing gives the architecture a direct, verifiable form because invariants follow the ownership model.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- State Ownership
+- Gap Buffer Invariant
+- Piece Table Invariant
+
 ## Inverse Operation
 
 **Definition**
@@ -2467,6 +2536,22 @@ Volume I, Chapter 2
 - CPU
 - Register
 - Process
+
+## Manual Testing
+
+**Definition**
+
+Testing performed by a human interacting with the running editor rather than by an automated program. Manual testing complements the automated suite for behavior that is difficult to represent through isolated automated tests, such as visual correctness, cursor placement, status bar readability, terminal resizing, and terminal restoration after exit. Manual tests are visual, interactive, and exploratory, while automated tests are repeatable, fast, and precise.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- Integration Testing
+- End-to-End Testing
 
 ## Memline
 
@@ -3064,6 +3149,23 @@ Volume I, Chapter 2
 - Main Memory
 - Instruction Cycle
 
+## Regression Testing
+
+**Definition**
+
+A testing practice that preserves previously established editor behavior. A regression occurs when behavior that previously worked becomes incorrect after a change; regression testing repairs and protects it by adding a permanent test at the lowest level that reproduces the defect—unit, integration, or end-to-end. Regression tests begin with real failures, describe the behavior rather than the implementation, and turn previous correctness into continuing protection against future changes.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- Integration Testing
+- End-to-End Testing
+- Deterministic Test
+
 ## Regular Expression
 
 **Definition**
@@ -3589,7 +3691,7 @@ Volume II, Chapter 7
 
 **Definition**
 
-An architectural principle where each piece of state has exactly one owner responsible for maintaining and modifying it. In the editor, each field of the Editor State is written by a single component: the Command Engine owns the Document, Viewport, Dirty Flag, and Configuration; the Cursor owns the cursor position; the File Manager owns the current file; the Renderer owns the status message; and the Terminal Interface owns the screen size. Other components may read a field but must not modify it directly.
+An architectural principle where each piece of state has exactly one owner responsible for maintaining and modifying it. In the editor, each field of the Editor State has a single owner, classified by scope: a Buffer owns its Document, file association, Dirty Flag, and undo history; a Window owns its geometry, Viewport, and Cursor; the Buffer Manager owns the buffer collection; the File Manager owns file-system access; the Renderer owns the status message and the frame it produces; the Terminal Interface owns the screen size; and editor-wide Configuration is owned at the editor level. Other components may read a field but must not modify it directly.
 
 Ownership answers _who may write a field_ and is distinct from domain responsibility — _who defines the rules and representation of a value_. The Command Engine writes the Document field, while the Document Model owns the representation and editing rules for that text.
 
@@ -3988,6 +4090,38 @@ Volume I, Chapter 5
 - Echo
 - Control Character
 
+## Test Double
+
+**Definition**
+
+A controlled substitute for an external dependency or component used to isolate a test, such as a fake File Manager or file system when testing save behavior. Test doubles make integrations deterministic by letting a test control an otherwise external boundary, but overusing them can produce tests that verify only the doubles themselves; they should be used to isolate meaningful boundaries rather than to avoid testing the real system.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Integration Testing
+- Unit Testing
+- Deterministic Test
+- File Manager
+
+## Test Matrix
+
+**Definition**
+
+A coverage table that organizes the cases a component's tests should address by operation and boundary condition, such as insertion, deletion, and splitting across beginning, middle, end, empty, and multiple-line cases. A test matrix is a coverage aid that reveals missing boundary cases, not a requirement that every cell be implemented as a separate test.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Unit Testing
+- Deterministic Test
+
 ## Text Buffer
 
 **Definition**
@@ -4170,6 +4304,24 @@ Volume VII, Chapter 31
 - Undo
 - Operation History
 - Command
+
+## Unit Testing
+
+**Definition**
+
+The foundational testing level that verifies a small, isolated part of the editor: a unit test gives one module a controlled input, observes its result, and determines whether the module behaved according to its contract. Unit tests are fast, deterministic, and independent of the rest of the editor, and they verify a component's contract, boundaries, failure behavior, and invariants through its public interface.
+
+**First Introduced**
+
+Volume VIII, Chapter 35
+
+**Related Terms**
+
+- Integration Testing
+- End-to-End Testing
+- Regression Testing
+- Deterministic Test
+- Test Matrix
 
 ## Use Case
 

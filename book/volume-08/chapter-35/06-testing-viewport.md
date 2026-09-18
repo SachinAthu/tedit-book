@@ -892,7 +892,7 @@ Renderer
 
 Each layer can be tested independently before their interactions are tested together.
 
-### Key Principle
+## Key Principle
 
 > Test the Viewport as a visibility-management component: verify its offsets, scrolling boundaries, Cursor visibility, horizontal and vertical behavior, and response to terminal dimensions without coupling the tests to rendering or terminal output.
 

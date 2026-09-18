@@ -26,7 +26,7 @@ Protection — regressions, failure cases, and organization
 Reflection — invariants and the mistakes to avoid
 ```
 
-We begin by explaining why testing matters and defining an overall strategy. We then apply unit testing to the Document, Cursor, Viewport, and Input Parser, move to integration and end-to-end testing, and extend the model with regression, failure, and organizational concerns. We close by testing the invariants that hold the architecture together and by reviewing the common mistakes that undermine a test suite.
+We begin by explaining why testing matters and defining an overall strategy. We then apply unit testing to the Document, Cursor, Viewport, and Input Parser, move to integration and end-to-end testing, and extend the model with regression, failure, and organizational concerns. We close by reviewing the common mistakes that undermine a test suite and by testing the invariants that hold the architecture together.
 
 ## Learning Objectives
 

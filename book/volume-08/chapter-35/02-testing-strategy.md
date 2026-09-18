@@ -40,7 +40,7 @@ Integration Tests
     ├── Input → Command
     ├── Command → State
     ├── File Manager → Document
-    └── Renderer → Screen Buffer
+    └── Renderer → Editor Screen Buffer
           │
           ▼
 End-to-End Tests
@@ -438,7 +438,7 @@ After Render
 
 The Document should be unchanged.
 
-### Buffer switching must preserve Buffer state
+### Buffer switching must preserve Window/View state
 
 With multiple Buffers:
 

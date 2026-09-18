@@ -714,7 +714,7 @@ Testing becomes useful when the result can be trusted.
 
 Poorly designed tests can create false confidence just as surely as missing tests can create insufficient confidence.
 
-### Key Principle
+## Key Principle
 
 > Good tests are not defined by their quantity but by the quality of the evidence they provide: they should verify meaningful editor behavior at the appropriate architectural level, cover boundaries and failures, remain deterministic and isolated, and avoid unnecessary dependence on implementation details.
 
