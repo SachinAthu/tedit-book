@@ -1,0 +1,416 @@
+# 35.1 Why Testing Matters
+
+A text editor is an interactive system. It continuously receives input, changes internal state, renders that state, and sometimes performs operations on the file system. A defect in any one of these areas can produce incorrect behavior, even when the editor appears to work correctly during ordinary use.
+
+Consider a simple editing operation.
+
+```text
+User presses Backspace
+        │
+        ▼
+   Input Parser
+        │
+        ▼
+    Input Engine
+        │
+        ▼
+   Command Engine
+        │
+        ▼
+     Document
+        │
+        ▼
+      Cursor
+        │
+        ▼
+     Viewport
+        │
+        ▼
+     Renderer
+        │
+        ▼
+     Terminal
+```
+
+A failure at any point can affect what the user sees.
+
+The parser might interpret the key incorrectly. The command might modify the wrong document. The Document might merge two lines incorrectly. The Cursor might move to an invalid position. The Viewport might fail to keep the Cursor visible. The Renderer might display stale state.
+
+The editor may still compile successfully.
+
+It may even appear to work.
+
+That is why compilation and manual experimentation are not enough.
+
+## Correctness Is More Than Compilation
+
+A successful compilation establishes only that the source code satisfies the compiler's requirements.
+
+It does not establish that the program behaves correctly.
+
+For example, this function may compile perfectly:
+
+```c
+void document_delete(Document *document, size_t row, size_t column)
+{
+    /* implementation */
+}
+```
+
+But compilation cannot tell us whether the function correctly handles:
+
+- deletion from the middle of a line
+- deletion at the beginning of a line
+- deletion at the end of a line
+- deletion from an empty line
+- deletion at the final line of the Document
+- Unicode code points
+- invalid positions
+
+Those are behavioral requirements.
+
+Testing gives us a way to check them.
+
+## An Editor Can Work for the Common Case and Still Be Wrong
+
+Interactive software contains many boundaries and exceptional states.
+
+Suppose the Document contains:
+
+```text
+Hello
+World
+```
+
+The user places the Cursor at the beginning of `World` and presses Backspace.
+
+The expected result is:
+
+```text
+HelloWorld
+```
+
+But an implementation might accidentally produce:
+
+```text
+Hello
+orld
+```
+
+or:
+
+```text
+HelloWorld
+World
+```
+
+or corrupt the internal line collection entirely.
+
+A short manual test might never discover the problem.
+
+Similarly, consider vertical Cursor movement:
+
+```text
+123456789
+123
+123456789
+```
+
+If the Cursor is at column 9 on the first line and moves downward, the second line is too short to contain column 9.
+
+The Cursor therefore becomes temporarily clamped:
+
+```text
+123
+   ^
+```
+
+When it moves to the third line, however, the preferred column should allow it to return to column 9.
+
+```text
+123456789
+        ^
+```
+
+This behavior is easy to break with a small change to Cursor logic.
+
+A test can preserve this requirement explicitly.
+
+## Testing Makes Requirements Verifiable
+
+The Software Requirements Specification defines what the editor is expected to do. For example, the editor must support Cursor movement, editing operations, scrolling, file operations, and keyboard interaction.
+
+Those requirements are useful only if we can determine whether the implementation satisfies them.
+
+Testing creates that connection:
+
+```text
+Requirement
+     │
+     ▼
+Expected Behavior
+     │
+     ▼
+Test
+     │
+     ▼
+Observed Behavior
+     │
+     ▼
+Pass / Fail
+```
+
+For example:
+
+```text
+Requirement:
+The Cursor shall not move beyond the
+boundaries of the Document.
+
+                │
+                ▼
+
+Test:
+Move the Cursor left while it is
+already at column 0.
+
+                │
+                ▼
+
+Expected:
+Cursor remains at column 0.
+```
+
+The test turns a statement in the requirements into something that can actually be checked.
+
+## Testing Architectural Boundaries
+
+Testing is particularly valuable in our editor because the architecture deliberately separates responsibilities.
+
+The architecture defines boundaries such as:
+
+```text
+Input Parser
+     │
+     ▼
+Input Engine
+     │
+     ▼
+Command Engine
+     │
+     ▼
+Editor State
+     │
+     ├── Document
+     ├── Cursor
+     └── Viewport
+```
+
+These boundaries are not merely organizational.
+
+They give us places where behavior can be isolated and verified.
+
+For example, the Input Parser should answer:
+
+> What key event do these bytes represent?
+
+It should not answer:
+
+> What should the Document do?
+
+That distinction allows us to test the parser independently.
+
+Likewise, the Renderer reads Editor State and produces a visual frame. It should not modify the Document.
+
+Therefore, we can test both sides independently:
+
+```text
+Input Parser
+    │
+    │ test input bytes
+    ▼
+Key Event
+```
+
+and:
+
+```text
+Editor State
+    │
+    │ test state
+    ▼
+Rendered Frame
+```
+
+The architecture therefore makes testing easier because responsibilities are separated.
+
+This is one practical benefit of the architectural decisions established throughout the earlier volumes.
+
+## Testing Invariants
+
+Some of the most valuable tests do not ask whether one particular example produces one particular output.
+
+Instead, they verify **invariants**.
+
+An invariant is a property that should remain true whenever the system is in a valid state.
+
+For example, the Cursor must remain within the valid bounds of the Document.
+
+```text
+Document
++-------------------+
+| Hello             |
+| World             |
+|                   |
++-------------------+
+          ^
+        Cursor
+```
+
+An operation should never leave the Cursor here:
+
+```text
+Document
++-------------------+
+| Hello             |
+| World             |
++-------------------+
+                   ^
+                 Invalid
+```
+
+Similarly, a failed save must not make the editor believe that the Document has been saved.
+
+```text
+Save
+ │
+ ▼
+Failure
+ │
+ ▼
+Dirty Flag remains set
+```
+
+These properties are stronger than testing only one normal scenario.
+
+They describe rules that should hold across many possible operations.
+
+## Testing Does Not Prove the Absence of All Bugs
+
+Testing is powerful, but it has an important limitation.
+
+A passing test suite does not prove that the editor contains no defects.
+
+A test checks the cases that we have chosen to check.
+
+For example:
+
+```text
+100 tests pass
+```
+
+does not mean:
+
+```text
+The editor is mathematically proven correct.
+```
+
+Instead, testing gives us increasing evidence that the implementation behaves correctly under the tested conditions.
+
+This distinction matters.
+
+The goal of Chapter 35 is therefore not to make an absolute claim of correctness. The goal is to establish **confidence based on evidence**.
+
+```text
+More relevant tests
+        │
+        ▼
+More observed correct behavior
+        │
+        ▼
+Greater confidence
+```
+
+The quality of that confidence depends on the quality of the tests.
+
+Testing ten ordinary insertions is less useful than testing insertion at the beginning, middle, and end of lines, empty lines, line boundaries, and other important editor states.
+
+## Testing as Part of Engineering
+
+Testing should not be treated as a final activity performed after the editor has been completely implemented.
+
+A better model is:
+
+```text
+Design
+  │
+  ▼
+Implement
+  │
+  ▼
+Test
+  │
+  ▼
+Discover a problem
+  │
+  ▼
+Correct implementation
+  │
+  ▼
+Test again
+```
+
+This cycle continues throughout development.
+
+A defect discovered during development can also become a permanent test:
+
+```text
+Bug discovered
+      │
+      ▼
+Bug fixed
+      │
+      ▼
+Regression test added
+      │
+      ▼
+Future changes must preserve the fix
+```
+
+This becomes especially important as the editor grows.
+
+A change to the Document implementation can affect the Cursor. A change to the Cursor can affect the Viewport. A change to the Viewport can affect rendering. A change to configuration can affect input behavior.
+
+Without tests, developers must repeatedly rely on memory and manual inspection to determine whether an old behavior still works.
+
+With tests, previously established behavior can be checked automatically.
+
+## Engineering Insight
+
+**Testing is not primarily about finding bugs. It is about establishing evidence that the system behaves according to its intended design.**
+
+For our editor, that evidence should exist at several levels:
+
+```text
+Individual operation
+        │
+        ▼
+Module behavior
+        │
+        ▼
+Component interaction
+        │
+        ▼
+Complete user workflow
+        │
+        ▼
+Long-term regression protection
+```
+
+The following sections will build these levels one at a time, beginning with the overall testing strategy and then applying it directly to the Document, Cursor, Viewport, Input Parser, and the rest of the editor architecture.
+
+## Summary
+
+Testing establishes evidence that the editor behaves according to its intended design. Compilation and manual experimentation are insufficient on their own: tests make requirements verifiable, protect architectural boundaries and invariants, and must grow together with the editor rather than being deferred to the end of development.
+
+The next section defines how these tests are organized into a coherent plan: **Section 35.2, Testing Strategy**.

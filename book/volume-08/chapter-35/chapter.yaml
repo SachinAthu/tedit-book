@@ -1,0 +1,21 @@
+chapter: 35
+title: Testing
+volume: 8
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 35.1 Why Testing Matters —> 01-why-testing-matters.md
+  - 35.2 Testing Strategy —> 02-testing-strategy.md
+  - 35.3 Unit Testing —> 03-unit-testing.md
+  - 35.4 Testing the Document —> 04-testing-document.md
+  - 35.5 Testing the Cursor —> 05-testing-cursor.md
+  - 35.6 Testing the Viewport —> 06-testing-viewport.md
+  - 35.7 Testing Input Parsing —> 07-testing-input-parsing.md
+  - 35.8 Integration Testing —> 08-integration-testing.md
+  - 35.9 End-to-End Testing —> 09-end-to-end-testing.md
+  - 35.10 Regression Testing —> 10-regression-testing.md
+  - 35.11 Testing Failure Cases —> 11-testing-failure-cases.md
+  - 35.12 Test Organization —> 12-test-organization.md
+  - 35.13 Common Testing Mistakes —> 13-common-testing-mistakes.md
+  - 35.14 Testing Invariants —> 14-testing-invariants.md
+  - Summary, Exercises, Next Chapter Preview —> 15-conclusion.md
