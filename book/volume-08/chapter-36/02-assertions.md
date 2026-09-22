@@ -74,7 +74,7 @@ A simplified check might look like:
 assert(cursor_row >= 0);
 assert(cursor_row < document->line_count);
 assert(cursor_column >= 0);
-assert(cursor_column <= document_line_length);
+assert(cursor_column <= document->line_length);
 ```
 
 If one of these assertions fails, the program has discovered an invalid state at the point where it was detected.
@@ -161,25 +161,31 @@ This is particularly valuable in a modular architecture because each component h
 
 The project's state-ownership model gives assertions an especially useful role.
 
-Each piece of state has one owner.
-
-For example:
+Each piece of state has one owner, classified by scope:
 
 ```text
 Document
    │
-   └── owned by the editing system
+   └── owned by the Buffer
+
+Dirty Flag
+   │
+   └── owned by the Buffer
 
 Cursor
    │
-   └── owned by Cursor
+   └── owned by the Window
 
 Viewport
    │
-   └── owned by Viewport / Command Engine
+   └── owned by the Window
+
+Buffer collection
+   │
+   └── owned by the Buffer Manager
 ```
 
-When a component changes its state, it should preserve the invariants associated with that state.
+The Document and the Dirty Flag are buffer-specific state, so they belong to the Buffer that owns them. The Cursor and the Viewport are window-specific state, so they belong to the Window that displays the Buffer. This is the classification established by the multiple-buffer architecture: when a component changes its state, it should preserve the invariants associated with that state.
 
 A useful conceptual pattern is:
 
@@ -520,3 +526,13 @@ The purpose of an assertion is not to make the program more defensive against ev
 Its purpose is to make **internal correctness assumptions executable and visible**.
 
 When an assertion fails, the failure should be treated as valuable debugging evidence: something that the architecture assumed to be impossible has occurred, and the debugger can now investigate the exact state in which that assumption became false.
+
+## Summary
+
+Assertions make the editor's invariants executable. They allow the developer to state what must always be true—in the Document, the Cursor, the Viewport, and across module boundaries—and to detect the first moment one of those assumptions is violated.
+
+Assertions are not error handling. They do not recover from failure or make invalid state acceptable; they expose it as early and as specifically as possible during development.
+
+For the stateful editor, assertions are most valuable when they are close to the invariant they protect and when they run in the debug build that debugging assumes.
+
+Because assertions depend on the build configuration, the next section examines **Debug Builds**: how a debug configuration keeps assertions and diagnostics available without changing the program's behavior.

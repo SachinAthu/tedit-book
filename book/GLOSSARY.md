@@ -193,6 +193,22 @@ Volume I, Chapter 2
 - Unicode
 - UTF-8
 
+## Assertion
+
+**Definition**
+
+A check that a condition that must hold at a particular point in a program is actually true. If the condition fails, the program stops and reports the violated assumption. In the editor, assertions express invariants as executable checks—the Cursor must stay within valid Document bounds, the Viewport must remain valid, and components must receive the state they expect—and they act as executable documentation rather than error handling.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Invariant
+- State Ownership
+- Debug Build
+
 ## Assumption
 
 **Definition**
@@ -294,6 +310,22 @@ Volume VI, Chapter 24
 - Space Complexity
 - Input Size
 
+## Breakpoint
+
+**Definition**
+
+A deliberate stopping point in program execution at which the debugger pauses the program so that the developer can inspect its state. A breakpoint is most useful when it represents a specific debugging question about an architectural boundary or a state transition, rather than a stop placed wherever code looks suspicious.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Debugger
+- Call Stack
+- First Incorrect State
+
 ## Buffer
 
 **Definition**
@@ -385,6 +417,22 @@ Volume VI, Chapter 24
 - Spatial Locality
 - Main Memory (RAM)
 - Complexity Analysis
+
+## Call Stack
+
+**Definition**
+
+The chain of function calls that led to the current point of execution, displayed by a debugger. The call stack answers the question "How did execution get here?" For the editor, it is especially useful because a defect may be introduced by a caller—such as the Input Engine, Command Engine, or Renderer—several modules before the function where the problem becomes visible.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Debugger
+- Breakpoint
+- Stack Trace
 
 ## Capacity
 
@@ -984,6 +1032,39 @@ Volume II, Chapter 8
 - Editor State
   - Event Loop
 
+## Debug Build
+
+**Definition**
+
+A development-oriented build configuration designed to make incorrect behavior easier to observe, diagnose, and reproduce. A debug build typically enables debugging symbols, keeps assertions active, reduces optimization, and may add diagnostic logging or runtime checks, in contrast to a release build, which enables optimization and removes development diagnostics.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Assertion
+- Debugger
+- Sanitizer
+- Build System
+
+## Debugger
+
+**Definition**
+
+A tool that allows the developer to observe a running program, pause its execution at chosen points, step through statements, and inspect variables, state, and the call stack. A debugger changes how execution is observed, not what the program does; for the editor it makes the state transitions between components inspectable so that the first incorrect state can be found.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Breakpoint
+- Call Stack
+- Debug Build
+
 ## Default Configuration
 
 **Definition**
@@ -1482,6 +1563,22 @@ Volume V, Chapter 21
 - File Manager
 - File Descriptor
 - errno
+
+## First Incorrect State
+
+**Definition**
+
+The earliest state along a processing pipeline at which reality differs from the expected behavior. Because a defect in the editor may be introduced several stages before its symptom appears, debugging traces an operation through Input, Event, Command, State, Frame, and Terminal, comparing expected against actual at each boundary until the first incorrect state is located.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- State Ownership
+- Debugger
+- Assertion
 
 ## Fixed-Size Array
 
@@ -2396,6 +2493,22 @@ Volume V, Chapter 21
 - Document
 - File Descriptor
 
+## Logging
+
+**Definition**
+
+Recording selected information about program execution—such as events received, commands executed, state transitions, and failures—while the program continues to run. Logging answers "What happened during this execution?" and is especially useful for the editor when a bug is intermittent or appears only after a long sequence, because the history of events survives after the operation that caused the failure.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Tracing
+- Debugger
+- Breakpoint
+
 ## Logical Column
 
 **Definition**
@@ -3239,6 +3352,23 @@ Volume IV, Chapter 17
 - Frame
 - Renderer
 
+## Reproduction
+
+**Definition**
+
+Recreating the conditions under which the same incorrect behavior occurs, described by the initial state, the environment, and the operation sequence that lead to the observed result. Reproduction is the foundation of the debugging workflow: a defect is explained most reliably once it can be made to happen on demand, and the smallest sufficient reproduction can become a regression test.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Regression Testing
+- Deterministic Test
+- First Incorrect State
+- Logging
+
 ## Requirements Traceability
 
 **Definition**
@@ -3317,6 +3447,22 @@ Volume VI, Chapter 28
 - Amortized Complexity
 
 # S
+
+## Sanitizer
+
+**Definition**
+
+A compiler-assisted runtime-instrumentation tool that detects classes of errors—especially memory errors—during execution. Sanitizers such as AddressSanitizer can report out-of-bounds accesses, use-after-free, double free, and some forms of memory corruption, producing a diagnostic with a location and a stack trace. Sanitizers fit naturally into a debug build.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Debug Build
+- Stack Trace
+- Heap
 
 ## Space Complexity
 
@@ -3670,6 +3816,22 @@ Volume I, Chapter 2
 - Heap
 - Process
 - Main Memory
+
+## Stack Trace
+
+**Definition**
+
+The record of the chain of function calls that led to a particular point in execution, produced by a debugger, a sanitizer, or a memory diagnostic. A stack trace answers "How did execution get here?" and is an important piece of evidence for locating the first incorrect state, although the location where execution stops is not necessarily where the defect was introduced.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Call Stack
+- Debugger
+- Sanitizer
 
 ## Stakeholder
 
@@ -4218,6 +4380,22 @@ Volume VII, Chapter 32
 - Highlight Class
 - Document
 
+## Tracing
+
+**Definition**
+
+Recording a sequence of related events so that the execution path can be reconstructed afterward. Tracing goes further than logging by preserving the order and relationship between events—such as input, parse, command, state update, and render—so that the editor's event-driven behavior can be replayed and understood after the fact.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Logging
+- Event Loop
+- Event-Driven Architecture
+
 ## TTY
 
 **Definition**
@@ -4518,6 +4696,22 @@ Volume IV, Chapter 19
 - Horizontal Tab
 
 # W
+
+## Watchpoint
+
+**Definition**
+
+A debugging mechanism that pauses execution when a particular variable or memory location changes value. A watchpoint answers "What changed this state?" and is useful for discovering which operation mutated a piece of Editor State independently of its owner, complementing a breakpoint's focus on a specific location.
+
+**First Introduced**
+
+Volume VIII, Chapter 36
+
+**Related Terms**
+
+- Breakpoint
+- Debugger
+- State Ownership
 
 ## Window
 

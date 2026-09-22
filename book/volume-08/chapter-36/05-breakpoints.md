@@ -546,7 +546,7 @@ The debugger can then move the investigation toward the viewport update.
 
 This illustrates an important rule:
 
-> Place breakpoints before and after important state transitions when searching for the first incorrect value.
+> Place breakpoints before and after important state transitions when searching for the first incorrect state.
 
 ## Avoiding Breakpoint Overuse
 

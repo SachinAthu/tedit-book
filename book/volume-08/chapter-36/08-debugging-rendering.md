@@ -4,9 +4,11 @@ Rendering bugs are often deceptive because the final symptom appears on the term
 
 The editor does not draw directly from keyboard input. Instead, the current **Editor State** is transformed into a complete visual frame, represented by the **Screen Buffer**, and then converted into terminal output.
 
+As established in the rendering architecture, "Screen Buffer" here refers to the **Editor Screen Buffer**—the editor's application-side frame buffer—not the screen buffers maintained inside the terminal emulator itself.
+
 The architecture therefore gives us:
 
-```text id="x6w4qk"
+```text
 Editor State
      │
      ▼
@@ -51,7 +53,7 @@ But the visible symptom does not immediately identify the cause.
 
 For example:
 
-```text id="c8v6zq"
+```text
 Wrong Cursor Position
         │
         ├── Cursor State is wrong
@@ -68,7 +70,7 @@ The first debugging task is therefore to determine **which representation became
 
 The editor's rendering pipeline can be divided into several conceptual stages:
 
-```text id="f5yq3m"
+```text
 Editor State
      │
      ▼
@@ -129,19 +131,19 @@ Instead:
 
 For example:
 
-```text id="3j3xcy"
+```text
 Editor State
 ├── cursor.row       = 15
 ├── cursor.column    = 8
-├── viewport.row     = 10
-└── viewport.column  = 0
+├── viewport_row     = 10
+└── viewport_column  = 0
 ```
 
 If those values are already incorrect, the Renderer may simply be displaying incorrect state.
 
 The debugging path should then move backward:
 
-```text id="dr5a1p"
+```text
 Renderer
    ↑
 Editor State
@@ -163,7 +165,7 @@ This distinction is particularly important for horizontal positioning.
 
 The architecture explicitly distinguishes:
 
-```text id="8o9q2j"
+```text
 Logical Document Coordinate
           │
           ▼
@@ -177,7 +179,7 @@ The Viewport's horizontal offset is expressed in visual/display columns, not log
 
 Therefore, if the cursor is displayed at the wrong horizontal position, inspect:
 
-```text id="t5y2su"
+```text
 Cursor.column
         │
         ▼
@@ -198,13 +200,13 @@ Tabs provide a useful example of why coordinate conversion must be investigated 
 
 Suppose:
 
-```text id="e8h11k"
+```text
 Cursor.column = 5
 ```
 
 That does not necessarily mean:
 
-```text id="u8az6u"
+```text
 screen_column = 5
 ```
 
@@ -212,7 +214,7 @@ If the line contains a TAB before the cursor, the rendered visual position may b
 
 Conceptually:
 
-```text id="d6m0tq"
+```text
 Logical text:
     A B \t C
         │
@@ -240,7 +242,7 @@ The chosen representation is a reusable grid of screen cells, with one cell corr
 
 Conceptually:
 
-```text id="t7yrxb"
+```text
 Screen Buffer
 
         columns
@@ -258,7 +260,7 @@ When the screen is wrong, inspect the Screen Buffer before investigating termina
 
 For example:
 
-```text id="c3qltd"
+```text
 Editor State
       ↓
 Renderer
@@ -270,7 +272,7 @@ Terminal
 
 If the Screen Buffer already contains the wrong character:
 
-```text id="xqkh3m"
+```text
 Screen Buffer = wrong
 ```
 
@@ -278,7 +280,7 @@ the problem is likely in frame construction.
 
 If the Screen Buffer is correct:
 
-```text id="j0o8hw"
+```text
 Screen Buffer = correct
 Terminal display = wrong
 ```
@@ -291,13 +293,13 @@ Because the Screen Buffer is a grid of cells, a rendering problem can be localiz
 
 Suppose the user reports:
 
-```text id="l4d4f2"
+```text
 Character at row 8, column 12 is wrong.
 ```
 
 Inspect:
 
-```text id="3tr5la"
+```text
 screen_buffer[8][12]
 ```
 
@@ -305,7 +307,7 @@ conceptually.
 
 The cell may contain information such as:
 
-```text id="65c8aq"
+```text
 character = 'x'
 attributes = ...
 ```
@@ -324,7 +326,7 @@ The Document Area is one of the main rendering regions.
 
 Conceptually:
 
-```text id="xoj2bs"
+```text
 Document
    │
    │ visible rows
@@ -348,7 +350,7 @@ A missing or incorrect line may therefore originate from:
 
 A useful debugging sequence is:
 
-```text id="x5t3cw"
+```text
 Which document row should be visible?
         ↓
 Which document row did Renderer select?
@@ -368,7 +370,7 @@ Therefore, a wrong status display should first be investigated as a data-generat
 
 For example:
 
-```text id="q4y4k8"
+```text
 Editor State
     │
     ├── current file
@@ -412,7 +414,7 @@ The Message Bar presents another useful boundary.
 
 For example:
 
-```text id="1a1v8x"
+```text
 Operation
     │
     ▼
@@ -437,7 +439,7 @@ The cursor is particularly useful for demonstrating the difference between logic
 
 A simplified pipeline is:
 
-```text id="c2wq5r"
+```text
 Cursor
   │
   │ logical position
@@ -459,7 +461,7 @@ If the logical cursor is correct but the terminal cursor is wrong, investigate t
 
 For example:
 
-```text id="9c9zot"
+```text
 Cursor:
     row = 10
     column = 7
@@ -483,7 +485,7 @@ Rendering order can also cause apparently unrelated visual problems.
 
 The renderer constructs the frame in a defined order:
 
-```text id="yjj0iq"
+```text
 Document Area
       ↓
 Status Bar
@@ -501,7 +503,7 @@ A later operation may be writing over the same Screen Buffer cell.
 
 This produces a useful debugging question:
 
-```text id="z5xw5y"
+```text
 Which renderer operation wrote this cell last?
 ```
 
@@ -515,7 +517,7 @@ That means each rendering cycle reconstructs the complete visible frame rather t
 
 Conceptually:
 
-```text id="nphgyd"
+```text
 Editor State
      │
      ▼
@@ -551,7 +553,7 @@ A stale character on screen can still be a useful rendering symptom.
 
 For example:
 
-```text id="y6nuwk"
+```text
 Previous frame:
     HELLO WORLD
 
@@ -561,7 +563,7 @@ Current document:
 
 If the terminal still shows:
 
-```text id="dckxqn"
+```text
 HELLO WORLD
 ```
 
@@ -571,7 +573,7 @@ the debugging question is:
 
 The investigation becomes:
 
-```text id="4d6t6a"
+```text
 Current Editor State
        ↓
 Current Screen Buffer
@@ -609,7 +611,7 @@ The final stage is conversion of the completed frame into terminal output.
 
 Conceptually:
 
-```text id="0j1lwp"
+```text
 Screen Buffer
       │
       ▼
@@ -634,7 +636,7 @@ Therefore, if the Screen Buffer is correct but the visible terminal is not, insp
 
 Useful questions include:
 
-```text id="1q1yke"
+```text
 Was the complete frame written?
 
 Were the expected ANSI sequences generated?
@@ -654,7 +656,7 @@ For example, cursor visibility, screen clearing, cursor positioning, and alterna
 
 Therefore:
 
-```text id="4t9h0d"
+```text
 Correct Editor State
        ↓
 Correct Screen Buffer
@@ -674,7 +676,7 @@ The debugging boundary has moved to the terminal interface or terminal emulator.
 
 A disciplined rendering investigation can therefore follow:
 
-```text id="4p6vzu"
+```text
 Visual Symptom
       │
       ▼
@@ -741,7 +743,7 @@ A debugger complements these tests by explaining why a particular rendering resu
 
 Rendering should be debugged as a sequence of representations:
 
-```text id="l0sm2c"
+```text
 Logical State
       ↓
 Visual Coordinates
@@ -775,7 +777,7 @@ Rendering bugs should not be investigated solely from what appears on the termin
 
 The complete rendering path is:
 
-```text id="yp4q9u"
+```text
 Editor State
      ↓
 Renderer

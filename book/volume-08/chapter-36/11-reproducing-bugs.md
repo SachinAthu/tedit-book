@@ -4,7 +4,7 @@ A bug that cannot be reproduced is difficult to diagnose, difficult to fix confi
 
 For a stateful terminal editor, reproduction is especially important because behavior depends on a sequence of events:
 
-```text id="j4g0lo"
+```text
 Initial State
      │
      ▼
@@ -38,7 +38,7 @@ To reproduce a bug means to recreate the conditions under which the same incorre
 
 A useful reproduction description contains:
 
-```text id="w0d5c2"
+```text
 Initial State
      +
 Environment
@@ -50,7 +50,7 @@ Observed Result
 
 For example:
 
-```text id="1j2c8d"
+```text
 Initial:
     Document contains 20 lines
     Cursor at row 10
@@ -77,7 +77,7 @@ Interactive editor bugs are often sequence-dependent.
 
 Consider:
 
-```text id="o8d5t6"
+```text
 Open file
    ↓
 Move down
@@ -114,7 +114,7 @@ The sequence is part of the bug's conditions.
 
 A long sequence may reproduce a problem:
 
-```text id="r8y6v3"
+```text
 A → B → C → D → E → F → G → H → I → BUG
 ```
 
@@ -122,13 +122,13 @@ But some of those operations may be irrelevant.
 
 The goal is to reduce it:
 
-```text id="m3x7fp"
+```text
 C → D → G → BUG
 ```
 
 and eventually:
 
-```text id="0c8p8r"
+```text
 D → G → BUG
 ```
 
@@ -136,7 +136,7 @@ This is called **minimizing the reproduction**.
 
 The smaller the sequence, the easier it becomes to reason about the cause.
 
-```text id="2q7k0h"
+```text
 Large Reproduction
         │
         ▼
@@ -163,7 +163,7 @@ Suppose a developer observes:
 
 The initial reproduction might be:
 
-```text id="f7qzom"
+```text
 1. Open file
 2. Move down
 3. Move down
@@ -181,29 +181,18 @@ This is too broad.
 
 Try removing operations:
 
-```text id="tqksl4"
+```text
 Open file
 Delete line
 Move down
 Move down
 ```
 
-If the bug still occurs, several operations can be discarded.
-
-Eventually the developer may discover:
-
-```text id="o2t3l9"
-Open file
-Delete line
-Move down
-Move down
-```
-
-is sufficient.
+If the bug still occurs, several operations can be discarded, and the reduced sequence is sufficient for the investigation.
 
 Now the investigation can focus on:
 
-```text id="t6c7x2"
+```text
 Delete line
      ↓
 Document line count changes
@@ -221,7 +210,7 @@ A useful reproduction should behave consistently.
 
 Suppose:
 
-```text id="17y5gt"
+```text
 Run 1 → failure
 Run 2 → success
 Run 3 → failure
@@ -253,7 +242,7 @@ The initial state is part of the reproduction.
 
 For example:
 
-```text id="k11m7f"
+```text
 Initial Editor State
 
 Buffer:
@@ -267,7 +256,7 @@ Cursor:
     column = 5
 
 Viewport:
-    row_offset = 15
+    viewport_row = 15
 
 Dirty:
     false
@@ -277,7 +266,7 @@ Without this information, another developer may reproduce the same operations bu
 
 For state-dependent bugs:
 
-```text id="22v7wp"
+```text
 Same commands
 +
 Different initial state
@@ -293,7 +282,7 @@ A test fixture provides a controlled initial state from which a test can execute
 
 For example:
 
-```text id="0f4b1v"
+```text
 Fixture
    │
    ├── Document with known lines
@@ -312,7 +301,7 @@ This allows the same reproduction to be executed repeatedly.
 
 For example:
 
-```text id="p2n8zn"
+```text
 Given:
     3-line document
     cursor at final line
@@ -334,7 +323,7 @@ Input bugs require preserving not only the logical commands but sometimes the ac
 
 For example:
 
-```text id="2y7c0j"
+```text
 ESC [ A
 ESC [ A
 Backspace
@@ -343,7 +332,7 @@ Enter
 
 may produce a different result from a simplified sequence such as:
 
-```text id="q4y1p9"
+```text
 Arrow Up
 Arrow Up
 Backspace
@@ -354,7 +343,7 @@ if the problem occurs inside the Input Parser.
 
 For parser bugs, the raw byte sequence can therefore be part of the reproduction.
 
-```text id="0q7vnd"
+```text
 Raw Bytes
     ↓
 Input Parser
@@ -372,7 +361,7 @@ Rendering problems may depend on terminal dimensions or specific document conten
 
 For example:
 
-```text id="8f7v2s"
+```text
 Terminal:
     80 × 24
 
@@ -391,7 +380,7 @@ Observed:
 
 Changing the terminal size to:
 
-```text id="gr2m8w"
+```text
 120 × 40
 ```
 
@@ -411,7 +400,7 @@ File-related bugs can depend on external conditions.
 
 For example:
 
-```text id="t5v9z4"
+```text
 Save failure
 ```
 
@@ -429,7 +418,7 @@ A useful reproduction should describe the relevant external condition rather tha
 
 For example:
 
-```text id="q2n6se"
+```text
 Initial:
     Document dirty
 
@@ -455,7 +444,7 @@ Memory errors can be especially difficult because the visible crash may depend o
 
 A useful reproduction should therefore include:
 
-```text id="d3x0v7"
+```text
 Input sequence
 +
 Document contents
@@ -469,7 +458,7 @@ Diagnostic configuration
 
 For example:
 
-```text id="6p2k4h"
+```text
 Open document with long line
 Insert characters repeatedly
 Delete characters repeatedly
@@ -491,7 +480,7 @@ Suppose a user reports:
 
 The developer can record:
 
-```text id="p7j4o2"
+```text
 EVENT 21
     COMMAND MOVE_DOWN
     CURSOR 10 -> 11
@@ -507,7 +496,7 @@ EVENT 23
 
 The trace provides a possible reproduction sequence:
 
-```text id="e0j7w8"
+```text
 MOVE_DOWN
 DELETE
 MOVE_DOWN
@@ -517,7 +506,7 @@ The developer can then turn that sequence into a controlled reproduction.
 
 This creates an important relationship:
 
-```text id="3b6j1r"
+```text
 Runtime Log
      │
      ▼
@@ -539,7 +528,7 @@ Once a bug is reproducible, the debugger becomes much more effective.
 
 Without reproduction:
 
-```text id="1b7v8y"
+```text
 Start debugger
     ↓
 Wait
@@ -551,7 +540,7 @@ Maybe not
 
 With reproduction:
 
-```text id="3n4r6a"
+```text
 Known sequence
     ↓
 Set breakpoint
@@ -577,7 +566,7 @@ Once the cause is understood and fixed, preserve the reproduction.
 
 For example:
 
-```text id="9i6t0u"
+```text
 Bug discovered
      ↓
 Minimal reproduction
@@ -593,7 +582,7 @@ The regression test should capture the behavior that was previously incorrect.
 
 For example:
 
-```text id="h9j3sa"
+```text
 test_delete_last_line_preserves_cursor_validity()
 ```
 
@@ -611,7 +600,7 @@ A reproduction can contain accidental details.
 
 For example:
 
-```text id="3b4f6c"
+```text
 Open file A
 Resize terminal
 Move cursor
@@ -622,7 +611,7 @@ Delete line
 
 Perhaps only:
 
-```text id="n7g8y4"
+```text
 Delete line on final line
 ```
 
@@ -634,7 +623,7 @@ The goal is to preserve the conditions that matter.
 
 This distinction is important:
 
-```text id="5r7x2a"
+```text
 Original Session
     │
     ├── Relevant conditions
@@ -658,7 +647,7 @@ This does not provide enough information to reliably reproduce the problem.
 
 The developer should gather additional evidence:
 
-```text id="0w3v7n"
+```text
 What file?
 What commands?
 What terminal size?
@@ -707,7 +696,7 @@ It is a compact description of the conditions necessary to produce an incorrect 
 
 Conceptually:
 
-```text id="j5x9u4"
+```text
 Initial State
       +
 Environment
@@ -736,7 +725,7 @@ Reproducing a bug means establishing the conditions and operation sequence that 
 
 A strong reproduction identifies:
 
-```text id="r4b2xk"
+```text
 Initial State
     +
 Environment
@@ -750,7 +739,7 @@ Actual Result
 
 The preferred process is:
 
-```text id="6k1g3q"
+```text
 Observed Bug
      ↓
 Record conditions
@@ -772,4 +761,4 @@ The key principle is:
 
 > **Before trying to explain a bug, make the bug happen reliably.**
 
-Once the failure can be reproduced, the next challenge is determining which architectural component is responsible when the failure crosses several module boundaries. That is the subject of the next section: **Debugging Across Module Boundaries**.
+Once the failure can be reproduced, the next challenge is doing so in a disciplined way—finding the first incorrect state instead of relying on guesswork. The next section collects the common mistakes that undermine exactly this discipline: **Common Debugging Mistakes**.

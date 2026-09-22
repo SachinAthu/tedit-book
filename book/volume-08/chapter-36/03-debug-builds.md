@@ -165,13 +165,19 @@ For example:
 
 ```text
 Editor State
-├── active_buffer
-├── cursor
-├── viewport
-├── mode
-├── dirty
-└── terminal dimensions
+├── editor-wide
+│   └── terminal dimensions
+├── buffer-specific
+│   ├── document
+│   └── dirty
+└── window-specific
+    ├── active buffer (derived from the active Window)
+    ├── cursor
+    ├── viewport
+    └── mode
 ```
+
+For a single-window debugging session it is convenient to speak of these collectively as "the Editor State"; the label groups scoped state rather than implying that the Document, Cursor, and Viewport are editor-wide fields.
 
 Suppose the editor displays the wrong line after scrolling.
 
@@ -179,7 +185,7 @@ A debugger can stop execution immediately after the relevant command and inspect
 
 ```text
 cursor.row
-viewport.row_offset
+viewport_row
 terminal.rows
 ```
 

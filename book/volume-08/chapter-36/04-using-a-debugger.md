@@ -287,7 +287,7 @@ The developer might discover:
 
 ```text
 cursor.row       = 14
-viewport.row     = 10
+viewport_row     = 10
 terminal.rows    = 20
 ```
 
@@ -381,7 +381,7 @@ Cursor
     v
 Viewport
     |
-    | viewport.row = 8
+    | viewport_row = 8
     v
 Renderer
 ```
@@ -604,7 +604,7 @@ A useful workflow for this editor is:
 6. Step through the relevant operation
           │
           ▼
-7. Find the first incorrect value/state
+7. Find the first incorrect state
           │
           ▼
 8. Identify the responsible component

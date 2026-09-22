@@ -27,6 +27,8 @@ The important lessons are:
 
 Debugging therefore does not promise a defect-free editor. It provides a repeatable way to investigate failures, so that the next bug is located through evidence and reasoning rather than chance.
 
+The debugging and diagnostics strategy — assertions, debug builds, logging as an observer, sanitizers, and reproduction feeding regression tests — is recorded as **ADR-029: Debugging and Diagnostics Strategy**, making it an explicit engineering contract rather than an accidental consequence of the debugging code.
+
 ## Exercises
 
 ### Review Questions

@@ -34,7 +34,7 @@ Render
 Next Event
 ```
 
-The Chapter 36 outline explicitly identifies logging as one of the debugging techniques used alongside GDB, assertions, and profiling.
+Logging is therefore one of the debugging techniques used alongside assertions, a debugger, and breakpoints—each makes a different aspect of execution observable.
 
 ## Why Logging Is Useful
 
@@ -180,8 +180,8 @@ For example:
 ```text
 cursor.row = 10
 cursor.column = 5
-viewport.row = 7
-viewport.column = 0
+viewport_row = 7
+viewport_column = 0
 dirty = true
 buffer_count = 3
 terminal.rows = 30
@@ -257,7 +257,7 @@ Similarly:
 ```text
 DEBUG dirty: false -> true
 DEBUG viewport_row: 10 -> 11
-DEBUG active_buffer: 2 -> 3
+DEBUG window.buffer: 2 -> 3
 ```
 
 These messages expose the changes rather than merely reporting the final state.
@@ -634,21 +634,7 @@ EVENT 42
 
 Now the developer can reason about the editor in terms of complete event cycles.
 
-The runtime model is event-driven: the editor waits for an event, parses it, executes a command, updates Editor State, and renders a frame. A trace that follows this sequence mirrors the architecture directly.
-
-```text
-Event
-  ↓
-Parse
-  ↓
-Command
-  ↓
-State
-  ↓
-Render
-```
-
-This makes the log much easier to interpret than unrelated individual messages.
+The runtime model is event-driven: the editor waits for an event, parses it, executes a command, updates Editor State, and renders a frame. A trace that follows this sequence mirrors the architecture directly. This makes the log much easier to interpret than unrelated individual messages.
 
 ## Tracing a Bug Across Modules
 
@@ -932,7 +918,7 @@ For example:
 ```text
 COMMAND MOVE_CURSOR_DOWN
 CURSOR row 10 -> 11
-VIEWPORT row_offset 8 -> 8
+VIEWPORT viewport_row 8 -> 8
 RENDER frame 42
 ```
 

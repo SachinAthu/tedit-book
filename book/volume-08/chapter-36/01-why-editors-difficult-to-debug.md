@@ -307,7 +307,7 @@ Was the frame correct?
 Was the terminal output correct?
 ```
 
-The goal is to locate the **first incorrect result**.
+The goal is to locate the **first incorrect state**.
 
 For example:
 
@@ -482,3 +482,29 @@ Actual
 Once the first discrepancy is found, the search space becomes much smaller.
 
 That is the foundation on which the debugging techniques in the rest of this chapter—assertions, debug builds, GDB, breakpoints, state inspection, logging, tracing, and memory diagnostics—will build.
+
+## Summary
+
+The terminal editor is difficult to debug for structural reasons: it is stateful, event-driven, split across architectural boundaries, and coupled to a terminal it does not fully control.
+
+A defect introduced in one stage may not become visible until several stages later. The state that accumulates across operations can hide a bug behind an otherwise-correct sequence, and a boundary or terminal can transform a correct state into an incorrect display.
+
+Debugging therefore becomes an information problem. The architecture supplies the boundaries, and the tools in the rest of this chapter supply the observability.
+
+The guiding strategy is:
+
+```text
+Reproduce
+   ↓
+Trace the operation through the architecture
+   ↓
+Find the first incorrect state
+   ↓
+Identify the responsible component
+   ↓
+Fix the cause
+   ↓
+Add a regression test
+```
+
+The next section begins building the toolbox with **Assertions**, the first technique for making internal correctness assumptions observable.

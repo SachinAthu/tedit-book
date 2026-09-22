@@ -529,10 +529,10 @@ This is where the book becomes much deeper than a typical tutorial.
 - gdb
 - Assertions
 - Logging
-- Profiling
 
 ## **Chapter 37 — Performance**
 
+- Profiling
 - Rendering
 - Memory
 - Large files

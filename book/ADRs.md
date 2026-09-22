@@ -483,3 +483,23 @@ Trade-off:
 A multi-level test suite costs more to write and maintain than manual experimentation alone, and the discipline of determinism, isolation, and named, organized tests demands ongoing care; however, the result is repeatable evidence that protects behavior as the editor grows. Full end-to-end reproduction of every behavior would be slow and hard to diagnose, so the strategy deliberately concentrates coverage at the lower levels while keeping end-to-end tests "few but significant." Determinism and control require fixtures and, where necessary, test doubles; excessive mocking is avoided because tests that verify only the doubles provide false confidence. Manual testing remains necessary for visual, interactive, and exploratory behavior — terminal appearance, cursor placement, resizing, and terminal restoration — that automated tests cannot faithfully represent, so it complements rather than replaces the automated suite.
 
 First referenced: Chapter 35
+
+---
+
+# ADR-029
+
+Debugging and Diagnostics Strategy
+
+Decision:
+
+Treat debugging as the disciplined process of locating the **first incorrect state** — the earliest point along the event-processing pipeline at which reality differs from expectation — and support that process with development-time observability: **assertions** that express editor invariants as executable checks, a **debug build** that keeps assertions active and provides debugging symbols, reduced optimization, diagnostic logging, and optional runtime instrumentation, **logging and tracing** that record events and state transitions while remaining pure observers, and **sanitizer-enabled builds** for memory diagnostics. Debugging must not change program behavior: diagnostics must remain observers, never become owners of Editor State, never create second sources of truth, and never modify state, consume input, alter command execution, or change rendering. A reproduced defect should be reduced to the smallest deterministic sequence and, where practical, preserved as a **regression test**.
+
+Reason:
+
+A terminal editor is stateful, event-driven, split across architectural boundaries, and coupled to a terminal it does not fully control, so a defect can be introduced several stages before its symptom appears. Making program behavior observable turns debugging from visual guesswork into state analysis: assertions expose violated invariants at the point they become false, a debug build preserves that information without changing program semantics, logging and tracing reconstruct what happened in long or intermittent sequences that cannot be paused, and sanitizers convert undefined memory behavior into diagnostics instead of late crashes. Requiring diagnostics to remain observers follows the single-owner principle established in ADR-007: if logs or instrumentation became owners of Editor State, they would introduce second sources of truth that could fall out of sync with what the user sees. Connecting reproduction to regression testing ties debugging directly to the testing strategy of ADR-028, so a corrected defect becomes permanent protection rather than a one-time fix.
+
+Trade-off:
+
+Development-time observability costs build and runtime overhead: assertions, diagnostics, and instrumentation add code and can slow the debug build, and maintaining debug and release configurations is ongoing work. Sanitizer-enabled builds are not production builds and can report errors that occur only under instrumentation. These costs are confined to development and accepted in exchange for finding defects faster and more reliably; the release build omits assertions and diagnostics while preserving all invariants the implementation must maintain even without the checks that detect their violation.
+
+First referenced: Chapter 36

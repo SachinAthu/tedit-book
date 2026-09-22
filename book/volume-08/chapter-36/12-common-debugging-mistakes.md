@@ -1,4 +1,4 @@
-# 36.13 Common Debugging Mistakes
+# 36.12 Common Debugging Mistakes
 
 Debugging is a disciplined engineering activity, but it is easy to turn it into trial and error.
 
@@ -26,7 +26,7 @@ The most common mistake is fixing the location where the problem becomes visible
 
 Consider:
 
-```text id="7n9y5w"
+```text
 Wrong Screen
     ↓
 Renderer
@@ -36,7 +36,7 @@ It is tempting to immediately modify the Renderer.
 
 But the actual sequence might be:
 
-```text id="j6t0ab"
+```text
 Wrong Input
     ↓
 Wrong Command
@@ -54,7 +54,7 @@ The general rule is:
 
 This principle applies throughout the editor:
 
-```text id="6w4m8e"
+```text
 Input
   ↓
 Event
@@ -68,7 +68,7 @@ Frame
 Terminal
 ```
 
-Debug from the first incorrect representation forward.
+Debug from the first incorrect state forward.
 
 ## Adding Breakpoints Everywhere
 
@@ -76,7 +76,7 @@ Another common mistake is placing breakpoints throughout the entire program.
 
 For an event-driven editor, this can quickly become overwhelming:
 
-```text id="n6qz9p"
+```text
 Event Loop
    ↓
 Input
@@ -98,7 +98,7 @@ The developer then spends more time continuing execution than investigating the 
 
 A better approach is:
 
-```text id="3g4v8q"
+```text
 Identify the question
         ↓
 Identify the relevant component
@@ -116,7 +116,7 @@ Stepping through every function call can produce enormous amounts of irrelevant 
 
 For example:
 
-```text id="g0z7z4"
+```text
 main()
   ↓
 event_loop()
@@ -142,13 +142,13 @@ The goal is to observe the execution relevant to the failure.
 
 Use:
 
-```text id="m9k4z2"
+```text
 Step into
 ```
 
 when the implementation itself is under investigation, and:
 
-```text id="x7r5n8"
+```text
 Step over
 ```
 
@@ -166,7 +166,7 @@ This ignores the architectural structure.
 
 The architecture provides a more useful decomposition:
 
-```text id="2h5q9x"
+```text
 Input Parser
      ↓
 Input Engine
@@ -186,7 +186,7 @@ Debugging should take advantage of those boundaries.
 
 Ask:
 
-```text id="4q7n1p"
+```text
 Which component owns the state?
 
 Which component produced the value?
@@ -202,7 +202,7 @@ A related mistake is blaming the last component involved in the failure.
 
 For example:
 
-```text id="8f2d6k"
+```text
 Screen is wrong
     ↓
 Renderer must be broken
@@ -210,7 +210,7 @@ Renderer must be broken
 
 or:
 
-```text id="a6j1z3"
+```text
 Save failed
     ↓
 File Manager must be broken
@@ -218,7 +218,7 @@ File Manager must be broken
 
 or:
 
-```text id="t7m4p8"
+```text
 Cursor is invalid
     ↓
 Cursor code must be broken
@@ -228,12 +228,12 @@ The last component to observe incorrect data is not necessarily the component th
 
 Instead:
 
-```text id="c5y9x2"
+```text
 Observe incorrect result
         ↓
 Trace backward
         ↓
-Find first incorrect value
+Find first incorrect state
         ↓
 Identify its owner
 ```
@@ -244,7 +244,7 @@ Changing code before establishing a reliable reproduction is dangerous.
 
 Suppose:
 
-```text id="n0c5v7"
+```text
 Bug observed
     ↓
 Change implementation
@@ -258,7 +258,7 @@ The original behavior may simply not have occurred again.
 
 The better sequence is:
 
-```text id="x8j2m6"
+```text
 Observe
    ↓
 Reproduce
@@ -299,7 +299,7 @@ Multiple simultaneous changes also make regressions harder to diagnose.
 
 A better approach is:
 
-```text id="g2w5r6"
+```text
 Hypothesis
     ↓
 One focused change
@@ -319,7 +319,7 @@ That does not automatically make debugging easier.
 
 For example:
 
-```text id="0m3f8x"
+```text
 cursor.row=10
 cursor.column=4
 ...
@@ -335,10 +335,10 @@ A large log may contain every variable while answering none of the important que
 
 Useful logging focuses on meaningful events and transitions:
 
-```text id="p9v4k1"
+```text
 COMMAND MOVE_DOWN
 CURSOR row 10 -> 11
-VIEWPORT row_offset 8 -> 8
+VIEWPORT viewport_row 8 -> 8
 RENDER frame 42
 ```
 
@@ -350,7 +350,7 @@ A terminal editor owns the terminal display.
 
 Writing arbitrary diagnostic text directly into that display can corrupt the interface:
 
-```text id="q4h7w2"
+```text
 Editor Screen
 
 Hello
@@ -365,7 +365,7 @@ Diagnostic output should therefore be separated from normal rendering whenever p
 
 Conceptually:
 
-```text id="9c6v1m"
+```text
                     ┌──► Terminal UI
 Editor Process ─────┤
                     └──► Diagnostic Output
@@ -381,7 +381,7 @@ They should not replace normal handling of expected runtime failures.
 
 For example, a failed file open is a normal possibility:
 
-```text id="w1y8s5"
+```text
 File does not exist
 ```
 
@@ -389,7 +389,7 @@ This should be handled through normal error handling.
 
 An impossible internal state is different:
 
-```text id="k5m2q9"
+```text
 cursor.row >= document.line_count
 ```
 
@@ -397,7 +397,7 @@ That is an appropriate assertion target.
 
 The distinction is:
 
-```text id="f8n3c2"
+```text
 Expected runtime condition
     → error handling
 
@@ -415,7 +415,7 @@ That does not mean the underlying invariant is no longer important.
 
 For example:
 
-```text id="y4c8p0"
+```text
 0 <= cursor.row < document.line_count
 ```
 
@@ -437,7 +437,7 @@ A bug may be intermittent.
 
 Consider:
 
-```text id="x3k7n5"
+```text
 Run 1 → failure
 Run 2 → success
 Run 3 → success
@@ -452,7 +452,7 @@ That conclusion is not justified by these runs alone.
 
 A stronger verification process is:
 
-```text id="r7p2m4"
+```text
 Reproduce failure
       ↓
 Apply fix
@@ -472,7 +472,7 @@ The goal is not merely to observe one successful execution.
 
 A developer may fix a bug and verify it manually:
 
-```text id="j1m6z9"
+```text
 Bug fixed
 ```
 
@@ -484,7 +484,7 @@ The project's testing strategy explicitly includes regression testing: corrected
 
 The workflow should therefore be:
 
-```text id="p5w8v3"
+```text
 Bug
  ↓
 Reproduction
@@ -504,7 +504,7 @@ It does not automatically tell you whether those values are valid.
 
 For example:
 
-```text id="7r2k6v"
+```text
 cursor.row = 20
 ```
 
@@ -512,7 +512,7 @@ is meaningless without context.
 
 If:
 
-```text id="b3x9m1"
+```text
 document.line_count = 100
 ```
 
@@ -520,7 +520,7 @@ the value may be valid.
 
 If:
 
-```text id="v6c1p8"
+```text
 document.line_count = 20
 ```
 
@@ -528,7 +528,7 @@ the same cursor value may violate an invariant.
 
 Therefore, state inspection should always be combined with the relevant correctness rules:
 
-```text id="m4q8x2"
+```text
 Observed Value
       +
 Invariant
@@ -550,7 +550,7 @@ The architecture deliberately establishes one owner for each piece of state. Thi
 
 Therefore:
 
-```text id="s7k3n0"
+```text
 Incorrect State
      ↓
 Identify Owner
@@ -568,7 +568,7 @@ Memory corruption often occurs before the eventual crash.
 
 For example:
 
-```text id="u6m1p4"
+```text
 Invalid write
     ↓
 Memory corruption
@@ -586,7 +586,7 @@ Use memory diagnostics and sanitizers where appropriate.
 
 The important questions are:
 
-```text id="c8q4x7"
+```text
 Where was the invalid access?
 
 What allocation did it affect?
@@ -614,13 +614,13 @@ Sanitizers add runtime checks.
 
 Therefore:
 
-```text id="d1x6m8"
+```text
 Observed under debugger
 ```
 
 is not always identical to:
 
-```text id="z9q3v2"
+```text
 Observed during normal execution
 ```
 
@@ -634,7 +634,7 @@ A debugger may allow variables to be changed while the program is stopped.
 
 For example:
 
-```text id="4x8n2p"
+```text
 cursor.row = 5
 ```
 
@@ -644,7 +644,7 @@ But it is not a source-code fix.
 
 The correct distinction is:
 
-```text id="7m1q5v"
+```text
 Runtime modification
     → diagnostic experiment
 
@@ -660,7 +660,7 @@ A bug may appear in one build configuration but not another.
 
 For example:
 
-```text id="2f9m6k"
+```text
 Debug Build
     → works
 
@@ -670,7 +670,7 @@ Release Build
 
 or:
 
-```text id="j7q1x4"
+```text
 Normal Debug
     → appears stable
 
@@ -682,7 +682,7 @@ The developer should record which configuration reproduces the problem.
 
 Relevant conditions may include:
 
-```text id="n5v8r3"
+```text
 Compiler
 Optimization
 Debug symbols
@@ -699,14 +699,14 @@ Not every unexpected outcome is necessarily a software defect.
 
 For example:
 
-```text id="k4p7s1"
+```text
 User requests:
     Save to unwritable path
 ```
 
 The correct behavior may be:
 
-```text id="m8x2d6"
+```text
 Save fails
 Message Bar reports failure
 Dirty Flag remains set
@@ -729,14 +729,14 @@ A subtle mistake is changing the reproduction while investigating it.
 
 For example:
 
-```text id="e7w2n4"
+```text
 Original:
     A → B → C → BUG
 ```
 
 Then during debugging:
 
-```text id="h6k9p3"
+```text
 A → B → C → D → BUG
 ```
 
@@ -746,7 +746,7 @@ The original reproduction should remain preserved.
 
 If experimentation is necessary:
 
-```text id="0r5c8y"
+```text
 Original reproduction
         │
         ├── preserved
@@ -770,7 +770,7 @@ are hypotheses, not evidence.
 
 A disciplined process is:
 
-```text id="x3j7w9"
+```text
 Observation
     ↓
 Hypothesis
@@ -782,7 +782,7 @@ Confirm / Reject
 
 For example:
 
-```text id="v4m1q8"
+```text
 Hypothesis:
     Parser produces wrong event.
 
@@ -799,7 +799,7 @@ This is more reliable than changing code according to intuition.
 
 The mistakes above can be replaced with a consistent process:
 
-```text id="b6k4m2"
+```text
 1. Observe
       ↓
 2. Reproduce
@@ -835,7 +835,7 @@ Most debugging mistakes can be reduced to one underlying problem:
 
 A useful debugging loop is therefore:
 
-```text id="d8y2m5"
+```text
 Expected Behavior
        │
        ▼
@@ -896,7 +896,7 @@ Common debugging mistakes include:
 
 A disciplined alternative is:
 
-```text id="p0w7s3"
+```text
 Observe
   ↓
 Reproduce
@@ -907,7 +907,7 @@ Define expected behavior
   ↓
 Inspect state and boundaries
   ↓
-Find first incorrect representation
+Find first incorrect state
   ↓
 Identify owner
   ↓
@@ -924,4 +924,4 @@ The architecture, invariants, tests, assertions, debugger, logging, memory diagn
 
 > **Make incorrect behavior observable, locate the first point where it becomes incorrect, and verify that the underlying cause has been corrected.**
 
-This completes the main technical sections of Chapter 36. The remaining chapter material should now consolidate these techniques into a practical debugging checklist, connect debugging with the testing strategy, provide exercises, and preview Chapter 37 on performance.
+This completes the main technical sections of Chapter 36. The chapter summary that follows consolidates these techniques, connects debugging with the testing strategy established in Chapter 35, and previews the next chapter.

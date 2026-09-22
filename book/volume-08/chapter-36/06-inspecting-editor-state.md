@@ -62,17 +62,27 @@ Conceptually:
 
 ```text
 Editor State
-├── Active Buffer
-├── Document
-├── Cursor
-├── Viewport
-├── Mode
-├── Dirty State
-├── Terminal Dimensions
-└── Other Application State
+├── Editor-wide
+│   ├── Configuration
+│   ├── Terminal Dimensions
+│   ├── Buffer collection
+│   ├── Tab collection
+│   └── Window layout
+│
+├── Buffer-specific (per Buffer)
+│   ├── Document
+│   ├── File association
+│   ├── Dirty Flag
+│   └── Undo history
+│
+└── Window-specific (per Window)
+    ├── Geometry
+    ├── Displayed Buffer reference
+    ├── Viewport
+    └── Cursor
 ```
 
-The exact fields depend on the implementation, but the important principle is that these values describe the editor's current state rather than the terminal's visual representation.
+The exact fields depend on the implementation, but the important principle is that these values describe the editor's current state rather than the terminal's visual representation. The classification follows the state-ownership model: the Document and the Dirty Flag belong to the Buffer, while the Cursor and the Viewport belong to the Window that displays the Buffer. When debugging a single window, it is often convenient to speak of "the" Document, Cursor, Viewport, and Dirty Flag as one aggregate, but they are scoped state, not editor-wide fields.
 
 During debugging, the developer should therefore ask:
 
@@ -322,7 +332,7 @@ During debugging, inspect values such as:
 
 ```text
 cursor.row
-viewport.row_offset
+viewport_row
 terminal.rows
 ```
 
@@ -334,7 +344,7 @@ For example:
 
 ```text
 cursor.row       = 50
-row_offset       = 45
+viewport_row     = 45
 visible_rows     = 20
 ```
 
@@ -350,20 +360,23 @@ If the renderer nevertheless places it elsewhere, the problem may be further dow
 
 With multiple buffers, Editor State also contains information about which document is currently active.
 
+Importantly, the active buffer is not a stored editor-level field. It is a **derived value**, resolved as the buffer referenced by the active Window in the active Tab. A window records which Buffer it displays, so the active buffer can be read by following that reference rather than by looking up a separately maintained copy.
+
 Conceptually:
 
 ```text
-Editor
-├── Buffer A
-├── Buffer B
-├── Buffer C
-└── active_buffer
+Active Tab
+    │
+    └── Active Window
+          │
+          └── Buffer reference ──► Buffer
 ```
 
-A buffer-switching bug can therefore be investigated by inspecting:
+Because the active buffer is derived, its correct value follows directly from the window layout. A buffer-switching bug can therefore be investigated by inspecting:
 
 ```text
-active_buffer
+active window
+window's buffer reference
 active document
 cursor
 viewport
@@ -374,18 +387,20 @@ For example:
 
 ```text
 Before:
-    active_buffer = A
+    window.buffer = A
 
 Command:
     SWITCH_BUFFER
 
 After:
-    active_buffer = B
+    window.buffer = B
 ```
+
+The `SWITCH_BUFFER` command is a selection operation: it changes which Buffer the active Window references, without copying or modifying the Buffers themselves.
 
 If the screen displays Buffer B but the cursor state still belongs to Buffer A, the debugger has identified a state-management problem.
 
-This is particularly important because buffer-specific state must remain associated with the correct editing context.
+This is particularly important because buffer-specific and window-specific state must remain associated with the correct editing context.
 
 ## Inspecting Dirty State
 
@@ -772,7 +787,7 @@ First Difference
 Responsible State Transition
 ```
 
-By inspecting state before and after commands, across module boundaries, and at important state transitions, the developer can move from a visible symptom to the first incorrect value.
+By inspecting state before and after commands, across module boundaries, and at important state transitions, the developer can move from a visible symptom to the first incorrect state.
 
 The central principle is:
 
