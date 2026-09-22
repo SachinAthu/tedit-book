@@ -1,0 +1,19 @@
+chapter: 36
+title: Debugging
+volume: 8
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 36.1 Why Editors Are Difficult to Debug —> 01-why-editors-difficult-to-debug.md
+  - 36.2 Assertions —> 02-assertions.md
+  - 36.3 Debug Builds —> 03-debug-builds.md
+  - 36.4 Using a Debugger —> 04-using-a-debugger.md
+  - 36.5 Breakpoints —> 05-breakpoints.md
+  - 36.6 Inspecting Editor State —> 06-inspecting-editor-state.md
+  - 36.7 Debugging Input —> 07-debugging-input.md
+  - 36.8 Debugging Rendering —> 08-debugging-rendering.md
+  - 36.9 Logging and Tracing —> 09-logging-tracing.md
+  - 36.10 Diagnosing Memory Errors —> 10-diagnosing-memory-errors.md
+  - 36.11 Reproducing Bugs —> 11-reproducing-bugs.md
+  - 36.12 Common Debugging Mistakes —> 12-common-debugging-mistakes.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

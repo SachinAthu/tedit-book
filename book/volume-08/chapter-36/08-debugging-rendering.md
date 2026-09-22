@@ -1,0 +1,805 @@
+# 36.8 Debugging Rendering
+
+Rendering bugs are often deceptive because the final symptom appears on the terminal, while the underlying cause may exist much earlier in the rendering pipeline.
+
+The editor does not draw directly from keyboard input. Instead, the current **Editor State** is transformed into a complete visual frame, represented by the **Screen Buffer**, and then converted into terminal output.
+
+The architecture therefore gives us:
+
+```text id="x6w4qk"
+Editor State
+     │
+     ▼
+  Renderer
+     │
+     ▼
+Screen Buffer
+     │
+     ▼
+Terminal Output
+     │
+     ▼
+Terminal Emulator
+     │
+     ▼
+Screen
+```
+
+The rendering architecture uses immediate-mode rendering: the Renderer derives a complete visual frame from the current Editor State for each event-loop iteration. The Screen Buffer provides the intermediate representation between frame construction and terminal output.
+
+This separation gives us several distinct places where a rendering problem can be investigated.
+
+## Why Rendering Bugs Are Difficult
+
+A rendering problem is usually observed as something visual:
+
+```text
+The cursor is in the wrong place.
+
+A line is missing.
+
+The status bar is incorrect.
+
+The screen contains stale text.
+
+Scrolling displays the wrong region.
+
+The terminal contains unexpected characters.
+```
+
+But the visible symptom does not immediately identify the cause.
+
+For example:
+
+```text id="c8v6zq"
+Wrong Cursor Position
+        │
+        ├── Cursor State is wrong
+        ├── Viewport State is wrong
+        ├── Coordinate conversion is wrong
+        ├── Screen Buffer is wrong
+        ├── Cursor rendering is wrong
+        └── Terminal output is wrong
+```
+
+The first debugging task is therefore to determine **which representation became incorrect**.
+
+## The Rendering Pipeline
+
+The editor's rendering pipeline can be divided into several conceptual stages:
+
+```text id="f5yq3m"
+Editor State
+     │
+     ▼
+Frame Preparation
+     │
+     ▼
+Document Area
+     │
+     ▼
+Status Bar
+     │
+     ▼
+Message Bar
+     │
+     ▼
+Cursor
+     │
+     ▼
+Screen Buffer
+     │
+     ▼
+Terminal Output
+```
+
+The rendering design establishes a specific rendering order:
+
+```text
+Prepare frame
+    ↓
+Document Area
+    ↓
+Status Bar
+    ↓
+Message Bar
+    ↓
+Cursor
+    ↓
+Terminal output
+```
+
+This ordering is important when debugging because later stages may overwrite or depend upon earlier content.
+
+For example, if the cursor is rendered correctly but subsequently overwritten by another operation, inspecting only the cursor-rendering function may not reveal the problem.
+
+## First Question: Is Editor State Correct?
+
+Before investigating the Renderer, inspect the state it receives.
+
+Suppose the cursor appears at screen column 20.
+
+The first question is not:
+
+> Why did the Renderer put it there?
+
+Instead:
+
+> What cursor and viewport state did the Renderer receive?
+
+For example:
+
+```text id="3j3xcy"
+Editor State
+├── cursor.row       = 15
+├── cursor.column    = 8
+├── viewport.row     = 10
+└── viewport.column  = 0
+```
+
+If those values are already incorrect, the Renderer may simply be displaying incorrect state.
+
+The debugging path should then move backward:
+
+```text id="dr5a1p"
+Renderer
+   ↑
+Editor State
+   ↑
+State transition
+   ↑
+Command
+```
+
+If the state is correct, continue into the rendering pipeline.
+
+## Second Question: Is the Coordinate Conversion Correct?
+
+The editor works with more than one coordinate system.
+
+The Document and Cursor use logical positions, while the terminal uses visual screen positions.
+
+This distinction is particularly important for horizontal positioning.
+
+The architecture explicitly distinguishes:
+
+```text id="8o9q2j"
+Logical Document Coordinate
+          │
+          ▼
+       Renderer
+          │
+          ▼
+Visual Display Coordinate
+```
+
+The Viewport's horizontal offset is expressed in visual/display columns, not logical document columns. The Renderer owns the mapping between those coordinate spaces.
+
+Therefore, if the cursor is displayed at the wrong horizontal position, inspect:
+
+```text id="t5y2su"
+Cursor.column
+        │
+        ▼
+logical → visual conversion
+        │
+        ▼
+viewport_column
+        │
+        ▼
+screen column
+```
+
+A bug at this boundary can produce a visual error even though the logical Cursor state is completely correct.
+
+## Tabs and Visual Columns
+
+Tabs provide a useful example of why coordinate conversion must be investigated separately.
+
+Suppose:
+
+```text id="e8h11k"
+Cursor.column = 5
+```
+
+That does not necessarily mean:
+
+```text id="u8az6u"
+screen_column = 5
+```
+
+If the line contains a TAB before the cursor, the rendered visual position may be different.
+
+Conceptually:
+
+```text id="d6m0tq"
+Logical text:
+    A B \t C
+        │
+        ▼
+Logical column
+        │
+        ▼
+Renderer calculates visual position
+        │
+        ▼
+Screen column
+```
+
+The configured tab width also affects this mapping.
+
+The Renderer is responsible for the logical-to-visual conversion, while the Viewport consumes the resulting visual coordinate.
+
+Therefore, a horizontal scrolling bug should not automatically be blamed on `Cursor.column` or `viewport_column`.
+
+## Inspecting the Screen Buffer
+
+The Screen Buffer is the intermediate representation of the completed visual frame.
+
+The chosen representation is a reusable grid of screen cells, with one cell corresponding to each visible terminal position. It is stored as a contiguous one-dimensional allocation while retaining a logical row/column structure.
+
+Conceptually:
+
+```text id="t7yrxb"
+Screen Buffer
+
+        columns
+   ┌───┬───┬───┬───┐
+   │ A │ B │ C │   │
+   ├───┼───┼───┼───┤
+   │ D │ E │ F │   │
+   ├───┼───┼───┼───┤
+   │ G │ H │ I │   │
+   └───┴───┴───┴───┘
+       rows
+```
+
+When the screen is wrong, inspect the Screen Buffer before investigating terminal output.
+
+For example:
+
+```text id="c3qltd"
+Editor State
+      ↓
+Renderer
+      ↓
+Screen Buffer
+      ↓
+Terminal
+```
+
+If the Screen Buffer already contains the wrong character:
+
+```text id="xqkh3m"
+Screen Buffer = wrong
+```
+
+the problem is likely in frame construction.
+
+If the Screen Buffer is correct:
+
+```text id="j0o8hw"
+Screen Buffer = correct
+Terminal display = wrong
+```
+
+the investigation should move toward terminal output or terminal behavior.
+
+## Inspecting Individual Screen Cells
+
+Because the Screen Buffer is a grid of cells, a rendering problem can be localized to a particular screen position.
+
+Suppose the user reports:
+
+```text id="l4d4f2"
+Character at row 8, column 12 is wrong.
+```
+
+Inspect:
+
+```text id="3tr5la"
+screen_buffer[8][12]
+```
+
+conceptually.
+
+The cell may contain information such as:
+
+```text id="65c8aq"
+character = 'x'
+attributes = ...
+```
+
+The important question is:
+
+> Did the Renderer place the wrong value into the cell?
+
+If yes, investigate frame construction.
+
+If no, investigate the conversion from Screen Buffer to terminal output.
+
+## Debugging the Document Area
+
+The Document Area is one of the main rendering regions.
+
+Conceptually:
+
+```text id="xoj2bs"
+Document
+   │
+   │ visible rows
+   ▼
+Viewport
+   │
+   ▼
+Renderer
+   │
+   ▼
+Document Area
+```
+
+A missing or incorrect line may therefore originate from:
+
+- incorrect `viewport_row`,
+- incorrect visible-row calculation,
+- incorrect document lookup,
+- incorrect coordinate conversion,
+- incorrect Screen Buffer population.
+
+A useful debugging sequence is:
+
+```text id="x5t3cw"
+Which document row should be visible?
+        ↓
+Which document row did Renderer select?
+        ↓
+Which screen row did it target?
+        ↓
+What cell was written?
+```
+
+This decomposes one visual problem into four concrete questions.
+
+## Debugging the Status Bar
+
+The Status Bar is derived from Editor State rather than being part of the Document.
+
+Therefore, a wrong status display should first be investigated as a data-generation problem.
+
+For example:
+
+```text id="q4y4k8"
+Editor State
+    │
+    ├── current file
+    ├── cursor position
+    ├── dirty state
+    └── buffer information
+          │
+          ▼
+      Status Bar
+```
+
+If the Status Bar shows:
+
+```text
+modified
+```
+
+when the state says:
+
+```text
+dirty = false
+```
+
+the problem may be in the status rendering logic.
+
+If the state itself says:
+
+```text
+dirty = true
+```
+
+then the rendering code may be correct.
+
+Again, the debugging rule is:
+
+> Verify the source state before blaming its visual representation.
+
+## Debugging the Message Bar
+
+The Message Bar presents another useful boundary.
+
+For example:
+
+```text id="1a1v8x"
+Operation
+    │
+    ▼
+Error / informational message
+    │
+    ▼
+Editor State
+    │
+    ▼
+Message Bar
+```
+
+If the expected message exists in Editor State but does not appear in the Screen Buffer, the problem is in rendering.
+
+If the Message Bar contains an unexpected message, the problem may have occurred earlier when the state was updated.
+
+This distinction prevents rendering bugs from being confused with error-handling bugs.
+
+## Debugging the Cursor
+
+The cursor is particularly useful for demonstrating the difference between logical and visual coordinates.
+
+A simplified pipeline is:
+
+```text id="c2wq5r"
+Cursor
+  │
+  │ logical position
+  ▼
+Renderer
+  │
+  │ visual position
+  ▼
+Viewport
+  │
+  ▼
+Screen coordinate
+  │
+  ▼
+Terminal cursor
+```
+
+If the logical cursor is correct but the terminal cursor is wrong, investigate the transformations between these stages.
+
+For example:
+
+```text id="9c9zot"
+Cursor:
+    row = 10
+    column = 7
+
+Expected screen position:
+    row = 5
+    column = 12
+
+Actual screen position:
+    row = 5
+    column = 18
+```
+
+The vertical coordinate may be correct while the horizontal coordinate is not.
+
+That immediately narrows the investigation toward visual-column calculation rather than the entire rendering system.
+
+## Rendering Order Bugs
+
+Rendering order can also cause apparently unrelated visual problems.
+
+The renderer constructs the frame in a defined order:
+
+```text id="yjj0iq"
+Document Area
+      ↓
+Status Bar
+      ↓
+Message Bar
+      ↓
+Cursor
+```
+
+Suppose the cursor appears correctly for a moment but disappears after another rendering operation.
+
+The problem may not be cursor calculation.
+
+A later operation may be writing over the same Screen Buffer cell.
+
+This produces a useful debugging question:
+
+```text id="z5xw5y"
+Which renderer operation wrote this cell last?
+```
+
+The Screen Buffer makes this kind of investigation possible because frame construction occurs before terminal output.
+
+## Full Redraw Simplifies Rendering Debugging
+
+The editor uses full redraw as its baseline rendering model.
+
+That means each rendering cycle reconstructs the complete visible frame rather than attempting to update only selected regions.
+
+Conceptually:
+
+```text id="nphgyd"
+Editor State
+     │
+     ▼
+Clear / prepare frame
+     │
+     ▼
+Draw complete document area
+     │
+     ▼
+Draw status bar
+     │
+     ▼
+Draw message bar
+     │
+     ▼
+Draw cursor
+     │
+     ▼
+Output complete frame
+```
+
+This has an important debugging advantage.
+
+The developer does not normally need to reason about whether an old screen region was correctly invalidated by a complicated dirty-region system.
+
+The frame is regenerated from current state.
+
+The Screen Buffer design deliberately accepts the bounded `O(rows × columns)` memory cost and complete-frame regeneration in exchange for a simpler, predictable rendering pipeline.
+
+## Stale Screen Content
+
+A stale character on screen can still be a useful rendering symptom.
+
+For example:
+
+```text id="y6nuwk"
+Previous frame:
+    HELLO WORLD
+
+Current document:
+    HELLO
+```
+
+If the terminal still shows:
+
+```text id="dckxqn"
+HELLO WORLD
+```
+
+the debugging question is:
+
+> Was the current frame constructed incorrectly, or was the old terminal content not cleared correctly?
+
+The investigation becomes:
+
+```text id="4d6t6a"
+Current Editor State
+       ↓
+Current Screen Buffer
+       ↓
+Terminal Output
+       ↓
+Terminal Screen
+```
+
+If the Screen Buffer contains only:
+
+```text
+HELLO
+```
+
+but the terminal shows:
+
+```text
+HELLO WORLD
+```
+
+the problem is after frame construction.
+
+If the Screen Buffer itself contains:
+
+```text
+HELLO WORLD
+```
+
+the problem is earlier.
+
+## Debugging Terminal Output
+
+The final stage is conversion of the completed frame into terminal output.
+
+Conceptually:
+
+```text id="0j1lwp"
+Screen Buffer
+      │
+      ▼
+Terminal Interface
+      │
+      ▼
+ANSI Output
+      │
+      ▼
+stdout
+      │
+      ▼
+PTY
+      │
+      ▼
+Terminal Emulator
+```
+
+The Renderer should not be responsible for directly managing every terminal-specific output concern. The architecture separates rendering from the terminal interface.
+
+Therefore, if the Screen Buffer is correct but the visible terminal is not, inspect the output boundary.
+
+Useful questions include:
+
+```text id="1q1yke"
+Was the complete frame written?
+
+Were the expected ANSI sequences generated?
+
+Was output sent to the correct stream?
+
+Did the terminal receive the output?
+```
+
+This keeps terminal I/O concerns separate from frame construction.
+
+## Rendering and Terminal State
+
+Terminal state can also affect the final appearance.
+
+For example, cursor visibility, screen clearing, cursor positioning, and alternate-screen behavior depend on terminal control sequences.
+
+Therefore:
+
+```text id="4t9h0d"
+Correct Editor State
+       ↓
+Correct Screen Buffer
+       ↓
+Correct ANSI Output
+       ↓
+Unexpected terminal display
+```
+
+can still be possible.
+
+At this point the problem is no longer necessarily an Editor State or Renderer problem.
+
+The debugging boundary has moved to the terminal interface or terminal emulator.
+
+## A Rendering Debugging Workflow
+
+A disciplined rendering investigation can therefore follow:
+
+```text id="4p6vzu"
+Visual Symptom
+      │
+      ▼
+Is Editor State correct?
+      │
+      ├── No ──► Debug state transition
+      │
+      └── Yes
+            │
+            ▼
+    Is coordinate conversion correct?
+            │
+            ├── No ──► Debug Renderer
+            │
+            └── Yes
+                  │
+                  ▼
+         Is Screen Buffer correct?
+                  │
+                  ├── No ──► Debug frame construction
+                  │
+                  └── Yes
+                        │
+                        ▼
+               Is terminal output correct?
+                        │
+                        ├── No ──► Debug output boundary
+                        │
+                        └── Yes
+                              │
+                              ▼
+                    Investigate terminal behavior
+```
+
+This gives the developer a systematic way to move from the visible symptom toward its source.
+
+## Rendering Bugs and the Testing Strategy
+
+Rendering also demonstrates why different testing levels are necessary.
+
+A unit-level test can verify parts of frame construction or the Screen Buffer representation.
+
+An integration test can verify the Renderer-to-Screen-Buffer boundary.
+
+An end-to-end test can verify complete terminal behavior in a controlled pseudo-terminal environment.
+
+The testing strategy explicitly identifies the Renderer → Editor Screen Buffer relationship as an integration boundary and uses controlled PTY-based end-to-end tests when terminal behavior itself must be verified.
+
+The distinction is important:
+
+```text
+Renderer test
+    ↓
+"Did we construct the correct frame?"
+
+PTY test
+    ↓
+"Did the assembled editor produce the correct observable terminal behavior?"
+```
+
+A debugger complements these tests by explaining why a particular rendering result was produced.
+
+## Engineering Insight
+
+Rendering should be debugged as a sequence of representations:
+
+```text id="l0sm2c"
+Logical State
+      ↓
+Visual Coordinates
+      ↓
+Screen Buffer
+      ↓
+Terminal Output
+      ↓
+Terminal Display
+```
+
+Each representation answers a different question.
+
+If the logical state is wrong, debug state management.
+
+If the logical state is correct but the visual coordinates are wrong, debug the Renderer.
+
+If the coordinates are correct but the Screen Buffer is wrong, debug frame construction.
+
+If the Screen Buffer is correct but the terminal is wrong, debug terminal output or terminal behavior.
+
+This gives us a general rule:
+
+> **At each rendering boundary, verify the representation before moving to the next one.**
+
+That principle is the rendering equivalent of the input-debugging technique from the previous section.
+
+## Summary
+
+Rendering bugs should not be investigated solely from what appears on the terminal.
+
+The complete rendering path is:
+
+```text id="yp4q9u"
+Editor State
+     ↓
+Renderer
+     ↓
+Screen Buffer
+     ↓
+Terminal Output
+     ↓
+Terminal
+```
+
+The most useful debugging questions are:
+
+1. Is the Editor State correct?
+2. Are logical positions converted to the correct visual positions?
+3. Does the Renderer construct the correct frame?
+4. Does the Screen Buffer contain the expected cells?
+5. Is the expected terminal output generated?
+6. Does the terminal display that output correctly?
+
+The editor's immediate-mode rendering model and reusable Screen Buffer make these boundaries explicit.
+
+The key debugging principle is:
+
+> **Follow the frame from state to screen, and find the first representation that becomes incorrect.**
+
+This gives us a systematic method for debugging both input and output paths. The next section addresses a different kind of evidence: **logging and tracing**, which allow execution history to be recorded without stopping the editor at every interesting point.
