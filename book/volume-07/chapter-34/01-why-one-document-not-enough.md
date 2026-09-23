@@ -95,7 +95,7 @@ Buffer A
 
 the previous editing context should still exist.
 
-For now, the cursor appears as part of the buffer. That placement is simplified. Once the ownership model is refined, the cursor turns out to belong to the **Window** that views the buffer rather than to the buffer itself; Sections 34.3 and 34.4 draw that boundary. The principle illustrated here — that the editing context survives switching — holds regardless of the refinement.
+For now, the cursor appears as part of the buffer. That placement is a simplification; Section 34.3 shows that the cursor actually belongs to the **Window** that views the buffer. The principle illustrated here — that the editing context survives switching — holds regardless of the refinement.
 
 This introduces a fundamental principle for multi-buffer editors:
 
@@ -174,7 +174,7 @@ A **Document** represents the text itself.
 
 A **Tab** provides another level of organization for those views.
 
-These concepts are closely related, but they are not interchangeable. The next section establishes their precise meanings before we change the architecture further.
+These concepts — Buffer, Window, Document, and Tab — are closely related but not interchangeable. The next section establishes their precise meanings before we change the architecture further.
 
 ## Engineering Insight
 

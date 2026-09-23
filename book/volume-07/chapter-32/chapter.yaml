@@ -8,7 +8,7 @@ sections:
   - 32.2 Syntax Highlighting as an Analysis Pipeline —> 02-syntax-highlighting-as-analysis-pipeline.md
   - 32.3 Lexical Analysis —> 03-lexical-analysis.md
   - 32.4 Tokens and Highlight Classes —> 04-tokens-and-highlight-classes.md
-  - 32.5 Beyond Lexing: Context and Lightweight Parsing —> 05-beyond-lexing-context-and-lightweight-parsing.md
+  - 32.5 Beyond Lexing - Context and Lightweight Parsing —> 05-beyond-lexing-context-and-lightweight-parsing.md
   - 32.6 Highlighting the Document and the Text Buffer —> 06-highlighting-document-and-text-buffer.md
   - 32.7 Themes and Visual Styles —> 07-themes-and-visual-styles.md
   - 32.8 Language Detection and Highlighting Modes —> 08-language-detection-and-highlighting-modes.md

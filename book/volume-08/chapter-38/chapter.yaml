@@ -4,6 +4,14 @@ volume: 8
 
 sections:
   - Introduction —> 00-introduction.md
-  - 38.1  —> 01-.md
-
-  - Summary, Exercises, Next Chapter Preview —> 10-conclusion.md
+  - 38.1 Development Builds  —> 01-development-builds.md
+  - 38.2 Release Builds  —> 02-.md
+  - 38.3 CMake Build Configurations  —> 03-.md
+  - 38.4 Installation  —> 04-.md
+  - 38.5 Release Artifacts  —> 05-.md
+  - 38.6 Versioning  —> 06-.md
+  - 38.7 Documentation  —> 07-.md
+  - 38.8 Distribution  —> 08-.md
+  - 38.9 Reproducible Builds  —> 09-.md
+  - 38.10 Preparing the Editor for Release  —> 10-.md
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md

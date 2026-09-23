@@ -1,4 +1,4 @@
-# 32.5 Beyond Lexing: Context and Lightweight Parsing
+# 32.5 Beyond Lexing - Context and Lightweight Parsing
 
 Lexical analysis is powerful because many syntax-highlighting decisions can be made by examining source text from left to right. Keywords look like keywords, numbers look like numbers, and strings and comments have recognizable delimiters. For a large class of programming languages, this is enough to produce useful highlighting.
 

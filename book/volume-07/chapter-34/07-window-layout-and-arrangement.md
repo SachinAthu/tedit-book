@@ -1,4 +1,4 @@
-# 34.8 Window Layout and Arrangement
+# 34.7 Window Layout and Arrangement
 
 Once a tab can contain multiple windows, the editor must answer a practical question:
 
@@ -655,4 +655,4 @@ With these boundaries established, the next question is how the renderer turns t
 
 Window layout decides where each window sits and how large it is, independently of the buffer it displays. Geometry is derived from a layout structure under terminal-size and minimum-size constraints, and it remains distinct from both the viewport and the cursor. The layout can be treated as a small constraint system whose computed output the renderer consumes.
 
-The next section examines how several window regions become one terminal frame: **Section 34.9, Rendering Multiple Windows**.
+The next section examines how several window regions become one terminal frame: **Section 34.8, Rendering Multiple Windows**.

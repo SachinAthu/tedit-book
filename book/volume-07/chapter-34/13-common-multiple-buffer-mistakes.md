@@ -1,4 +1,4 @@
-# 34.16 Common Multiple-Buffer Mistakes
+# 34.13 Common Multiple-Buffer Mistakes
 
 Adding multiple Buffers is not difficult because the editor suddenly needs fundamentally new mechanisms. It is difficult because state that was previously global must now be assigned to the correct scope.
 

@@ -1,4 +1,4 @@
-# 34.10 Input and Commands in a Multi-Buffer Editor
+# 34.9 Input and Commands in a Multi-Buffer Editor
 
 Multiple Buffers and Windows introduce a new question for the input system:
 
@@ -95,7 +95,7 @@ Referenced Buffer
 Document
 ```
 
-This is what earlier sections meant by "the active buffer": shorthand for the Referenced Buffer at the end of this chain. Commands target it by resolving this relationship rather than by reading a separate editor-level selection.
+This is what earlier sections meant by "the active buffer": shorthand for the Referenced Buffer at the end of this chain (Section 34.3). Commands target it by resolving this relationship rather than by reading a separate editor-level selection.
 
 Suppose the editor contains:
 
@@ -495,64 +495,11 @@ The Command Engine resolves the appropriate Buffer and coordinates the operation
 
 This preserves the existing module boundary: file-system interaction remains inside the File Manager rather than spreading into the input system.
 
-## Dirty State Is Also Contextual
+## Dirty State and Undo History Are Contextual
 
-Each Buffer has its own modification state.
+Each buffer carries its own modification state and undo history (Section 34.3). If Buffer B is active and the user edits it, Buffer B becomes dirty while Buffer A remains clean — a global dirty flag is no longer sufficient. The same holds for undo: editing Buffer A or Buffer B changes that buffer's history, and switching between them does not merge their histories into one global stack.
 
-Consider:
-
-```text
-Buffer A → main.c    → clean
-Buffer B → editor.c  → modified
-```
-
-If Buffer B is active and the user edits it:
-
-```text
-Buffer B
-    │
-    ▼
-Document changes
-    │
-    ▼
-Buffer B becomes dirty
-```
-
-Buffer A remains clean.
-
-This means a global Dirty Flag is no longer sufficient.
-
-The command must update the state belonging to the relevant Buffer.
-
-Likewise, switching to Buffer A does not make Buffer A dirty simply because Buffer B is dirty.
-
-The state follows the Buffer.
-
-## Undo History Follows the Buffer
-
-The same principle applies to features that already maintain document-specific state.
-
-Undo history belongs to the editing context associated with the Buffer.
-
-For example:
-
-```text
-Buffer A
-    └── Undo History A
-
-Buffer B
-    └── Undo History B
-```
-
-Editing Buffer A changes its history.
-
-Editing Buffer B changes its history.
-
-Switching between them does not merge their histories into one global stack.
-
-The multi-buffer architecture therefore does not require a new undo mechanism. It requires the existing mechanism to be associated with the correct Buffer.
-
-This illustrates the broader purpose of Chapter 34:
+The multi-buffer architecture therefore does not require new dirty-flag or undo mechanisms; it requires the existing ones to be associated with the correct buffer. This illustrates the broader purpose of Chapter 34:
 
 > Multiple Buffers primarily change the ownership and scope of existing state; they do not require every existing feature to be redesigned.
 
@@ -841,4 +788,4 @@ This rule scales naturally as the editor gains more Buffers, more Windows, and m
 
 The input pipeline keeps its existing responsibilities; what changes is that a command's target is now resolved through the active window to its referenced buffer and document. Commands are not duplicated per buffer, and each operation targets the correct scope — window, buffer, or editor-wide — so key bindings and command implementations stay context-independent.
 
-The next section applies that scope-aware targeting to persistence: **Section 34.11, File Management with Multiple Buffers**.
+The next section applies that scope-aware targeting to persistence: **Section 34.10, File Management with Multiple Buffers**.

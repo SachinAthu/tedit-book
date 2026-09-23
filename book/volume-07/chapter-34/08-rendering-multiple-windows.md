@@ -1,4 +1,4 @@
-# 34.9 Rendering Multiple Windows
+# 34.8 Rendering Multiple Windows
 
 Introducing multiple windows changes the rendering problem in one important way: the terminal no longer represents a single document view.
 
@@ -550,4 +550,4 @@ That is the real benefit of separating Buffer and Window: the rendering system c
 
 The renderer still produces a single terminal frame, but that frame is now a composition of clipped window regions, each rendered from its own buffer, viewport, and cursor. Windows sharing a buffer share the document while keeping independent visual state, and the renderer remains read-only no matter how many windows exist.
 
-The next section shows how input and commands resolve their target in this multi-window world: **Section 34.10, Input and Commands in a Multi-Buffer Editor**.
+The next section shows how input and commands resolve their target in this multi-window world: **Section 34.9, Input and Commands in a Multi-Buffer Editor**.

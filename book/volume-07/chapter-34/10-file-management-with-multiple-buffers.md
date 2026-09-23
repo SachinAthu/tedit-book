@@ -1,4 +1,4 @@
-# 34.11 File Management with Multiple Buffers
+# 34.10 File Management with Multiple Buffers
 
 Multiple Buffers change the relationship between the editor and the file system.
 
@@ -346,4 +346,4 @@ That separation allows multiple open files without turning file management into 
 
 File association belongs to each buffer, so several files can stay open at once and unnamed buffers remain valid editing contexts. The persistence mechanism is unchanged — the File Manager still loads and saves documents through the same safe-save and encoding rules — but it now acts on whichever buffer supplies the document, and a failed save affects only that buffer.
 
-The next section follows a buffer from creation to destruction: **Section 34.12, Buffer Lifecycle**.
+The next section examines what this additional retained state costs: **Section 34.11, Complexity and Resource Costs**.

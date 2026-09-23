@@ -470,7 +470,7 @@ This is where the book becomes much deeper than a typical tutorial.
 - 32.2 Syntax Highlighting as an Analysis Pipeline
 - 32.3 Lexical Analysis
 - 32.4 Tokens and Highlight Classes
-- 32.5 Beyond Lexing: Context and Lightweight Parsing
+- 32.5 Beyond Lexing - Context and Lightweight Parsing
 - 32.6 Highlighting the Document and the Text Buffer
 - 32.7 Themes and Visual Styles
 - 32.8 Language Detection and Highlighting Modes
@@ -495,20 +495,17 @@ This is where the book becomes much deeper than a typical tutorial.
 
 - 34.1 Why One Document Is No Longer Enough
 - 34.2 Document, Buffer, View, Tab, and Window
-- 34.3 What Belongs to a Buffer?
-- 34.4 Editor-Wide State vs Buffer State vs Window State
-- 34.5 The Buffer Manager
-- 34.6 Switching Between Buffers
-- 34.7 Tabs - Organizing Editing Contexts
-- 34.8 Window Layout and Arrangement
-- 34.9 Rendering Multiple Windows
-- 34.10 Input and Commands in a Multi-Buffer Editor
-- 34.11 File Management with Multiple Buffers
-- 34.12 Buffer Lifecycle
-- 34.13 Scope of Existing Editor Features
-- 34.14 Complexity and Resource Costs
-- 34.15 Design Alternatives and Trade-offs
-- 34.16 Common Multiple-Buffer Mistakes
+- 34.3 State Ownership - What Belongs Where
+- 34.4 The Buffer Manager and Buffer Lifecycle
+- 34.5 Switching Between Buffers
+- 34.6 Tabs - Organizing Editing Contexts
+- 34.7 Window Layout and Arrangement
+- 34.8 Rendering Multiple Windows
+- 34.9 Input and Commands in a Multi-Buffer Editor
+- 34.10 File Management with Multiple Buffers
+- 34.11 Complexity and Resource Costs
+- 34.12 Design Alternatives and Trade-offs
+- 34.13 Common Multiple-Buffer Mistakes
 
 ---
 

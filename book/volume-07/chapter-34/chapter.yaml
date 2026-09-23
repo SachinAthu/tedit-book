@@ -6,18 +6,15 @@ sections:
   - Introduction —> 00-introduction.md
   - 34.1 Why One Document Is No Longer Enough —> 01-why-one-document-not-enough.md
   - 34.2 Document, Buffer, View, Tab, and Window —> 02-document-buffer-view-tab-window.md
-  - 34.3 What Belongs to a Buffer? —> 03-what-belongs-to-a-buffer.md
-  - 34.4 Editor-Wide State vs Buffer State vs Window State —> 04-editor-wide-buffer-window-state.md
-  - 34.5 The Buffer Manager —> 05-buffer-manager.md
-  - 34.6 Switching Between Buffers —> 06-switching-between-buffers.md
-  - 34.7 Tabs - Organizing Editing Contexts —> 07-tabs-organizing-editing-contexts.md
-  - 34.8 Window Layout and Arrangement —> 08-window-layout-and-arrangement.md
-  - 34.9 Rendering Multiple Windows —> 09-rendering-multiple-windows.md
-  - 34.10 Input and Commands in a Multi-Buffer Editor —> 10-input-commands-in-multi-buffer-editor.md
-  - 34.11 File Management with Multiple Buffers —> 11-file-management-with-multiple-buffers.md
-  - 34.12 Buffer Lifecycle —> 12-buffer-lifecycle.md
-  - 34.13 Scope of Existing Editor Features —> 13-scope-of-existing-editor-features.md
-  - 34.14 Complexity and Resource Costs —> 14-complexity-and-resource-costs.md
-  - 34.15 Design Alternatives and Trade-offs —> 15-design-alternatives-trade-offs.md
-  - 34.16 Common Multiple-Buffer Mistakes —> 16-common-multiple-buffer-mistakes.md
-  - Summary, Exercises, Next Chapter Preview —> 17-conclusion.md
+  - 34.3 State Ownership - What Belongs Where —> 03-state-ownership.md
+  - 34.4 The Buffer Manager and Buffer Lifecycle —> 04-buffer-manager-lifecycle.md
+  - 34.5 Switching Between Buffers —> 05-switching-between-buffers.md
+  - 34.6 Tabs - Organizing Editing Contexts —> 06-tabs-organizing-editing-contexts.md
+  - 34.7 Window Layout and Arrangement —> 07-window-layout-and-arrangement.md
+  - 34.8 Rendering Multiple Windows —> 08-rendering-multiple-windows.md
+  - 34.9 Input and Commands in a Multi-Buffer Editor —> 09-input-commands-in-multi-buffer-editor.md
+  - 34.10 File Management with Multiple Buffers —> 10-file-management-with-multiple-buffers.md
+  - 34.11 Complexity and Resource Costs —> 11-complexity-and-resource-costs.md
+  - 34.12 Design Alternatives and Trade-offs —> 12-design-alternatives-trade-offs.md
+  - 34.13 Common Multiple-Buffer Mistakes —> 13-common-multiple-buffer-mistakes.md
+  - Summary, Exercises, Next Chapter Preview —> 14-conclusion.md

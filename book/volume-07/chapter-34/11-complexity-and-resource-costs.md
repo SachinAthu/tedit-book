@@ -1,4 +1,4 @@
-# 34.14 Complexity and Resource Costs
+# 34.11 Complexity and Resource Costs
 
 Multiple Buffers make the editor more capable, but that capability has a cost.
 
@@ -410,4 +410,4 @@ The architecture accepts that cost deliberately while avoiding unnecessary dupli
 
 Memory grows with the number and size of open buffers and with their undo histories and derived state, while rendering work depends on visible windows rather than the total number of buffers. Switching is cheap because it changes a reference instead of copying documents, so resource retention is a deliberate trade-off between usability and memory.
 
-The next section compares the design choices behind this model: **Section 34.15, Design Alternatives and Trade-offs**.
+The next section compares the design choices behind this model: **Section 34.12, Design Alternatives and Trade-offs**.

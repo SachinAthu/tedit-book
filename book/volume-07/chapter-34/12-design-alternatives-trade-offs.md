@@ -1,4 +1,4 @@
-# 34.15 Design Alternatives and Trade-offs
+# 34.12 Design Alternatives and Trade-offs
 
 There is more than one way to introduce multiple editing contexts into a text editor.
 
@@ -438,4 +438,4 @@ That relationship is the central structural decision of the multi-buffer archite
 
 The alternatives show why the chosen model separates responsibilities rather than merging them: one document per buffer, a simple collection behind the Buffer Manager, many windows referencing one buffer, window-owned cursor and viewport, and tabs that organize windows rather than buffers. The result is a larger object graph whose boundaries each reflect a real distinction.
 
-The final section collects the mistakes that arise when those boundaries are ignored: **Section 34.16, Common Multiple-Buffer Mistakes**.
+The final section collects the mistakes that arise when those boundaries are ignored: **Section 34.13, Common Multiple-Buffer Mistakes**.

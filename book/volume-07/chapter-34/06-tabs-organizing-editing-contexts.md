@@ -1,4 +1,4 @@
-# 34.7 Tabs - Organizing Editing Contexts
+# 34.6 Tabs - Organizing Editing Contexts
 
 As the number of buffers grows, a flat collection can become difficult to navigate.
 
@@ -38,83 +38,6 @@ Tab B
 ```
 
 This gives the editor several distinct layers of organization.
-
-## Tab Is Not a Buffer
-
-A common source of confusion is treating tabs and buffers as two names for the same concept.
-
-They are not.
-
-A buffer represents an editing context:
-
-```text
-Buffer A
-└── Document A
-```
-
-A tab represents an arrangement of windows:
-
-```text
-Tab A
-├── Window A
-└── Window B
-```
-
-The relationship is therefore:
-
-```text
-Tab
- │
- ├── Window ──→ Buffer
- │
- └── Window ──→ Buffer
-```
-
-The same buffer could potentially appear in different tabs if the editor permits it.
-
-For example:
-
-```text
-Tab A
-└── Window A ──→ Buffer X
-
-Tab B
-└── Window B ──→ Buffer X
-```
-
-There is still only one Buffer X.
-
-The tabs simply provide different organizational contexts for viewing it.
-
-## Tab Is Not a Window
-
-A tab and a window also have different responsibilities.
-
-A window represents a particular region of the terminal:
-
-```text
-Window
-├── position
-├── size
-├── viewport
-├── cursor
-└── buffer reference
-```
-
-A tab groups windows:
-
-```text
-Tab
-├── Window A
-├── Window B
-└── Window C
-```
-
-The tab does not need to know how text is rendered inside those windows.
-
-Its concern is the organization of the workspace.
-
-This separation becomes especially useful when a tab contains several windows.
 
 ## Why Multiple Windows Belong to a Tab
 
@@ -336,7 +259,7 @@ The window's buffer reference identifies the editing context displayed there.
 
 Keeping these relationships explicit prevents the editor from treating "the current document" as one universal concept.
 
-The **active buffer** is therefore shorthand for the Displayed Buffer at the end of this chain — the buffer referenced by the Active Window in the Active Tab. The convenience of the name should not obscure the fact that it is a derived value rather than a separate editor-level selection.
+The **active buffer** is therefore shorthand for the Displayed Buffer at the end of this chain — the buffer referenced by the Active Window in the Active Tab (Section 34.3).
 
 ## A Tab Can Contain One Window
 
@@ -502,4 +425,4 @@ A tab answers **how several views are organized together**.
 
 These distinctions allow the editor to evolve without repeatedly redefining the meaning of its core objects.
 
-The next section moves one level deeper and examines how windows are arranged: **Section 34.8, Window Layout and Arrangement**. This is where the distinction between a buffer and its visual representation becomes especially important, because several windows may display the same buffer simultaneously.
+The next section moves one level deeper and examines how windows are arranged: **Section 34.7, Window Layout and Arrangement**. This is where the distinction between a buffer and its visual representation becomes especially important, because several windows may display the same buffer simultaneously.

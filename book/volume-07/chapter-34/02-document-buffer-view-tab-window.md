@@ -504,4 +504,4 @@ The next section examines what information should actually belong to a Buffer. T
 
 The model separates content from presentation: a Document holds the logical text, a Buffer is the editing context around it, a View determines which portion is visible, a Window is the terminal region displaying that view, and a Tab organizes one or more windows. These distinctions let the editor support both multiple documents and multiple views of one document without duplicating text.
 
-The next section asks which state actually belongs to a Buffer: **Section 34.3, What Belongs to a Buffer?**.
+The next section asks which state actually belongs to a Buffer: **Section 34.3, State Ownership: What Belongs Where**.

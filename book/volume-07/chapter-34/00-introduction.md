@@ -15,16 +15,16 @@ Vocabulary — Document, Buffer, View, Window, Tab
     ↓
 Ownership — editor-wide, buffer, and window state
     ↓
-Management — the Buffer Manager, switching, and tabs
+Management — the Buffer Manager and lifecycle, switching, and tabs
     ↓
 Windows — layout, rendering, and commands
     ↓
-Integration — file management and the buffer lifecycle
+Integration — file management
     ↓
 Reflection — costs, alternatives, and mistakes
 ```
 
-We begin by distinguishing the five core concepts, then assign every piece of state to the scope that owns it. We design the Buffer Manager, examine switching and tab organization, and extend layout, rendering, and input to multiple windows. We then apply the model to file management and the buffer lifecycle, revisit existing features to give each a precise scope, and quantify the costs. We close with the design alternatives and the common mistakes to avoid.
+We begin by distinguishing the five core concepts, then assign every piece of state — including each existing feature — to the scope that owns it. We design the Buffer Manager and the buffer lifecycle, examine switching and tab organization, and extend layout, rendering, and input to multiple windows. We then apply the model to file management and quantify the costs. We close with the design alternatives and the common mistakes to avoid.
 
 ## Learning Objectives
 
