@@ -1,4 +1,4 @@
-# 32.12 Updating Highlighting After Editing
+# 32.9 Updating Highlighting After Editing
 
 Syntax highlighting is derived from the Document, which means it must change whenever the Document changes.
 
@@ -942,4 +942,4 @@ A robust implementation therefore treats syntax information as **incrementally m
 
 Syntax highlighting in an interactive editor is not a one-time operation performed when a file is opened; it is a continuously maintained derived view. Every edit can invalidate part of the chain from the current Document to the current frame, so the subsystem treats syntax information as incrementally maintainable derived state rather than permanent metadata. Practical strategies range from whole-document re-analysis, through regional re-analysis with syntax-state tracking and caching, to advanced incremental parsing; the architecture should allow progression between them while keeping the core Document and Renderer unchanged. The syntax subsystem reacts to changes rather than owning them, and it stays independent of undo/redo and file saving.
 
-Even with incremental invalidation, the editor must consider how much syntax information to retain and how much work to perform during edits. Those performance considerations lead to the next section: **Section 32.13, Performance and Scalability**.
+Even with incremental invalidation, the editor must consider how much syntax information to retain and how much work to perform during edits. Those performance considerations lead to the next section: **Section 32.10, Performance and Scalability**.

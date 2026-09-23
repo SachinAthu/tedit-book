@@ -1,4 +1,4 @@
-# 32.14 Design Alternatives and Trade-offs
+# 32.11 Design Alternatives and Trade-offs
 
 There is no single way to implement syntax highlighting.
 
@@ -449,38 +449,6 @@ More capability
 The correct architecture does not necessarily choose the point farthest toward the upper-right.
 
 It chooses an appropriate point for the problem.
-
-## Whole-Document Versus Incremental Analysis
-
-There is another independent trade-off.
-
-The syntax implementation can regenerate everything:
-
-```text
-Document
-   │
-   ▼
-Analyze everything
-```
-
-or maintain derived state incrementally:
-
-```text
-Edit
-   │
-   ▼
-Analyze affected region
-```
-
-Whole-document analysis is simpler.
-
-Incremental analysis can be significantly more efficient.
-
-The choice depends heavily on expected Document sizes and editing workloads.
-
-For a small editor, the simpler approach may be sufficient.
-
-For large Documents, incremental analysis becomes increasingly attractive.
 
 ## Regex Rules Versus Explicit Tokens
 

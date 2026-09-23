@@ -24,7 +24,7 @@ Presentation — classes, themes, and the renderer
 Integration — language detection, edits, performance
 ```
 
-We begin with why syntax highlighting exists and why it must remain derived information. We then walk through the analysis pipeline, detailing the Lexer, tokens, and highlight classes before examining why lexical analysis alone is insufficient and how a lightweight parser adds context. Next we see how highlighting is applied to the Document and connected to the text buffer, how Themes map semantic classes to visual styles, and how the editor decides which language rules apply. We close with the practical concerns of updating highlighting after edits, performance and scalability, and the design alternatives and trade-offs involved.
+We begin with why syntax highlighting exists and why it must remain derived information. We then walk through the analysis pipeline before detailing the Lexer, and then tokens and highlight classes together. Next we see why lexical analysis alone is insufficient and how a lightweight parser adds context. After that we examine how highlighting is applied to the Document and connected to the text buffer, how Themes map semantic classes to visual styles, and how the editor decides which language rules apply. We close with the practical concerns of updating highlighting after edits, performance and scalability, and the design alternatives and trade-offs involved.
 
 ## Learning Objectives
 

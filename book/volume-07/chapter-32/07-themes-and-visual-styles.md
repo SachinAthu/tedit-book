@@ -1,4 +1,4 @@
-# 32.10 Themes and Visual Styles
+# 32.7 Themes and Visual Styles
 
 The syntax subsystem can determine that a region of text is a `KEYWORD`, `STRING`, `COMMENT`, or `NUMBER`. It still does not determine what those categories should look like.
 
@@ -722,4 +722,4 @@ Because these questions are separate, the editor can change languages, syntax-an
 
 Themes provide the visual mapping from semantic highlight classes to actual terminal styles. Because this mapping is separated from language analysis, a theme change does not require re-lexing the Document, and the same Document and syntax information can be displayed with entirely different themes. Theme lookup itself should be inexpensive, since it happens during rendering, and a Theme remains a small, focused component that maps classes to styles and provides a fallback. The result is a clean three-layer division: the syntax subsystem says *what* the text is, the Theme says *how* that category should look, and the Renderer says *how* to draw it in the current frame.
 
-One issue remains before highlighting can work for arbitrary files: deciding **which language's syntax rules apply to a given Document**. The next section examines that problem in **Section 32.11, Language Detection and Highlighting Modes**.
+One issue remains before highlighting can work for arbitrary files: deciding **which language's syntax rules apply to a given Document**. The next section examines that problem in **Section 32.8, Language Detection and Highlighting Modes**.

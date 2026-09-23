@@ -469,17 +469,14 @@ This is where the book becomes much deeper than a typical tutorial.
 - 32.1 Why Syntax Highlighting Exists
 - 32.2 Syntax Highlighting as an Analysis Pipeline
 - 32.3 Lexical Analysis
-- 32.4 Tokens
-- 32.5 From Tokens to Highlight Classes
-- 32.6 Why Lexing Alone Is Not Enough
-- 32.7 Lightweight Syntax Parsing
-- 32.8 Highlighting the Document
-- 32.9 Syntax Highlighting and the Text Buffer
-- 32.10 Themes and Visual Styles
-- 32.11 Language Detection and Highlighting Modes
-- 32.12 Updating Highlighting After Editing
-- 32.13 Performance and Scalability
-- 32.14 Design Alternatives and Trade-offs
+- 32.4 Tokens and Highlight Classes
+- 32.5 Beyond Lexing: Context and Lightweight Parsing
+- 32.6 Highlighting the Document and the Text Buffer
+- 32.7 Themes and Visual Styles
+- 32.8 Language Detection and Highlighting Modes
+- 32.9 Updating Highlighting After Editing
+- 32.10 Performance and Scalability
+- 32.11 Design Alternatives and Trade-offs
 
 ## **Chapter 33 — Configuration**
 

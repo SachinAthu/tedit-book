@@ -1,0 +1,9 @@
+chapter: 38
+title: Packaging
+volume: 8
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 38.1  —> 01-.md
+
+  - Summary, Exercises, Next Chapter Preview —> 10-conclusion.md

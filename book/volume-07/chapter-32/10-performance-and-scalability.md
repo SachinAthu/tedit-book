@@ -1,4 +1,4 @@
-# 32.13 Performance and Scalability
+# 32.10 Performance and Scalability
 
 Syntax highlighting is easy to make functional.
 
@@ -790,39 +790,7 @@ Add further optimization only if necessary
 
 This keeps optimization driven by actual requirements.
 
-## A Practical Performance Model
-
-For this editor, syntax performance can be understood through four levels:
-
-```text
-Level 1
-Simple lexical analysis
-        │
-        ▼
-Suitable for small Documents
-
-Level 2
-Cached syntax information
-        │
-        ▼
-Avoid repeated analysis
-
-Level 3
-Incremental invalidation
-        │
-        ▼
-Limit work after edits
-
-Level 4
-Advanced incremental parsing
-        │
-        ▼
-Reserved for more sophisticated infrastructure
-```
-
-The architecture should support progression through these levels.
-
-The first implementation does not need to begin at Level 4.
+The idea that highlighting can start simple and grow through progressively richer analysis levels was introduced in Section 32.5. For performance, the key point is that the architecture should support this progression, and the first implementation does not need to begin at the most advanced level.
 
 ## Measuring the Right Things
 
@@ -953,4 +921,4 @@ The central performance principle is:
 
 > **Analyze only what has to change, retain only what is useful, and keep the interactive path predictable.**
 
-There are several possible ways to implement syntax highlighting—from simple regular-expression rules to state machines, parser-based approaches, and more advanced syntax-tree systems. Each provides a different balance of simplicity, correctness, extensibility, and performance. The next section compares these approaches at a high level in **Section 32.14, Design Alternatives and Trade-offs**.
+There are several possible ways to implement syntax highlighting—from simple regular-expression rules to state machines, parser-based approaches, and more advanced syntax-tree systems. Each provides a different balance of simplicity, correctness, extensibility, and performance. The next section compares these approaches at a high level in **Section 32.11, Design Alternatives and Trade-offs**.

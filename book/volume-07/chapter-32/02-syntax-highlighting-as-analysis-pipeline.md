@@ -455,54 +455,7 @@ The Renderer determines **how that visual information becomes part of the frame*
 
 This keeps the existing rendering architecture intact.
 
-## Syntax Highlighting Is Derived State
-
-There is another important consequence of this pipeline.
-
-Highlighting information depends on the Document.
-
-If the Document changes:
-
-```text
-Document
-    │
-    │ edit
-    ▼
-New Document State
-```
-
-the previous syntax information may no longer be correct.
-
-For example:
-
-```c
-int value = 42;
-```
-
-could become:
-
-```c
-int value = "42;
-```
-
-A small edit has changed the syntactic interpretation of the surrounding text.
-
-Therefore:
-
-```text
-Document
-    │
-    ▼
-Highlight Information
-```
-
-is a **derived relationship**.
-
-The Document is authoritative.
-
-Highlighting can be discarded and regenerated from the Document.
-
-That property will become particularly important when we discuss updating highlighting after edits.
+Because highlighting information depends on the Document, it is a **derived relationship**: the Document remains authoritative, and highlighting can always be discarded and regenerated from it. That property was established in the previous section and will become especially important when we discuss updating highlighting after edits.
 
 ## A Complete Example
 

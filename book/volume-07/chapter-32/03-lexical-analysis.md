@@ -768,49 +768,7 @@ Parser
 
 The Lexer comes first because the Parser needs a structured token stream to work with.
 
-## Why Not Let the Renderer Do This?
-
-It might seem convenient to perform syntax analysis while rendering.
-
-For example:
-
-```text
-Renderer
-   │
-   ├── inspect characters
-   ├── identify keywords
-   ├── identify strings
-   ├── identify comments
-   └── output terminal styles
-```
-
-This would work for a tiny prototype.
-
-But it would violate the separation established by our architecture.
-
-The Renderer should be concerned with producing the visual frame, not understanding programming-language syntax.
-
-A better design is:
-
-```text
-Document
-   │
-   ▼
-Lexer
-   │
-   ▼
-Tokens
-   │
-   ▼
-Highlight Information
-   │
-   ▼
-Renderer
-```
-
-Now each component has a focused responsibility.
-
-This follows the same one-responsibility principle used throughout the editor architecture.
+The Lexer also does not decide how any token should look: whether a keyword appears in red or blue is a presentation concern handled by the Theme and Renderer in later sections. Keeping language analysis out of the rendering system is what lets each component keep one responsibility.
 
 ## Complexity of Lexical Analysis
 
@@ -907,6 +865,6 @@ Lexical analysis is the first stage that turns a Document's undifferentiated cha
 
 Those classified pieces are represented as tokens, which gives us the next question:
 
-> **What exactly should a token contain, and how should it refer back to the Document?**
+> **What exactly should a token contain, and how does it lead to a highlight class?**
 
-That is the subject of the next section: **Section 32.4, Tokens**.
+That is the subject of the next section: **Section 32.4, Tokens and Highlight Classes**.

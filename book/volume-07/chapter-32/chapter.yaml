@@ -7,15 +7,12 @@ sections:
   - 32.1 Why Syntax Highlighting Exists —> 01-why-syntax-highlighting-exists.md
   - 32.2 Syntax Highlighting as an Analysis Pipeline —> 02-syntax-highlighting-as-analysis-pipeline.md
   - 32.3 Lexical Analysis —> 03-lexical-analysis.md
-  - 32.4 Tokens —> 04-tokens.md
-  - 32.5 From Tokens to Highlight Classes —> 05-tokens-to-highlight-classes.md
-  - 32.6 Why Lexing Alone Is Not Enough —> 06-why-lexing-alone-not-enough.md
-  - 32.7 Lightweight Syntax Parsing —> 07-lightweight-syntax-parsing.md
-  - 32.8 Highlighting the Document —> 08-highlighting-document.md
-  - 32.9 Syntax Highlighting and the Text Buffer —> 09-syntax-highlighting-text-buffer.md
-  - 32.10 Themes and Visual Styles —> 10-themes-visual-styles.md
-  - 32.11 Language Detection and Highlighting Modes —> 11-language-detection-highlighting-modes.md
-  - 32.12 Updating Highlighting After Editing —> 12-updating-highlighting-after-editing.md
-  - 32.13 Performance and Scalability —> 13-performance-scalability.md
-  - 32.14 Design Alternatives and Trade-offs —> 14-design-alternatives-trade-offs.md
-  - Summary, Exercises, Next Chapter Preview —> 15-conclusion.md
+  - 32.4 Tokens and Highlight Classes —> 04-tokens-and-highlight-classes.md
+  - 32.5 Beyond Lexing: Context and Lightweight Parsing —> 05-beyond-lexing-context-and-lightweight-parsing.md
+  - 32.6 Highlighting the Document and the Text Buffer —> 06-highlighting-document-and-text-buffer.md
+  - 32.7 Themes and Visual Styles —> 07-themes-and-visual-styles.md
+  - 32.8 Language Detection and Highlighting Modes —> 08-language-detection-and-highlighting-modes.md
+  - 32.9 Updating Highlighting After Editing —> 09-updating-highlighting-after-editing.md
+  - 32.10 Performance and Scalability —> 10-performance-and-scalability.md
+  - 32.11 Design Alternatives and Trade-offs —> 11-design-alternatives-and-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md
