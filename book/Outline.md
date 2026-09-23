@@ -530,22 +530,14 @@ This is where the book becomes much deeper than a typical tutorial.
 - Assertions
 - Logging
 
-## **Chapter 37 — Performance**
-
-- Profiling
-- Rendering
-- Memory
-- Large files
-- Optimization
-
-## **Chapter 38 — Portability**
+## **Chapter 37 — Portability**
 
 - Linux
 - macOS
 - Windows
 - WSL
 
-## **Chapter 39 — Packaging**
+## **Chapter 38 — Packaging**
 
 - CMake
 - Release
@@ -555,33 +547,33 @@ This is where the book becomes much deeper than a typical tutorial.
 
 # **Volume IX — Advanced Topics**
 
-## **Chapter 40 — Plugin Architecture**
+## **Chapter 39 — Plugin Architecture**
 
 - Interfaces
 - ABI
 - Dynamic loading
 
-## **Chapter 41 — Language Server Protocol (LSP)**
+## **Chapter 40 — Language Server Protocol (LSP)**
 
 - Overview
 - Diagnostics
 - Completion
 - Hover
 
-## **Chapter 42 — Tree-sitter**
+## **Chapter 41 — Tree-sitter**
 
 - Incremental parsing
 - Syntax trees
 - Highlighting
 
-## **Chapter 43 — Terminal Graphics**
+## **Chapter 42 — Terminal Graphics**
 
 - True color
 - Images
 - Mouse
 - Kitty protocol
 
-## **Chapter 44 — Modern Editors**
+## **Chapter 43 — Modern Editors**
 
 How these editors are built:
 
@@ -602,43 +594,43 @@ Architecture comparison.
 
 This is the implementation volume.
 
-## **Chapter 45 — Milestone 1**
+## **Chapter 44 — Milestone 1**
 
 Initialize terminal
 
-## **Chapter 46 — Milestone 2**
+## **Chapter 45 — Milestone 2**
 
 Renderer
 
-## **Chapter 47 — Milestone 3**
+## **Chapter 46 — Milestone 3**
 
 Cursor
 
-## **Chapter 48 — Milestone 4**
+## **Chapter 47 — Milestone 4**
 
 Insertion
 
-## **Chapter 49 — Milestone 5**
+## **Chapter 48 — Milestone 5**
 
 Deletion
 
-## **Chapter 50 — Milestone 6**
+## **Chapter 49 — Milestone 6**
 
 Line splitting
 
-## **Chapter 51 — Milestone 7**
+## **Chapter 50 — Milestone 7**
 
 File loading
 
-## **Chapter 52 — Milestone 8**
+## **Chapter 51 — Milestone 8**
 
 Saving
 
-## **Chapter 53 — Milestone 9**
+## **Chapter 52 — Milestone 9**
 
 Scrolling
 
-## **Chapter 54 — Milestone 10**
+## **Chapter 53 — Milestone 10**
 
 Final polish
 

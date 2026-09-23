@@ -48,6 +48,6 @@ Pick a defect you found while building the editor and take it through the full d
 
 ## Preview of the Next Chapter
 
-> Debugging tells us **why something is wrong**. Performance tells us **how much is acceptable**.
+> Debugging tells us **why something is wrong**. 
 
-Once the editor behaves correctly, the next question is whether it behaves quickly enough. The next chapter moves into **Performance**, where the book examines rendering, memory, large files, and optimization—applying the observability built here to measure where the editor's time and memory actually go.
+Now that the editor behaves correctly on one platform, the next question is whether that behavior survives a change of environment. The next chapter moves into **Portability**, where the book examines how the editor is affected by moving across Linux, macOS, Windows, and WSL—applying the observability built here to discover platform-specific problems rather than assuming the editor will work unchanged.

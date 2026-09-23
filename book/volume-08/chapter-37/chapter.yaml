@@ -1,0 +1,17 @@
+chapter: 37
+title: Portability
+volume: 8
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 37.1 Why Portability Matters —> 01-why-portability-matters.md
+  - 37.2 Platform Boundaries —> 02-platform-boundaries.md
+  - 37.3 POSIX and Platform APIs —> 03-posix-and-platform-apis.md
+  - 37.4 Linux —> 04-linux.md
+  - 37.5 macOS —> 05-macos.md
+  - 37.6 BSD —> 06-bsd.md
+  - 37.7 Windows —> 07-windows.md
+  - 37.8 WSL —> 08-wsl.md
+  - 37.9 Conditional Compilation —> 09-conditional-compilation.md
+  - 37.10 Common Portability Mistakes —> 10-common-portability-mistakes.md
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md
