@@ -1,4 +1,4 @@
-# 37.13 Common Portability Mistakes
+# 37.9 Common Portability Mistakes
 
 Portability problems are rarely caused by one large architectural error. More often, they arise from small assumptions that are correct on the developer's primary platform but incorrect elsewhere.
 
@@ -823,4 +823,4 @@ A portable architecture does not eliminate platform differences.
 
 It **contains them**.
 
-This concludes the planned conceptual material for Chapter 37. The remaining implementation concern is not another platform-specific operating system, but the practical validation of these boundaries: building and testing the editor across the environments it claims to support.
+This concludes the planned conceptual material for Chapter 37. The next section provides the chapter summary, review exercises, and a preview of the next chapter.

@@ -120,6 +120,54 @@ These are natural platform boundaries because they depend on facilities outside 
 
 The existing architecture explicitly assigns these environmental responsibilities to the Platform Layer.
 
+## Platform-Independent vs. Platform-Facing Responsibilities
+
+The boundary can be summarized as a single list.
+
+```text
+Platform-independent (editor concepts)
+-------------------------------------
+Document
+Cursor
+Viewport
+Editor State
+Commands
+Undo/Redo
+Search
+Configuration
+Buffer management
+Window management
+Rendering decisions
+
+Platform-facing (environmental mechanisms)
+------------------------------------------
+Terminal mode configuration
+Terminal dimensions
+Terminal input acquisition
+Terminal output
+File descriptor / handle operations
+Filesystem access
+Platform-specific diagnostics
+```
+
+A full-screen editor's higher-level components should be expressible without mentioning the operating system. The platform-facing components absorb the environmental details.
+
+The terminal path can be represented as:
+
+```text
+Input Engine        (editor-level input)
+      |
+      v
+Input Handler       (platform terminal operations)
+      |
+      v
+Terminal Interface  (Linux / POSIX / macOS / ...)
+```
+
+The Input Engine should reason about editor events ("Arrow Up", "Character 'a'") rather than terminal byte sequences ("ESC [ A"). The conversion from terminal representation to editor events belongs to the platform-facing input path.
+
+The file path is covered below in "The Same Operation Across Different Platforms." The important point is that both the terminal and file paths terminate in the Platform Layer.
+
 ## The Same Operation Across Different Platforms
 
 Consider saving a document.
@@ -392,6 +440,16 @@ Stable editor behavior
 ```
 
 The boundary acknowledges that platforms differ while preventing those differences from dominating the editor's architecture.
+
+## Portability as an Architectural Test
+
+Adding a platform is a direct test of how well the boundary has been placed.
+
+If supporting a new operating system requires changes concentrated in the Platform Layer, build configuration, and platform-specific tests, the architecture is behaving as intended.
+
+If the same change instead requires edits throughout the Document, Cursor, Command Engine, Undo/Redo, Search, and Renderer, then platform-specific assumptions have leaked into higher layers.
+
+The cost of adding a platform is therefore a useful indicator of how effectively platform dependencies have been isolated. It is not an absolute metric—platforms can genuinely differ—but widespread changes in platform-independent code are a warning sign.
 
 ## Summary
 
