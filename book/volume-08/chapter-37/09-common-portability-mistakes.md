@@ -143,14 +143,13 @@ should not all contain unrelated platform branches merely because the project su
 Prefer:
 
 ```text
-platform/
-    terminal/
-        posix.c
-        windows.c
+terminal/
+    posix.c
+    windows.c
 
-    file/
-        posix.c
-        windows.c
+file/
+    posix.c
+    windows.c
 ```
 
 with stable interfaces above them.

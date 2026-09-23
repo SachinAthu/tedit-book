@@ -35,14 +35,14 @@ C's preprocessor can provide that selection.
 A simplified example is:
 
 ```c
-#ifdef _WIN32
+#if defined(PLATFORM_WINDOWS)
     /* Windows implementation */
 #else
     /* POSIX implementation */
 #endif
 ```
 
-The exact platform checks used by the project should be defined deliberately rather than scattered arbitrarily throughout the source tree.
+The exact platform checks used by the project should be defined deliberately rather than scattered arbitrarily throughout the source tree. `PLATFORM_WINDOWS` is the project's canonical platform macro; compiler-provided macros such as `_WIN32` should be mapped to it at a single authoritative location rather than used directly throughout the code.
 
 ## Compile-Time Selection
 
@@ -266,7 +266,7 @@ Bad:
 ```c
 typedef struct {
     int fd;
-#ifdef _WIN32
+#if defined(PLATFORM_WINDOWS)
     HANDLE handle;
 #endif
 } file_t;
@@ -368,6 +368,8 @@ WSL
 
 with different meanings.
 
+The project should therefore settle on one canonical set of platform macros—for example, `PLATFORM_POSIX` and `PLATFORM_WINDOWS`—and map compiler-provided macros such as `_WIN32` to them in that single authoritative location.
+
 ## Do Not Treat WSL as a Separate C Platform
 
 The WSL discussion in Section 37.7 provides an important example.
@@ -433,14 +435,12 @@ over:
 
 Small, focused conditional sections make it easier to compare implementations and identify what actually differs.
 
-Where differences are substantial, separate source files may be clearer:
+Where differences are substantial, separate source files within the responsible module may be clearer:
 
 ```text
-platform/
-├── posix/
-│   └── terminal.c
-└── windows/
-    └── terminal.c
+terminal/
+├── posix.c
+└── windows.c
 ```
 
 Then the build configuration selects the appropriate source file.
@@ -467,7 +467,7 @@ Not every platform-facing module needs a separate implementation. There are thre
        +---- substantially different mechanisms
 ```
 
-A single `terminal.c` used on both Linux and macOS is the first case. A module with a small isolated `#if` block is the second. A `platform/` directory split into `posix/` and `windows/` implementations is the third.
+A single `terminal.c` used on both Linux and macOS is the first case. A module with a small isolated `#if` block is the second. Separate platform source files within the same module—for example, `posix.c` and `windows.c`—are the third.
 
 The choice should be based on actual behavior and interface requirements, not on a desire to maximize the number of shared source files:
 
@@ -602,33 +602,33 @@ A platform branch that has not been compiled and tested is effectively unverifie
 
 ## A Practical Structure
 
-For the editor, a platform-aware implementation can conceptually look like:
+For the editor, a platform-aware implementation fits within the module layout established in Chapter 10:
 
 ```text
-src/
+editor/
 |
-+-- core/
-|   +-- document/
-|   +-- cursor/
-|   +-- viewport/
-|   +-- editor_state/
-|
-+-- input/
-+-- command/
-+-- render/
-|
-+-- platform/
-    |
-    +-- terminal/
-    |   +-- interface.h
-    |   +-- posix.c
-    |   +-- windows.c
-    |
-    +-- file/
-        +-- interface.h
-        +-- posix.c
-        +-- windows.c
++-- command/        Command Engine
++-- cursor/         Cursor
++-- document/       Document
++-- file/           File Manager
++-- input/          Input Handler, Input Parser, Input Engine
++-- renderer/       Renderer
++-- state/          Editor State
++-- terminal/       Terminal Interface
++-- viewport/       Viewport
 ```
+
+Platform-specific behavior is isolated inside the module that owns the responsibility. For example, the Terminal Interface may keep its platform implementations as separate source files:
+
+```text
+terminal/
++-- terminal.h      stable interface used by higher layers
++-- terminal.c      shared implementation
++-- posix.c         POSIX terminal mechanisms
++-- windows.c       Windows terminal mechanisms
+```
+
+The File Manager may likewise contain POSIX and Windows filesystem implementations.
 
 The exact project structure should follow the project's established directory decisions rather than being changed merely for this chapter.
 

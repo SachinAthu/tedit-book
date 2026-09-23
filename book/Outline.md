@@ -533,7 +533,7 @@ This is where the book becomes much deeper than a typical tutorial.
 ## **Chapter 37 — Portability**
 
 - Linux
-- macOS
+- macOS and BSD
 - Windows
 - WSL
 

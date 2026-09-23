@@ -179,11 +179,10 @@ Windows demonstrates why portability must be based on explicit architectural bou
 2. **The editor's Core should nevertheless remain shared.**
 3. **Native Windows APIs can be isolated behind platform-facing components.**
 4. **Resource representations such as Windows handles should not leak into the Core.**
-5. **Terminal interaction requires a platform-specific implementation boundary.**
-6. **Rendering decisions should remain independent of the mechanism used to communicate with the terminal.**
-7. **File-safety policies remain editor-level requirements even when filesystem mechanisms differ.**
-8. **Conditional compilation should be localized to platform-sensitive components.**
-9. **Designing for Windows does not require implementing Windows in the initial Linux-focused version.**
+5. **Rendering decisions should remain independent of the mechanism used to communicate with the terminal.**
+6. **File-safety policies remain editor-level requirements even when filesystem mechanisms differ.**
+7. **Conditional compilation should be localized to platform-sensitive components.**
+8. **Designing for Windows does not require implementing Windows in the initial Linux-focused version.**
 
 The resulting model is:
 

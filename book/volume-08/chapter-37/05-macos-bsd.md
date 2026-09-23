@@ -140,7 +140,6 @@ macOS and BSD reinforce the distinction between a portable POSIX-oriented design
 5. **The terminal emulator remains a separate concern from the operating system.**
 6. **The Platform Layer should stay organized around actual responsibilities rather than one giant "Unix" abstraction.**
 7. **The Core should remain unchanged by the choice among Linux, macOS, and BSD wherever the editor's semantics are identical.**
-8. **Adding a POSIX platform is an architectural test, not merely a compilation exercise.**
 
 The goal is therefore not **Linux code versus macOS code versus BSD code**. It is a stable editor over stable interfaces, with platform implementations beneath them.
 

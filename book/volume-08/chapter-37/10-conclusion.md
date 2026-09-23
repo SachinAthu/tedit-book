@@ -22,6 +22,8 @@ The important lessons are:
 
 The architecture does not eliminate platform differences. It **contains them**, so that adding a platform changes the Platform Layer rather than the Core.
 
+The portability strategy — Linux as the reference platform, POSIX as the common interface, and platform-specific behavior contained at the platform boundary — is recorded as **ADR-030: Portability Strategy**.
+
 ## Exercises
 
 ### Review Questions

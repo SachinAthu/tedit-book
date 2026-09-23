@@ -152,6 +152,8 @@ Platform-specific diagnostics
 
 A full-screen editor's higher-level components should be expressible without mentioning the operating system. The platform-facing components absorb the environmental details.
 
+One nuance: "rendering decisions" — what should appear on screen — are platform-independent editor concepts, while the Renderer component (which lives in the Platform Layer) owns the platform-facing act of emitting that frame to the terminal. Deciding what to draw is editor-level; only the Renderer's final terminal output is platform-facing.
+
 The terminal path can be represented as:
 
 ```text
@@ -164,7 +166,7 @@ Input Handler       (platform terminal operations)
 Terminal Interface  (Linux / POSIX / macOS / ...)
 ```
 
-The Input Engine should reason about editor events ("Arrow Up", "Character 'a'") rather than terminal byte sequences ("ESC [ A"). The conversion from terminal representation to editor events belongs to the platform-facing input path.
+The Input Parser converts terminal byte sequences ("ESC [ A") into editor events ("Arrow Up", "Character 'a'"), and the Input Engine maps those events to commands. Neither should reason about raw terminal bytes; the conversion from terminal representation to editor events belongs to the platform-facing input path.
 
 The file path is covered below in "The Same Operation Across Different Platforms." The important point is that both the terminal and file paths terminate in the Platform Layer.
 

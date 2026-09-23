@@ -2,7 +2,7 @@
 
 Linux is the reference platform for this project. The editor is designed first against a Linux/POSIX environment, while macOS, BSD, Windows, and WSL are considered portability targets.
 
-This distinction is important. The goal is not to make Linux behavior disappear behind an abstract layer. Linux is the **primary implementation environment** against which the architecture is developed and validated. Portability means that platform-specific assumptions remain isolated enough that other implementations can be introduced later. The SRS explicitly identifies Linux as the primary platform and POSIX-compatible systems as the target environment.
+This distinction is important. The goal is not to make Linux behavior disappear behind an abstract layer. Linux is the **primary implementation environment** against which the architecture is developed and validated. Portability means that platform-specific assumptions remain isolated enough that other implementations can be introduced later. The Software Requirements Specification (SRS, Chapter 7) explicitly identifies Linux as the primary platform and POSIX-compatible systems as the target environment.
 
 ## Why Linux Is the Reference Platform
 
@@ -87,7 +87,7 @@ The policy should not become tied to a particular Linux system call merely becau
 
 A common portability problem is allowing Linux-specific code to appear wherever it happens to be convenient. `document.c`, `cursor.c`, `renderer.c`, `command.c`, `input.c`, and `terminal.c` should not gradually become filled with Linux-specific branches.
 
-Instead, platform-sensitive code should have an identifiable home, following the module-oriented organization in which responsibilities are separated into modules (for example, `core/`, `input/`, `command/`, `render/`, `terminal/`, `file/`, and `platform/`). The exact directory organization is defined by the project's project-structure decisions; the principle is that platform-sensitive responsibilities remain identifiable.
+Instead, platform-sensitive code should have an identifiable home, following the module-oriented organization established in Chapter 10, in which responsibilities are separated into modules (`command/`, `cursor/`, `document/`, `file/`, `input/`, `renderer/`, `state/`, `terminal/`, and `viewport/`). The exact directory organization is defined by the project's project-structure decisions; the principle is that platform-sensitive responsibilities remain identifiable.
 
 ## Linux as a Baseline, Not a Shortcut
 
@@ -131,12 +131,10 @@ Linux is the reference platform for the editor, but it should not become an impl
 
 1. **Linux provides the primary development and execution environment.**
 2. **POSIX provides the principal common system interface.**
-3. **Terminal interaction belongs to the Platform Layer.**
-4. **File descriptors and filesystem operations are platform-facing mechanisms.**
-5. **Terminal dimensions and operating-system resources should be converted into platform-independent editor data.**
-6. **Linux-specific assumptions should remain explicit and localized.**
-7. **The Core should remain independent of Linux even though Linux is the reference platform.**
-8. **Linux behavior must not automatically be treated as portable behavior.**
+3. **File descriptors and filesystem operations are platform-facing mechanisms.**
+4. **Linux-specific assumptions should remain explicit and localized.**
+5. **The Core should remain independent of Linux even though Linux is the reference platform.**
+6. **Linux behavior must not automatically be treated as portable behavior.**
 
 The architecture does not attempt to eliminate Linux dependencies. It **contains them**.
 

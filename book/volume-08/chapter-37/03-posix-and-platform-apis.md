@@ -62,7 +62,7 @@ These capabilities lie outside the C language standard itself.
 
 POSIX provides a standardized set of interfaces commonly available on Unix-like operating systems.
 
-For the editor, POSIX is particularly important because the project targets POSIX-compatible systems and uses Linux as its primary platform. The SRS explicitly establishes C and POSIX as the foundation of the system.
+For the editor, POSIX is particularly important because the project targets POSIX-compatible systems and uses Linux as its primary platform. The Software Requirements Specification (SRS, Chapter 7) explicitly establishes C and POSIX as the foundation of the system.
 
 Conceptually:
 

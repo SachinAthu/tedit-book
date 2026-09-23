@@ -135,7 +135,7 @@ Therefore:
 
 ## WSL and the Reference Platform
 
-WSL does not change the project's reference platform. The SRS explicitly defines Linux as the primary development and reference platform:
+WSL does not change the project's reference platform. The Software Requirements Specification (SRS, Chapter 7) explicitly defines Linux as the primary development and reference platform:
 
 ```text
 Primary platform:
@@ -181,10 +181,9 @@ WSL is important because it prevents us from treating "Windows" as a single exec
 2. **An editor running under WSL can use the Linux/POSIX implementation.**
 3. **WSL support is not equivalent to native Windows support.**
 4. **Platform selection should follow the interfaces available to the running process rather than the physical host alone.**
-5. **Terminal and filesystem behavior should remain behind the existing Platform Layer.**
-6. **Build configuration is also part of portability.**
-7. **WSL should not require a separate editor architecture when the existing Linux implementation already satisfies its environment.**
-8. **WSL provides a useful test of whether the editor depends on interfaces or on accidental host assumptions.**
+5. **Build configuration is also part of portability.**
+6. **WSL should not require a separate editor architecture when the existing Linux implementation already satisfies its environment.**
+7. **WSL provides a useful test of whether the editor depends on interfaces or on accidental host assumptions.**
 
 The overall platform model is now:
 

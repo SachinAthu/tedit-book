@@ -820,6 +820,22 @@ Volume II, Chapter 10
 - Information Hiding
 - Separation of Concerns
 
+## Conditional Compilation
+
+**Definition**
+
+A C preprocessor mechanism that selects platform-specific source code at compile time using directives such as `#if`, `#ifdef`, and `#if defined(...)`. Conditional compilation should be concentrated at platform boundaries to select among implementations, rather than scattered throughout the application to define editor behavior. It is a mechanism, not the platform abstraction itself.
+
+**First Introduced**
+
+Volume VIII, Chapter 37
+
+**Related Terms**
+
+- Platform Boundary
+- Platform Layer
+- Portability
+
 ## Configuration
 
 **Definition**
@@ -1806,6 +1822,22 @@ Volume VII, Chapter 31
 - Undo
 
 # H
+
+## Handle
+
+**Definition**
+
+The Windows model for referencing an open resource within a process, analogous to the Unix file descriptor. A handle is an operating-system-specific representation: it should remain inside platform-facing components such as the File Manager rather than leaking into the editor's Core.
+
+**First Introduced**
+
+Volume VIII, Chapter 37
+
+**Related Terms**
+
+- File Descriptor
+- Platform Layer
+- File Manager
 
 ## Heap
 
@@ -2935,7 +2967,7 @@ Volume VI, Chapter 27
 
 **Definition**
 
-The structural growth of a Piece Table in which repeated edits divide larger pieces into many smaller ones, increasing the number of piece descriptors needed to describe the current document. Fragmentation is a growth in the *description* of the document, not in the buffers themselves: the stored text remains contiguous while the piece sequence becomes more fragmented. Because position lookup and traversal operate on pieces, a fragmented Piece Table pays increasing metadata and traversal costs over a long editing session.
+The structural growth of a Piece Table in which repeated edits divide larger pieces into many smaller ones, increasing the number of piece descriptors needed to describe the current document. Fragmentation is a growth in the _description_ of the document, not in the buffers themselves: the stored text remains contiguous while the piece sequence becomes more fragmented. Because position lookup and traversal operate on pieces, a fragmented Piece Table pays increasing metadata and traversal costs over a long editing session.
 
 **First Introduced**
 
@@ -3030,6 +3062,43 @@ Volume VI, Chapter 29
 - Text Buffer
 - Text Buffer Workload
 
+## Platform Boundary
+
+**Definition**
+
+The architectural point at which platform-dependent mechanisms are separated from platform-independent application logic. The platform boundary separates what the editor does from how the operating system and terminal provide the required facilities, so that platform details remain contained and do not leak into the Core.
+
+**First Introduced**
+
+Volume VIII, Chapter 37
+
+**Related Terms**
+
+- Platform Layer
+- Portability
+- Layered Architecture
+
+## Platform Layer
+
+**Definition**
+
+The architectural layer containing the components that interact with the operating system and terminal environment — the Input Handler, Input Parser, Renderer, File Manager, and Terminal Interface. The Platform Layer absorbs environmental mechanisms so that the Application and Core layers can reason in terms of editor concepts rather than platform details.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Platform Boundary
+- Layered Architecture
+- File Manager
+- Terminal Interface
+
+**Notes**
+
+Portability treatment: Volume VIII, Chapter 37.
+
 ## Policy
 
 **Definition**
@@ -3046,6 +3115,38 @@ Volume VII, Chapter 33
 - Configuration File
 - Default Configuration
 - Configuration Precedence
+
+## Portability
+
+**Definition**
+
+The engineering discipline of allowing software to operate correctly across different platforms without rewriting its core design for each one. Portability does not require identical behavior or identical implementations on every platform; it means containing platform differences so that the editor's core behavior remains stable while the mechanisms beneath it vary.
+
+**First Introduced**
+
+Volume VIII, Chapter 37
+
+**Related Terms**
+
+- Platform Boundary
+- Platform Layer
+- POSIX
+
+## POSIX
+
+**Definition**
+
+The Portable Operating System Interface, a standardized set of operating-system interfaces commonly available on Unix-like systems such as Linux, macOS, and BSD. POSIX is an interface contract, not an operating system: each system provides its own implementation of that contract. For the editor, POSIX supplies portable system interfaces for terminal and file operations, but POSIX compatibility does not guarantee identical behavior across systems.
+
+**First Introduced**
+
+Volume VIII, Chapter 37
+
+**Related Terms**
+
+- Platform Layer
+- Portability
+- File Descriptor
 
 ## Preferred Column
 
@@ -4200,6 +4301,27 @@ Volume I, Chapter 2
 - ANSI Escape Sequence
 - TTY
 
+## Terminal Interface
+
+**Definition**
+
+The platform-facing component that configures and communicates with the terminal environment, owning operations such as enabling raw mode, obtaining terminal dimensions, writing terminal output, and restoring terminal settings. The Terminal Interface absorbs terminal-specific mechanisms so that higher-level components work with editor events rather than terminal byte sequences.
+
+**First Introduced**
+
+Volume II, Chapter 8
+
+**Related Terms**
+
+- Terminal Emulator
+- Input Handler
+- Platform Layer
+- Raw Mode
+
+**Notes**
+
+Portability treatment: Volume VIII, Chapter 37.
+
 ## Terminal Session
 
 **Definition**
@@ -4731,6 +4853,22 @@ Volume VII, Chapter 34
 - Buffer
 - Tab
 
+## Windows Subsystem for Linux (WSL)
+
+**Definition**
+
+A Windows feature that provides a Linux execution environment running on a Windows host. Under WSL, a program can use Linux/POSIX interfaces even though the physical machine runs Windows. For the editor, WSL is an execution environment rather than a separate platform: platform selection follows the interfaces available to the running process, not the physical host.
+
+**First Introduced**
+
+Volume VIII, Chapter 37
+
+**Related Terms**
+
+- POSIX
+- Portability
+- Platform Layer
+
 ## Working Tree
 
 **Definition**
@@ -4771,7 +4909,6 @@ The following concepts are expected to be added as the manuscript develops:
 
 - Language Server Protocol (LSP)
 - Tree-sitter
-- Syntax Highlighting
 
 # Maintenance Rules
 

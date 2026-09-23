@@ -503,3 +503,23 @@ Trade-off:
 Development-time observability costs build and runtime overhead: assertions, diagnostics, and instrumentation add code and can slow the debug build, and maintaining debug and release configurations is ongoing work. Sanitizer-enabled builds are not production builds and can report errors that occur only under instrumentation. These costs are confined to development and accepted in exchange for finding defects faster and more reliably; the release build omits assertions and diagnostics while preserving all invariants the implementation must maintain even without the checks that detect their violation.
 
 First referenced: Chapter 36
+
+---
+
+# ADR-030
+
+Portability Strategy
+
+Decision:
+
+Treat Linux as the primary reference platform and POSIX-compatible systems as the target environment, with macOS, BSD, Windows, and WSL as portability targets. Contain platform-specific behavior at the platform boundary rather than letting it spread through the Core: the Core (Document, Cursor, Viewport, Editor State) stays platform-independent, while platform-facing components (Terminal Interface, File Manager, Input Handler) absorb the environmental mechanisms. Prefer the most portable interface that satisfies a requirement — the C standard library, then POSIX, then platform-specific APIs — and isolate platform-specific interfaces where they are unavoidable. Use conditional compilation only at the platform boundary to select among implementations, with platform macros (such as `PLATFORM_POSIX` and `PLATFORM_WINDOWS`) centralized at a small number of authoritative locations and compiler-provided macros (such as `_WIN32`) mapped to them there rather than scattered through the source tree. Classify WSL as an execution environment rather than a separate platform: platform selection follows the interfaces available to the running process, not the physical host. Adopt a phased implementation — Linux/POSIX first, then additional POSIX systems (macOS/BSD), then Windows — so portability shapes the architecture without requiring every platform to be implemented at once.
+
+Reason:
+
+A terminal editor depends directly on operating-system and terminal facilities — input, terminal modes, dimensions, file descriptors, filesystem operations — that differ across platforms. Without an explicit boundary, platform-specific code spreads through the editor and each additional platform forces changes in many unrelated modules (ADR-008, ADR-009). Linux as the reference platform provides a concrete environment to develop and validate against, while POSIX provides a common interface shared by Linux, macOS, and BSD; but POSIX compatibility does not guarantee identical behavior, so the boundary must still contain the remaining differences. Preferring the most portable interface that suffices confines platform-specific code to cases where no common interface exists, and localizing conditional compilation to the platform boundary keeps platform selection from becoming a global concern. Classifying WSL by its execution environment prevents the editor from confusing "running on a Windows host" with "using Windows APIs."
+
+Trade-off:
+
+Portability imposes real costs — additional implementations, build configurations, testing environments, and the discipline to avoid non-portable assumptions — and a single reference platform risks accidental Linux-specific assumptions leaking into the Core. The phased approach accepts that Windows support is deferred, and the containment rule (isolate platform differences, do not eliminate them) is what keeps those costs manageable: designing for portability and implementing every platform are treated as distinct tasks.
+
+First referenced: Chapter 37
