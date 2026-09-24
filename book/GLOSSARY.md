@@ -559,6 +559,22 @@ Volume I, Chapter 5
 - Terminal
 - termios
 
+## Changelog
+
+**Definition**
+
+A document that records the changes made between releases of a program, so that users and developers can determine what changed in a specific version. A changelog answers "What changed?" and is distinct from a user manual, which answers "How does the current version work?"; it also differs from Release Notes, which focus on the important information about a single release rather than the full historical record.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Release Notes
+- Semantic Versioning
+- Release Artifact
+
 ## Character Cell
 
 **Definition**
@@ -607,6 +623,21 @@ Volume V, Chapter 22
 - Unicode
 - ASCII
 - UTF-8
+
+## Checksum
+
+**Definition**
+
+A value computed from the contents of a file or artifact that can be used to verify that the artifact has the expected contents. A checksum establishes integrity — whether the downloaded artifact corresponds to the published release — but not authenticity, which would require a signing mechanism; a checksum cannot by itself prove who published or authorized the artifact. For release artifacts, checksums are composed and published alongside the artifact so recipients can verify it after download.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Release Artifact
+- Distribution
 
 ## Coalescing
 
@@ -1064,6 +1095,8 @@ Volume VIII, Chapter 36
 - Debugger
 - Sanitizer
 - Build System
+- Development Build
+- Release Build
 
 ## Debugger
 
@@ -1132,6 +1165,24 @@ Volume VIII, Chapter 35
 - Regression Testing
 - Test Double
 
+## Development Build
+
+**Definition**
+
+The build configuration used during software development, intended to make incorrect behavior easier to observe, diagnose, and reproduce. A development build typically enables debugging symbols, keeps assertions active, provides diagnostic logging and tracing, reduces optimization, and may enable sanitizers. This chapter uses "development build" as the preferred term for the configuration the glossary also records as Debug Build, and which the build system names as the `Debug` configuration.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Debug Build
+- Release Build
+- Sanitizer
+- Assertion
+- Build System
+
 ## Dirty Flag
 
 **Definition**
@@ -1164,6 +1215,22 @@ Volume IV, Chapter 18
 - Incremental Rendering
 - Full Redraw
 - Editor Screen Buffer
+
+## Distribution
+
+**Definition**
+
+The process of making a release artifact available to users through an appropriate delivery channel. Distribution answers "Where and how do users obtain the release?" and is distinct from packaging, which answers "What files belong together as a release?", and from installation, which places the obtained software correctly on the user's system. Distribution should be deliberate and channel-appropriate rather than an accidental consequence of publishing build files.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Packaging
+- Release Artifact
+- Installation
 
 ## Document
 
@@ -2118,6 +2185,38 @@ Volume II, Chapter 10
 - `static` (Internal Linkage)
 - Separation of Concerns
 
+## Installation
+
+**Definition**
+
+The process of placing an executable and its associated resources into a layout from which the software can be used as an installed application. A successful build produces software; installation answers "Where should the produced software and its supporting files go?" and is distinct from configuration, which determines how the installed editor behaves. Installation is a validation point in the release pipeline: software that works only from a build directory but fails after installation is not yet releasable.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Installation Prefix
+- Distribution
+- Release Artifact
+- Configuration
+
+## Installation Prefix
+
+**Definition**
+
+The root location under which an installed program's files are placed. Files such as executables, documentation, configuration, and shared resources are arranged beneath the prefix according to the conventions of the target platform; the layout should be determined by the installation system rather than hard-coded throughout the application, so that the editor does not need to know its absolute install location merely to function.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Installation
+- Portability
+
 ## Internal Node
 
 **Definition**
@@ -2892,6 +2991,24 @@ Volume IV, Chapter 18
 - Full Redraw
 - Frame
 
+## Packaging
+
+**Definition**
+
+The discipline of turning a source tree into software that can be built, installed, and delivered to others. Packaging encompasses build configurations, installation, release artifacts, versioning, documentation, distribution, and release readiness, and rests on the distinction that a release build is a different build configuration of the same implementation rather than a different implementation. Packaging answers "What files belong together as a release?", in contrast to Distribution, which answers "Where and how do users obtain that release?".
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Build System
+- Release Build
+- Release Artifact
+- Installation
+- Distribution
+
 ## Parser
 
 **Definition**
@@ -3397,6 +3514,56 @@ Volume VII, Chapter 30
 - Linear Search
 - Incremental Search
 
+## Release Artifact
+
+**Definition**
+
+A file or collection of files produced for delivery to users, developers, or distribution systems, representing a specific version of the software. Release artifacts answer "What exactly are we going to deliver?" and are deliberate, version-specific representations of the software rather than whatever happens to appear in a build directory. A well-defined release artifact is complete for its intended purpose, self-consistent, identifiable, appropriate for its target platform, free from unnecessary development files, verifiable, and reproducible through the release process.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Release Build
+- Distribution
+- Packaging
+- Checksum
+
+## Release Build
+
+**Definition**
+
+The build configuration prepared for actual users, in contrast to the Development Build used during development. A release build enables optimization, removes or reduces development-time instrumentation such as assertions and diagnostic logging, retains the project's warning policy, and serves as the basis for release artifacts and distribution. A release build is a production-oriented compilation of the same editor — a different build configuration, not a different implementation — and "release" does not mean "less correct": the invariants the software must maintain remain required even when the checks that detect their violation are absent.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Development Build
+- Debug Build
+- Release Artifact
+- Build System
+
+## Release Notes
+
+**Definition**
+
+A focused description of a particular release, highlighting important new functionality, significant fixes, compatibility changes, known limitations, and migration considerations. Release notes differ from a changelog, which is a historical list of changes across releases, and from user documentation, which explains how to install, configure, and use the editor.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Changelog
+- Semantic Versioning
+- Release Artifact
+
 ## Renderer
 
 **Definition**
@@ -3452,6 +3619,23 @@ Volume IV, Chapter 17
 - Retained-Mode Rendering
 - Frame
 - Renderer
+
+## Reproducible Build
+
+**Definition**
+
+A build process designed so that the same source and relevant build inputs can produce the same resulting artifact, or at least an artifact whose important properties can be independently verified. A reproducible build makes the path from source to release artifact controlled enough that the result can be rebuilt and meaningfully compared; it is a property of the build process, not merely of the executable, and requires identifiable source state, defined build configurations, identifiable toolchains, controlled dependencies, clean builds, and recorded build metadata.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Build System
+- CMake
+- Release Build
+- Release Artifact
 
 ## Reproduction
 
@@ -4161,6 +4345,23 @@ Volume VII, Chapter 30
 - Incremental Search
 - Cursor
 - Editor State
+
+## Semantic Versioning
+
+**Definition**
+
+A versioning scheme that identifies a release with three components — `MAJOR.MINOR.PATCH` — where a major change signals incompatible changes, a minor change signals backward-compatible functionality, and a patch signals backward-compatible fixes. Semantic Versioning is a convention for communicating the significance of changes, not a mechanism that automatically determines the correct version; the project must decide what constitutes a breaking change, new functionality, or a bug fix, and version numbers should reflect that compatibility policy rather than the number of changed source files.
+
+**First Introduced**
+
+Volume VIII, Chapter 38
+
+**Related Terms**
+
+- Release Build
+- Release Artifact
+- Release Notes
+- Changelog
 
 ## Syntax Highlighting
 

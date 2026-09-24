@@ -13,5 +13,5 @@ sections:
   - 38.7 Documentation  —> 07-documentation.md
   - 38.8 Distribution  —> 08-distribution.md
   - 38.9 Reproducible Builds  —> 09-reproducible-builds.md
-  - 38.10 Preparing the Editor for Release  —> 10-Preparing-editor-for-release.md
+  - 38.10 Preparing the Editor for Release  —> 10-preparing-editor-for-release.md
   - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md

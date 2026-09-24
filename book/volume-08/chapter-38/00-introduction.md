@@ -28,6 +28,8 @@ Documentation — how users understand the release
 Distribution — how the release reaches users
         ↓
 Reproducible Builds — verifying the whole pipeline
+        ↓
+Preparing the Editor for Release — confirming the release is ready to publish
 ```
 
 These sections share one underlying pipeline, referenced throughout the chapter:

@@ -523,3 +523,43 @@ Trade-off:
 Portability imposes real costs — additional implementations, build configurations, testing environments, and the discipline to avoid non-portable assumptions — and a single reference platform risks accidental Linux-specific assumptions leaking into the Core. The phased approach accepts that Windows support is deferred, and the containment rule (isolate platform differences, do not eliminate them) is what keeps those costs manageable: designing for portability and implementing every platform are treated as distinct tasks.
 
 First referenced: Chapter 37
+
+---
+
+# ADR-031
+
+Build Configuration Strategy
+
+Decision:
+
+Maintain two distinct build configurations of the same editor — a **development build** that maximizes observability and a **release build** that maximizes suitability for users — and express both through the CMake build system rather than reconstructing compiler commands manually. The development build enables debugging symbols, keeps assertions active, provides diagnostic logging and tracing, reduces optimization, and may enable sanitizers, under a strong compiler-warning policy. The release build enables optimization, reduces or separates debug information, typically disables assertions and development diagnostics while retaining the warning policy, and produces the executables used for release artifacts. The source code is identical across configurations; only the build configuration differs. Build configurations are declared and reproducible, generated files live in separate out-of-source build directories, and platform-specific build settings are centralized at the platform boundary in keeping with ADR-030. Sanitizer-enabled builds are a specialized development configuration, distinct from both the ordinary development configuration and the release configuration.
+
+Reason:
+
+Developers and end users need different properties from the same program — observability and diagnosability during development versus efficiency and stability in released software. A single configuration that always carries development instrumentation imposes unnecessary overhead on the released executable, while a configuration that always strips it deprives developers of the information needed to diagnose failures. Because the architecture already centralizes build decisions in CMake (ADR-012), expressing both purposes as declared configurations keeps the build process explicit, repeatable, and reproducible instead of relying on undocumented personal compiler commands. Configurations must not change what the editor is: they mirror the architecture, and the release build must preserve every invariant the implementation must maintain even when the checks that detect violations are absent.
+
+Trade-off:
+
+Maintaining two configurations is ongoing work, and development-time instrumentation adds build and runtime overhead — assertions, logging, and diagnostics enlarge the debug build and slow it — while sanitizer builds impose additional runtime cost and can report errors that occur only under instrumentation. These costs are confined to development and accepted in exchange for finding and correcting defects faster and more reliably; the release build omits instrumentation while remaining correct.
+
+First referenced: Chapter 38
+
+---
+
+# ADR-032
+
+Release and Versioning Strategy
+
+Decision:
+
+Adopt Semantic Versioning (`MAJOR.MINOR.PATCH`) as the release-versioning policy, treating the version as a stable, single source of release identity, and centralize that version so the executable, documentation, release notes, packaging metadata, and release artifacts all agree on one identity. Bind each release version to a specific source state so the release can be traced and rebuilt. Generate release artifacts — installation layout, user-facing documentation, license, and integrity checksums — from the release build through the build system rather than by manually copying files from a developer's machine. Aim for reproducible builds by controlling the source state, build configuration, toolchain, dependencies, and build environment, building from clean out-of-source directories, and recording the build metadata needed to rebuild and verify a release. Distribute through deliberate, platform-appropriate channels, distinguishing a supported platform from a supported distribution channel, and treat publication as a boundary: after publication, a release is an identified historical version, and defects are corrected in development and released as subsequent versions rather than silently patched in the published artifact.
+
+Reason:
+
+A release without an identity cannot be distinguished, maintained, or investigated: users, developers, documentation, bug reports, and distribution systems must be able to determine which version is in use and which source state produced it. Semantic Versioning communicates the significance of changes — incompatible versus backward-compatible — as a convention, while a single source of version across all artifacts prevents the failure where the executable, documentation, and metadata identify different releases. Artifacts generated from release builds through the build system remove the manual copying that introduces forgotten files, stale executables, and wrong versions; reproducible builds allow an independently produced release to be rebuilt and compared with the original; and treating published releases as historical versions preserves the meaning of version numbers when defects are found later. This extends the build strategy of ADR-031 and the portability strategy of ADR-030 into the release process.
+
+Trade-off:
+
+Versioning, release documentation, and reproducibility impose real costs: centralized version propagation, artifact generation, checksum publication, recorded build metadata, and the discipline to verify a release candidate before publication. Reproducibility requires controlling details of the toolchain and environment and may still not achieve byte-for-byte identity across toolchains, and each additional distribution channel adds maintenance work. These costs are accepted because they make the release process repeatable, verifiable, and auditable — the premise that the editor can be handed to users as reliable, packaged software.
+
+First referenced: Chapter 38

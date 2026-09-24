@@ -425,7 +425,7 @@ A user should not need to understand the internal build system to determine whic
 ## A Complete Distribution Pipeline
 
 ```text
-Build → Install / Package → Release Artifact → Verify → ▸ Distribute
+Source → Build → Install / Package → Release Artifact → Verify → ▸ Distribute → User
 ```
 
 Each stage has a distinct responsibility: versioning identifies the release, the build produces the software, packaging organizes it for delivery, verification confirms the artifact is correct, distribution makes it available, and installation places it into the user's environment. This separation gives the release process a clear structure.

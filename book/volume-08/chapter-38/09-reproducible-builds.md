@@ -137,7 +137,7 @@ A vague instruction such as "build whatever is currently in the repository" is n
 
 The build configuration must also be controlled.
 
-Chapter 38.3 established CMake as the mechanism for expressing build configurations.
+Section 38.3 established CMake as the mechanism for expressing build configurations.
 
 Instead of relying on undocumented compiler commands:
 
@@ -508,7 +508,7 @@ The more of the environment that is controlled, the stronger the reproducibility
 
 Chapter 37 dealt with **portability**.
 
-Chapter 38.9 deals with **reproducibility**.
+This section deals with **reproducibility**.
 
 They solve different problems.
 

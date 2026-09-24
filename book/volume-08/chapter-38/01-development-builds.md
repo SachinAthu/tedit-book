@@ -10,6 +10,8 @@ A developer wants the program to expose useful information when something goes w
 
 The development build therefore becomes the environment in which the editor is actively constructed and investigated.
 
+A note on terminology: this chapter uses **development build** for the configuration as a whole. The project glossary records the same configuration under the canonical term **Debug Build**, and Section 38.3 shows how the build system names it explicitly as the `Debug` configuration. A sanitizer-enabled build is a specialized development build, not a synonym for either.
+
 ## Why Have a Separate Development Build?
 
 A compiler can produce an executable from the same source code in many different ways.

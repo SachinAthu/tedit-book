@@ -479,7 +479,8 @@ The contract becomes stronger as the project develops a consistent release polic
 Versioning is cross-cutting: it does not occupy its own stage in the pipeline, but is applied across it.
 
 ```text
-Source → ▸ Version → Build → Release Artifact → Verify → Distribute
+Source → Build → Install / Package → Release Artifact → Verify → Distribute → User
+                    └──────────── versioning applied across every stage ────────────┘
 ```
 
 The version should be established before the final artifacts are produced so that the executable, documentation, and packaging metadata can agree on the same release identity.

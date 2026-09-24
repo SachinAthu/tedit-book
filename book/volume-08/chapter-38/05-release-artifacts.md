@@ -417,7 +417,7 @@ The full verification sequence is consolidated in Section 38.10, where the relea
 ## Release Artifacts and the Release Pipeline
 
 ```text
-Build → Install / Package → ▸ Release Artifact → Verify → Distribute
+Source → Build → Install / Package → ▸ Release Artifact → Verify → Distribute → User
 ```
 
 Within that pipeline, the artifact plays a specific role: the build produces software, installation and packaging organize it for delivery, the artifact provides a distributable unit, verification confirms the unit is correct, and distribution makes it available to users. This separation prevents the release process from becoming one large, ambiguous operation.
