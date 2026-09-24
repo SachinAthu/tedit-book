@@ -138,11 +138,11 @@ This follows the **Last In, First Out (LIFO)** behavior of a stack: the most rec
            │
            ▼
      +-----------+
-     | Snapshot 3|
-     +-----------+
      | Snapshot 2|
      +-----------+
      | Snapshot 1|
+     +-----------+
+     | Snapshot 0|
      +-----------+
 ```
 
@@ -150,24 +150,28 @@ This follows the **Last In, First Out (LIFO)** behavior of a stack: the most rec
 
 Snapshots can also support Redo.
 
-Suppose the history is:
+Continuing the example above, the undo stack holds Snapshot 0, Snapshot 1, and Snapshot 2, while the current document is `Hello! World.`—the live state after Edit 3.
+
+If the user presses Undo, the editor restores Snapshot 2. It must preserve the state it just left so that it can move forward again:
 
 ```text
+Before Undo:
+
+Undo Stack (top first)   Redo Stack
+
+Snapshot 2               (empty)
 Snapshot 1
-Snapshot 2
-Snapshot 3
+Snapshot 0
+
+After Undo:
+
+Undo Stack (top first)   Redo Stack
+
+Snapshot 1               Hello! World.
+Snapshot 0
 ```
 
-and the current document corresponds to the state after Snapshot 3. After Undo, the editor needs to preserve the state it just left so that it can move forward again:
-
-```text
-Undo Stack              Redo Stack
-
-Snapshot 1
-Snapshot 2              Current State
-```
-
-A Redo operation reverses that movement, restoring the state from the redo history. The exact mechanics of maintaining the two histories are developed in Section 31.6; the important idea here is that **snapshots can provide the historical states required in both directions**.
+A Redo operation reverses that movement, restoring the most recent state from the redo history. The exact mechanics of maintaining the two histories are developed in Section 31.6; the important idea here is that **snapshots can provide the historical states required in both directions**.
 
 The user experiences undo and redo as movement through editing history, while the implementation achieves that behavior by restoring saved states.
 

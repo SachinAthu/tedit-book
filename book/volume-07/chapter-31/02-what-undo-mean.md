@@ -106,11 +106,9 @@ Hello
 
 To undo the deletion we need to insert `world` again—but the Document itself no longer contains that text. The editor must have retained at least the deleted text and the position where it belonged.
 
-This gives the central rule for the rest of the chapter:
+In other words, an undo record must retain the information the inverse operation cannot recover from the current document. Section 31.4 formalizes this requirement and examines the concrete shape these records take.
 
-> **An undo record must preserve whatever information the inverse operation cannot recover from the current document.**
-
-Section 31.4 examines the concrete shape these records take. For now, the important idea is that an undo operation reverses a *transition*, not a full state.
+For now, the important idea is that an undo operation reverses a *transition*, not a full state.
 
 ## Undo Must Preserve Semantics
 

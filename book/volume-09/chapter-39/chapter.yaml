@@ -1,0 +1,9 @@
+chapter: 39
+title: Plugin Architecture
+volume: 9
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 39.1   —> 01-.md
+
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md
