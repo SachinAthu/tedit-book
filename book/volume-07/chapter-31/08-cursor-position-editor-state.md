@@ -1,4 +1,4 @@
-# 31.10 Cursor Position and Editor State
+# 31.8 Cursor Position and Editor State
 
 Undoing an edit is not always enough to restore the state the user expects.
 
@@ -28,13 +28,11 @@ This raises a design question:
 
 > Should an undo operation restore only the Document, or should it also restore some parts of the Editor State?
 
-The answer depends on which state represents the editing action and which state exists only to display or navigate the current view.
+The answer depends on which state represents the editing action and which state exists only to display or navigate the current view, as distinguished in Section 31.7.
 
-## Document State vs Editor State
+## Before and After Cursor Positions
 
-The Document is the primary object affected by an undoable editing operation. However, editing also changes the Cursor.
-
-For example:
+The Document is the primary object affected by an undoable editing operation. However, editing also changes the Cursor:
 
 ```text
 INSERT "abc"
@@ -50,29 +48,9 @@ Cursor:
     column 8
 ```
 
-Undoing the insertion restores both aspects of the editing experience:
+Undoing the insertion should restore both aspects of the editing experience. If only the Document were restored, the cursor could remain at the position where the undone text used to exist—a technically correct Document but an unexpected editing state.
 
-```text
-Document:
-    helloabc
-        ↓
-    hello
-
-Cursor:
-    column 8
-        ↓
-    column 5
-```
-
-If only the Document were restored, the cursor could remain at the position where the undone text used to exist.
-
-That would produce a technically correct Document but an unexpected editing state.
-
-## Before and After Cursor Positions
-
-An operation record can therefore associate cursor positions with the operation.
-
-Conceptually:
+An operation record can therefore associate cursor positions with the operation:
 
 ```text
 Operation
@@ -84,29 +62,7 @@ Operation
 +----------------------+
 ```
 
-For an insertion:
-
-```text
-Before:
-
-hello|
-     ^
-     column 5
-
-Operation:
-
-INSERT "abc"
-
-After:
-
-helloabc|
-        ^
-        column 8
-```
-
-Undo can then use the stored information to restore the Document and return the Cursor to the position that existed before the operation.
-
-Redo uses the corresponding after-position:
+Undo restores the Document and returns the Cursor to the position that existed before the operation; Redo uses the corresponding after-position:
 
 ```text
 UNDO
@@ -138,13 +94,9 @@ hello|
 hell|o
 ```
 
-The Document has not changed.
+The Document has not changed. Recording every cursor movement would make the history represent navigation rather than editing, violating the boundary established in Section 31.7.
 
-Recording every cursor movement would make the history represent navigation rather than editing. As discussed earlier, undo history should correspond to meaningful document-changing actions.
-
-The cursor position stored with an editing operation is therefore **metadata associated with the edit**, not a separate undoable cursor-movement operation.
-
-This distinction keeps history meaningful:
+The cursor position stored with an editing operation is therefore **metadata associated with the edit**, not a separate undoable cursor-movement operation:
 
 ```text
 User action:
@@ -156,37 +108,15 @@ INSERT "hello"
     + cursor after
 ```
 
-rather than:
-
-```text
-History:
-MOVE_RIGHT
-MOVE_RIGHT
-MOVE_RIGHT
-INSERT "h"
-MOVE_RIGHT
-...
-```
+rather than a series of `MOVE_RIGHT` entries interspersed with the insertion.
 
 ## What About the Viewport?
 
-The Viewport is different.
+The Viewport is different from the Cursor.
 
-Suppose an edit occurs near the bottom of the visible document:
+Suppose an edit occurs near the bottom of the visible document. The editor may adjust the Viewport to keep the Cursor visible. Undoing the edit may cause the Cursor to move, which can require the Viewport to be adjusted again.
 
-```text
-Document
-    ...
-    line 98
-    line 99
-    line 100  <--- Cursor
-```
-
-The editor may adjust the Viewport to keep the Cursor visible. Undoing the edit may cause the Cursor to move, which can require the Viewport to be adjusted again.
-
-The Viewport therefore generally should **not** be treated as historical editing state.
-
-Instead:
+The Viewport generally should **not** be treated as historical editing state. Instead:
 
 ```text
 Undo
@@ -203,21 +133,11 @@ Undo
 
 The Viewport is derived from the current editing position and screen dimensions. It describes **what portion of the Document is currently visible**, not what the Document looked like at a previous point in editing history.
 
-This is consistent with the architecture established earlier: the Viewport belongs to Editor State, while the Renderer consumes that state to produce the current frame.
-
 ## Why Rendering State Should Not Be in History
 
 The same principle applies even more strongly to rendering state.
 
-Undo should not attempt to restore things such as:
-
-- terminal screen contents
-- screen refresh state
-- rendered screen cells
-- cursor visibility
-- temporary display messages
-
-These describe the presentation of the current state, not the editing history itself.
+Undo should not attempt to restore things such as terminal screen contents, screen refresh state, rendered screen cells, cursor visibility, or temporary display messages. These describe the presentation of the current state, not the editing history itself.
 
 The Renderer should continue to derive the visual frame from the current Editor State:
 
@@ -274,9 +194,7 @@ hello world|
             ^
 ```
 
-The Document and Cursor therefore form the important historical state associated with an editing operation.
-
-The Viewport and rendering state do not need to be historical snapshots. They should be updated to present the restored state correctly.
+The Document and Cursor therefore form the important historical state associated with an editing operation. The Viewport and rendering state do not need to be historical snapshots; they are updated to present the restored state correctly.
 
 ## Engineering Insight
 
@@ -307,4 +225,4 @@ Undo should restore the Document and the cursor position associated with the edi
 
 Now that the historical state boundary is clear, the next section examines how undo and redo interact with the Dirty Flag.
 
-Continue to **Section 31.11, Undo, Redo, and the Dirty Flag**.
+Continue to **Section 31.9, Undo, Redo, and the Dirty Flag**.

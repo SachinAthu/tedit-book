@@ -1,4 +1,4 @@
-# 31.12 Grouping and Coalescing Operations
+# 31.10 Grouping and Coalescing Operations
 
 An undo system must decide not only **what** to record, but also **where one user action ends and another begins**.
 
@@ -16,9 +16,7 @@ INSERT l
 INSERT o
 ```
 
-From the editor's internal perspective, these are five insertion operations.
-
-From the user's perspective, however, the action was:
+From the editor's internal perspective, these are five insertion operations. From the user's perspective, however, the action was:
 
 ```text
 Type "hello"
@@ -57,9 +55,7 @@ This distinction is important:
 
 > Grouping changes the granularity of history without requiring the underlying editing operations to become one operation.
 
-The same principle applies to a paste operation.
-
-A paste may internally require several document modifications, but the user normally expects:
+The same principle applies to a paste operation. A paste may internally require several document modifications, but the user normally expects:
 
 ```text
 Paste
@@ -93,33 +89,7 @@ INSERT "hello"
 
 The history therefore stores fewer entries while preserving the user's expected undo behavior.
 
-Coalescing is particularly useful for repeated character insertion and deletion.
-
-For example:
-
-```text
-User types:
-
-t h e
-```
-
-Instead of:
-
-```text
-History:
-INSERT t
-INSERT h
-INSERT e
-```
-
-the history can represent:
-
-```text
-History:
-INSERT "the"
-```
-
-Undo then removes the entire word in one operation.
+Coalescing is particularly useful for repeated character insertion and deletion. Typing `the` can be stored as one history entry—`INSERT "the"`—so that Undo removes the entire word in one operation.
 
 ## Repeated Backspaces
 
@@ -141,11 +111,7 @@ hello w|
 hello |
 ```
 
-At the low level, these are separate deletion operations.
-
-A user may nevertheless perceive them as one continuous deletion.
-
-A history system can therefore coalesce them:
+At the low level, these are separate deletion operations. A user may nevertheless perceive them as one continuous deletion, so a history system can coalesce them:
 
 ```text
 DELETE d
@@ -158,21 +124,7 @@ DELETE w
 DELETE "world"
 ```
 
-The direction of deletion matters because the deleted characters must retain their correct order.
-
-The history representation must preserve enough information to reconstruct the original text:
-
-```text
-Before:
-
-hello world|
-
-After:
-
-hello |
-```
-
-Undo must restore:
+The direction of deletion matters because the deleted characters must retain their correct order. Undo must restore:
 
 ```text
 hello world|
@@ -199,9 +151,7 @@ MOVE_LEFT
 INSERT !
 ```
 
-The cursor movement separates the editing context.
-
-Automatically merging all three insertions would produce a history entry whose meaning no longer matches the user's actions.
+The cursor movement separates the editing context. Automatically merging all three insertions would produce a history entry whose meaning no longer matches the user's actions.
 
 Likewise:
 
@@ -250,17 +200,7 @@ The result is one logical action:
 INSERT "hello"
 ```
 
-A paste operation can similarly establish an explicit boundary:
-
-```text
-Begin Group
-    paste-related operations
-End Group
-```
-
-This is useful when a high-level command produces several lower-level Document changes.
-
-The conceptual structure becomes:
+A paste operation can similarly establish an explicit boundary. This is useful when a high-level command produces several lower-level Document changes:
 
 ```text
 User Action
@@ -294,19 +234,7 @@ INSERT l
 INSERT o
 ```
 
-The first operation begins at:
-
-```text
-column = 5
-```
-
-and the final operation ends at:
-
-```text
-column = 10
-```
-
-If these operations form one group, undo should restore the cursor to the beginning of the group:
+The first operation begins at column 5 and the final operation ends at column 10. If these operations form one group, undo should restore the cursor to the beginning of the group:
 
 ```text
 Before group:
@@ -319,9 +247,7 @@ Undo:
 hello|
 ```
 
-Similarly, redo should restore the cursor to the position at the end of the grouped action.
-
-Thus a grouped history entry can conceptually contain:
+Similarly, redo should restore the cursor to the position at the end of the grouped action. A grouped history entry can therefore conceptually contain:
 
 ```text
 +--------------------------+
@@ -331,7 +257,7 @@ Thus a grouped history entry can conceptually contain:
 +--------------------------+
 ```
 
-This connects grouping directly with the cursor-history rules discussed in Section 31.10.
+This connects grouping directly with the cursor-history rules discussed in Section 31.8.
 
 ## The Design Trade-off
 
@@ -355,22 +281,13 @@ One logical action
 One history entry
 ```
 
-The history becomes more useful, but the editor must define rules for determining:
-
-- which operations are compatible
-- when coalescing starts
-- when coalescing stops
-- which operations establish boundaries
-- how cursor positions are preserved
-- how grouped operations are reversed and reapplied
+The history becomes more useful, but the editor must define rules for determining which operations are compatible, when coalescing starts and stops, which operations establish boundaries, how cursor positions are preserved, and how grouped operations are reversed and reapplied.
 
 This is therefore a **history-granularity problem**, not merely a storage optimization.
 
 ## Engineering Insight
 
-A good undo system should reflect the user's mental model of editing.
-
-The lowest-level operation performed by the editor is not necessarily the right unit of undo.
+A good undo system should reflect the user's mental model of editing. The lowest-level operation performed by the editor is not necessarily the right unit of undo:
 
 ```text
 Internal representation       User-visible history
@@ -388,6 +305,6 @@ Grouping and coalescing provide the boundary between those two levels. They allo
 
 Grouping combines several low-level operations into one logical history entry, and coalescing automatically merges compatible adjacent operations such as repeated insertions or deletions. The undo system must choose boundaries based on the user's mental model of a single action, while grouping also determines how cursor position is restored.
 
-Now that history granularity is defined, the next section examines the memory and performance costs of undo history.
+Now that history granularity is defined, the next section examines the costs of undo history, how to limit it, and the overall trade-offs between strategies.
 
-Continue to **Section 31.13, Memory and Performance**.
+Continue to **Section 31.11, Memory, Limits, and Trade-offs**.

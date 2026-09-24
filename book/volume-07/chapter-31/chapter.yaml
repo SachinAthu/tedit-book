@@ -6,18 +6,14 @@ sections:
   - Introduction —> 00-introduction.md
   - 31.1 Why Undo and Redo Exist —> 01-why-undo-redo-exist.md
   - 31.2 What Does an Undo Operation Mean? —> 02-what-undo-mean.md
-  - 31.3 Strategy 1 - Snapshots —> 03-strategy-1-snapshots.md
-  - 31.4 Snapshot Granularity —> 04-snapshot-granularity.md
-  - 31.5 The Command Pattern —> 05-command-pattern.md
-  - 31.6 Operation History —> 06-operation-history.md
-  - 31.7 The Redo Stack —> 07-redo-stack.md
-  - 31.8 Undo / Redo State Machine —> 08-undo-redo-state-machine.md
-  - 31.9 What Counts as an Undoable Action? —> 09-what-counts-undoable.md
-  - 31.10 Cursor Position and Editor State —> 10-cursor-position-editor-state.md
-  - 31.11 Undo, Redo, and the Dirty Flag —> 11-undo-redo-dirty-flag.md
-  - 31.12 Grouping and Coalescing Operations —> 12-grouping-coalescing-operations.md
-  - 31.13 Memory and Performance —> 13-memory-and-performance.md
-  - 31.14 Limiting Undo History —> 14-limiting-undo-history.md
-  - 31.15 Design Alternatives and Trade-offs —> 15-design-alternatives-trade-offs.md
-  - 31.16 Common Undo / Redo Bugs —> 16-common-undo-redo-bugs.md
-  - Summary, Exercises, Next Chapter Preview —> 17-conclusion.md
+  - 31.3 The Snapshot Strategy —> 03-snapshot-strategy.md
+  - 31.4 The Command Pattern —> 04-command-pattern.md
+  - 31.5 Operation History —> 05-operation-history.md
+  - 31.6 The Two-Stack State Machine —> 06-two-stack-state-machine.md
+  - 31.7 What Counts as an Undoable Action? —> 07-what-counts-undoable.md
+  - 31.8 Cursor Position and Editor State —> 08-cursor-position-editor-state.md
+  - 31.9 Undo, Redo, and the Dirty Flag —> 09-undo-redo-dirty-flag.md
+  - 31.10 Grouping and Coalescing Operations —> 10-grouping-coalescing-operations.md
+  - 31.11 Memory, Limits, and Trade-offs —> 11-memory-limits-trade-offs.md
+  - 31.12 Common Undo / Redo Bugs —> 12-common-undo-redo-bugs.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md

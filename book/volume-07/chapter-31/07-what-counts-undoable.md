@@ -1,4 +1,4 @@
-# 31.9 What Counts as an Undoable Action?
+# 31.7 What Counts as an Undoable Action?
 
 Not every command executed by the editor should become an entry in the undo history.
 
@@ -30,15 +30,11 @@ After:
 hello world|
 ```
 
-The insertion should create an undo record because it changed the document.
-
-Likewise, deleting text creates a history entry containing enough information to restore what was removed.
+The insertion should create an undo record because it changed the document. Likewise, deleting text creates a history entry containing enough information to restore what was removed.
 
 ## Non-Undoable Actions
 
-Many editor commands do not modify the document at all.
-
-Examples include:
+Many editor commands do not modify the document at all. Examples include:
 
 ```text
 Move cursor
@@ -51,25 +47,14 @@ Refresh the screen
 
 These actions normally should not create undo records.
 
-For example, if the user does this:
-
-```text
-Type "hello"
-Move cursor
-Scroll down
-Move cursor
-```
-
-the undo history should generally contain only the text insertion:
+For example, if the user types `hello`, moves the cursor, scrolls down, and moves the cursor again, the undo history should generally contain only the text insertion:
 
 ```text
 Undo History:
     Insert "hello"
 ```
 
-The cursor movements and scrolling should not appear as separate undo steps.
-
-Otherwise, pressing Undo could produce surprising behavior such as moving the cursor backward through previous locations before actually undoing the user's edit.
+The cursor movements and scrolling should not appear as separate undo steps. Otherwise, pressing Undo could produce surprising behavior such as moving the cursor backward through previous locations before actually undoing the user's edit.
 
 ## The Important Boundary
 
@@ -88,20 +73,18 @@ This gives the Command Engine a useful conceptual boundary:
                        │
              ┌─────────┴─────────┐
              │                   │
-       Changes Document     Does Not Change
+        Changes Document     Does Not Change
              │                 Document
              ▼                   ▼
-       Undoable Action       No History
+        Undoable Action       No History
              │
              ▼
-       Undo History
+        Undo History
 ```
-
-This distinction is particularly important because the editor contains many commands that operate on different parts of the Editor State.
 
 ## Document State vs. Editor State
 
-The Editor State contains more than the document itself.
+The reason for this boundary is that the Editor State contains more than the document itself.
 
 Conceptually:
 
@@ -117,9 +100,7 @@ Editor State
 └── Configuration
 ```
 
-A command may modify one of these components without modifying the document.
-
-For example:
+A command may modify one of these components without modifying the document. For example:
 
 ```text
 Cursor movement
@@ -133,9 +114,7 @@ Text insertion
     → Undoable
 ```
 
-This is why undo history should not simply record every modification to the Editor State.
-
-The history represents **editing history**, not a complete timeline of every internal state transition.
+This distinction also defines the boundary of a snapshot, as discussed in Section 31.3. Undo history should not simply record every modification to the Editor State; it represents **editing history**, not a complete timeline of every internal state transition.
 
 ## Commands That Change Multiple Things
 
@@ -155,9 +134,7 @@ Document: "abcX"
 Cursor:   (0, 4)
 ```
 
-The operation primarily changes the document, but the cursor also moves.
-
-Undo therefore raises an important design question:
+The operation primarily changes the document, but the cursor also moves. Undo therefore raises a design question:
 
 ```text
 Undo insertion
@@ -166,27 +143,13 @@ Undo insertion
        └── Restore cursor position?
 ```
 
-The answer depends on the editor's intended user experience and history model. This will be examined separately when we discuss **cursor position and editor state** later in the chapter.
+The answer depends on the editor's intended user experience and history model. This is examined separately in Section 31.8.
 
 The important point here is that **the reason an action enters history is its semantic role as an editing operation**, not simply the number of internal fields it changes.
 
 ## Compound Actions
 
-Some user actions may result in several low-level document modifications.
-
-For example, a command that inserts a newline might conceptually require:
-
-```text
-Split line
-    ↓
-Create new line
-    ↓
-Move text
-    ↓
-Update cursor
-```
-
-From the user's perspective, however, this is one editing action:
+Some user actions may result in several low-level document modifications. A command that inserts a newline might conceptually split a line, create a new line, move text, and update the cursor. From the user's perspective, however, this is one editing action:
 
 ```text
 Press Enter
@@ -194,11 +157,9 @@ Press Enter
 One Undo
 ```
 
-If every internal modification became a separate history entry, the user might need several Undo operations to reverse one visible action.
+If every internal modification became a separate history entry, the user might need several Undo operations to reverse one visible action. Undo history should therefore be based on **user-meaningful operations**, rather than blindly recording every low-level mutation.
 
-Therefore, undo history should be based on **user-meaningful operations**, rather than blindly recording every low-level mutation.
-
-This idea leads directly to history grouping, which will be discussed later.
+This idea leads directly to grouping and coalescing, which is the subject of Section 31.10.
 
 ## A Practical Classification
 
@@ -231,4 +192,4 @@ Not every command should become a history entry. Undo history should contain mea
 
 Now that the boundary of undoable actions is clear, the next section examines how undo interacts with cursor position and editor state.
 
-Continue to **Section 31.10, Cursor Position and Editor State**.
+Continue to **Section 31.8, Cursor Position and Editor State**.

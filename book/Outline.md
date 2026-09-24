@@ -449,20 +449,16 @@ This is where the book becomes much deeper than a typical tutorial.
 
 - 31.1 Why Undo and Redo Exist
 - 31.2 What Does an Undo Operation Mean?
-- 31.3 Strategy 1 - Snapshots
-- 31.4 Snapshot Granularity
-- 31.5 The Command Pattern
-- 31.6 Operation History
-- 31.7 The Redo Stack
-- 31.8 Undo / Redo State Machine
-- 31.9 What Counts as an Undoable Action?
-- 31.10 Cursor Position and Editor State
-- 31.11 Undo, Redo, and the Dirty Flag
-- 31.12 Grouping and Coalescing Operations
-- 31.13 Memory and Performance
-- 31.14 Limiting Undo History
-- 31.15 Design Alternatives and Trade-offs
-- 31.16 Common Undo / Redo Bugs
+- 31.3 The Snapshot Strategy
+- 31.4 The Command Pattern
+- 31.5 Operation History
+- 31.6 The Two-Stack State Machine
+- 31.7 What Counts as an Undoable Action?
+- 31.8 Cursor Position and Editor State
+- 31.9 Undo, Redo, and the Dirty Flag
+- 31.10 Grouping and Coalescing Operations
+- 31.11 Memory, Limits, and Trade-offs
+- 31.12 Common Undo / Redo Bugs
 
 ## **Chapter 32 — Syntax Highlighting**
 

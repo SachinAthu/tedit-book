@@ -1,4 +1,4 @@
-# 31.11 Undo, Redo, and the Dirty Flag
+# 31.9 Undo, Redo, and the Dirty Flag
 
 Undo and redo interact closely with the Dirty Flag because both affect the relationship between the current Document and the version stored on disk.
 
@@ -76,21 +76,15 @@ hello world
 hello
 ```
 
-the current Document once again matches the saved version.
-
-The Dirty Flag should therefore become:
+the current Document once again matches the saved version. The Dirty Flag should therefore become:
 
 ```text
 Dirty = false
 ```
 
-The important point is that **undo did not inherently make the document clean**.
+The important point is that **undo did not inherently make the document clean**. Rather, the resulting Document happens to match the saved state.
 
-Rather, the resulting Document happens to match the saved state.
-
-This distinction matters because undo can also stop at a state that is still different from the saved version.
-
-For example:
+This distinction matters because undo can also stop at a state that is still different from the saved version:
 
 ```text
 Saved:
@@ -150,9 +144,7 @@ hello
 hello world
 ```
 
-the current Document once again differs from the saved version.
-
-Therefore:
+the current Document once again differs from the saved version:
 
 ```text
 Dirty = true
@@ -198,22 +190,7 @@ Original saved content
 
 If undo simply left the flag set, the editor would report unsaved changes even though the Document had returned exactly to the saved content.
 
-The opposite mistake is also possible:
-
-```text
-Edit
-  │
-  ▼
-Dirty
-  │
-  ▼
-Undo
-  │
-  ▼
-Different content
-```
-
-Automatically clearing the flag after every undo would incorrectly claim that the document was saved.
+The opposite mistake is also possible: automatically clearing the flag after every undo would incorrectly claim that the document was saved even when it still differs.
 
 Therefore neither of these rules is sufficient:
 
@@ -246,23 +223,7 @@ State B
 State C
 ```
 
-The user may move backward:
-
-```text
-State C
-  │
- undo
-  ▼
-State B
-  │
- undo
-  ▼
-State A
-```
-
-The Dirty Flag is determined by whether the current state corresponds to the saved version.
-
-Conceptually:
+The user may move backward through them. The Dirty Flag is determined by whether the current state corresponds to the saved version:
 
 ```text
                   Saved State
@@ -272,11 +233,7 @@ Conceptually:
 Current Document ───────────────► Dirty?
 ```
 
-This means the history itself is not the definition of cleanliness.
-
-A document can have a non-empty undo history while still being clean.
-
-For example:
+This means the history itself is not the definition of cleanliness. A document can have a non-empty undo history while still being clean:
 
 ```text
 Saved
@@ -327,9 +284,7 @@ New saved state
 
 After the save, subsequent undo operations are evaluated relative to the newly saved content.
 
-This is why the Dirty Flag cannot simply be tied to the existence or size of the undo history.
-
-The history describes editing activity, while the saved state establishes the persistence boundary.
+This is why the Dirty Flag cannot simply be tied to the existence or size of the undo history. The history describes editing activity, while the saved state establishes the persistence boundary.
 
 ## A Useful Mental Model
 
@@ -350,19 +305,7 @@ State 0 ──► State 1 ──► State 2 ──► State 3
                        Saved         Current
 ```
 
-State 2 is clean.
-
-State 3 is dirty.
-
-If the user undoes back to State 2:
-
-```text
-State 0 ──► State 1 ──► State 2
-                         ▲
-                  Saved = Current
-```
-
-the document becomes clean again.
+State 2 is clean; State 3 is dirty. If the user undoes back to State 2, the document becomes clean again.
 
 The essential rule is:
 
@@ -376,4 +319,4 @@ The Dirty Flag describes whether the current Document differs from the saved ver
 
 Now that the Dirty Flag is understood, the next section examines how low-level operations are grouped into user-meaningful undo actions.
 
-Continue to **Section 31.12, Grouping and Coalescing Operations**.
+Continue to **Section 31.10, Grouping and Coalescing Operations**.
