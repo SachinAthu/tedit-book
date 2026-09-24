@@ -140,7 +140,7 @@ Tab
 
 The exact representation is an implementation decision.
 
-The important property is that this state describes the **workspace arrangement**, not the contents of the documents.
+All of this lives inside the editor-wide **Window/layout structure** established in Section 34.3: the tab is a region of that structure, so the state it remembers does not introduce a new scope. The important property is that this state describes the **workspace arrangement**, not the contents of the documents.
 
 For example, the tab may remember:
 

@@ -157,18 +157,16 @@ Editor-wide State
 ├── Buffer collection
 ├── Active tab
 ├── Tab collection
-├── Window layout
+├── Window/layout structure
 ├── Terminal dimensions
 └── Configuration
 ```
 
+The **Window/layout structure** is the entire tree of tabs, their layouts, and their windows. A tab's remembered window arrangement — its layout and active window — is a **region of** that editor-wide structure, not a fourth scope. This mirrors the buffer collection: the collection is editor-wide, while each buffer's contents are buffer-scoped. The **Active Window**, like the Active Buffer below, is therefore a derived value — a pointer within the active tab — rather than a separately stored scope.
+
 Note that no **Active Buffer** appears here. The active buffer is not an editor-wide field: it is derived from the window structure — the buffer referenced by the active Window in the active Tab. Storing it as an editor-wide value would create a second source of truth that could fall out of sync with what the active Window displays.
 
 A key binding such as Save should mean the same thing regardless of which buffer is active, so configuration belongs to the editor rather than to an individual buffer. Terminal dimensions describe the available surface, not `main.c` or `editor.c`. The buffer collection is also editor-wide, because it describes which editing contexts currently exist.
-
-## Buffer-Specific State
-
-Buffer-specific state follows the editing context, as established above: Document, file association, dirty state, undo history, and document-specific derived state. Switching buffers changes which of these the editor operates on. It has not created a new undo system or dirty flag; it has changed the active editing context.
 
 ## Window-Specific State
 
@@ -230,55 +228,6 @@ Window
 ```
 
 Taken together, the Window-specific values constitute the Window's **View** of its Buffer: the Buffer reference binds the presentation to an editing context, while the Viewport and Cursor are the view state (Section 34.2). This separation prevents visual state from leaking into the document itself.
-
-## One Buffer, Multiple Windows
-
-Two windows can reference the same buffer and therefore see the same underlying document changes, while keeping independent view state:
-
-```text
-Window A
-    viewport = top of document
-    cursor   = near line 10
-
-Window B
-    viewport = lower portion
-    cursor   = near line 90
-```
-
-If the viewport were stored in the document, the two windows could not independently choose what portion to display. This is one of the strongest reasons to separate buffers from windows.
-
-## A Practical Ownership Model
-
-The resulting ownership model can be summarized as:
-
-```text
-EDITOR-WIDE
-────────────────────────────
-Configuration
-Terminal dimensions
-Buffer collection
-Tab collection
-Window/layout structure
-
-
-BUFFER-SPECIFIC
-────────────────────────────
-Document
-File association
-Dirty state
-Undo history
-Document-specific derived state
-
-
-WINDOW-SPECIFIC
-────────────────────────────
-Window geometry
-Viewport
-Cursor position
-Displayed buffer
-```
-
-This does not mean every implementation must use exactly these structures. The important part is the ownership boundary.
 
 ## Scope of Existing Features
 

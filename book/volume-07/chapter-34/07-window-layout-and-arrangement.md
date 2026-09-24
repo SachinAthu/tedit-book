@@ -493,6 +493,8 @@ Layout
  └── Window C
 ```
 
+This layout tree is a region of the editor-wide **Window/layout structure** described in Section 34.3: the whole structure spans every tab, and each tab carries the layout for its windows. Representing the whole tree at the editor level keeps layout a single editor-wide mechanism, while each tab uses the slice it owns.
+
 Each window then maintains its own view-related state:
 
 ```text
