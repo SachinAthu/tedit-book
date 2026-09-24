@@ -1,27 +1,9 @@
 # 38.9 Reproducible Builds
 
-The previous sections established a release pipeline:
+The previous sections established the release pipeline:
 
 ```text
-Source
-  |
-  v
-Version
-  |
-  v
-Build
-  |
-  v
-Package
-  |
-  v
-Release Artifact
-  |
-  v
-Verify
-  |
-  v
-Distribute
+Source → Build → Install / Package → Release Artifact → Verify → Distribute
 ```
 
 This pipeline raises an important engineering question:
@@ -147,44 +129,9 @@ If these inputs are not controlled, two builds can differ even when the source a
 
 ## Source Reproducibility
 
-The first requirement is to know exactly **which source** produced a release.
+The first requirement is to know exactly **which source** produced a release. Section 38.6 established that a release version must correspond to a specific source state; reproducibility extends that requirement into the build process itself.
 
-Section 38.6 established that a release version should correspond to a specific source state.
-
-For example:
-
-```text
-Source History
-
-A ── B ── C ── D ── E
-              |
-              v
-           1.0.0
-```
-
-A reproducible release process therefore begins with a well-defined source state.
-
-A vague instruction such as:
-
-```text
-Build whatever is currently in the repository.
-```
-
-is not sufficient.
-
-Instead:
-
-```text
-Release Version
-      |
-      v
-Exact Source State
-      |
-      v
-Build
-```
-
-The source must be identifiable.
+A vague instruction such as "build whatever is currently in the repository" is not sufficient. The release must begin from an identifiable source state, and that source must be recorded so the release can be rebuilt later.
 
 ## Controlled Build Configuration
 
@@ -483,42 +430,9 @@ It should at least be available as release metadata or build records.
 
 ## Reproducibility and Clean Builds
 
-A clean build is an important prerequisite.
+A clean build is an important prerequisite. Section 38.3 established out-of-source builds so that generated files never contaminate the source tree and a build can be discarded and recreated from controlled inputs.
 
-Consider:
-
-```text
-Existing Build Directory
-        |
-        +-- old object file
-        +-- old generated file
-        +-- new source
-        |
-        v
-      Build
-```
-
-The result may accidentally depend on stale files.
-
-A clean build instead starts from controlled inputs:
-
-```text
-Source
-  |
-  v
-Empty Build Directory
-  |
-  v
-Configure
-  |
-  v
-Build
-  |
-  v
-Artifact
-```
-
-This does not by itself guarantee reproducibility, but it removes one major source of accidental variation.
+A clean build does not by itself guarantee reproducibility, but it removes one major source of accidental variation: an existing build directory may otherwise contain stale object or generated files that change the result.
 
 ## Reproducibility and Release Artifacts
 
@@ -645,40 +559,7 @@ The goal is to ensure that the release process is **understood, repeatable, and 
 
 ## Reproducibility in the Release Pipeline
 
-The complete pipeline now becomes:
-
-```text
-Source State
-    |
-    v
-Release Version
-    |
-    v
-Controlled Environment
-    |
-    v
-CMake Configuration
-    |
-    v
-Release Build
-    |
-    v
-Tests
-    |
-    v
-Package
-    |
-    v
-Release Artifact
-    |
-    v
-Verify
-    |
-    v
-Distribute
-```
-
-A later build should be capable of following essentially the same process.
+Reproducibility is a property of the whole pipeline rather than a separate stage. A later build should be capable of following essentially the same process:
 
 ```text
 Same Source State

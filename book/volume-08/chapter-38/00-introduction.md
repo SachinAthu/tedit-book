@@ -30,6 +30,14 @@ Distribution — how the release reaches users
 Reproducible Builds — verifying the whole pipeline
 ```
 
+These sections share one underlying pipeline, referenced throughout the chapter:
+
+```text
+Source → Build → Install / Package → Release Artifact → Verify → Distribute → User
+```
+
+Versioning and documentation are cross-cutting: they apply across the pipeline rather than occupying their own stage.
+
 We begin by separating development from release builds, then examine how CMake expresses both as reproducible configurations. We walk through installation, release artifacts, versioning, documentation, and distribution, and we close by verifying the pipeline through reproducible builds and by bringing the editor to a known, releasable state. By the end, the editor is no longer a program we can build, but software we can hand to a user.
 
 ## Learning Objectives

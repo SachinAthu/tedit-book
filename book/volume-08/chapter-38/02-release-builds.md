@@ -201,29 +201,9 @@ For example, a failed file save is part of normal application behavior and requi
 
 ## Debug Symbols and Distribution
 
-Debug information can make an executable considerably more useful to developers investigating crashes.
+Debug information can make an executable considerably more useful when investigating crashes, but it does not need to ship inside the primary user-facing executable. A release may instead keep debugging information as a separate artifact.
 
-However, the release artifact delivered to ordinary users does not necessarily need to contain all development debugging information.
-
-A project may instead keep debugging information as a separate artifact.
-
-Conceptually:
-
-```text
-Release Build
-     |
-     +---- editor executable
-     |
-     +---- optional debug symbols
-     |
-     +---- documentation
-     |
-     +---- other release files
-```
-
-This allows a released program to remain suitable for users while retaining the ability to investigate serious problems when debugging information is preserved separately.
-
-The exact mechanism for producing and distributing such symbols is platform- and toolchain-dependent, so this chapter only establishes the architectural distinction.
+The architectural point here is only that development debugging information is a development-support concern, not a user-facing feature. How that separate artifact is produced and packaged belongs to the definition of release artifacts in Section 38.5.
 
 ## Compiler Warnings in Release Builds
 

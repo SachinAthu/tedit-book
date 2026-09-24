@@ -359,33 +359,9 @@ The architectural principle is more important here:
 
 ## Versioning and Documentation
 
-Documentation must correspond to the software version it describes.
+Documentation must correspond to the software version it describes, so that a user never follows instructions for a feature that does not exist in their installed version. This keeps documentation aligned with the release identity established here.
 
-Consider:
-
-```text
-Editor 1.0.0
-    |
-    +-- Documentation 1.0.0
-    +-- Release Notes 1.0.0
-    +-- Artifact 1.0.0
-```
-
-This prevents a user from following instructions for a feature that does not exist in their installed version.
-
-Versioning therefore creates a relationship between software and documentation:
-
-```text
-Version
-   |
-   +-- Source
-   +-- Executable
-   +-- Documentation
-   +-- Release Notes
-   +-- Artifact
-```
-
-This relationship becomes especially important as the editor develops beyond its initial implementation.
+How documentation is written and verified against the actual software is the subject of Section 38.7.
 
 ## Versioning and Release Artifacts
 
@@ -500,28 +476,10 @@ The contract becomes stronger as the project develops a consistent release polic
 
 ## Versioning in the Release Pipeline
 
-The release process can now be extended:
+Versioning is cross-cutting: it does not occupy its own stage in the pipeline, but is applied across it.
 
 ```text
-Source
-  |
-  v
-Select Release Version
-  |
-  v
-Release Build
-  |
-  v
-Release Artifacts
-  |
-  v
-Versioned Artifacts
-  |
-  v
-Verification
-  |
-  v
-Distribution
+Source → ▸ Version → Build → Release Artifact → Verify → Distribute
 ```
 
 The version should be established before the final artifacts are produced so that the executable, documentation, and packaging metadata can agree on the same release identity.

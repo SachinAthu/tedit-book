@@ -193,37 +193,7 @@ The project may need to coordinate with package maintainers or maintain its own 
 
 ## Distribution Is Platform-Specific
 
-Chapter 37 established that the editor's portability targets include Linux, macOS, Windows, and WSL.
-
-Those environments do not necessarily use identical distribution mechanisms.
-
-For example:
-
-```text
-                    Release
-                       |
-          +------------+------------+
-          |            |            |
-        Linux        macOS       Windows
-          |            |            |
-       Package /    Platform-    Platform-
-       Archive      appropriate  appropriate
-                     delivery     delivery
-```
-
-The project should therefore distinguish between:
-
-```text
-Supported Platform
-```
-
-and:
-
-```text
-Supported Distribution Channel
-```
-
-Supporting an operating system does not automatically mean that every possible distribution mechanism for that operating system is supported.
+Chapter 37 established the editor's portability targets (Linux, macOS, Windows, WSL), and those environments do not use identical distribution mechanisms. The project should therefore distinguish a **supported platform** from a **supported distribution channel**: supporting an operating system does not automatically mean that every possible delivery mechanism for that operating system is supported.
 
 ## Release Hosting
 
@@ -286,36 +256,7 @@ Distribution should make these distinctions visible rather than forcing users to
 
 ## Checksums During Distribution
 
-Section 38.5 introduced checksums as a way of verifying artifact integrity.
-
-Distribution is where those checksums become useful to recipients.
-
-For example:
-
-```text
-Published:
-
-editor-1.0.0-linux-x86_64.tar.gz
-checksum: <expected value>
-```
-
-The user can calculate the checksum of the downloaded file and compare it with the published value.
-
-```text
-Download
-   |
-   v
-Calculate Checksum
-   |
-   v
-Compare
-   |
-   +---- Match ------> Artifact intact
-   |
-   +---- Mismatch ---> Investigate
-```
-
-This does not prove the origin or authenticity of an artifact by itself. It verifies that the downloaded content corresponds to the expected content represented by the published checksum.
+Section 38.5 introduced checksums as a way of verifying artifact integrity; distribution is where they become useful to recipients. The user calculates the checksum of a downloaded artifact and compares it with the published value, confirming that the content corresponds to the expected release.
 
 ## Distribution and Authenticity
 
@@ -415,33 +356,7 @@ However, automation should implement a clearly defined release process. It shoul
 
 ## Distribution Does Not Mean "Publish Everything"
 
-The source repository may contain many files that should never be distributed to ordinary users.
-
-For example:
-
-```text
-Development Repository
-    |
-    +-- Source
-    +-- Tests
-    +-- Build scripts
-    +-- Development documentation
-    +-- Internal files
-    +-- Release configuration
-```
-
-A binary release might contain only:
-
-```text
-Binary Release
-    |
-    +-- Editor
-    +-- Required resources
-    +-- License
-    +-- User documentation
-```
-
-Distribution therefore starts from the release artifacts defined in Section 38.5 rather than from the entire development repository.
+The source repository contains many files that should never reach ordinary users (tests, build scripts, internal files). Distribution therefore starts from the release artifacts defined in Section 38.5 — which establishes what belongs in a release and what is a development-only file — rather than from the entire development repository.
 
 ## Distribution and Installation
 
@@ -509,59 +424,11 @@ A user should not need to understand the internal build system to determine whic
 
 ## A Complete Distribution Pipeline
 
-The release process can now be expanded:
-
 ```text
-Source
-  |
-  v
-Version
-  |
-  v
-Release Build
-  |
-  v
-Test
-  |
-  v
-Install / Package
-  |
-  v
-Release Artifact
-  |
-  v
-Verify
-  |
-  v
-Publish
-  |
-  v
-User
+Build → Install / Package → Release Artifact → Verify → ▸ Distribute
 ```
 
-Each stage has a distinct responsibility:
-
-```text
-Version
-    → Identify the release.
-
-Build
-    → Produce the software.
-
-Package
-    → Organize the software for delivery.
-
-Verify
-    → Confirm the artifact is correct.
-
-Distribute
-    → Make the artifact available.
-
-Install
-    → Place it into the user's environment.
-```
-
-This separation gives the release process a clear structure.
+Each stage has a distinct responsibility: versioning identifies the release, the build produces the software, packaging organizes it for delivery, verification confirms the artifact is correct, distribution makes it available, and installation places it into the user's environment. This separation gives the release process a clear structure.
 
 ## Distribution Channels Should Be Introduced Gradually
 
@@ -603,34 +470,8 @@ For our editor, distribution should:
 - avoid manual and error-prone release procedures,
 - and connect naturally with installation and documentation.
 
-The complete relationship is now:
-
 ```text
-Source
-  |
-  v
-Version
-  |
-  v
-Build
-  |
-  v
-Package
-  |
-  v
-Release Artifact
-  |
-  v
-Verify
-  |
-  v
-Distribute
-  |
-  v
-Install
-  |
-  v
-User
+Source → Build → Install / Package → Release Artifact → Verify → ▸ Distribute → User
 ```
 
 The next section addresses an important property of this entire pipeline:

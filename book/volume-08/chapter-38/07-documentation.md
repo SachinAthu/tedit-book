@@ -436,60 +436,15 @@ The three may be generated from related information, but their purposes remain d
 
 ## Documentation Must Match the Software
 
-Documentation becomes dangerous when it describes a different version from the software being used.
+Documentation becomes dangerous when it describes a different version from the software being used. A manual that says "press X to run command Y" while the editor actually uses Z is worse than no documentation, because it actively misleads the user.
 
-For example:
-
-```text
-Documentation
-    says:
-        "Press X to perform command Y."
-
-Installed editor
-    actually:
-        uses Z
-```
-
-The documentation is now worse than having no documentation because it actively misleads the user.
-
-This is why Section 38.6's versioning system matters.
-
-```text
-Version 1.0.0
-    |
-    +-- Executable 1.0.0
-    +-- Documentation 1.0.0
-    +-- Release Notes 1.0.0
-```
-
-Documentation should therefore be reviewed as part of release preparation.
+This is why the version identity established in Section 38.6 matters: the executable, documentation, and release notes must all identify the same release. Documentation should therefore be reviewed as part of release preparation.
 
 ## Documentation Should Be Tested
 
-Documentation can contain errors just as software can.
+Documentation can contain errors just as software can. If documentation contains a command, procedure, path, configuration example, or expected behavior, it should be verified against the actual software whenever practical — especially for command-line software, where users frequently copy commands directly from documentation.
 
-A simple but effective principle is:
-
-> If documentation contains a command, procedure, path, configuration example, or expected behavior, it should be verified against the actual software whenever practical.
-
-For example:
-
-```text
-Documentation
-    |
-    v
-Installation Command
-    |
-    v
-Run Command
-    |
-    v
-Actual Editor
-```
-
-If the documented installation procedure cannot produce a working installation, the release documentation is incorrect.
-
-This is particularly important for command-line software because users frequently copy commands directly from documentation.
+That verification is folded into the consolidated release checklist in Section 38.10, which treats documentation as one of the release-readiness dimensions.
 
 ## Documentation as a Release Artifact
 
@@ -540,31 +495,7 @@ Likewise, the user manual does not need to reproduce the book's architectural di
 
 ## Documentation in the Release Pipeline
 
-Documentation can now be incorporated into the release process:
-
-```text
-Source
-  |
-  v
-Build
-  |
-  v
-Test
-  |
-  v
-Prepare Documentation
-  |
-  v
-Verify Documentation
-  |
-  v
-Package
-  |
-  v
-Release
-```
-
-This makes documentation a release requirement rather than an afterthought.
+Documentation is cross-cutting: it is prepared alongside the build and verified before packaging, rather than occupying its own stage.
 
 Before a release is published, we should be able to answer:
 

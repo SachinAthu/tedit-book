@@ -240,30 +240,9 @@ The important rule is:
 
 ## Release Artifacts Must Be Self-Consistent
 
-A release artifact should represent one coherent version of the editor.
+A release artifact should represent one coherent version of the editor: the executable, documentation, and metadata must all identify the same release, not three different ones.
 
-For example, it would be incorrect to produce:
-
-```text
-Executable: 1.0.0
-Documentation: 0.9.0
-Version metadata: 1.1.0
-```
-
-The artifact should instead correspond to one release identity:
-
-```text
-Executable
-Documentation
-Metadata
-     |
-     v
-Version 1.0.0
-```
-
-This becomes particularly important once versioning is introduced in Section 38.6.
-
-The artifact should be traceable back to the source state from which it was produced.
+The artifact should also be traceable back to the source state from which it was produced. Both requirements are developed in Section 38.6, where versioning establishes a single source of identity across the release.
 
 ## Checksums and Artifact Integrity
 
@@ -431,91 +410,17 @@ This distinction becomes increasingly important as the build process becomes mor
 
 ## Release Artifact Verification
 
-Before an artifact is distributed, it should be checked.
+Before an artifact is distributed, it should be checked against the release's expectations: the correct executable, the correct version, the required resources, the intended platform, and the absence of unintended development files. This is a release-quality check, not a replacement for the testing strategy established in Chapter 35.
 
-A basic verification process is:
-
-```text
-Build
-  |
-  v
-Package
-  |
-  v
-Inspect Contents
-  |
-  v
-Install / Extract
-  |
-  v
-Run Editor
-  |
-  v
-Run Tests
-```
-
-Verification should answer questions such as:
-
-- Is the expected executable present?
-- Is it the correct version?
-- Are required resources present?
-- Is the artifact for the intended platform?
-- Can the artifact be installed?
-- Does the installed editor start?
-- Does basic editor functionality work?
-- Does the artifact contain unintended development files?
-
-This is a release-quality check, not a replacement for the testing strategy established in Chapter 35.
+The full verification sequence is consolidated in Section 38.10, where the release-readiness checklist applies it alongside the other release dimensions.
 
 ## Release Artifacts and the Release Pipeline
 
-We can now extend the release pipeline:
-
 ```text
-Source
-  |
-  v
-Configure
-  |
-  v
-Release Build
-  |
-  v
-Test
-  |
-  v
-Install / Package
-  |
-  v
-Release Artifact
-  |
-  v
-Verify
-  |
-  v
-Distribute
+Build → Install / Package → ▸ Release Artifact → Verify → Distribute
 ```
 
-Each stage has a different responsibility.
-
-```text
-Build
-    → Produce software
-
-Install / Package
-    → Organize software for delivery
-
-Artifact
-    → Provide a distributable unit
-
-Verify
-    → Confirm that the distributable unit is correct
-
-Distribution
-    → Make it available to users
-```
-
-This separation prevents the release process from becoming one large, ambiguous operation.
+Within that pipeline, the artifact plays a specific role: the build produces software, installation and packaging organize it for delivery, the artifact provides a distributable unit, verification confirms the unit is correct, and distribution makes it available to users. This separation prevents the release process from becoming one large, ambiguous operation.
 
 ## Summary
 

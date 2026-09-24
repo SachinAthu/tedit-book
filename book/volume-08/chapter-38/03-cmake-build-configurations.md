@@ -359,42 +359,9 @@ This is considerably safer than relying on undocumented personal compiler comman
 
 ## CMake and Platform Differences
 
-Chapter 37 established that platform-specific behavior should be contained at the platform boundary rather than spread through the Core. ADR-030 explicitly adopts this strategy for Linux, POSIX systems, Windows, and WSL.
+Chapter 37 (ADR-030) established that platform-specific behavior should be contained at the platform boundary rather than spread through the Core. The build system follows the same principle.
 
-The build system follows the same principle.
-
-Platform-specific build decisions should be centralized rather than scattered throughout the project.
-
-Conceptually:
-
-```text
-                    CMake
-                      |
-          +-----------+-----------+
-          |           |           |
-        Linux       macOS       Windows
-          |           |           |
-          v           v           v
-       Platform-specific build settings
-```
-
-This does not mean that every platform must have an entirely different build description.
-
-Instead, common settings should remain common, while genuinely platform-specific requirements are isolated.
-
-This mirrors the architecture itself:
-
-```text
-Application Core
-       |
-       v
-Platform Boundary
-       |
-       v
-Operating System
-```
-
-and:
+Platform-specific build decisions should therefore be centralized rather than scattered throughout the project:
 
 ```text
 Common Build Rules
@@ -405,6 +372,8 @@ Platform-specific Build Rules
        v
 Compiler / Linker
 ```
+
+This does not mean that every platform must have an entirely different build description. Common settings should remain common, while genuinely platform-specific requirements are isolated in one place.
 
 ## The Build Tree Is Not the Source Tree
 
