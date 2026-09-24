@@ -556,29 +556,7 @@ If a test passes only because another test happened to initialize some state fir
 
 ## Ignoring Regression Tests After Fixing a Bug
 
-A bug fix without a permanent test leaves the project vulnerable to recurrence.
-
-The pattern should be:
-
-```text
-Bug
- │
- ▼
-Reproduce
- │
- ▼
-Fix
- │
- ▼
-Test
- │
- ▼
-Keep test
-```
-
-The test should remain even after the original defect has disappeared from active development.
-
-This converts a discovered weakness into permanent protection.
+A bug fix without a permanent test leaves the project vulnerable to recurrence. The pattern—reproduce, fix, test, keep the test—is described in Section 35.10: the test should remain even after the original defect has disappeared from active development, converting a discovered weakness into permanent protection.
 
 ## Treating Test Count as a Measure of Quality
 

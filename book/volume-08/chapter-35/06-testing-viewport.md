@@ -626,38 +626,7 @@ Testing these exact transitions is more useful than testing only extreme positio
 
 ## Testing Viewport Invariants
 
-The Viewport should maintain its own invariants.
-
-For example:
-
-```text
-viewport_row >= 0
-viewport_column >= 0
-```
-
-The visible region should also be consistent with the terminal dimensions.
-
-Most importantly, whenever the editor requires the Cursor to be visible:
-
-```text
-Cursor ∈ Visible Region
-```
-
-Conceptually:
-
-```text
-Valid Cursor
-     │
-     ▼
-Viewport adjustment
-     │
-     ▼
-Cursor visible
-```
-
-These invariants can be checked after movement and scrolling operations.
-
-An invariant-based test can catch cases that individual examples miss.
+The Viewport should maintain its own invariants: `viewport_row >= 0`, `viewport_column >= 0`, a visible region consistent with the terminal dimensions, and, whenever the Cursor must be visible, `Cursor ∈ Visible Region`. These are part of the editor's broader invariant set collected in Section 35.14, so Viewport tests can verify them directly after movement and scrolling operations without re-deriving the ownership model here.
 
 ## Testing Resize-Related Viewport Changes
 
@@ -866,14 +835,7 @@ Horizontal and vertical offsets remain distinct
 Terminal resizing is handled correctly
 ```
 
-It does not establish that:
-
-- the Cursor moves correctly,
-- the Renderer calculates screen cells correctly,
-- ANSI escape sequences are correct,
-- the terminal displays the frame correctly.
-
-Those responsibilities belong elsewhere.
+It does **not** establish that the Cursor moves correctly, that the Renderer calculates screen cells correctly, that ANSI escape sequences are correct, or that the terminal displays the frame correctly—those responsibilities belong elsewhere.
 
 The Viewport test therefore occupies a specific position in the testing architecture:
 

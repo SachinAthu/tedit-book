@@ -819,6 +819,8 @@ Valid Parser State
 
 An event may be produced during the transition, but the parser itself should remain ready to process subsequent input.
 
+These parser-state properties are part of the editor's full invariant set collected in Section 35.14.
+
 ## Testing the Same Stream in Different Chunks
 
 One particularly valuable technique for a byte-stream parser is to test different chunk boundaries.
@@ -915,15 +917,7 @@ Parser state remains valid
 Different input chunking produces consistent results
 ```
 
-It does not establish that:
-
-- a key event maps to the correct command,
-- a command modifies the correct Editor State,
-- the Cursor moves correctly,
-- the Viewport scrolls correctly,
-- the Renderer updates the screen correctly.
-
-Those behaviors belong to higher testing levels or other component tests.
+It does **not** establish that a key event maps to the correct command, that a command modifies the correct Editor State, that the Cursor moves correctly, that the Viewport scrolls correctly, or that the Renderer updates the screen correctly—those behaviors belong to higher testing levels or other component tests.
 
 ## Key Principle
 

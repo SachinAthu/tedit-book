@@ -519,37 +519,7 @@ The empty line must remain a valid part of the Document.
 
 ## Testing Document Invariants
 
-Beyond individual operations, the Document should be tested for structural invariants.
-
-The exact implementation may change, but the logical Document must remain valid.
-
-Examples include:
-
-```text
-Every logical line is a valid line object.
-Each character position refers to a valid code point.
-Line ordering is preserved.
-Document operations do not create unintended lines.
-Document operations do not lose unrelated text.
-```
-
-The invariant can be expressed conceptually as:
-
-```text
-Valid Document
-      │
-      ▼
-   Operation
-      │
-      ▼
-Valid Document
-```
-
-This is particularly important because the selected vector-of-lines representation involves multiple pieces of mutable state: the collection of lines and the character sequence belonging to each line.
-
-A bug in either level can corrupt the logical Document.
-
-The invariant tests therefore provide protection beyond individual examples.
+Beyond individual operations, the Document should be tested for structural invariants: every logical line must be a valid line object, character positions must refer to valid code points, line ordering must be preserved, and operations must not create unintended lines or lose unrelated text. These properties are part of the editor's broader invariant set collected in Section 35.14, so Document tests can verify them directly without re-deriving the ownership model here.
 
 ## Testing That Unrelated Text Is Preserved
 
@@ -724,7 +694,9 @@ A practical test suite can organize the major cases into a matrix:
 | Insert character |         ✓ |      ✓ |   ✓ |     ✓ |              ✓ |
 | Delete character |         ✓ |      ✓ |   ✓ |     ✓ |              ✓ |
 | Split line       |         ✓ |      ✓ |   ✓ |     ✓ |              ✓ |
-| Merge lines      |         ✓ |      — |   ✓ |     ✓ |              ✓ |
+| Merge lines      |         ✓ |      ✓ |   ✓ |     ✓ |              ✓ |
+
+For the Merge row the columns describe where the merged line boundary sits within the document rather than a within-line position; a merge in the middle of a document is a common case and is covered here.
 
 The matrix is not a requirement that every cell be implemented as a separate test.
 
@@ -755,19 +727,7 @@ Invalid operations do not corrupt state
 Document invariants remain valid
 ```
 
-It does **not** establish that:
-
-- the keyboard produces the correct command,
-- the Cursor responds correctly to a command,
-- the Renderer displays the result correctly,
-- the File Manager writes the correct bytes,
-- the terminal displays the correct ANSI output.
-
-Those are responsibilities of other components and other testing levels.
-
-This distinction is essential.
-
-A comprehensive set of Document unit tests can establish strong confidence in the Document without claiming that the entire editor is correct.
+It does **not** establish the correctness of the keyboard, Cursor, Renderer, File Manager, or terminal—those are responsibilities of other components and higher testing levels. A comprehensive set of Document unit tests establishes strong confidence in the Document without claiming that the entire editor is correct.
 
 ## Key Principle
 

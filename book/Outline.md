@@ -513,29 +513,60 @@ This is where the book becomes much deeper than a typical tutorial.
 
 ## **Chapter 35 — Testing**
 
-- Unit tests
-- Integration
-- Manual
-- Regression
+- 35.1 Why Testing Matters
+- 35.2 Testing Strategy
+- 35.3 Unit Testing
+- 35.4 Testing the Document
+- 35.5 Testing the Cursor
+- 35.6 Testing the Viewport
+- 35.7 Testing Input Parsing
+- 35.8 Integration Testing
+- 35.9 End-to-End Testing
+- 35.10 Regression Testing
+- 35.11 Testing Failure Cases
+- 35.12 Test Organization
+- 35.13 Common Testing Mistakes
+- 35.14 Testing Invariants
 
 ## **Chapter 36 — Debugging**
 
-- gdb
-- Assertions
-- Logging
+- 36.1 Why Editors Are Difficult to Debug
+- 36.2 Assertions
+- 36.3 Debug Builds
+- 36.4 Using a Debugger
+- 36.5 Breakpoints
+- 36.6 Inspecting Editor State
+- 36.7 Debugging Input
+- 36.8 Debugging Rendering
+- 36.9 Logging and Tracing
+- 36.10 Diagnosing Memory Errors
+- 36.11 Reproducing Bugs
+- 36.12 Common Debugging Mistakes
 
 ## **Chapter 37 — Portability**
 
-- Linux
-- macOS and BSD
-- Windows
-- WSL
+- 37.1 Why Portability Matters
+- 37.2 Platform Boundaries
+- 37.3 POSIX and Platform APIs
+- 37.4 Linux
+- 37.5 macOS and BSD
+- 37.6 Windows
+- 37.7 WSL
+- 37.8 Conditional Compilation
+- 37.9 Common Portability Mistakes
 
 ## **Chapter 38 — Packaging**
 
-- CMake
-- Release
-- Distribution
+- 38.1 Development Builds
+- 38.2 Release Builds
+- 38.3 CMake Build Configurations
+- 38.4 Installation
+- 38.5 Release Artifacts
+- 38.6 Versioning
+- 38.7 Documentation
+- 38.8 Distribution
+- 38.9 Reproducible Builds
+- 38.10 Preparing the Editor for Release
 
 ---
 

@@ -1,10 +1,6 @@
 # 35.14 Testing Invariants
 
-Throughout this chapter, testing has been presented not only as a way to verify individual outputs, but also as a way to protect the conditions that must remain true throughout the editor.
-
-These conditions are **invariants**.
-
-An invariant is a property that must remain valid before, during, or after an operation whenever the system is in a valid state.
+Throughout this chapter, individual sections have referred to invariants—conditions that must remain true whenever the editor is in a valid state. This section collects them in one place and ties them to the architecture's ownership model, so the forward-references in Sections 35.2, 35.3, 35.4, 35.5, 35.6, and 35.7 resolve here.
 
 For this editor, many important invariants follow directly from the architecture and its ownership boundaries.
 
@@ -333,7 +329,7 @@ Built-in Defaults
 User Configuration
        │
        ▼
-CLI Overrides
+Command-Line Overrides
        │
        ▼
 Validation

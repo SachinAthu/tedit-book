@@ -599,42 +599,15 @@ It verifies that the two representations are connected correctly.
 
 ## Testing Save Failure and Dirty State
 
-Save failure is another important integration case.
-
-The File Manager may fail to complete a save because of a file-system problem.
-
-The architecture specifies that the Dirty Flag remains set until the final replacement succeeds. Recoverable failures should be reported through the Message Bar rather than silently treated as successful saves.
-
-An integration test can therefore establish:
+Save failure is another important integration case: when the File Manager fails during persistence, the architecture specifies that the Dirty Flag remains set until the final replacement succeeds. An integration test establishes this state transition across the File Manager boundary:
 
 ```text
-Initial:
-Buffer dirty = true
-
-Attempt save
-       │
-       ▼
-File Manager fails
-
-Expected:
-Buffer dirty = true
+Initial:  Buffer dirty = true
+Save fails → File Manager reports failure
+Expected: Buffer dirty = true
 ```
 
-The important property is that a failed persistence operation does not incorrectly make the editor appear clean.
-
-A successful save can then be tested separately:
-
-```text
-Initial:
-Buffer dirty = true
-
-Save succeeds
-
-Expected:
-Buffer dirty = false
-```
-
-This is a good example of why integration testing must examine **state transitions**, not merely function return values.
+The detailed treatment of save, temporary-file, and replacement failures—and the recovery that follows them—is covered in Section 35.11. Here it is enough to note that a failed persistence operation must not make the editor appear clean.
 
 ## Testing the Renderer and the Editor Screen Buffer
 
@@ -864,39 +837,6 @@ Dirty Flag remains set
 ```
 
 without depending on a particular accidental file-system failure.
-
-## Integration Tests and Determinism
-
-Integration tests should remain deterministic whenever practical.
-
-Good integration tests control:
-
-```text
-Input
-Document contents
-Cursor state
-Viewport dimensions
-File-system environment
-Expected output
-```
-
-They should avoid unnecessary dependence on:
-
-```text
-real keyboard timing
-terminal emulator behavior
-network access
-wall-clock timing
-random state
-```
-
-This does not mean that external-system tests have no value.
-
-It means that each dependency should be introduced deliberately.
-
-If terminal behavior is specifically what is being tested, an end-to-end test may be appropriate.
-
-If the purpose is to test the connection between the Command Engine and File Manager, a real terminal adds no useful evidence.
 
 ## A Practical Integration Test Pattern
 

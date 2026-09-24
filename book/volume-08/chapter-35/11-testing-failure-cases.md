@@ -628,29 +628,7 @@ A clear error is useful, but preserving valid state is essential.
 
 ## Failure Cases Should Become Regression Tests
 
-When a failure reveals a defect, the resulting test should normally remain in the regression suite.
-
-For example:
-
-```text
-Failure discovered
-       │
-       ▼
-Fix behavior
-       │
-       ▼
-Add regression test
-       │
-       ▼
-Future changes
-       │
-       ▼
-Failure detected if reintroduced
-```
-
-This connects failure-case testing directly to the regression strategy from the previous section.
-
-The test suite gradually accumulates protection around the failure modes that have proven important in the actual editor.
+When a failure reveals a defect, the resulting test should normally remain in the regression suite. Section 35.10 describes this in full: the test reproduces the failure, is kept permanently, and the suite gradually accumulates protection around the failure modes that have proven important in the actual editor.
 
 ## The Role of Failure-Case Testing in This Editor
 

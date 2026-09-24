@@ -488,6 +488,8 @@ These tests are especially valuable because many different operations can potent
 
 Rather than relying only on individual examples, invariant checks can detect an invalid state regardless of which movement path produced it.
 
+These bounds are part of the editor's full invariant set collected in Section 35.14, which ties them to the ownership model.
+
 ## Testing Movement at Document Boundaries
 
 The Cursor must also be tested at the beginning and end of the Document.
@@ -787,14 +789,7 @@ Preferred-column behavior is preserved
 Unicode positions remain logical
 ```
 
-It does not establish that:
-
-- keyboard input produces the correct movement command,
-- the Command Engine invokes the correct Cursor operation,
-- the Viewport scrolls correctly,
-- the Renderer draws the cursor correctly.
-
-Those behaviors cross architectural boundaries and therefore belong to integration or other component-level tests.
+It does **not** establish that keyboard input produces the correct movement command, that the Command Engine invokes the correct Cursor operation, that the Viewport scrolls correctly, or that the Renderer draws the cursor correctly—those behaviors cross architectural boundaries and belong to integration or other component-level tests.
 
 ## Key Principle
 

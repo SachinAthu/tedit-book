@@ -129,7 +129,7 @@ When it moves to the third line, however, the preferred column should allow it t
 
 ```text
 123456789
-        ^
+         ^
 ```
 
 This behavior is easy to break with a small change to Cursor logic.
@@ -246,55 +246,6 @@ The architecture therefore makes testing easier because responsibilities are sep
 
 This is one practical benefit of the architectural decisions established throughout the earlier volumes.
 
-## Testing Invariants
-
-Some of the most valuable tests do not ask whether one particular example produces one particular output.
-
-Instead, they verify **invariants**.
-
-An invariant is a property that should remain true whenever the system is in a valid state.
-
-For example, the Cursor must remain within the valid bounds of the Document.
-
-```text
-Document
-+-------------------+
-| Hello             |
-| World             |
-|                   |
-+-------------------+
-          ^
-        Cursor
-```
-
-An operation should never leave the Cursor here:
-
-```text
-Document
-+-------------------+
-| Hello             |
-| World             |
-+-------------------+
-                   ^
-                 Invalid
-```
-
-Similarly, a failed save must not make the editor believe that the Document has been saved.
-
-```text
-Save
- │
- ▼
-Failure
- │
- ▼
-Dirty Flag remains set
-```
-
-These properties are stronger than testing only one normal scenario.
-
-They describe rules that should hold across many possible operations.
-
 ## Testing Does Not Prove the Absence of All Bugs
 
 Testing is powerful, but it has an important limitation.
@@ -335,56 +286,6 @@ The quality of that confidence depends on the quality of the tests.
 
 Testing ten ordinary insertions is less useful than testing insertion at the beginning, middle, and end of lines, empty lines, line boundaries, and other important editor states.
 
-## Testing as Part of Engineering
-
-Testing should not be treated as a final activity performed after the editor has been completely implemented.
-
-A better model is:
-
-```text
-Design
-  │
-  ▼
-Implement
-  │
-  ▼
-Test
-  │
-  ▼
-Discover a problem
-  │
-  ▼
-Correct implementation
-  │
-  ▼
-Test again
-```
-
-This cycle continues throughout development.
-
-A defect discovered during development can also become a permanent test:
-
-```text
-Bug discovered
-      │
-      ▼
-Bug fixed
-      │
-      ▼
-Regression test added
-      │
-      ▼
-Future changes must preserve the fix
-```
-
-This becomes especially important as the editor grows.
-
-A change to the Document implementation can affect the Cursor. A change to the Cursor can affect the Viewport. A change to the Viewport can affect rendering. A change to configuration can affect input behavior.
-
-Without tests, developers must repeatedly rely on memory and manual inspection to determine whether an old behavior still works.
-
-With tests, previously established behavior can be checked automatically.
-
 ## Engineering Insight
 
 **Testing is not primarily about finding bugs. It is about establishing evidence that the system behaves according to its intended design.**
@@ -411,6 +312,6 @@ The following sections will build these levels one at a time, beginning with the
 
 ## Summary
 
-Testing establishes evidence that the editor behaves according to its intended design. Compilation and manual experimentation are insufficient on their own: tests make requirements verifiable, protect architectural boundaries and invariants, and must grow together with the editor rather than being deferred to the end of development.
+Testing establishes evidence that the editor behaves according to its intended design. Compilation and manual experimentation are insufficient on their own: tests make requirements verifiable, protect architectural boundaries, and grow together with the editor rather than being deferred to the end of development.
 
 The next section defines how these tests are organized into a coherent plan: **Section 35.2, Testing Strategy**.

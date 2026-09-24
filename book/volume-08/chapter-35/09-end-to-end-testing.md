@@ -336,6 +336,8 @@ In particular, a failed save must not appear to the rest of the editor as a succ
 
 This is an example of why end-to-end tests should verify state transitions as well as final output.
 
+The detailed failure-path and recovery treatment lives in Section 35.11; the end-to-end test only verifies the externally observable consequence.
+
 ## Testing Cursor and Viewport Behavior Through Editing
 
 Cursor and Viewport behavior can also be tested as part of complete workflows.
