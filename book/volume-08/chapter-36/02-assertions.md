@@ -74,7 +74,7 @@ A simplified check might look like:
 assert(cursor_row >= 0);
 assert(cursor_row < document->line_count);
 assert(cursor_column >= 0);
-assert(cursor_column <= document->line_length);
+assert(cursor_column <= line_length(cursor_row));
 ```
 
 If one of these assertions fails, the program has discovered an invalid state at the point where it was detected.

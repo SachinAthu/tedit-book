@@ -342,7 +342,7 @@ VIEWPORT viewport_row 8 -> 8
 RENDER frame 42
 ```
 
-The Book Bible emphasizes concise, purposeful technical material rather than unnecessary complexity. The same principle applies to diagnostics: record information that helps explain behavior.
+Concise, purposeful technical material is preferable to unnecessary complexity. The same principle applies to diagnostics: record information that helps explain behavior.
 
 ## Logging Into the Editor's Terminal UI
 
@@ -721,7 +721,7 @@ The debugging question should therefore begin with:
 
 Only then can actual behavior be compared with expected behavior.
 
-This is one reason the project establishes requirements, architecture, and invariants before implementation. The Book Bible explicitly follows the principle of understanding what problem exists and why a solution was chosen before implementation begins.
+This is one reason the project establishes requirements, architecture, and invariants before implementation. Understanding what problem exists and why a solution was chosen must come before implementation begins.
 
 ## Debugging Without Preserving the Original Reproduction
 

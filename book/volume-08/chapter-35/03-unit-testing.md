@@ -50,7 +50,7 @@ A unit test should interact with the component through its intended public inter
 For example, if the Document provides an operation such as:
 
 ```c
-document_insert_character(...)
+document_insert(...)
 ```
 
 the test should normally call that operation rather than directly modifying the Document's internal arrays.

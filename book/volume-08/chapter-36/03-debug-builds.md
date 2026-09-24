@@ -171,13 +171,11 @@ Editor State
 │   ├── document
 │   └── dirty
 └── window-specific
-    ├── active buffer (derived from the active Window)
     ├── cursor
-    ├── viewport
-    └── mode
+    └── viewport
 ```
 
-For a single-window debugging session it is convenient to speak of these collectively as "the Editor State"; the label groups scoped state rather than implying that the Document, Cursor, and Viewport are editor-wide fields.
+For a single-window debugging session it is convenient to speak of these collectively as "the Editor State"; the label groups scoped state rather than implying that the Document, Cursor, and Viewport are editor-wide fields. The active buffer is not stored as a field: it is derived from the active Window in the active Tab.
 
 Suppose the editor displays the wrong line after scrolling.
 

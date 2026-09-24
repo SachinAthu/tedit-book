@@ -618,7 +618,7 @@ The purpose is not primarily performance measurement.
 
 It is to ensure that capacity changes and repeated modifications preserve logical correctness.
 
-Performance characteristics belong to performance testing later in the volume; unit tests should remain focused on behavior.
+Performance characteristics belong to complexity analysis, covered in Chapter 24 (Volume VI), rather than to unit testing; unit tests should remain focused on behavior.
 
 ## Testing Save-Related State Separately
 

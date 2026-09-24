@@ -46,10 +46,12 @@ Document       Cursor
           │
           ▼
     Screen Buffer
-          │
-          ▼
-       Terminal
+           │
+           ▼
+        Terminal
 ```
+
+In this chapter, "Screen Buffer" refers to the **Editor Screen Buffer** — the editor's own application-side frame buffer — not the screen buffers maintained inside the terminal emulator itself.
 
 Each stage can introduce a defect. More importantly, a defect introduced in one stage may not become visible until several stages later.
 

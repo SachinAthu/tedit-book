@@ -32,6 +32,8 @@ The important lessons are:
 
 Testing therefore does not prove the editor is free of defects. It builds confidence based on evidence at every architectural level, so that the editor can grow without silently breaking the behavior established in this chapter.
 
+The testing strategy — unit, integration, and end-to-end tests, supplemented by manual testing, with deterministic tests organized to mirror the architecture — is recorded as **ADR-028: Testing Strategy**, making it an explicit engineering contract rather than an incidental collection of tests.
+
 ## Exercises
 
 ### Review Questions

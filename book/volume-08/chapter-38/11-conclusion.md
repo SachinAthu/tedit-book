@@ -29,7 +29,7 @@ The important lessons are:
 - Documentation and distribution make a release usable and reachable; reproducible builds confirm the pipeline can be rebuilt and verified.
 - The release checklist brings the editor to a known state before a candidate crosses the boundary from development to distribution.
 
-The build system foundation for this chapter is recorded as **ADR-012: CMake as Build System**, first referenced in Chapter 10. Once a release is published, it is a historical version: defects are fixed in development and shipped in a subsequent release, never silently patched in the published artifact.
+The build system foundation for this chapter is recorded as **ADR-012: CMake as Build System**, first referenced in Chapter 10. The build configuration strategy is recorded as **ADR-031: Build Configuration Strategy**, and the release and versioning strategy as **ADR-032: Release and Versioning Strategy**. Once a release is published, it is a historical version: defects are fixed in development and shipped in a subsequent release, never silently patched in the published artifact.
 
 ## Exercises
 

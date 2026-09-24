@@ -557,9 +557,9 @@ Likewise:
 
 ```c
 #if defined(PLATFORM_WINDOWS)
-    document_insert_character(...);
+    document_insert(...);
 #else
-    document_insert_character(...);
+    document_insert(...);
 #endif
 ```
 

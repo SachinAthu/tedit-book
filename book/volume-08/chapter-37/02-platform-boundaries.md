@@ -152,18 +152,21 @@ Platform-specific diagnostics
 
 A full-screen editor's higher-level components should be expressible without mentioning the operating system. The platform-facing components absorb the environmental details.
 
-One nuance: "rendering decisions" — what should appear on screen — are platform-independent editor concepts, while the Renderer component (which lives in the Platform Layer) owns the platform-facing act of emitting that frame to the terminal. Deciding what to draw is editor-level; only the Renderer's final terminal output is platform-facing.
+One nuance: "rendering decisions" — what should appear on screen — are platform-independent editor concepts, while the Renderer component (which lives in the Platform Layer) constructs the frame and writes it into the Editor Screen Buffer; emitting that frame to the terminal belongs to the Terminal Interface. Deciding what to draw is editor-level; converting the completed frame into terminal output is platform-facing.
 
 The terminal path can be represented as:
 
 ```text
-Input Engine        (editor-level input)
-      |
-      v
-Input Handler       (platform terminal operations)
-      |
-      v
 Terminal Interface  (Linux / POSIX / macOS / ...)
+      |
+      v
+Input Handler       (reads raw terminal bytes)
+      |
+      v
+Input Parser        (bytes -> key events)
+      |
+      v
+Input Engine        (key events -> commands)
 ```
 
 The Input Parser converts terminal byte sequences ("ESC [ A") into editor events ("Arrow Up", "Character 'a'"), and the Input Engine maps those events to commands. Neither should reason about raw terminal bytes; the conversion from terminal representation to editor events belongs to the platform-facing input path.
@@ -318,7 +321,7 @@ The Terminal Interface has especially strong operating-system dependencies.
 
 The File Manager interacts with filesystem APIs.
 
-The Renderer generates terminal output but should remain focused on translating Editor State into a frame rather than embedding operating-system policy.
+The Renderer builds the frame in the Editor Screen Buffer but should remain focused on translating Editor State into a frame rather than embedding operating-system policy; emitting the frame to the terminal belongs to the Terminal Interface.
 
 The boundary therefore exists **around platform-sensitive responsibilities**, rather than being a single universal wrapper around the entire application.
 
