@@ -6,7 +6,7 @@ Different designs optimize for different goals: simplicity, performance, compati
 
 For our editor, the appropriate choice is the **simplest architecture that provides useful extension without unnecessarily complicating the core**.
 
-### In-Process vs Out-of-Process Plugins
+## In-Process vs Out-of-Process Plugins
 
 The most important architectural choice is where the plugin executes.
 

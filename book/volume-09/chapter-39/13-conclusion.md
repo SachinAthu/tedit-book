@@ -23,6 +23,8 @@ The important lessons are:
 
 For an educational editor that favors simplicity, a **small, versioned plugin boundary** — a Plugin Manager, a versioned ABI, a controlled Host API, a platform-isolated Dynamic Loader, compatibility validation, and explicit lifecycle and failure handling — is the appropriate design.
 
+The plugin strategy — in-process dynamic loading, a small versioned ABI, a capability-based host API, opaque handles, and compatibility validation before activation — is recorded as **ADR-033: Plugin Architecture Strategy**.
+
 ## Exercises
 
 ### Review Questions

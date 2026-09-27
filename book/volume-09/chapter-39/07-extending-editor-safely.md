@@ -93,7 +93,7 @@ The difference is architectural, not merely stylistic.
 
 ## Preserve Core Invariants
 
-The editor already depends on invariants.
+The editor already depends on invariants established in earlier chapters (for example, the Document model in Chapter 13, the Cursor Engine in Chapter 14, the Renderer in Chapter 19, and file safety in Chapter 23).
 
 For example:
 

@@ -42,6 +42,39 @@ Volume X, Chapter Y
 
 # A
 
+## ABI (Application Binary Interface)
+
+**Definition**
+
+The binary-level rules that two independently compiled programs must agree on for their compiled representations to communicate correctly. An ABI covers matters such as the function calling convention, how arguments and return values are represented, how structures are laid out and aligned, and how symbols are represented. Source code that compiles successfully against an interface (the API) may still fail to interoperate if the compiled binaries follow different conventions; for a plugin, ABI compatibility means a separately compiled plugin can be safely called by the editor.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- API (Application Programming Interface)
+- Plugin
+- Dynamic Loading
+- Linker
+
+## API (Application Programming Interface)
+
+**Definition**
+
+The source-level contract through which one piece of code uses another: the function names, parameters, return types, and expected behavior that a programmer relies on when compiling against an interface. An API describes how source code communicates, which is distinct from the ABI, which describes how already-compiled binaries communicate. A plugin API is the deliberately exposed set of capabilities the editor offers to extensions.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- ABI (Application Binary Interface)
+- Plugin
+- Header File
+
 ## Add Buffer
 
 **Definition**
@@ -417,6 +450,22 @@ Volume VI, Chapter 24
 - Spatial Locality
 - Main Memory (RAM)
 - Complexity Analysis
+
+## Callback
+
+**Definition**
+
+A function pointer that one component stores and later invokes to notify another component that an event occurred. In a plugin architecture, callbacks let the host invoke plugin-provided code—for example, when a registered command runs or when the editor shuts down. A callback interface introduces lifecycle rules: when the callback is invoked, what it may do, and, critically, that the callback must be removed before the plugin that owns it is unloaded.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Plugin
+- Dynamic Loading
+- Event
 
 ## Call Stack
 
@@ -1356,6 +1405,23 @@ Volume VI, Chapter 25
 - Amortized Complexity
 - Vector of Lines
 
+## Dynamic Loading
+
+**Definition**
+
+The runtime mechanism by which a program obtains and links external code—typically a shared library—after the program itself has already been compiled and started. On POSIX systems this is commonly performed with `dlopen()`, `dlsym()`, and `dlclose()`. Dynamic loading provides extension, not validation: successfully loading a library does not by itself prove that the library is a valid, compatible plugin.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Shared Library
+- Plugin
+- Entry Point
+- Linker
+
 ## Dynamic String
 
 **Definition**
@@ -1411,6 +1477,22 @@ Volume VIII, Chapter 35
 - Integration Testing
 - Regression Testing
 - Manual Testing
+
+## Entry Point
+
+**Definition**
+
+A known, named symbol in a shared library through which the editor first discovers a plugin's public interface, such as a `plugin_get_api()` function. The entry point provides a controlled bootstrap mechanism: the loader resolves one stable symbol and uses it to obtain the rest of the plugin's interface, rather than searching for arbitrary internal functions.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Dynamic Loading
+- Plugin
+- Shared Library
 
 ## Escape Character (ESC)
 
@@ -2011,6 +2093,21 @@ Volume I, Chapter 6
 - UTF-8
 - ASCII
 
+## Host
+
+**Definition**
+
+The application that loads and manages plugins. In this book the editor is the host: it owns the running application and its authoritative state, and it provides services to plugins through a controlled interface while the plugins provide extensions back to it. The host role is deliberate—the editor grants selected capabilities across the plugin boundary rather than exposing its internals.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Plugin
+- Editor State
+
 # I
 
 ## Immediate-Mode Rendering
@@ -2216,6 +2313,22 @@ Volume VIII, Chapter 38
 
 - Installation
 - Portability
+
+## Inter-Process Communication (IPC)
+
+**Definition**
+
+The set of mechanisms by which two separate processes exchange data and coordinate with each other, for example pipes, Unix domain sockets, shared memory, signals, and message queues. IPC becomes relevant to plugins when a plugin is placed in a separate process for fault isolation instead of being loaded in-process; communication then crosses a process boundary rather than being an ordinary function call.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Process
+- Plugin
+- Dynamic Loading
 
 ## Internal Node
 
@@ -2936,6 +3049,27 @@ Volume II, Chapter 10
 - Source File
 - Incremental Build
 
+## Opaque Handle
+
+**Definition**
+
+A pointer or identifier to an editor-owned object whose internal structure is intentionally not exposed to the receiving code. A plugin can hold and pass the handle back to the editor through defined operations, but it cannot inspect or modify the object's fields directly. Opaque handles keep internal representations out of the plugin contract, shrinking the ABI surface and preserving the editor's invariants.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Plugin
+- ABI (Application Binary Interface)
+- Information Hiding
+- Handle
+
+**Notes**
+
+Not to be confused with "Handle", the Windows resource-reference model introduced in Chapter 37. An opaque handle is a general boundary technique; a Windows Handle is a specific operating-system representation.
+
 ## Operation History
 
 **Definition**
@@ -3215,6 +3349,23 @@ Volume II, Chapter 8
 **Notes**
 
 Portability treatment: Volume VIII, Chapter 37.
+
+## Plugin
+
+**Definition**
+
+An extension that is developed and compiled separately from the editor and loaded into the running application across a defined boundary. A plugin is not merely another internal module: it communicates with the editor through a deliberately designed interface, is validated for compatibility before activation, and executes as external code—normally in-process—with a controlled lifetime.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Host
+- ABI (Application Binary Interface)
+- Dynamic Loading
+- Module
 
 ## Policy
 
@@ -3950,6 +4101,23 @@ Volume V, Chapter 21
 - Saving
 - Document
 - Loading
+
+## Shared Library
+
+**Definition**
+
+A compiled unit of code that is loaded into a process's address space at load time or at runtime, rather than being copied into the executable at link time. On POSIX systems a shared library is typically a `.so` file. Plugins are delivered as shared libraries that the editor loads dynamically, after the editor itself has already been built.
+
+**First Introduced**
+
+Volume IX, Chapter 39
+
+**Related Terms**
+
+- Dynamic Loading
+- Plugin
+- Entry Point
+- Linker
 
 ## Shell
 

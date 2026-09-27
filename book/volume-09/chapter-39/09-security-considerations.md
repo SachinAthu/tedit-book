@@ -76,154 +76,19 @@ Sandbox / restricted privileges
 
 That is substantially more complex than the baseline in-process plugin model.
 
-## What is a IPC
+Moving a plugin into a separate process for real fault isolation requires **Inter-Process Communication (IPC)** — a mechanism such as pipes or Unix domain sockets through which the two processes exchange messages instead of calling each other's functions directly.
 
-**IPC** stands for **Inter-Process Communication**.
-
-It is a way for **two separate processes** to exchange data and coordinate with each other.
-
-In our plugin discussion, IPC becomes relevant when we put the plugin in a **separate process** instead of loading it directly into the editor.
-
-### Without IPC
-
-With an in-process plugin:
+Section 39.8 established this trade-off: a separate process contains a plugin crash, but at the cost of serialization, communication overhead, and a more complex lifecycle.
 
 ```text
-+--------------------------------------+
-|          Editor Process              |
-|                                      |
-|  Editor Core  <---->  Plugin        |
-|       function calls                 |
-|                                      |
-+--------------------------------------+
+Function calls
+    communicate within a process.
+
+IPC
+    communicates between processes.
 ```
 
-The editor can directly call plugin functions because both are running in the same process.
-
-For example:
-
-```c
-plugin_run();
-```
-
-The function call directly transfers execution to the plugin.
-
-The problem is that both share the same address space. A serious plugin failure can therefore affect the editor.
-
----
-
-### With IPC
-
-With process isolation:
-
-```text
-+---------------------+        +---------------------+
-|   Editor Process    |        |   Plugin Process    |
-|                     |        |                     |
-|   Editor Core       | <----> |      Plugin         |
-|                     |  IPC   |                     |
-+---------------------+        +---------------------+
-```
-
-They are **separate processes**.
-
-The editor cannot simply do:
-
-```c
-plugin_run();
-```
-
-because `plugin_run()` exists in another process.
-
-Instead, the editor sends a message:
-
-```text
-Editor
-   |
-   | "Run command X"
-   ↓
-IPC mechanism
-   |
-   ↓
-Plugin
-```
-
-The plugin performs the operation and can send a response back:
-
-```text
-Plugin
-   |
-   | "Command completed"
-   ↓
-IPC mechanism
-   |
-   ↓
-Editor
-```
-
-### Common IPC mechanisms
-
-Operating systems provide several ways for processes to communicate:
-
-```text
-Pipes
-Unix domain sockets
-Shared memory
-Signals
-Message queues
-```
-
-For a plugin architecture, **Unix domain sockets** or **pipes** are examples of mechanisms that could be used.
-
----
-
-### Why IPC improves isolation
-
-Suppose the plugin crashes:
-
-```text
-+------------------+        +------------------+
-|  Editor Process  |        | Plugin Process   |
-|                  |        |                  |
-|      Running     |        |     CRASH        |
-+------------------+        +------------------+
-```
-
-The plugin's address space is separate from the editor's.
-
-So, unlike an in-process plugin:
-
-```text
-Plugin crash
-     ↓
-Plugin process terminates
-     ↓
-Editor can potentially continue
-```
-
-This is why I mentioned IPC in **39.8 Plugin Failure and Isolation**.
-
-But there is a trade-off:
-
-```text
-In-process
-    ↓
-Simple + fast
-    ↓
-Weak isolation
-
-Separate process + IPC
-    ↓
-More complex + communication overhead
-    ↓
-Stronger isolation
-```
-
-For **our editor**, IPC is **not required for the baseline plugin architecture**. It is a possible future design if we ever want to support untrusted or strongly isolated plugins.
-
-A useful way to remember it is:
-
-> **Function calls communicate within a process; IPC communicates between processes.**
+For the baseline editor, IPC is **not required**. It is a possible future design if untrusted or strongly isolated plugins ever become a requirement, but it cannot be added incrementally to an in-process plugin model — it is a different architecture, not an additional API feature.
 
 ## Summary
 

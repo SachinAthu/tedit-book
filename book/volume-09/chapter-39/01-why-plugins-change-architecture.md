@@ -201,7 +201,7 @@ This is the fundamental motivation for plugin architecture.
 
 Plugins are not a free improvement.
 
-The baseline editor deliberately favors simplicity and maintainability. The SRS explicitly excludes plugin systems from the initial implementation and identifies them as later extensions.
+The baseline editor deliberately favors simplicity and maintainability. The Software Requirements Specification (Chapter 7) explicitly excludes plugin systems from the initial implementation and identifies them as later extensions.
 
 Adding plugins introduces additional architectural machinery:
 

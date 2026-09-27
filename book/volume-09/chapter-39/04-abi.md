@@ -292,7 +292,7 @@ This leads to a useful rule:
 
 When binary data is part of a public interface, explicitly sized integer types can reduce ambiguity.
 
-For example:
+The `editor_position` structure introduced in Section 39.3 used `size_t` fields, whose width depends on the platform. For a public interface, the same structure is better expressed with explicitly sized fields:
 
 ```c
 #include <stdint.h>
@@ -455,7 +455,7 @@ That would be far beyond the scope of this project.
 
 Instead, the architecture should establish a **well-defined plugin ABI for the supported execution environment**, with explicit compatibility rules.
 
-Our existing platform strategy already establishes Linux/POSIX as the primary environment and treats portability as a boundary concern rather than allowing platform-specific behavior to spread through the Core.
+Our existing platform strategy (Chapter 37) already establishes Linux/POSIX as the primary environment and treats portability as a boundary concern rather than allowing platform-specific behavior to spread through the Core.
 
 The plugin ABI should follow the same architectural discipline.
 

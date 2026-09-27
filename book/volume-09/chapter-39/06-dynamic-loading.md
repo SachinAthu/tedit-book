@@ -471,7 +471,7 @@ This is one reason plugin lifecycle requires its own architectural treatment.
 
 Dynamic loading is inherently platform-dependent.
 
-Our portability architecture already establishes that platform-specific mechanisms should remain at the platform boundary rather than spreading through the Core.
+Our portability architecture (Chapter 37) already establishes that platform-specific mechanisms should remain at the platform boundary rather than spreading through the Core.
 
 The same principle applies here.
 

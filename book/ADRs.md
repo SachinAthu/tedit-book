@@ -563,3 +563,23 @@ Trade-off:
 Versioning, release documentation, and reproducibility impose real costs: centralized version propagation, artifact generation, checksum publication, recorded build metadata, and the discipline to verify a release candidate before publication. Reproducibility requires controlling details of the toolchain and environment and may still not achieve byte-for-byte identity across toolchains, and each additional distribution channel adds maintenance work. These costs are accepted because they make the release process repeatable, verifiable, and auditable — the premise that the editor can be handed to users as reliable, packaged software.
 
 First referenced: Chapter 38
+
+---
+
+# ADR-033
+
+Plugin Architecture Strategy
+
+Decision:
+
+Keep plugins deferred from the baseline editor, consistent with the SRS, and when an extension system is eventually introduced, adopt the smallest architecture that adds a deliberate boundary without compromising the core: an in-process model based on dynamic loading, a small versioned plugin ABI, an explicit host-provided API that exposes capabilities rather than internal state, opaque handles for editor-owned resources, and compatibility validation before activation. Treat plugins as trusted code running in-process rather than as sandboxed or strongly isolated extensions, and place dynamic loading behind a platform-isolated loader so the Core reasons about "load, resolve, unload" rather than platform-specific `dlopen` details.
+
+Reason:
+
+A plugin is independently compiled code crossing a boundary into the running editor, so it introduces concerns ordinary internal modules do not have — interface, ABI compatibility, versioning, dynamic loading, lifecycle, failure, and security. Exposing capabilities through an explicit interface rather than the editor's internals keeps the compatibility surface small and lets the editor evolve internally without breaking plugins, consistent with the state-ownership rules of ADR-006 and ADR-007 and the platform-boundary discipline of ADR-030. In-process execution keeps communication a simple function call and matches the editor's priority on simplicity; a process-isolated or sandboxed design would add serialization, IPC, and lifecycle complexity the baseline does not justify.
+
+Trade-off:
+
+In-process plugins provide extension, not fault or security isolation: a faulty or malicious plugin can crash or compromise the editor. Accepting trusted in-process plugins is simpler and faster but shifts the burden of trust to the user, who must install only trusted extensions. A small ABI surface, explicit compatibility checks, and a controlled lifecycle contain the coupling cost, but extensibility still adds real maintenance overhead — which is why plugins remain deferred until independent extension is worth the cost.
+
+First referenced: Chapter 39

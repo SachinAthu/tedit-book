@@ -173,7 +173,7 @@ Plugin API
     =
 Interface exposed by the plugin
 
-Editor API
+Host API
     =
 Interface exposed by the editor to the plugin
 ```
