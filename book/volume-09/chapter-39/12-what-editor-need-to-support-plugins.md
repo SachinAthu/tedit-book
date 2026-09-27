@@ -1,0 +1,146 @@
+# 39.12 What Our Editor Would Need to Support Plugins
+
+Our editor does not need a large plugin framework. A minimal implementation would require a small number of architectural components.
+
+## 1. Plugin Manager
+
+Responsible for:
+
+```text
+Discover plugins
+Load plugins
+Validate compatibility
+Track active plugins
+Initialize plugins
+Shutdown plugins
+Unload plugins
+```
+
+## 2. Plugin ABI
+
+A stable C interface defining:
+
+```text
+Plugin metadata
+ABI version
+Entry point
+Initialization
+Shutdown
+```
+
+The interface should expose only intentional extension points.
+
+## 3. Host API
+
+The editor needs a controlled API through which plugins can interact with the editor.
+
+For example:
+
+```text
+Register commands
+Query selected editor state
+Request editor operations
+Display messages
+Receive selected events
+```
+
+Plugins should not receive direct access to internal structures.
+
+## 4. Dynamic Loader
+
+A small platform-specific component responsible for:
+
+```text
+Load shared library
+Resolve plugin entry point
+Unload shared library
+```
+
+This belongs behind the platform boundary.
+
+## 5. Compatibility Validation
+
+Before activation:
+
+```text
+Load
+  ↓
+Identify
+  ↓
+Check ABI
+  ↓
+Check required capabilities
+  ↓
+Initialize
+```
+
+Incompatible plugins are rejected before they become active.
+
+## 6. Lifecycle Management
+
+The editor must define when plugins:
+
+```text
+Initialize
+Register extensions
+Operate
+Shutdown
+Release resources
+Unload
+```
+
+Callbacks and other registrations must be removed before unloading.
+
+## 7. Failure Handling
+
+Plugin failures should be handled without unnecessarily destabilizing the core editor.
+
+The baseline architecture should at least support:
+
+```text
+Initialization failure
+Loading failure
+Compatibility failure
+Controlled shutdown
+Plugin rejection
+```
+
+Strong process-level isolation is **not required** for the baseline design.
+
+## Minimal Architecture
+
+Putting these pieces together:
+
+```text
+                 Editor
+                    |
+             +------+------+
+             | Plugin      |
+             | Manager     |
+             +------+------+
+                    |
+             +------+------+
+             | Dynamic     |
+             | Loader      |
+             +------+------+
+                    |
+               Plugin ABI
+                    |
+          +---------+---------+
+          |                   |
+      Plugin A             Plugin B
+```
+
+The core editor remains responsible for its own state and invariants.
+
+The plugin system provides only the controlled boundary required for extensions.
+
+> **Our editor needs a small, versioned plugin boundary—not a large framework.**
+
+## Summary
+
+Supporting plugins requires a small set of architectural components rather than a heavyweight framework: a **Plugin Manager**, a **stable versioned ABI**, a **controlled Host API**, a **platform-isolated Dynamic Loader**, **explicit compatibility validation**, and **defined lifecycle and failure handling**.
+
+These pieces preserve the editor's core architecture, keeping its state and invariants inside the editor while granting plugins controlled access through the boundary.
+
+The chapter concludes with a summary of the overall architectural lessons, exercises, and a preview of the next chapter.

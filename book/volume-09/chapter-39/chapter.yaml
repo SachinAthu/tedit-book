@@ -4,6 +4,16 @@ volume: 9
 
 sections:
   - Introduction —> 00-introduction.md
-  - 39.1   —> 01-.md
-
-  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md
+  - 39.1 Why Plugins Change the Architecture  —> 01-why-plugins-change-architecture.md
+  - 39.2 Plugin Boundaries  —> 02-plugin-boundaries.md
+  - 39.3 Designing a Plugin Interface  —> 03-designing-a-plugin-interface.md
+  - 39.4 ABI — When Source Compatibility Is Not Enough  —> 04-abi.md
+  - 39.5 Plugin Versioning and Compatibility  —> 05-plugin-versioning-compatibility.md
+  - 39.6 Dynamic Loading  —> 06-dynamic-loading.md
+  - 39.7 Extending the Editor Safely  —> 07-extending-editor-safely.md
+  - 39.8 Plugin Failure and Isolation  —> 08-plugin-failure-and-isolation.md
+  - 39.9 Security Considerations  —> 09-security-considerations.md
+  - 39.10 A Minimal Plugin Architecture  —> 10-a-minimal-plugin-architecture.md
+  - 39.11 Design Alternatives and Trade-offs  —> 11-design-alternatives-trade-offs.md
+  - 39.12 What Our Editor Would Need to Support Plugins  —> 12-what-editor-need-to-support-plugins.md
+  - Summary, Exercises, Next Chapter Preview —> 13-conclusion.md
