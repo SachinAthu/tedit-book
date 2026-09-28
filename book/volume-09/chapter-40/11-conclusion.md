@@ -1,6 +1,6 @@
 # Chapter Summary
 
-The Language Server Protocol (LSP) is a way to make an editor language-aware without embedding language intelligence. A separate **language server** process performs analysis, and the editor, acting as the **LSP client**, communicates with it through a standardized protocol:
+The Language Server Protocol (LSP) is a way to make an editor language-aware without embedding language intelligence. A separate **language server** process performs analysis, and the editor, acting as the **LSP Client**, communicates with it through a standardized protocol:
 
 ```text
 Editor (LSP Client) ── LSP ──► Language Server
@@ -8,9 +8,9 @@ Editor (LSP Client) ── LSP ──► Language Server
 
 Language intelligence therefore becomes an **optional integration layer**, not a core dependency. The editor keeps ownership of the Document, cursor, commands, rendering, and file management; the server maintains its own analysis state, kept synchronized with the editor's in-memory document. Communication is **asynchronous** — requests expect responses, notifications do not, and results can arrive later — so the event loop must never block while waiting for the server. Server failures must not invalidate the editor's authoritative Document.
 
-The services built on the protocol — **diagnostics**, **completion**, and **hover** — follow one pattern: the editor provides document context, the server derives language information, and the editor presents it. Each introduces derived state, stale-result concerns, and latency trade-offs. LSP is distinct from syntax highlighting and from plugin architecture (Chapter 39), and it adds real costs: process lifecycle, protocol communication, synchronization, and trust.
+The services built on the protocol — **diagnostics**, **completion**, and **hover** — follow one pattern: the editor provides document context, the server derives language information, and the editor presents it. Each introduces derived state, stale-result concerns, and latency trade-offs. LSP is distinct from syntax highlighting and from plugin architecture (Chapter 39), and it adds real costs: process lifecycle, protocol communication, synchronization, asynchronous state management, and failure handling.
 
-The chapter's decision is deliberately conservative: LSP is an advanced extension that enhances the editor without redefining it. The core editor must remain a fully functional text editor with no language server — a self-contained baseline that later volumes can extend.
+The chapter's decision is deliberately conservative: LSP is an advanced extension that enhances the editor without redefining it. The core editor must remain a fully functional text editor with no language server — a self-contained baseline that later volumes can extend. Because LSP is deliberately excluded from the baseline implementation, this decision is not recorded as an ADR; like the plugin architecture of Chapter 39, it remains a deferred extension rather than a current architectural commitment.
 
 ## Exercises
 
@@ -23,6 +23,10 @@ The chapter's decision is deliberately conservative: LSP is an advanced extensio
 5. Compare LSP with putting a C parser directly inside the editor.
 6. Explain the difference between LSP and a plugin ABI.
 7. Design a failure strategy for an unavailable language server.
+
+### Optional Challenge
+
+Sketch the LSP Client's message-processing state machine: list the outstanding requests it must track, and define the policy it uses to decide whether an asynchronous response is still relevant to the current editing context or should be discarded as stale.
 
 ## Preview of the Next Chapter
 

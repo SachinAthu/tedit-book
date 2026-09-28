@@ -297,8 +297,8 @@ The rest of this chapter examines the architecture behind that answer, how infor
 
 ## Summary
 
-Language intelligence refers to capabilities that require knowledge of a programming or markup language rather than merely text. Embedding every language's analysis directly inside the editor creates an architectural coupling problem -- the editor becomes responsible for the intelligence of every language it supports.
+Language intelligence refers to capabilities that require knowledge of a programming or markup language rather than merely text. Embedding every language's analysis directly inside the editor creates an architectural coupling problem — the editor becomes responsible for the intelligence of every language it supports.
 
-A cleaner architecture moves language-specific intelligence into a separate process, with the editor acting as an LSP client that communicates through a standardized protocol boundary. This separation allows the editor to remain focused on text editing, cursor management, and rendering while language servers handle parsing, type checking, and semantic analysis.
+A cleaner architecture moves language-specific intelligence into a separate process, with the editor acting as an LSP Client that communicates through a standardized protocol boundary. This separation allows the editor to remain focused on text editing, cursor management, and rendering while language servers handle parsing, type checking, and semantic analysis.
 
-In the next section, we will define the Language Server Protocol more precisely and examine the roles of the LSP client and language server in detail.
+In the next section, we will define the Language Server Protocol more precisely and examine the roles of the LSP Client and language server in detail.

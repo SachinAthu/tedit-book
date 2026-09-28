@@ -516,8 +516,8 @@ The synchronization relationship keeps those representations sufficiently aligne
 
 ## Summary
 
-Document synchronization is the mechanism by which the editor's authoritative Document and the language server's analysis representation remain aligned. The editor communicates document changes -- either as full document replacements or incremental edits -- so the server can maintain an accurate basis for language analysis.
+Document synchronization is the mechanism by which the editor's authoritative Document and the language server's analysis representation remain aligned. The editor communicates document changes — either as full document replacements or incremental edits — so the server can maintain an accurate basis for language analysis.
 
 Document synchronization is distinct from file saving. The server must work with the editor's in-memory state, including unsaved changes, because file-based analysis would use stale data. Rapid editing introduces version-staleness problems: a server may still be analyzing an older version while the editor has already advanced. The architecture must therefore tolerate temporary differences and treat synchronization as an asynchronous activity that does not block ordinary editing.
 
-In the next section, we will examine the first concrete language service built on top of synchronization: diagnostics -- how the editor presents errors, warnings, and information produced by the language server.
+In the next section, we will examine the first concrete language service built on top of synchronization: diagnostics — how the editor presents errors, warnings, and information produced by the language server.

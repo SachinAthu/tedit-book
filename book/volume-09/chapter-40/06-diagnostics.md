@@ -551,6 +551,6 @@ The Renderer presents it.
 
 Diagnostics are language-derived information about problems in a document, identified by range, severity, and message. The language server produces diagnostics through its analysis; the editor only needs to receive, store, and present them. The editor does not implement the language rules that generated the diagnostic.
 
-Because diagnostics are asynchronous and derived, the editor must handle stale results -- diagnostics that arrived for an older document version than what the user currently sees. Diagnostics are not part of the document text; they are additional metadata that can be displayed through the Message Bar, inline indicators, or other presentation mechanisms. Multiple diagnostics may exist across multiple documents, and they must remain associated with their originating document contexts.
+Because diagnostics are asynchronous and derived, the editor must handle stale results — diagnostics that arrived for an older document version than what the user currently sees. Diagnostics are not part of the document text; they are additional metadata that can be displayed through the Message Bar, inline indicators, or other presentation mechanisms. Multiple diagnostics may exist across multiple documents, and they must remain associated with their originating document contexts.
 
-In the next section, we will examine completion -- the interactive language service that suggests possible continuations at the cursor position and how it differs fundamentally from the passive reporting of diagnostics.
+In the next section, we will examine completion — the interactive language service that suggests possible continuations at the cursor position and how it differs fundamentally from the passive reporting of diagnostics.

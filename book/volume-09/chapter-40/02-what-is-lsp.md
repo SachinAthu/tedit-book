@@ -21,13 +21,13 @@ The important idea is not that LSP makes an editor understand a programming lang
 +-------------------------+
 ```
 
-The editor acts as the **LSP client**. The external program acts as the **language server**.
+The editor acts as the **LSP Client**. The external program acts as the **language server**.
 
 This distinction gives each component a clearly defined responsibility.
 
 ## The LSP Client
 
-The **LSP client** is the part of the editor responsible for communicating using the Language Server Protocol.
+The **LSP Client** is the part of the editor responsible for communicating using the Language Server Protocol.
 
 It does not need to understand the internal implementation of the language server.
 
@@ -58,7 +58,7 @@ LSP Client
 Language Server
 ```
 
-The LSP client therefore acts as an adapter between the editor's internal architecture and the standardized protocol.
+The LSP Client therefore acts as an adapter between the editor's internal architecture and the standardized protocol.
 
 It translates editor state and user actions into protocol messages and translates protocol results back into information the editor can use.
 
@@ -333,7 +333,7 @@ We can now extend the architecture introduced in Section 40.1:
 
 The editor owns the editing experience.
 
-The LSP client owns the protocol interaction.
+The LSP Client owns the protocol interaction.
 
 The language server owns language-specific analysis.
 
@@ -343,8 +343,8 @@ That separation is the foundation on which the rest of this chapter will build.
 
 ## Summary
 
-The Language Server Protocol is a communication protocol, not a language analyzer. It defines how an editor (the LSP client) communicates with a separate program (the language server) that provides language-specific intelligence. The client sends requests and notifications; the server responds with language information.
+The Language Server Protocol is a communication protocol, not a language analyzer. It defines how an editor (the LSP Client) communicates with a separate program (the language server) that provides language-specific intelligence. The client typically sends requests and notifications; the server responds with language information, and either side can send messages that the other does not directly answer.
 
 During initialization, client and server exchange capabilities so the editor can adapt to the actual features a server supports. LSP creates an architectural boundary that separates the editor's editing and rendering responsibilities from language-specific parsing and analysis. This boundary means the editor depends on the protocol contract rather than on any particular language implementation.
 
-In the next section, we will examine the detailed architecture of the editor and language server, exploring how responsibilities are distributed between them and why the LSP client acts as an adapter between two different models.
+In the next section, we will examine the detailed architecture of the editor and language server, exploring how responsibilities are distributed between them and why the LSP Client acts as an adapter between two different models.

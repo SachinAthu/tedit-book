@@ -429,9 +429,11 @@ The core runtime remains conceptually:
 ```text
 Input
   ↓
+Input Handler
+  ↓
 Input Parser
   ↓
-Input Handler
+Input Engine
   ↓
 Command Engine
   ↓
@@ -571,7 +573,7 @@ That separation allows the advanced feature to remain optional while preserving 
 
 ## Summary
 
-LSP should be treated as an optional integration layer around the core editor, not as a dependency of the editor itself. The editor must remain a functional text editor when no language server is available, configured, or operational. The LSP client translates between editor concepts and protocol concepts, preventing language-service logic from spreading throughout the application.
+LSP should be treated as an optional integration layer around the core editor, not as a dependency of the editor itself. The editor must remain a functional text editor when no language server is available, configured, or operational. The LSP Client translates between editor concepts and protocol concepts, preventing language-service logic from spreading throughout the application.
 
 The core editor retains ownership of the Document, cursor, viewport, commands, undo/redo, file management, and rendering. LSP adds the ability to communicate with language servers for diagnostics, completion, and hover, but these are additional information services that enhance the editor rather than redefine it. This architectural decision is consistent with the project's Software Requirements Specification, which excludes LSP from the baseline implementation while keeping the architecture open for future integration.
 

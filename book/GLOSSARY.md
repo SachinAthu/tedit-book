@@ -483,6 +483,22 @@ Volume VIII, Chapter 36
 - Breakpoint
 - Stack Trace
 
+## Capability Negotiation
+
+**Definition**
+
+The initialization step in which an LSP client and a language server exchange descriptions of the features each supports, so that the editor can request only the operations a particular server actually provides. Capability negotiation replaces assumptions about a server's behavior with an explicit, agreed contract established before ordinary language-service operations begin.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server Protocol (LSP)
+- LSP Client
+- Language Server
+
 ## Capacity
 
 **Definition**
@@ -867,6 +883,23 @@ Volume III, Chapter 16
 - Command Dispatch
 - Command Engine
 
+## Completion
+
+**Definition**
+
+A language service that suggests possible continuations for the text at the cursor position. The editor sends a completion request; the language server returns candidate items based on language context such as scope, types, and symbols; the editor presents those candidates and, on user selection, applies the chosen text as an ordinary document-changing operation.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server
+- Diagnostics
+- Hover
+- LSP Client
+
 ## Composition
 
 **Definition**
@@ -1232,6 +1265,24 @@ Volume VIII, Chapter 38
 - Assertion
 - Build System
 
+## Diagnostics
+
+**Definition**
+
+Language-derived information about a problem in a document, identified by a range, a severity, and a message. Diagnostics are produced by the language server and presented by the editor; they are derived, asynchronous state rather than part of the document's text, so a diagnostic can become stale when the document changes before the result arrives.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server
+- LSP Client
+- Completion
+- Hover
+- Stale Result
+
 ## Dirty Flag
 
 **Definition**
@@ -1336,6 +1387,23 @@ Volume IV, Chapter 19
 - Viewport
 - Cursor
 - Renderer
+
+## Document Synchronization
+
+**Definition**
+
+The mechanism by which the editor keeps the language server's analysis representation aligned with the editor's authoritative in-memory Document. Synchronization communicates document changes — as full replacements or incremental edits — and is distinct from file saving, because the server must reflect unsaved, in-memory changes rather than the last state written to disk.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server
+- LSP Client
+- Document
+- Stale Result
 
 ## Durability
 
@@ -2108,6 +2176,23 @@ Volume IX, Chapter 39
 - Plugin
 - Editor State
 
+## Hover
+
+**Definition**
+
+A language service that provides contextual information about the symbol or expression at a particular position, such as its type, signature, or documentation. Hover is a read-only query: it returns derived, temporary information and does not modify the document or create undo records.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server
+- Completion
+- Diagnostics
+- LSP Client
+
 # I
 
 ## Immediate-Mode Rendering
@@ -2509,6 +2594,58 @@ Volume VII, Chapter 32
 - Syntax Highlighting
 - Document
 
+## Language Intelligence
+
+**Definition**
+
+Capabilities that require knowledge of a programming or markup language rather than knowledge of characters alone — such as detecting errors, suggesting completions, explaining symbols, and resolving references. Language intelligence belongs outside the editor's core; it is provided by an external language server rather than embedded in the editor.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server
+- Language Server Protocol (LSP)
+- Diagnostics
+- Completion
+- Hover
+
+## Language Server
+
+**Definition**
+
+A separate process that provides language-specific intelligence to an editor through the Language Server Protocol. The language server owns language analysis — parsing, type checking, symbol resolution, diagnostics, completion, and hover — while the editor keeps ownership of the authoritative Document. As an external component, the server has its own lifetime, failure modes, and communication channel.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server Protocol (LSP)
+- LSP Client
+- Language Intelligence
+
+## Language Server Protocol (LSP)
+
+**Definition**
+
+A communication protocol that defines how an editor (the LSP client) communicates with a separate program (the language server) that provides language-specific intelligence. LSP standardizes the boundary between editing and language analysis: it defines requests, responses, and notifications for exchanging language information such as diagnostics, completion, and hover, without specifying how the language is parsed or analyzed.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server
+- LSP Client
+- Language Intelligence
+- Request (LSP)
+- Notification (LSP)
+
 ## Latency
 
 **Definition**
@@ -2843,6 +2980,22 @@ Volume II, Chapter 8
 - High Cohesion
 - Layered Architecture
 
+## LSP Client
+
+**Definition**
+
+The part of the editor responsible for communicating with a language server using the Language Server Protocol. The LSP client acts as an adapter between the editor's internal concepts and the protocol: it translates document changes and requests into protocol messages and converts responses back into editor-consumable information, without replacing the editor's ownership of the Document.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server Protocol (LSP)
+- Language Server
+- Document Synchronization
+
 # M
 
 ## Machine Instruction
@@ -3012,6 +3165,22 @@ Volume II, Chapter 7
 - Functional Requirement
 - Software Requirements Specification (SRS)
 - Constraint
+
+## Notification (LSP)
+
+**Definition**
+
+An LSP message that communicates an event or state change without expecting a response. Document synchronization is the primary notification: the client informs the server that a document changed, and the server can publish diagnostics, with no request–response pairing required.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server Protocol (LSP)
+- Request (LSP)
+- Response (LSP)
 
 ## Null Terminator
 
@@ -3805,6 +3974,23 @@ Volume VIII, Chapter 36
 - First Incorrect State
 - Logging
 
+## Request (LSP)
+
+**Definition**
+
+An LSP message that asks the language server to perform an operation and return a result, such as requesting completion or hover information. A request expects a corresponding response, which may arrive asynchronously and must be matched to the request by an identifier.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server Protocol (LSP)
+- Response (LSP)
+- Notification (LSP)
+- LSP Client
+
 ## Requirements Traceability
 
 **Definition**
@@ -3820,6 +4006,22 @@ Volume II, Chapter 7
 - Functional Requirement
 - Software Requirements Specification (SRS)
 - Non-Functional Requirement (NFR)
+
+## Response (LSP)
+
+**Definition**
+
+The result returned by a language server in answer to a request. A response may arrive later and out of order, so the LSP client must associate it with its originating request and discard results that are no longer relevant to the current editing context.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Language Server Protocol (LSP)
+- Request (LSP)
+- Stale Result
 
 ## Retained-Mode Rendering
 
@@ -4301,6 +4503,24 @@ Volume II, Chapter 7
 - Software Requirements Specification (SRS)
 - Functional Requirement
 - Use Case
+
+## Stale Result
+
+**Definition**
+
+A language-server result that describes a document state that is no longer current when the result arrives. Because language analysis is asynchronous, the editor must detect and discard stale results rather than applying them to the present document.
+
+**First Introduced**
+
+Volume IX, Chapter 40
+
+**Related Terms**
+
+- Document Synchronization
+- Response (LSP)
+- Diagnostics
+- Completion
+- Hover
 
 ## State Ownership
 
@@ -5271,13 +5491,6 @@ Volume VI, Chapter 24
 - Average Case
 - Amortized Complexity
 - Time Complexity
-
-# Future Terms
-
-The following concepts are expected to be added as the manuscript develops:
-
-- Language Server Protocol (LSP)
-- Tree-sitter
 
 # Maintenance Rules
 

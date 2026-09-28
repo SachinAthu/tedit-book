@@ -6,7 +6,7 @@
 
 Chapter 39 examined how plugins extend an editor through a defined interface. The Language Server Protocol (LSP) solves a related problem from a different direction: instead of adding language-specific code to the editor, it places language intelligence in a separate process and standardizes the boundary across which the editor communicates with that process.
 
-The editor acts as the **LSP client** and the external program acts as the **language server**. The protocol defines how the client requests language services — such as diagnostics, completion, and hover — and how the server provides them. The central question is:
+The editor acts as the **LSP Client** and the external program acts as the **language server**. The protocol defines how the client requests language services — such as diagnostics, completion, and hover — and how the server provides them. The central question is:
 
 > **How can an editor obtain language intelligence from an external process while keeping its core architecture independent of any particular programming language?**
 
@@ -17,8 +17,8 @@ We begin by examining why language intelligence belongs outside the editor, then
 Readers should be able to:
 
 - explain why language intelligence belongs outside the editor
-- describe LSP as a protocol and distinguish the LSP client from the language server
-- describe the LSP client as an adapter and explain why the editor keeps ownership of the Document
+- describe LSP as a protocol and distinguish the LSP Client from the language server
+- describe the LSP Client as an adapter and explain why the editor keeps ownership of the Document
 - explain how a language server is selected, started, initialized, and eventually shut down
 - explain why the language server must be kept synchronized with the editor's in-memory document
 - describe diagnostics as derived, asynchronous information that the editor presents but does not produce

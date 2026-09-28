@@ -581,7 +581,7 @@ This is where the book becomes much deeper than a typical tutorial.
 - Completion
 - Hover
 
-## **Chapter 41 — Tree-sitter**
+## **Chapter 41 — Tree-sitter and Incremental Parsing**
 
 - Incremental parsing
 - Syntax trees

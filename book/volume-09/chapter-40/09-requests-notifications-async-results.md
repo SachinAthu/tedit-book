@@ -20,6 +20,8 @@ Asynchronous result:
     Request ──► processing ──► response later
 ```
 
+A response is a message returned to the client; an asynchronous result is that same response arriving later rather than inside the request call. The three message categories are therefore requests, responses, and notifications — this section emphasizes the timing of responses because that timing is what forces our editor to remain event-driven.
+
 The LSP Client therefore cannot be designed as though every operation were an ordinary synchronous function call.
 
 ## Requests
@@ -780,8 +782,8 @@ That is the key architectural consequence of introducing LSP into our terminal e
 
 ## Summary
 
-LSP communication is built on three patterns: requests (which expect a response), notifications (which communicate events without requiring a response), and asynchronous results (responses that arrive later). Requests and notifications can interleave, and responses may not arrive in the order they were sent. The LSP client must track outstanding requests and associate each response with its originating context.
+LSP communication is built on three patterns: requests (which expect a response), notifications (which communicate events without requiring a response), and asynchronous results (responses that arrive later). Requests and notifications can interleave, and responses may not arrive in the order they were sent. The LSP Client must track outstanding requests and associate each response with its originating context.
 
-The most important rule is that the event loop must not block while waiting for language-server responses. The language server is an asynchronous participant in the editor's runtime, adding another source of events alongside user input and terminal events. Stale results -- responses that arrive after the editing context has changed -- must be detected and discarded rather than applied blindly. The editor must also distinguish individual request failures from transport failures and handle each appropriately without corrupting core editor state.
+The most important rule is that the event loop must not block while waiting for language-server responses. The language server is an asynchronous participant in the editor's runtime, adding another source of events alongside user input and terminal events. Stale results — responses that arrive after the editing context has changed — must be detected and discarded rather than applied blindly. The editor must also distinguish individual request failures from transport failures and handle each appropriately without corrupting core editor state.
 
 In the next section, we will bring together everything discussed in this chapter and make the architectural decision about where LSP fits in our terminal editor, what it should own, and what boundaries it must respect.

@@ -592,4 +592,4 @@ Completion is an interactive language service that asks: "What constructs could 
 
 Unlike diagnostics, which tolerate some delay, completion is latency-sensitive. The user is actively editing and waiting for suggestions, so the editor must not block the event loop while the server processes the request. Completion results are derived information that must remain associated with the correct buffer and document version. Accepting a completion becomes a standard editor operation that interacts correctly with undo/redo, document synchronization, and the Dirty Flag.
 
-In the next section, we will examine hover information -- the language service that answers "What does this existing text mean?" and how it complements completion by providing contextual insights about symbols under the cursor.
+In the next section, we will examine hover information — the language service that answers "What does this existing text mean?" and how it complements completion by providing contextual insights about symbols under the cursor.

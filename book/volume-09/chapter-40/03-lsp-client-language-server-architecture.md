@@ -38,6 +38,7 @@ Its existing architecture already provides components such as:
 - Viewport;
 - Input Handler;
 - Input Parser;
+- Input Engine;
 - Command Engine;
 - Renderer;
 - File Manager.
@@ -434,6 +435,6 @@ That leads to the language-server lifecycle.
 
 The editor and the language server are two cooperating but independent systems separated by the LSP boundary. The editor owns the authoritative Document, cursor, viewport, input handling, command execution, and rendering. The language server owns language-specific analysis, including parsing, symbol resolution, type checking, and diagnostics.
 
-The LSP client sits between these two systems, acting as an adapter that converts editor state into protocol messages and protocol results back into editor-consumable information. The document therefore exists in two representations -- an editing-optimized one in the editor and an analysis-optimized one in the server -- that must remain synchronized but need not be identical. This separation prevents language-specific knowledge from leaking into the Renderer or other editor components.
+The LSP Client sits between these two systems, acting as an adapter that converts editor state into protocol messages and protocol results back into editor-consumable information. The document therefore exists in two representations — an editing-optimized one in the editor and an analysis-optimized one in the server — that must remain synchronized but need not be identical. This separation prevents language-specific knowledge from leaking into the Renderer or other editor components.
 
 In the next section, we will examine the language-server lifecycle: how a server is selected, started, initialized, managed through failure, and eventually shut down.
