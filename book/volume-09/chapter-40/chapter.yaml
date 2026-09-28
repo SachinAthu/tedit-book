@@ -1,0 +1,17 @@
+chapter: 40
+title: Language Server Protocol (LSP)
+volume: 9
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 40.1 Why Language Intelligence Matters —> 01-why-language-intelligence-matters.md
+  - 40.2 What Is the Language Server Protocol? —> 02-what-is-lsp.md
+  - 40.3 LSP Client and Language Server Architecture —> 03-lsp-client-language-server-architecture.md
+  - 40.4 Starting and Managing a Language Server —> 04-starting-managing-language-server.md
+  - 40.5 Document Synchronization —> 05-document-synchronization.md
+  - 40.6 Diagnostics —> 06-diagnostics.md
+  - 40.7 Completion —> 07-completion.md
+  - 40.8 Hover Information —> 08-hover-information.md
+  - 40.9 Requests, Notifications, and Asynchronous Results —> 09-requests-notifications-async-results.md
+  - 40.10 LSP Integration Trade-offs and Boundary for Our Editor —> 10-lsp-integration-trade-offs.md
+  - Summary, Exercises, Next Chapter Preview —> 11-conclusion.md
