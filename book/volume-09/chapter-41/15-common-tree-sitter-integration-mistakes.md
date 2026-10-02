@@ -1,0 +1,183 @@
+# 41.15 Common Tree-sitter Integration Mistakes
+
+Tree-sitter provides powerful capabilities, but those capabilities do not remove the need for careful architecture.
+
+The following mistakes are particularly important when integrating it into an editor.
+
+## 1. Rebuilding the Entire Tree After Every Edit
+
+The primary benefit of incremental parsing is preserving useful existing structure.
+
+An implementation that discards the existing tree and constructs a completely new one after every edit defeats much of that benefit.
+
+```text
+Edit
+ │
+ ▼
+Existing Tree
+ │
+ ▼
+Incremental Update
+```
+
+should not become:
+
+```text
+Edit
+ │
+ ▼
+Discard Tree
+ │
+ ▼
+Parse Everything Again
+```
+
+## 2. Confusing Source Positions with Terminal Coordinates
+
+Parser positions describe locations in the source document.
+
+Terminal coordinates describe locations on the displayed screen.
+
+They are different coordinate systems:
+
+```text
+Source Position
+     │
+     ▼
+Viewport / Rendering
+     │
+     ▼
+Terminal Coordinate
+```
+
+Tree-sitter should not be treated as though its source ranges directly represent screen positions.
+
+## 3. Making the Renderer Depend Directly on Tree-sitter
+
+The Renderer should render editor state rather than become a Tree-sitter-specific component.
+
+A cleaner boundary is:
+
+```text
+Tree-sitter
+     │
+     ▼
+Derived syntax information
+     │
+     ▼
+Editor / rendering state
+     │
+     ▼
+Renderer
+```
+
+This preserves the Renderer as an independent presentation component.
+
+## 4. Mixing Highlighting with Parsing
+
+Parsing and highlighting are related, but they are not the same responsibility.
+
+The parser produces structural information.
+
+Highlighting consumes that information to determine presentation.
+
+```text
+Parser
+  │
+  ▼
+Syntax Tree
+  │
+  ▼
+Highlighting
+```
+
+Keeping this distinction prevents presentation concerns from becoming embedded in the parser itself.
+
+## 5. Treating Syntax Errors as Fatal Editor Errors
+
+Source code can be temporarily invalid during normal editing.
+
+For example, while typing:
+
+```c
+if (
+```
+
+the source is incomplete, but the editor must continue operating.
+
+A syntax error is therefore normally information about the document, not a failure of the editor process.
+
+The parser's ability to recover from incomplete or malformed input is part of its usefulness in an interactive editor.
+
+## 6. Assuming Incremental Parsing Means Constant-Time Parsing
+
+Incremental parsing does not guarantee:
+
+```text
+Every edit → O(1)
+```
+
+The amount of work depends on the affected structure and parser behavior.
+
+An edit can require a larger portion of the syntax structure to be reconsidered.
+
+Therefore, incremental parsing should be understood as **avoiding unnecessary re-analysis**, not as providing constant-time parsing. Pasted text
+
+## 7. Allowing Parser State to Become a Second Source of Truth
+
+The Document remains the authoritative representation of editable text.
+
+The syntax tree is derived information:
+
+```text
+Document
+   │
+   ▼
+Syntax Tree
+```
+
+The editor should not allow the parser's representation to become an independent authority over document contents.
+
+If the two representations disagree, the Document must remain the source of truth.
+
+## 8. Coupling LSP and Tree-sitter into One Subsystem
+
+Tree-sitter and LSP complement one another, but they serve different purposes.
+
+```text
+Document
+   │
+   ├──────────► Tree-sitter
+   │                 │
+   │                 ▼
+   │           Local structure
+   │
+   └──────────► LSP
+                     │
+                     ▼
+              Language services
+```
+
+Combining them into one inseparable subsystem creates unnecessary coupling.
+
+Each should retain a clear architectural boundary.
+
+## The General Lesson
+
+These mistakes all violate principles established earlier in the chapter.
+
+The integration should preserve:
+
+```text
+Clear ownership
+      +
+Separate responsibilities
+      +
+Explicit coordinate systems
+      +
+Derived-state discipline
+      +
+Incremental processing
+```
+
+Tree-sitter is a powerful subsystem, but it should remain **a subsystem** rather than becoming the architecture of the entire editor. Pasted text

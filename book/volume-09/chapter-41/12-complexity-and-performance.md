@@ -1,0 +1,303 @@
+# 41.12 Complexity and Performance
+
+Tree-sitter's incremental parsing model is designed to avoid unnecessary work, but incremental parsing is not free.
+
+The important question is not simply:
+
+> Is incremental parsing faster than parsing the whole document?
+
+The useful question is:
+
+> How much of the syntax structure must be reconsidered after a particular edit?
+
+## Full Parsing
+
+With full parsing, an edit can cause the parser to analyze the document as a whole:
+
+```text
+Edit
+ │
+ ▼
+Parse document
+ │
+ ▼
+New syntax tree
+```
+
+The amount of work is therefore related to the size of the document and the parser's behavior.
+
+This approach is conceptually simple, but repeated edits can cause substantial repeated work, especially for large source files.
+
+## Incremental Parsing
+
+Incremental parsing instead starts with the existing syntax tree:
+
+```text
+Existing tree
+      │
+      ▼
+     Edit
+      │
+      ▼
+Update affected structure
+      │
+      ▼
+Propagate structural consequences
+      │
+      ▼
+Updated tree
+```
+
+If an edit affects only a small region, much of the existing structure can remain useful.
+
+For example, changing:
+
+```c
+return value + 10;
+```
+
+to:
+
+```c
+return value + 20;
+```
+
+does not normally require treating every unrelated function in the file as newly parsed.
+
+However, this should not be interpreted as a constant-time operation.
+
+> **Incremental does not mean free.**
+
+The amount of work depends on the affected region and on how the grammar's structure changes as a consequence of the edit. Pasted text
+
+## Affected-Region Size
+
+Small textual edits can have different structural effects.
+
+Consider an edit inside a simple expression:
+
+```c
+x = a + b;
+```
+
+A change to `b` may affect only a small portion of the tree.
+
+By contrast, an edit that changes the structure of a large construct can cause more parsing work:
+
+```c
+if (condition)
+{
+    ...
+}
+```
+
+Adding or removing syntax that changes the interpretation of a surrounding region may require the parser to reconsider a larger part of the structure.
+
+Therefore:
+
+```text
+Small edit
+   │
+   ▼
+Small affected region
+   │
+   ▼
+Potentially small update
+```
+
+is a useful conceptual model, but not a guarantee.
+
+## Repeated Edits
+
+Interactive editors perform edits continuously:
+
+```text
+type character
+       ↓
+parse
+       ↓
+render
+
+type character
+       ↓
+parse
+       ↓
+render
+
+type character
+       ↓
+parse
+       ↓
+render
+```
+
+The advantage of incremental parsing becomes more significant when the same document is repeatedly modified.
+
+Instead of repeatedly constructing an entirely new representation, the parser can preserve unaffected portions of the existing tree.
+
+This is particularly valuable for interactive editing, where small changes occur frequently.
+
+## Syntax-Tree Memory
+
+The performance discussion is not limited to CPU time.
+
+A syntax tree consumes memory in addition to the Document itself.
+
+The editor may therefore maintain:
+
+```text
+Document
+   +
+Syntax Tree
+   +
+Highlight information
+   +
+Other editor state
+```
+
+The tree provides useful structural information, but that information has a memory cost.
+
+For a small source file this may be insignificant. For very large files, however, the additional representation becomes an architectural consideration.
+
+This is one reason Tree-sitter should not be described simply as a "faster parser." It changes both the computational and memory characteristics of the editor.
+
+## Large Files
+
+Large files make the trade-off more visible.
+
+A full parser may have to perform substantial work when the document is reparsed or re-analyzed.
+
+An incremental parser can avoid repeating work for unaffected regions, but it still has to maintain and update the syntax structure.
+
+The resulting behavior depends on:
+
+```text
+Document size
+     +
+Edit location
+     +
+Grammar structure
+     +
+Affected region
+     +
+Parser behavior
+```
+
+There is therefore no single performance number that describes incremental parsing for every editor workload.
+
+## Pathological Edits
+
+Some edits can invalidate substantially more structure than ordinary local changes.
+
+For example, an edit near the beginning of a construct can change how subsequent text is interpreted:
+
+```text
+Edit
+ │
+ ▼
+Structural change
+ │
+ ▼
+Larger affected region
+ │
+ ▼
+More parsing work
+```
+
+A good architecture must therefore avoid assumptions such as:
+
+```text
+incremental parsing = O(1)
+```
+
+or:
+
+```text
+one character edit = one node update
+```
+
+Those are not valid general guarantees.
+
+The benefit comes from avoiding unnecessary work where the parser can determine that existing structure remains valid. Pasted text
+
+## Parser Initialization
+
+There is also an initial cost.
+
+Before incremental updates can occur, the editor needs an initial syntax tree:
+
+```text
+Load Document
+      │
+      ▼
+Initial Parse
+      │
+      ▼
+Syntax Tree
+      │
+      ▼
+Incremental Updates
+```
+
+The first parse therefore still requires substantial work for a large document.
+
+Incremental parsing primarily changes the cost of **subsequent edits**; it does not eliminate the need for an initial parse.
+
+## Tree Traversal
+
+Building and maintaining the tree is only part of the cost.
+
+Editor features must also inspect it.
+
+For example:
+
+```text
+Syntax Tree
+     │
+     ├── Highlighting
+     ├── Folding
+     ├── Navigation
+     └── Outline
+```
+
+Each feature may traverse relevant portions of the tree.
+
+Consequently, an editor must consider not only parsing cost but also the cost of consuming the resulting structure.
+
+The overall performance model is therefore better represented as:
+
+```text
+                    Editor Work
+                         │
+          ┌──────────────┼──────────────┐
+          ▼              ▼              ▼
+     Parsing Cost   Tree Memory    Tree Traversal
+          │              │              │
+          └──────────────┼──────────────┘
+                         ▼
+                  Overall Complexity
+```
+
+## The Correct Mental Model
+
+The key distinction is:
+
+```text
+Full parsing
+    │
+    ▼
+Potentially analyze the whole document
+
+
+Incremental parsing
+    │
+    ▼
+Update affected structure
+    │
+    ▼
+Propagate structural consequences where necessary
+```
+
+Incremental parsing can substantially reduce repeated work, especially when edits are local. But its effectiveness depends on the edit, the affected structure, the grammar, and the parser's behavior.
+
+Therefore, Tree-sitter should be understood as a mechanism for **controlling unnecessary re-analysis**, not as a promise of constant-time parsing or universally superior performance. Pasted text
