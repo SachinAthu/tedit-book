@@ -173,14 +173,16 @@ assignment
 │   [0 .. 1]
 ├── operator
 │   [2 .. 3]
-└── addition
-    [4 .... 9]
-    ├── identifier
-    │   [4 .. 5]
-    ├── operator
-    │   [6 .. 7]
-    └── identifier
-        [8 .. 9]
+├── addition
+│   [4 .... 9]
+│   ├── identifier
+│   │   [4 .. 5]
+│   ├── operator
+│   │   [6 .. 7]
+│   └── identifier
+│       [8 .. 9]
+└── punctuation
+    [9 .. 10]
 ```
 
 The numbers here are illustrative. The exact indexing convention depends on the representation being used.
@@ -429,39 +431,9 @@ This hierarchy allows features to choose the level of structure they need.
 
 ## Ranges Change When the Document Changes
 
-An important consequence of editing is that source ranges are not permanent.
+As discussed in Section 41.5, an edit changes source positions even when the underlying syntax does not change.
 
-Suppose:
-
-```text
-line 1
-line 2
-line 3
-```
-
-has a syntax node covering line 2.
-
-If a new line is inserted before line 2:
-
-```text
-line 1
-new line
-line 2
-line 3
-```
-
-the node representing the original content now corresponds to a different source position.
-
-This illustrates another important distinction:
-
-```text
-Source position changed
-        │
-        ≠
-Syntax necessarily changed
-```
-
-The text may have moved while its syntactic structure remains valid.
+If a new line is inserted before a construct, the node representing that construct shifts to a different source position, but its syntactic structure may remain entirely valid.
 
 An incremental parser must therefore maintain both:
 
@@ -472,30 +444,7 @@ This is one of the reasons incremental parsing requires more than simply caching
 
 ## Syntax Trees Are Derived Representations
 
-The complete relationship can now be shown as:
-
-```text
-                     Document
-                         │
-                         │ source text
-                         ▼
-                      Parser
-                         │
-                         ▼
-                    Syntax Tree
-                         │
-            ┌────────────┼────────────┐
-            ▼            ▼            ▼
-          Node         Node         Node
-            │
-       ┌────┴────┐
-       ▼         ▼
-    children   children
-```
-
-The Document remains authoritative.
-
-The syntax tree provides a structured interpretation of that Document.
+As established in Section 41.2, the Document remains authoritative and the syntax tree provides a derived interpretation of it.
 
 This means the tree can be discarded and reconstructed without changing what the Document actually contains:
 

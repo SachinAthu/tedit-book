@@ -36,10 +36,10 @@ This tells us what the pieces are, but not necessarily how they are structurally
 A parser can instead represent the source as a hierarchy:
 
 ```text
-if-statement
+if_statement
 ├── condition
 └── body
-    └── expression-statement
+    └── expression_statement
 ```
 
 This structural representation can support features such as code folding, structural navigation, matching constructs, and more sophisticated syntax highlighting.

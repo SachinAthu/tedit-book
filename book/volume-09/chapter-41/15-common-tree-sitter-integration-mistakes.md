@@ -34,23 +34,7 @@ Parse Everything Again
 
 ## 2. Confusing Source Positions with Terminal Coordinates
 
-Parser positions describe locations in the source document.
-
-Terminal coordinates describe locations on the displayed screen.
-
-They are different coordinate systems:
-
-```text
-Source Position
-     │
-     ▼
-Viewport / Rendering
-     │
-     ▼
-Terminal Coordinate
-```
-
-Tree-sitter should not be treated as though its source ranges directly represent screen positions.
+Parser positions describe locations in the source document; terminal coordinates describe locations on the displayed screen. As discussed in Section 41.6, these are separate coordinate systems, connected only through the Viewport and Renderer. Tree-sitter's source ranges should therefore never be treated as screen positions.
 
 ## 3. Making the Renderer Depend Directly on Tree-sitter
 
@@ -111,17 +95,9 @@ The parser's ability to recover from incomplete or malformed input is part of it
 
 ## 6. Assuming Incremental Parsing Means Constant-Time Parsing
 
-Incremental parsing does not guarantee:
+As discussed in Sections 41.1 and 41.12, incremental parsing does not guarantee O(1) per edit. The amount of work depends on the affected structure, and an edit can require a larger portion of the syntax structure to be reconsidered.
 
-```text
-Every edit → O(1)
-```
-
-The amount of work depends on the affected structure and parser behavior.
-
-An edit can require a larger portion of the syntax structure to be reconsidered.
-
-Therefore, incremental parsing should be understood as **avoiding unnecessary re-analysis**, not as providing constant-time parsing.
+Incremental parsing should therefore be understood as **avoiding unnecessary re-analysis**, not as providing constant-time parsing.
 
 ## 7. Allowing Parser State to Become a Second Source of Truth
 

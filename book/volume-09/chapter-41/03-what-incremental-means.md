@@ -1,4 +1,4 @@
-# 41.3 What “Incremental” Really Means
+# 41.3 What "Incremental" Really Means
 
 A syntax tree provides a structural representation of a document. The next problem is maintaining that representation while the document changes.
 
@@ -130,40 +130,9 @@ Nevertheless, this illustrates the central principle:
 
 ## Local Changes Can Have Non-Local Effects
 
-Incremental parsing does not mean that the parser only examines the characters directly inserted or deleted.
+As discussed in Section 41.1, incremental parsing does not mean that the parser only examines the characters directly inserted or deleted. A single edit can alter the structural interpretation of a larger region — removing a closing brace, for example, can force the surrounding construct to be reconsidered.
 
-Consider:
-
-```c
-if (condition) {
-    statement();
-}
-```
-
-Now imagine the closing brace is removed:
-
-```c
-if (condition) {
-    statement();
-```
-
-The edit affects only one character, but the structural consequences are larger.
-
-The parser may need to reconsider the surrounding construct:
-
-```text
-Removed '}'
-     │
-     ▼
-Block structure affected
-     │
-     ▼
-Surrounding syntax reconsidered
-```
-
-This is why incremental parsing is not equivalent to "parse only the changed characters."
-
-The parser must determine which existing structural information remains valid and which information must be recalculated.
+The parser must therefore determine which existing structural information remains valid and which information must be recalculated.
 
 ## Incremental Parsing as State Reuse
 
@@ -404,43 +373,9 @@ Incrementality should therefore be introduced deliberately rather than applied s
 
 ## The Important Boundary
 
-Our editor architecture maintains a clear distinction between the authoritative document and derived analysis:
+As established in Section 41.2, our architecture keeps the Document as the source of truth and treats the syntax tree as derived state that must correspond to a particular version of that document.
 
-```text
-                Document
-                   │
-             ┌─────┴─────┐
-             │           │
-             ▼           ▼
-       Syntax Analysis   Other
-             │          Analysis
-             ▼
-        Syntax Tree
-```
-
-The Document remains the source of truth.
-
-The syntax tree is derived state that must correspond to a particular version of that document.
-
-After an edit, the relationship becomes:
-
-```text
-Old Document
-     │
-     ▼
-Old Syntax Tree
-
-        │
-        │ edit
-        ▼
-
-New Document
-     │
-     ▼
-Updated Syntax Tree
-```
-
-The purpose of incremental parsing is to make that transition efficient while preserving correctness.
+The purpose of incremental parsing is to make the transition from an old document version and its tree to a new pair efficient while preserving correctness.
 
 ## Summary
 

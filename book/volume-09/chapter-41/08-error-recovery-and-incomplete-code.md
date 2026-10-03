@@ -340,7 +340,7 @@ must remain exactly that until the user changes it.
 The parser can represent:
 
 ```text
-incomplete if-statement
+incomplete if_statement
 ```
 
 but it must not silently transform the source into:

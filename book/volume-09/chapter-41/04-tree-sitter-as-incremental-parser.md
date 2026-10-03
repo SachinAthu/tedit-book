@@ -171,25 +171,7 @@ The important architectural point is that language-specific parsing knowledge re
 
 ## The Parser Is Not the Document
 
-A common architectural mistake would be to treat the parser's syntax tree as another version of the document.
-
-For example:
-
-```text
-        Document
-           │
-           ├── source text
-           │
-           └── authoritative state
-
-        Syntax Tree
-           │
-           ├── structural information
-           │
-           └── derived state
-```
-
-These representations serve different purposes.
+A common architectural mistake would be to treat the parser's syntax tree as another version of the document. As established in Section 41.2, the two representations serve different purposes.
 
 The Document answers:
 
@@ -199,19 +181,7 @@ The syntax tree answers:
 
 > How does that text appear to be structured according to the selected grammar?
 
-The syntax tree therefore depends on the Document.
-
-```text
-Document
-   │
-   ▼
-Parser
-   │
-   ▼
-Syntax Tree
-```
-
-The reverse relationship should not be used to make the syntax tree authoritative.
+The syntax tree therefore always derives from the Document; the reverse relationship should never make the tree authoritative.
 
 ## Tree-sitter in an Editing Cycle
 

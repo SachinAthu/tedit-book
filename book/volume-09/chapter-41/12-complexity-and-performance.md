@@ -64,11 +64,7 @@ return value + 20;
 
 does not normally require treating every unrelated function in the file as newly parsed.
 
-However, this should not be interpreted as a constant-time operation.
-
-> **Incremental does not mean free.**
-
-The amount of work depends on the affected region and on how the grammar's structure changes as a consequence of the edit.
+However, as established in Section 41.1, this is not a constant-time operation: **incremental does not mean free.** The amount of work depends on the affected region and on how the grammar's structure changes as a consequence of the edit.
 
 ## Affected-Region Size
 
@@ -280,27 +276,11 @@ The overall performance model is therefore better represented as:
 
 ## The Correct Mental Model
 
-The key distinction is:
+Incremental parsing can substantially reduce repeated work, especially when edits are local — rather than analyzing the whole document, it updates affected structure and propagates structural consequences only where necessary.
 
-```text
-Full parsing
-    │
-    ▼
-Potentially analyze the whole document
+But its effectiveness depends on the edit, the affected structure, the grammar, and the parser's behavior.
 
-
-Incremental parsing
-    │
-    ▼
-Update affected structure
-    │
-    ▼
-Propagate structural consequences where necessary
-```
-
-Incremental parsing can substantially reduce repeated work, especially when edits are local. But its effectiveness depends on the edit, the affected structure, the grammar, and the parser's behavior.
-
-Therefore, Tree-sitter should be understood as a mechanism for **controlling unnecessary re-analysis**, not as a promise of constant-time parsing or universally superior performance.
+Tree-sitter should therefore be understood as a mechanism for **controlling unnecessary re-analysis** (Section 41.1), not as a promise of constant-time parsing or universally superior performance.
 
 ## Summary
 

@@ -21,6 +21,12 @@ Syntax Tree
 Highlighting Information
    │
    ▼
+Theme
+   │
+   ▼
+Visual Styles
+   │
+   ▼
 Renderer
 ```
 
@@ -91,6 +97,12 @@ Highlight Query / Analysis
 Highlight Ranges
     │
     ▼
+Theme
+    │
+    ▼
+Visual Styles
+    │
+    ▼
 Renderer
 ```
 
@@ -98,18 +110,24 @@ The important point is that the syntax tree does not itself determine colors or 
 
 It provides structural information.
 
-A separate highlighting stage interprets that structure and produces information suitable for rendering.
+A separate highlighting stage interprets that structure and produces semantic categories — highlight ranges associated with highlight classes. Those classes still do not decide appearance.
 
-This preserves the separation established earlier:
+As in Chapter 32, the Theme maps each highlight class to a Visual Style, and the Renderer draws the result.
+
+This preserves the separation established in Chapter 32:
 
 ```text
-Parser
-  │
-  └── structural analysis
+Parser / Highlighting
+      │
+      └── semantic analysis
+
+Theme
+      │
+      └── visual mapping
 
 Renderer
-  │
-  └── visual presentation
+      │
+      └── terminal presentation
 ```
 
 ## Highlight Ranges
@@ -124,6 +142,8 @@ Highlight
 └── capture
 ```
 
+A **capture** names the nodes a Tree-sitter query matches — labels such as `@keyword` or `@function` in a query file — and each capture name corresponds to a Highlight Class in the Chapter 32 sense: the range records *where* the text occurs, while the capture records *what* semantic category it belongs to.
+
 For example:
 
 ```text
@@ -133,19 +153,25 @@ operator    [10..11]
 number      [12..14]
 ```
 
-The renderer can then map those categories to terminal presentation.
+These categories are highlight classes in the sense established in Chapter 32: they describe what the text is, not how it should appear. The Theme supplies the appearance mapping — turning each highlight class into a Visual Style — and the Renderer draws the result:
 
 ```text
 Highlight Range
       │
       ▼
-Renderer
+     Theme
+      │
+      ▼
+  Visual Style
+      │
+      ▼
+   Renderer
       │
       ▼
 ANSI styling
 ```
 
-The parser therefore does not need to know which terminal escape sequence represents a particular visual style.
+The parser therefore does not need to know which terminal escape sequence represents a particular visual style — and neither does the Renderer, which receives the final style from the Theme.
 
 ## Incremental Highlighting
 
@@ -197,6 +223,8 @@ The important principle is that unchanged analysis does not need to be discarded
 
 ## A Small Edit Can Affect Highlighting Beyond One Character
 
+The principle from Section 41.1 applies to highlighting as well: a small text edit can have a larger syntactic effect.
+
 Consider:
 
 ```c
@@ -209,32 +237,14 @@ If the closing quotation mark is deleted:
 "hello
 ```
 
-the effect is not limited to that one character.
-
-The parser may now interpret subsequent source differently because the string has not been closed.
-
-For example:
+the parser may now interpret subsequent source differently because the string has not been closed:
 
 ```c
 "hello
 int value = 10;
 ```
 
-The missing delimiter can affect how the following text is interpreted.
-
-This illustrates the same principle established for incremental parsing:
-
-```text
-Small text edit
-       │
-       ▼
-Potentially larger syntactic effect
-       │
-       ▼
-Affected highlighting region
-```
-
-Therefore, incremental highlighting should follow the syntax structure rather than assuming that highlighting changes are always character-local.
+The affected highlighting region can therefore extend well beyond the changed character. Incremental highlighting should follow the syntax structure rather than assuming that highlighting changes are always character-local.
 
 ## Syntax Tree as Shared Information
 
@@ -260,7 +270,7 @@ The syntax tree is shared information, not a reason to combine all feature logic
 
 ## Highlighting Is Derived State
 
-As with the syntax tree itself, highlighting information is derived from the Document.
+As with the syntax tree itself (Section 41.2), highlighting information is derived from the Document rather than being authoritative on its own.
 
 The relationship is:
 
@@ -274,28 +284,16 @@ Syntax Tree
 Highlight Information
    │
    ▼
+Theme
+   │
+   ▼
+Visual Styles
+   │
+   ▼
 Renderer
 ```
 
-None of these derived layers becomes authoritative.
-
-If the Document changes:
-
-```text
-Document
-   │
-   │ edit
-   ▼
-new Document state
-   │
-   ▼
-updated syntax tree
-   │
-   ▼
-updated highlighting
-```
-
-This keeps the ownership model clear.
+If the Document changes, the updated state flows down this same path: the syntax tree is updated first, then the highlighting and Visual Styles derived from it. This keeps the ownership model clear.
 
 ## Highlighting and the Renderer
 
@@ -312,7 +310,13 @@ Syntax Analysis
 Highlight Information
       │
       ▼
-Renderer
+     Theme
+      │
+      ▼
+  Visual Style
+      │
+      ▼
+   Renderer
       │
       ▼
 ANSI Escape Sequences
@@ -321,11 +325,9 @@ ANSI Escape Sequences
 Terminal
 ```
 
-The Renderer receives information about how source regions should be displayed.
+The Renderer receives Visual Styles — the appearance the Theme chose for each highlight class — and converts them into terminal output. It never maps highlight classes to specific escape sequences itself, and it does not need to understand what a C function, expression, or declaration means.
 
-It does not need to understand what a C function, expression, or declaration means.
-
-This follows the architectural decision to keep language analysis separate from terminal rendering.
+This follows the architectural decision to keep language analysis separate from terminal rendering, preserving the Theme boundary established in Section 32.7.
 
 ## Syntax Highlighting Does Not Modify Source
 
@@ -377,6 +379,12 @@ Syntax Tree
 Highlight Information
    │
    ▼
+Theme
+   │
+   ▼
+Visual Styles
+   │
+   ▼
 Screen Buffer
    │
    ▼
@@ -388,18 +396,17 @@ Terminal
 
 The Screen Buffer represents what should appear on the terminal.
 
-The syntax-analysis subsystem determines how source regions should be represented.
-
-The Renderer ultimately converts that information into terminal output.
+The syntax-analysis subsystem determines how source regions should be classified, and the Theme turns those classes into Visual Styles. The Screen Buffer holds the styled cells, and the Renderer ultimately converts them into terminal output.
 
 The responsibilities therefore remain distinct:
 
 ```text
-Document       → source
-Syntax Tree    → structure
-Highlighting   → presentation metadata
-Screen Buffer  → rendered frame
-Renderer       → terminal output
+Document        → source
+Syntax Tree     → structure
+Highlighting    → highlight classes
+Theme           → visual styles
+Screen Buffer   → rendered frame
+Renderer        → terminal output
 ```
 
 ## Incremental Highlighting and Scrolling
@@ -469,6 +476,12 @@ The architecture can therefore be:
                  │
                  ▼
         Highlight Information
+                 │
+                 ▼
+              Theme
+                 │
+                 ▼
+           Visual Styles
                  │
                  ▼
            Screen Buffer
@@ -607,7 +620,7 @@ The second approach can reduce unnecessary work for ordinary local edits.
 
 ## The Important Boundary
 
-We should preserve a clear boundary between the parser and highlighting subsystem:
+We should preserve clear boundaries between the parser, the highlighting subsystem, and the Theme:
 
 ```text
 Tree-sitter
@@ -616,14 +629,18 @@ Tree-sitter
 
 Highlighting
     │
-    └── interprets syntax structure
+    └── assigns highlight classes
+
+Theme
+    │
+    └── maps classes to visual styles
 
 Renderer
     │
-    └── presents highlighting
+    └── draws the styled frame
 ```
 
-This avoids turning the parser into a presentation system or the Renderer into a programming-language analyzer.
+This avoids turning the parser into a presentation system, mixing highlighting with parsing, or turning the Renderer into a programming-language analyzer — the Theme remains the only component that decides how a class looks.
 
 ## The Resulting Architecture
 
@@ -640,19 +657,25 @@ The complete flow is now:
                        Syntax Tree
                             │
                             ▼
-                   Highlight Analysis
+                    Highlight Analysis
                             │
                             ▼
                      Highlight Ranges
                             │
                             ▼
-                       Screen Buffer
+                          Theme
                             │
                             ▼
-                         Renderer
+                       Visual Styles
                             │
                             ▼
-                     ANSI / Terminal
+                        Screen Buffer
+                            │
+                            ▼
+                          Renderer
+                            │
+                            ▼
+                      ANSI / Terminal
 ```
 
 Each stage has a distinct responsibility.
@@ -661,7 +684,7 @@ The Document owns the source.
 
 The parser derives structure.
 
-The highlighting subsystem derives presentation metadata.
+The highlighting subsystem derives highlight classes, and the Theme maps those classes to Visual Styles.
 
 The Screen Buffer and Renderer turn that information into the visible terminal frame.
 
@@ -669,6 +692,6 @@ The Screen Buffer and Renderer turn that information into the visible terminal f
 
 Highlighting can be derived from the syntax tree rather than from a flat token stream, which gives it access to structural context. When the document changes, only the highlighting associated with affected structure needs to be recomputed; unchanged analysis can be preserved.
 
-Highlighting remains derived presentation state: the parser produces structure, a highlighting stage produces ranges, and the Renderer converts those ranges into terminal output. This is fully compatible with the editor's full-redraw renderer and with error-tolerant parsing of incomplete code.
+Highlighting remains derived presentation state: the parser produces structure, a highlighting stage produces highlight ranges, the Theme maps those classes to Visual Styles, and the Renderer draws the result. This is fully compatible with the editor's full-redraw renderer and with error-tolerant parsing of incomplete code.
 
 In the next section, we will explore the structural editor features that a syntax tree makes possible beyond highlighting.

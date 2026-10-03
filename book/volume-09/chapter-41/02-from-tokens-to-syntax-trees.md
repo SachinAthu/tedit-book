@@ -253,10 +253,11 @@ A conceptual tree could be:
 assignment [0..10]
 ├── identifier [0..1]
 ├── operator [2..3]
-└── addition [4..9]
-    ├── identifier [4..5]
-    ├── operator [6..7]
-    └── identifier [8..9]
+├── addition [4..9]
+│   ├── identifier [4..5]
+│   ├── operator [6..7]
+│   └── identifier [8..9]
+└── punctuation [9..10]
 ```
 
 The exact indexing convention is implementation-dependent. The important concept is that nodes can be associated with **source ranges**.
