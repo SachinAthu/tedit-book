@@ -1,0 +1,18 @@
+chapter: 42
+title: Terminal Graphics
+volume: 9
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 42.1 From Character Cells to Rich Terminal Displays —> 01-from-character-cells-to-rich-terminal-displays.md
+  - 42.2 The Terminal Graphics Model —> 02-terminal-graphics-model.md
+  - 42.3  —> 03-.md
+  - 42.4  —> 04-.md
+  - 42.5  —> 05-.md
+  - 42.6  —> 06-.md
+  - 42.7  —> 07-.md
+  - 42.8  —> 08-.md
+  - 42.9  —> 09-.md
+  - 42.10  —> 10-.md
+
+  - Summary, Exercises, Next Chapter Preview —> 17-conclusion.md

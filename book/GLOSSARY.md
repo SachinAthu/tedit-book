@@ -59,6 +59,22 @@ Volume IX, Chapter 39
 - Dynamic Loading
 - Linker
 
+## Abstract Syntax Tree (AST)
+
+**Definition**
+
+A tree representation of source code that deliberately removes the details of the concrete syntax — punctuation, delimiters, whitespace, and comments — to focus on the program's structural and semantic organization. Compilers commonly prefer an AST because later stages such as semantic analysis, type checking, and code generation do not need those concrete details, and the same AST can represent source texts that differ only in formatting.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Concrete Syntax Tree (CST)
+- Syntax Tree
+- Parser
+
 ## API (Application Programming Interface)
 
 **Definition**
@@ -933,6 +949,23 @@ Volume II, Chapter 10
 - Information Hiding
 - Separation of Concerns
 
+## Concrete Syntax Tree (CST)
+
+**Definition**
+
+A tree representation of source code that preserves the concrete details of the original syntax — punctuation, delimiters, whitespace, and comments — alongside the hierarchical structure. Editors benefit from a CST rather than an AST because features such as folding, delimiter matching, and highlighting must remain closely connected to the exact source text and its positions; removing too much concrete detail would make those features harder to implement.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Abstract Syntax Tree (AST)
+- Syntax Tree
+- Parser
+- Source Range
+
 ## Conditional Compilation
 
 **Definition**
@@ -1688,6 +1721,39 @@ Volume V, Chapter 21
 - File Descriptor
 - File Permission
 
+## Error Node
+
+**Definition**
+
+A syntax-tree node that represents a portion of source text that could not be matched cleanly to the grammar. Instead of discarding the analysis or failing, a recovering parser places unrecognized source inside an error node, keeping the rest of the tree usable while clearly marking the region it could not fully understand.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Error Recovery
+- Syntax Tree
+- Parser
+
+## Error Recovery
+
+**Definition**
+
+A parser's ability to continue analyzing source after encountering input that does not fit the grammar normally. Rather than stopping at the first problem, the parser produces the best structural representation it can — including error nodes and partial structure — so an editor can keep highlighting, folding, and navigating while code is incomplete or syntactically invalid. Error recovery does not mean correcting the user's text: the parser never modifies the Document.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Error Node
+- Parser
+- Syntax Tree
+- Document
+
 # F
 
 ## Function Key
@@ -2227,6 +2293,24 @@ Volume II, Chapter 10
 - Header File
 - Preprocessor
 - Forward Declaration
+
+## Incremental Parsing
+
+**Definition**
+
+Updating an existing syntax tree from a previous document version using a description of the edit — a start position, a deleted range, and inserted text — rather than discarding the tree and reparsing the whole document. Incremental parsing reuses structural information that remains valid and re-analyzes only the affected regions, reducing unnecessary work without guaranteeing constant-time parsing, since a small edit can have non-local structural effects.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Syntax Tree
+- Parser
+- Document
+- Error Recovery
+- Derived State
 
 ## Incremental Rendering
 
@@ -4456,6 +4540,22 @@ Volume II, Chapter 10
 - Information Hiding
 - Object File
 
+## Source Range
+
+**Definition**
+
+The region of the Document associated with a syntax-tree node, described by a start position and an end position. Source ranges connect structural information back to the actual text, allowing editor features such as folding, selection, and highlighting to relate a syntactic construct to the characters it covers. A source range lives in the Document's coordinate system, which is distinct from terminal screen coordinates.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Syntax Tree
+- Document
+- Parser
+
 ## Stack
 
 **Definition**
@@ -4788,6 +4888,26 @@ Volume VII, Chapter 32
 - Syntax Highlighting
 - Document
 
+## Syntax Tree
+
+**Definition**
+
+A hierarchical representation of a Document's syntactic structure, composed of nodes connected by parent–child relationships, with each node associated with a source range. A syntax tree is derived state: the Document remains authoritative, and the tree is regenerated or updated when the document changes. Editors use a syntax tree to answer structural questions — which construct contains the cursor, where a function begins and ends — that a flat token stream cannot express.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Parser
+- Token
+- Concrete Syntax Tree (CST)
+- Abstract Syntax Tree (AST)
+- Source Range
+- Document
+- Derived State
+
 # T
 
 ## Tab
@@ -5106,6 +5226,24 @@ Volume VIII, Chapter 36
 - Logging
 - Event Loop
 - Event-Driven Architecture
+
+## Tree-sitter
+
+**Definition**
+
+An incremental parsing system designed to maintain syntax trees as source code changes. Tree-sitter consumes document state and produces a persistent, source-oriented concrete syntax tree according to a language grammar, updating the tree incrementally after each edit. It is a parsing component rather than the editor itself: the Document remains authoritative, and Tree-sitter provides a new layer of derived analysis that highlighting, folding, and navigation can share.
+
+**First Introduced**
+
+Volume IX, Chapter 41
+
+**Related Terms**
+
+- Syntax Tree
+- Incremental Parsing
+- Concrete Syntax Tree (CST)
+- Parser
+- Language Definition
 
 ## TTY
 
