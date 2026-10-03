@@ -453,3 +453,11 @@ We are not replacing the Document with a syntax tree.
 We are adding a structural representation that can remain associated with the Document while it changes.
 
 The next question is therefore more practical: **how the parser and the editor share the document without introducing unnecessary copies or conflicting sources of truth.**
+
+## Summary
+
+A Concrete Syntax Tree preserves the details of the original source — punctuation, delimiters, whitespace, comments — while an Abstract Syntax Tree removes those details to focus on program meaning. Compilers often prefer the abstract representation, but editors must stay closely connected to the actual text.
+
+Because editor features such as folding, delimiter matching, and highlighting depend on source-oriented information, a source-preserving representation such as Tree-sitter's fits the editor model better. The Document still owns the actual text; the syntax tree provides derived structural information that remains associated with it as it changes.
+
+In the next section, we will consider a problem unique to interactive editing: how the parser behaves when the source code is incomplete or invalid.

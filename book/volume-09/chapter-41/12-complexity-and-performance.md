@@ -68,7 +68,7 @@ However, this should not be interpreted as a constant-time operation.
 
 > **Incremental does not mean free.**
 
-The amount of work depends on the affected region and on how the grammar's structure changes as a consequence of the edit. Pasted text
+The amount of work depends on the affected region and on how the grammar's structure changes as a consequence of the edit.
 
 ## Affected-Region Size
 
@@ -218,7 +218,7 @@ one character edit = one node update
 
 Those are not valid general guarantees.
 
-The benefit comes from avoiding unnecessary work where the parser can determine that existing structure remains valid. Pasted text
+The benefit comes from avoiding unnecessary work where the parser can determine that existing structure remains valid.
 
 ## Parser Initialization
 
@@ -300,4 +300,12 @@ Propagate structural consequences where necessary
 
 Incremental parsing can substantially reduce repeated work, especially when edits are local. But its effectiveness depends on the edit, the affected structure, the grammar, and the parser's behavior.
 
-Therefore, Tree-sitter should be understood as a mechanism for **controlling unnecessary re-analysis**, not as a promise of constant-time parsing or universally superior performance. Pasted text
+Therefore, Tree-sitter should be understood as a mechanism for **controlling unnecessary re-analysis**, not as a promise of constant-time parsing or universally superior performance.
+
+## Summary
+
+Incremental parsing reduces unnecessary work, but it is not free and does not guarantee constant-time operation. The amount of work after an edit depends on the size of the affected region, the grammar, and how structural changes propagate.
+
+An editor must account for more than parse time: the syntax tree consumes memory, must be initialized with a full parse, and must be traversed by every feature that consumes it. The correct mental model is that incremental parsing controls unnecessary re-analysis rather than promising universally superior performance.
+
+In the next section, we will compare Tree-sitter directly with the Chapter 32 baseline to understand the actual difference in capability and cost.

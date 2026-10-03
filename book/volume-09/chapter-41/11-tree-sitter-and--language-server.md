@@ -180,4 +180,12 @@ but rather:
                    Renderer
 ```
 
-Tree-sitter and LSP therefore occupy **different architectural layers**. One provides local syntactic structure; the other provides language intelligence through an external protocol. Combining them can produce a powerful editor, but neither requires the other. Pasted text
+Tree-sitter and LSP therefore occupy **different architectural layers**. One provides local syntactic structure; the other provides language intelligence through an external protocol. Combining them can produce a powerful editor, but neither requires the other.
+
+## Summary
+
+Tree-sitter and LSP operate at different layers. Tree-sitter provides local syntactic structure derived directly from the source, while LSP provides higher-level language intelligence such as diagnostics, completion, and symbol information through an external server.
+
+The two are complementary rather than competing: an editor can use Tree-sitter for immediate local operations and LSP for semantic or project-wide services, and they can exchange information indirectly through source ranges. The Document remains the single authoritative text representation for both.
+
+In the next section, we will examine the costs of this richer approach, focusing on complexity and performance.

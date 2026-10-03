@@ -360,3 +360,11 @@ The goal is to bridge that gap:
 This is the fundamental motivation for incremental parsing.
 
 Tree-sitter is one concrete system designed around this idea. Before examining Tree-sitter itself, however, we first need to understand the representation that it maintains: the **syntax tree**. That is the subject of the next section.
+
+## Summary
+
+An editor does not parse a finished program once; it repeatedly updates its analysis as the document changes. Rebuilding a complete syntax tree after every keystroke is simple but can become unnecessarily expensive for large documents, because most edits are local and leave the vast majority of the document unchanged.
+
+Incremental parsing addresses this mismatch by preserving structural information that remains valid and re-analyzing only the affected regions. It does not guarantee constant-time work — a small edit can still have large structural consequences — but it keeps the cost of ordinary edits proportional to what actually changed.
+
+In the next section, we will move from the motivation for incremental parsing to the representation it maintains, examining how a syntax tree adds structural information that a token stream cannot express.

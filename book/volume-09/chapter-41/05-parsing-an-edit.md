@@ -542,3 +542,11 @@ Current Syntax Tree
 The parser's ability to maintain that relationship is the foundation of incremental parsing.
 
 The next question is what exactly is contained inside the resulting syntax tree: its nodes, ranges, positions, and relationships. That leads to the next section.
+
+## Summary
+
+An incremental parser needs more than the new document text: it needs a description of what changed — a start position, a deleted range, and inserted text. This lets the parser relate its existing tree to the previous document version and reuse unaffected structure.
+
+The editor updates the Document first and then sends the edit description to the parser, preserving the ownership boundary. The central invariant is that the syntax tree must correspond to the current document version; keeping that correspondence is fundamentally a synchronization problem.
+
+In the next section, we will examine the contents of the resulting tree — its nodes, ranges, positions, and relationships — in more detail.

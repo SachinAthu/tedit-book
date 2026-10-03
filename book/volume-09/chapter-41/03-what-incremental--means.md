@@ -441,3 +441,11 @@ Updated Syntax Tree
 ```
 
 The purpose of incremental parsing is to make that transition efficient while preserving correctness.
+
+## Summary
+
+Incremental parsing means reusing the previous analysis rather than discarding it. The parser receives an edit described by a start position, a deleted range, and inserted text, and updates the existing syntax tree instead of reconstructing it from scratch.
+
+Incremental does not mean that only the changed characters are examined: a small edit can have non-local structural effects. It is also distinct from incremental lexing and incremental highlighting, which operate at different levels. Throughout, the Document remains the authoritative source of truth, and the syntax tree is derived state that must track a particular document version.
+
+In the next section, we will introduce Tree-sitter as a concrete incremental parser and place it within our editor's architecture.

@@ -413,3 +413,11 @@ However, maintaining such a tree introduces a new problem:
 If the editor rebuilt the entire tree after every keystroke, we would return to the problem described in Section 41.1.
 
 The next step is therefore to understand how a syntax tree can be **updated incrementally** rather than reconstructed from scratch after every edit.
+
+## Summary
+
+Tokens provide lexical information — a linear sequence of meaningful pieces — but they do not describe how those pieces relate to one another. A syntax tree adds hierarchy: parent-child relationships, nesting, and source ranges that connect each construct back to the document.
+
+This structural representation lets the editor ask questions a token stream cannot answer, such as which construct contains the cursor or where a function begins and ends. The syntax tree remains derived state: the Document stays authoritative, and the tree is regenerated or updated whenever the document changes.
+
+In the next section, we will examine what "incremental" really means when that syntax tree must be kept in step with a continuously changing document.

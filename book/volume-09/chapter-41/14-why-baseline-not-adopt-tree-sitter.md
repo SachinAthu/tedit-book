@@ -181,4 +181,12 @@ The goal is therefore not to choose the most sophisticated technology available.
 
 The goal is to choose the **simplest architecture that adequately satisfies the requirements**.
 
-Tree-sitter remains a valid and powerful extension when those requirements grow beyond the capabilities of the baseline. For the editor built in this book, however, its additional complexity is not necessary. Pasted text
+Tree-sitter remains a valid and powerful extension when those requirements grow beyond the capabilities of the baseline. For the editor built in this book, however, its additional complexity is not necessary.
+
+## Summary
+
+Greater capability does not automatically justify a more complex baseline. Tree-sitter would introduce parser complexity, language grammars, synchronization, and additional memory that are unnecessary for a Nano-like editor whose requirements are already met by lexical and lightweight contextual analysis.
+
+The decision follows the project's educational philosophy and ADR-025: keep each subsystem small, clearly owned, and understandable. Tree-sitter remains a valid advanced extension for when structural capabilities are actually required.
+
+In the next section, we will look at the common mistakes to avoid when integrating Tree-sitter into an editor.

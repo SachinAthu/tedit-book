@@ -440,3 +440,11 @@ Structural Editor Features
 ```
 
 The next section examines the critical transition between an editor edit and an updated syntax tree: **how an edit is represented and propagated to the parser**.
+
+## Summary
+
+Tree-sitter is an incremental parsing component, not the editor itself. It consumes document state and produces a persistent syntax tree according to a language grammar, updating that tree incrementally as the document changes.
+
+Because the tree persists between edits, it can serve as shared structural information for several features at once, and it does not replace any existing part of the editor architecture. The Document remains authoritative; Tree-sitter only provides a new layer of derived analysis.
+
+In the next section, we will look at the crucial transition point: how an individual edit is represented and passed to the parser so the existing tree can be updated.

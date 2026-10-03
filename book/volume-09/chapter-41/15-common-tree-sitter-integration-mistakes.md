@@ -121,7 +121,7 @@ The amount of work depends on the affected structure and parser behavior.
 
 An edit can require a larger portion of the syntax structure to be reconsidered.
 
-Therefore, incremental parsing should be understood as **avoiding unnecessary re-analysis**, not as providing constant-time parsing. Pasted text
+Therefore, incremental parsing should be understood as **avoiding unnecessary re-analysis**, not as providing constant-time parsing.
 
 ## 7. Allowing Parser State to Become a Second Source of Truth
 
@@ -180,4 +180,12 @@ Derived-state discipline
 Incremental processing
 ```
 
-Tree-sitter is a powerful subsystem, but it should remain **a subsystem** rather than becoming the architecture of the entire editor. Pasted text
+Tree-sitter is a powerful subsystem, but it should remain **a subsystem** rather than becoming the architecture of the entire editor.
+
+## Summary
+
+The most common integration mistakes all violate the principles established earlier in the chapter: rebuilding the whole tree after every edit, confusing source positions with terminal coordinates, coupling the Renderer or LSP to Tree-sitter, mixing highlighting with parsing, treating syntax errors as fatal, assuming constant-time parsing, and letting parser state become a second source of truth.
+
+Tree-sitter should remain a clearly bounded subsystem that preserves ownership, coordinate, and derived-state discipline rather than becoming the architecture of the entire editor.
+
+In the next section, we will step back and summarize the overall design trade-offs the chapter has surfaced.

@@ -247,4 +247,12 @@ The architectural lesson is narrower:
 
 > **A syntax tree can serve as shared structural information for many editor features beyond syntax highlighting.**
 
-For the baseline editor, the existing lightweight lexical and contextual analysis remains sufficient. A syntax-tree-based architecture represents a possible advanced extension when structural editing capabilities justify the additional complexity. Pasted text
+For the baseline editor, the existing lightweight lexical and contextual analysis remains sufficient. A syntax-tree-based architecture represents a possible advanced extension when structural editing capabilities justify the additional complexity.
+
+## Summary
+
+A syntax tree supports features well beyond highlighting: code folding, structural selection, delimiter matching, syntax-aware navigation, outline generation, and indentation assistance. Each of these derives its behavior from the same structural representation without storing another copy of the document.
+
+The syntax tree thus becomes shared structural information for many features, though each feature adds its own state and integration cost. For the baseline editor, the lightweight lexical approach remains sufficient, and the syntax tree represents a possible advanced extension.
+
+In the next section, we will relate Tree-sitter to the other major language subsystem introduced earlier: the Language Server Protocol.

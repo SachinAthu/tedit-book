@@ -264,4 +264,12 @@ Tree-sitter
 Valid future architecture
 ```
 
-Tree-sitter is therefore neither rejected nor required. It represents a deliberate **advanced extension point** whose additional capabilities become worthwhile when the editor's requirements grow beyond the needs of the baseline. Pasted text
+Tree-sitter is therefore neither rejected nor required. It represents a deliberate **advanced extension point** whose additional capabilities become worthwhile when the editor's requirements grow beyond the needs of the baseline.
+
+## Summary
+
+Tree-sitter illustrates the principle that additional capability always has a cost. A syntax tree offers richer structure and better incremental analysis but adds memory, complexity, synchronization responsibility, implementation effort, and dependency cost.
+
+The correct decision is therefore to match complexity to requirements. For this project, the simple lexical baseline remains appropriate, while Tree-sitter is a valid advanced extension point rather than something to be rejected or required.
+
+In the next and final section, we will summarize the chapter, review exercises, and preview the next chapter.

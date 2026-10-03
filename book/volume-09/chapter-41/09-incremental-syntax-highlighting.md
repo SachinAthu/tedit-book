@@ -664,3 +664,11 @@ The parser derives structure.
 The highlighting subsystem derives presentation metadata.
 
 The Screen Buffer and Renderer turn that information into the visible terminal frame.
+
+## Summary
+
+Highlighting can be derived from the syntax tree rather than from a flat token stream, which gives it access to structural context. When the document changes, only the highlighting associated with affected structure needs to be recomputed; unchanged analysis can be preserved.
+
+Highlighting remains derived presentation state: the parser produces structure, a highlighting stage produces ranges, and the Renderer converts those ranges into terminal output. This is fully compatible with the editor's full-redraw renderer and with error-tolerant parsing of incomplete code.
+
+In the next section, we will explore the structural editor features that a syntax tree makes possible beyond highlighting.

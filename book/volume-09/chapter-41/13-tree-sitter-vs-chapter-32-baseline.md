@@ -27,8 +27,6 @@ It is:
 | Language grammar       | Not required             | Required            |
 | Baseline choice        | Yes                      | Deferred            |
 
-Pasted text
-
 ## The Chapter 32 Approach
 
 The baseline does not attempt to construct a complete representation of the program's syntactic structure.
@@ -247,4 +245,12 @@ Tree-sitter is therefore **not simply a better version of the Chapter 32 lexer**
 
 It solves a broader problem: maintaining and exposing rich syntactic structure during interactive editing.
 
-That broader capability is valuable when an editor needs structural features, but it also introduces higher complexity, memory requirements, and implementation responsibilities. The baseline consequently remains a deliberate choice rather than an outdated version of the same architecture. Pasted text
+That broader capability is valuable when an editor needs structural features, but it also introduces higher complexity, memory requirements, and implementation responsibilities. The baseline consequently remains a deliberate choice rather than an outdated version of the same architecture.
+
+## Summary
+
+The Chapter 32 baseline works with tokens and lightweight contextual analysis, while Tree-sitter maintains a full syntax tree with incremental updates. Highlighting is not the main difference — both can highlight — the real difference is the richness of the structural information available.
+
+That greater capability comes at a cost: more implementation machinery, more memory, and a dependency on language grammars. Tree-sitter is therefore an architectural progression from the baseline, not merely a faster version of the same lexer.
+
+In the next section, we will explain why, despite these capabilities, the baseline editor deliberately does not adopt Tree-sitter.
