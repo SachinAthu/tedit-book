@@ -1,4 +1,4 @@
-# 42.4 Terminal Capability Detection
+# 42.3 Terminal Capability Detection
 
 A terminal application cannot safely assume that every terminal provides the same capabilities.
 
@@ -25,9 +25,7 @@ Does terminal support it?
    use it   fallback
 ```
 
-Without this distinction, the editor may emit control sequences that the terminal does not understand.
-
-The result could be:
+Without this distinction, the editor may emit control sequences that the terminal does not understand. The result could be:
 
 - incorrect visual output,
 - visible protocol data,
@@ -39,9 +37,7 @@ An optional feature should therefore never be treated as universally available s
 
 ## Capability Versus Terminal Identity
 
-One possible approach is to identify the terminal emulator and assume that a particular version supports a known set of features.
-
-For example:
+One possible approach is to identify the terminal emulator and assume that a particular version supports a known set of features:
 
 ```text
 Terminal Name
@@ -51,20 +47,7 @@ Known Terminal
 Assumed Capabilities
 ```
 
-This can be useful, but it is not the same thing as directly establishing capability.
-
-Terminal behavior can depend on:
-
-- terminal emulator version,
-- configuration,
-- environment,
-- transport layer,
-- compatibility modes,
-- and the capabilities exposed by the current environment.
-
-Therefore, terminal identity should not automatically be treated as a complete capability description.
-
-The architectural distinction is:
+This can be useful, but it is not the same thing as directly establishing capability. Terminal behavior can depend on terminal emulator version, configuration, environment, transport layer, compatibility modes, and the capabilities exposed by the current environment. Therefore, terminal identity should not automatically be treated as a complete capability description:
 
 ```text
 Terminal identity
@@ -74,9 +57,7 @@ Terminal capability
 
 ## Capability Information as Platform State
 
-Capability information belongs near the platform boundary.
-
-A conceptual representation might be:
+Capability information belongs near the platform boundary:
 
 ```text
 Terminal Capabilities
@@ -87,11 +68,7 @@ Terminal Capabilities
 └── other optional features
 ```
 
-The exact structure is an implementation decision for the later implementation volume. At the architectural level, the important point is ownership.
-
-The Core should not contain terminal-specific capability checks throughout its editing logic.
-
-Instead:
+The exact structure is an implementation decision for the later implementation volume. At the architectural level, the important point is ownership. The Core should not contain terminal-specific capability checks throughout its editing logic:
 
 ```text
 Core
@@ -110,22 +87,7 @@ This keeps platform knowledge localized.
 
 ## Capability Detection and Rendering
 
-The renderer may have a preferred visual representation.
-
-For example:
-
-```text
-Preferred presentation
-        │
-        ▼
-True-color rendering
-```
-
-The terminal interface determines whether that representation can be emitted directly.
-
-If it cannot, the renderer or terminal interface must select an appropriate fallback according to the architecture.
-
-Conceptually:
+The renderer may have a preferred visual representation. For example, it may prefer true-color rendering. The terminal interface determines whether that representation can be emitted directly. If it cannot, the renderer or terminal interface must select an appropriate fallback:
 
 ```text
 Visual Style
@@ -140,15 +102,11 @@ preferred       fallback
 encoding        encoding
 ```
 
-The important principle is that capability detection should influence **presentation**, not the semantic meaning of the editor state.
-
-A keyword remains a keyword even if the terminal cannot display its preferred color.
+The important principle is that capability detection should influence **presentation**, not the semantic meaning of the editor state. A keyword remains a keyword even if the terminal cannot display its preferred color.
 
 ## Capability Detection and Input
 
-The same principle applies to input capabilities.
-
-Suppose mouse support is optional:
+The same principle applies to input capabilities. Suppose mouse support is optional:
 
 ```text
 Mouse capability
@@ -162,9 +120,7 @@ Can terminal provide mouse events?
  enable   keyboard-only
 ```
 
-The editor's core command model does not need to become dependent on mouse input.
-
-If mouse events are available, they can enter the existing input pipeline as additional events:
+The editor's core command model does not need to become dependent on mouse input. If mouse events are available, they can enter the existing input pipeline as additional events:
 
 ```text
 Terminal
@@ -186,19 +142,7 @@ If they are unavailable, the existing keyboard-driven editor continues to functi
 
 ## Capability Detection and Graphics
 
-Graphics make this issue even more important.
-
-Unlike basic text rendering, graphical protocols are not necessarily shared across all terminal environments.
-
-The editor may conceptually ask:
-
-```text
-Can this terminal display images
-using the graphics mechanism required
-by the editor?
-```
-
-The result may be:
+Graphics make this issue even more important. Unlike basic text rendering, graphical protocols are not necessarily shared across all terminal environments:
 
 ```text
                  ┌── Supported ──► Graphics rendering
@@ -210,19 +154,7 @@ This is why terminal graphics should be treated as an optional platform capabili
 
 ## Detection Is Not the Same as Implementation
 
-It is useful to separate two concerns.
-
-**Capability detection** answers:
-
-> What can the current terminal environment support?
-
-**Capability implementation** answers:
-
-> How does the editor use that capability?
-
-These are related but distinct.
-
-For example:
+It is useful to separate two concerns. **Capability detection** answers *what can the current terminal environment support?* **Capability implementation** answers *how does the editor use that capability?* These are related but distinct:
 
 ```text
 Capability Detection
@@ -237,26 +169,11 @@ Rendering Policy
 True-color Output
 ```
 
-Similarly:
-
-```text
-Capability Detection
-        │
-        ▼
-"Mouse available"
-        │
-        ▼
-Input Configuration
-        │
-        ▼
-Mouse Events
-```
-
 Keeping these responsibilities distinct prevents capability checks from being scattered throughout unrelated modules.
 
 ## Avoiding Capability Checks Everywhere
 
-A poor architecture might contain code such as:
+A poor architecture might contain capability checks throughout the editor:
 
 ```text
 if terminal_supports_true_color ...
@@ -264,11 +181,7 @@ if terminal_supports_mouse ...
 if terminal_supports_graphics ...
 ```
 
-throughout the editor.
-
-This creates platform leakage.
-
-A better model centralizes the knowledge:
+This creates platform leakage. A better model centralizes the knowledge:
 
 ```text
                  Terminal Interface
@@ -288,9 +201,7 @@ Higher-level components consume the resulting capability information rather than
 
 ## Graceful Degradation
 
-Capability detection is valuable only when the editor knows what to do when a capability is unavailable.
-
-For example:
+Capability detection is valuable only when the editor knows what to do when a capability is unavailable:
 
 ```text
 Preferred:
@@ -316,9 +227,7 @@ Unavailable?
 Use text representation or omit optional image
 ```
 
-The exact fallback depends on the feature.
-
-The general principle is:
+The exact fallback depends on the feature. The general principle is:
 
 > **Optional capabilities should degrade without compromising the core editor.**
 
@@ -326,29 +235,7 @@ The general principle is:
 
 The baseline editor described by this book intentionally has a smaller scope than a modern graphical terminal application. The SRS defines the core editor around keyboard interaction, terminal rendering, file operations, cursor movement, scrolling, and related fundamental behavior, while advanced features such as mouse support are outside the initial implementation scope.
 
-Therefore, capability detection should not become a reason to complicate the baseline implementation unnecessarily.
-
-Instead, it provides an architectural mechanism for future extensions.
-
-The editor can begin with:
-
-```text
-Required capabilities
-        │
-        ▼
-Baseline terminal interface
-```
-
-and later extend this to:
-
-```text
-Required capabilities
-        +
-Optional capabilities
-        │
-        ▼
-Capability-aware terminal interface
-```
+Therefore, capability detection should not become a reason to complicate the baseline implementation unnecessarily. Instead, it provides an architectural mechanism for future extensions. The editor can begin with required capabilities and later extend to capability-aware optional capabilities.
 
 ## A General Design Rule
 

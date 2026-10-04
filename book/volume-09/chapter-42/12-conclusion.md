@@ -20,7 +20,7 @@ The chapter's decision is deliberately conservative: the baseline editor does **
 6. Why must a mouse position be translated through window, viewport, and document coordinate spaces?
 7. Why do graphical resources complicate the full-redraw strategy?
 8. What portability and security costs do advanced terminal features introduce?
-9. Apply the decision test from 42.12: when would our editor be justified in supporting terminal graphics?
+9. Apply the decision test from 42.11: when would our editor be justified in supporting terminal graphics?
 
 ### Optional Challenge
 

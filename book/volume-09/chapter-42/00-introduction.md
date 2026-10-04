@@ -10,7 +10,7 @@ The editor built in this book is deliberately a character-based application: the
 
 Terminal capabilities are not editor requirements. A terminal may support images without the editor needing to display them, and a more capable terminal does not justify a more complicated core. This chapter examines the major capabilities a modern terminal can expose, explains where each belongs in the editor's architecture, and shows why the baseline editor treats them as carefully bounded, optional extensions rather than part of its core design.
 
-We begin by moving from character cells to rich terminal displays and by establishing a terminal graphics model. We then examine true color, capability detection, images, and the Kitty graphics protocol, turn to mouse input and coordinate mapping, and consider why graphics complicate full redraw. We close by weighing the portability, security, and resource costs of advanced features, deciding when our editor should support terminal graphics, and distilling the architectural lessons.
+We begin by establishing the terminal model and its capability surface. We then examine true color, capability detection, images, and the Kitty graphics protocol, turn to mouse input and coordinate mapping, and consider why graphics complicate full redraw. We close by weighing the portability, security, and resource costs of advanced features, then decide whether to support terminal graphics and distill the architectural lessons.
 
 ## Learning Objectives
 
