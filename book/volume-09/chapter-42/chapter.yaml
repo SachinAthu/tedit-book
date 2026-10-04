@@ -6,13 +6,15 @@ sections:
   - Introduction —> 00-introduction.md
   - 42.1 From Character Cells to Rich Terminal Displays —> 01-from-character-cells-to-rich-terminal-displays.md
   - 42.2 The Terminal Graphics Model —> 02-terminal-graphics-model.md
-  - 42.3  —> 03-.md
-  - 42.4  —> 04-.md
-  - 42.5  —> 05-.md
-  - 42.6  —> 06-.md
-  - 42.7  —> 07-.md
-  - 42.8  —> 08-.md
-  - 42.9  —> 09-.md
-  - 42.10  —> 10-.md
-
-  - Summary, Exercises, Next Chapter Preview —> 17-conclusion.md
+  - 42.3 True Color —> 03-true-color.md
+  - 42.4 Terminal Capability Detection —> 04-terminal-capability-detection.md
+  - 42.5 Images in Terminals —> 05-images-in-terminals.md
+  - 42.6 The Kitty Graphics Protocol —> 06-kitty-graphics-protocol.md
+  - 42.7 Mouse Input —> 07-mouse-input.md
+  - 42.8 Mouse Coordinates and Editor Coordinates —> 08-mouse-and-editor-coordinates.md
+  - 42.9 Why Graphics Complicate Full Redraw —> 09-why-graphics-complicate-full-redraw.md
+  - 42.10 The Portability Cost of Advanced Terminal Features —> 10-portability-cost-of-advanced-terminal-features.md
+  - 42.11 Security and Resource Considerations —> 11-security-and-resource-considerations.md
+  - 42.12 When Should Our Editor Support Terminal Graphics? —> 12-when-support-terminal-graphics.md
+  - 42.13 Architectural Lessons —> 13-architectural-lessons.md
+  - Summary, Exercises, Next Chapter Preview —> 14-conclusion.md
