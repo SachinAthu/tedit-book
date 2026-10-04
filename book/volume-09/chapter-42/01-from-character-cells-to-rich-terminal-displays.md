@@ -209,4 +209,12 @@ That observation leads to an important architectural requirement for advanced te
 
 The editor should remain correct when an optional capability is unavailable.
 
-This principle will guide the rest of this chapter as we examine color, capability detection, images, mouse input, and terminal graphics protocols.
+## Summary
+
+The traditional terminal model gives the editor a predictable relationship between its logical state and its visible representation: the renderer builds a screen buffer of character cells, and the terminal emulator interprets those cells to construct the display.
+
+Modern terminals extend this model with true color, mouse events, images, and graphics protocols. These capabilities do not all belong to the core model—color still operates within the cell, mouse input is an input capability, and images carry graphical data that cells alone cannot represent.
+
+The key principle is that a terminal capability is not the same as an editor requirement. Terminal graphics belong on the presentation and platform side of the architecture, so the Core can remain correct even when an optional capability is unavailable.
+
+In the next section, we will look more closely at the terminal graphics model and the distinction between cell-oriented and graphics-oriented output.

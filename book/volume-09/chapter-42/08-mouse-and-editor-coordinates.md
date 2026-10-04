@@ -529,4 +529,12 @@ Cursor / Editor State
 
 This keeps mouse support from introducing a second coordinate model into the editor.
 
-The next section returns to the rendering side and examines **how graphical capabilities fit into the existing rendering architecture**.
+## Summary
+
+A mouse position is a terminal coordinate, not a document coordinate. The editor must translate it through a chain of coordinate spaces: terminal, window, viewport, and document.
+
+This mapping must account for the window layout, the viewport offset, and the difference between visual columns and logical document positions (for example, TAB expansion).
+
+Coordinate mapping is a boundary responsibility, and rendering and input mapping must agree on the same geometry so that a click corresponds to the text the user sees.
+
+In the next section, we will return to the rendering side and examine how graphical capabilities fit into the existing rendering architecture.

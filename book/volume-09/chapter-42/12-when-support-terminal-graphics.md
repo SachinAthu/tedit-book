@@ -375,3 +375,13 @@ It is:
 For the baseline editor developed in this book, terminal graphics do not meet that threshold.
 
 They remain a **future platform capability**, while the Core architecture remains centered on portable, predictable text editing.
+
+## Summary
+
+The existence of a terminal capability does not justify implementing it. A feature should answer a concrete requirement rather than simply following what the terminal makes possible.
+
+For the baseline editor, text rendering and ANSI control are required, while 24-bit color is an optional future enhancement and mouse, images, and Kitty graphics are deferred.
+
+The decision follows a simple test: does the editor require the capability, can the existing architecture support it, and is the additional complexity justified? Terminal graphics do not currently meet that threshold.
+
+In the next section, we will step back and summarize the architectural lessons this chapter has surfaced.

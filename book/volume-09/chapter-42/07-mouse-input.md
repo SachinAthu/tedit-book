@@ -440,4 +440,12 @@ Command
 Editor State
 ```
 
-The next section examines the most important problem introduced by mouse interaction: **converting terminal coordinates into the editor's window, viewport, and document coordinate spaces**.
+## Summary
+
+Mouse support adds another source of input events to the existing pipeline rather than changing the fundamental input architecture.
+
+The terminal emulator converts physical mouse interaction into terminal-level sequences; the Input Parser converts those into abstract events; the Input Engine maps events to commands; and the Command Engine changes the Editor State.
+
+This preserves the separation between input events and commands, so the same command can be triggered by a keyboard or a mouse without changing its implementation. Mouse support is also an optional negotiated capability that should degrade gracefully when unavailable.
+
+In the next section, we will examine the most important problem mouse interaction introduces: converting terminal coordinates into the editor's window, viewport, and document coordinate spaces.

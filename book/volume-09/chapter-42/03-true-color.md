@@ -334,4 +334,12 @@ True color demonstrates an important property of terminal graphics:
 
 The editor can continue to reason about text and semantic presentation while the platform layer determines how those concepts are encoded for a particular terminal.
 
-This principle becomes more important when we move from colors to **images**, because images introduce graphical data that cannot naturally be represented as attributes of individual character cells.
+## Summary
+
+True color extends the attributes of a terminal cell by allowing foreground and background colors to be specified directly as RGB values. It does not turn the cell into a graphical object.
+
+The important separation is between semantic styling and terminal color encoding. Syntax information flows through a theme into visual styles, and the renderer works with visual properties while the Terminal Interface handles their terminal-specific encoding.
+
+Because true color is not universally available, it must be treated as a capability with a fallback—but a richer color capability does not require a richer application model.
+
+In the next section, we will look at terminal capability detection, the mechanism that decides whether an optional feature such as true color can be used safely.

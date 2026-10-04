@@ -516,3 +516,13 @@ It is that:
 > **Advanced terminal capabilities create additional interpreted data paths and resource-management responsibilities, so they should be isolated, validated, and treated as optional platform features rather than allowing them to become implicit dependencies of the editor's Core.**
 
 This preserves the simplicity of the baseline architecture while leaving a clear boundary for future extensions.
+
+## Summary
+
+The terminal is an interpreter, not a passive display device, so terminal output should not automatically be treated as harmless text.
+
+Document content must be kept separate from terminal protocol data, and graphical features increase the attack surface and add resource-management responsibilities such as payload size, resource lifetime, and terminal-state restoration.
+
+The architectural response is proportionality: the baseline editor does not need a graphics-security subsystem, but each boundary—Document, Renderer, Terminal Interface—must preserve its distinct responsibility so that future safeguards can be introduced cleanly.
+
+In the next section, we will ask when our editor should actually support terminal graphics at all.

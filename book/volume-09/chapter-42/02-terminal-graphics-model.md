@@ -328,4 +328,12 @@ The final question belongs to the capability and fallback strategy.
 
 Keeping these concerns separate allows advanced terminal features to be added without weakening the architecture established for the baseline editor.
 
-The next sections examine individual capabilities, beginning with **true color**, which extends the visual styling of ordinary character cells without requiring a fundamentally different rendering model.
+## Summary
+
+Terminal graphics are still communicated through the terminal connection: the editor produces a protocol representation, and the terminal emulator interprets it to produce the display. The editor therefore never owns the physical screen.
+
+The section's central distinction is between cell-oriented output—characters, colors, attributes, and cursor movement—and graphics-oriented output such as image data and placement. Graphics do not replace the character grid, but they introduce state and protocol-specific behavior that ordinary text does not.
+
+The architectural boundary already exists in the Terminal Interface. Graphics extend that same platform boundary rather than becoming part of the Document or Core.
+
+In the next section, we will examine true color, the first capability that extends ordinary character cells without requiring a fundamentally different rendering model.

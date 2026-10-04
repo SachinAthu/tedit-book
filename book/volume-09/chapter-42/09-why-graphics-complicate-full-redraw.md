@@ -498,4 +498,12 @@ For this reason, terminal graphics are a good example of an important architectu
 
 Our baseline editor can therefore retain its full-redraw architecture while treating terminal graphics as a future extension of the Renderer and Terminal Interface.
 
-The next issue is that advanced terminal capabilities do not only complicate rendering—they also increase the **portability and maintenance cost** of the editor.
+## Summary
+
+The baseline full-redraw strategy is simple because the Screen Buffer provides a bounded, cell-based representation of the current frame.
+
+Terminal graphics challenge that simplicity because graphical resources can introduce state outside the Screen Buffer, leading to stale graphics, retained state, ordering concerns, and synchronization between editor-side and terminal-side representations.
+
+This does not invalidate full redraw. A future graphics-aware renderer can keep the cell-based portion immediate-mode while separately managing graphical resources at the rendering and platform boundary.
+
+In the next section, we will look at how advanced terminal capabilities also increase the portability and maintenance cost of the editor.

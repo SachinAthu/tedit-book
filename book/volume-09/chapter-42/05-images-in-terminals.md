@@ -493,4 +493,12 @@ This preserves the central architectural principle of the editor:
 
 > **The Core describes the editor's meaning; the platform layer determines how that meaning is presented by the environment.**
 
-The next section examines **Kitty's graphics protocol** as a concrete example of how a modern terminal can implement this model.
+## Summary
+
+Images require a mechanism for transmitting graphical data in addition to ordinary character output, because a character cell cannot represent thousands or millions of pixels.
+
+The section separated image data from image placement and showed that images remain outside the Document for the baseline editor. They also introduce concerns—resource lifetime, full-screen redraw, scrolling, resizing, and performance—that ordinary text does not.
+
+The architectural conclusion is that graphical objects should follow a separate presentation path from the Screen Buffer, with the Terminal Interface translating graphical requests into the target terminal's protocol.
+
+In the next section, we will examine Kitty's graphics protocol as a concrete example of how a modern terminal can implement this model.

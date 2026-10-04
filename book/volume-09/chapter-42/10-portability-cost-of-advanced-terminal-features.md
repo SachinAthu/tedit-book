@@ -439,3 +439,13 @@ Instead:
 > **Keep terminal-specific differences behind the platform boundary, treat advanced capabilities as optional unless requirements make them mandatory, and avoid allowing portability concerns to leak into the editor's Core.**
 
 This preserves the architecture while allowing future terminal-specific enhancements to be added when they provide sufficient value.
+
+## Summary
+
+Advanced terminal features increase implementation complexity and the number of environments an editor must understand, test, and maintain.
+
+Vendor-specific protocols such as Kitty graphics create a fragmented capability landscape that grows the testing matrix and couples the platform layer to particular terminals unless differences are kept behind a stable interface.
+
+The right response is to keep terminal-specific differences behind the platform boundary, treat advanced capabilities as optional unless requirements make them mandatory, and avoid letting portability concerns leak into the Core.
+
+In the next section, we will consider the security and resource concerns that advanced terminal capabilities introduce.

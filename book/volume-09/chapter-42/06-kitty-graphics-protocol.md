@@ -397,4 +397,12 @@ For the editor developed in this book, Kitty graphics therefore remain a **futur
 
 The value of studying the protocol is architectural: it demonstrates how an apparently simple feature such as "display an image" can introduce capability detection, graphical resources, persistent terminal state, protocol-specific behavior, and additional rendering concerns.
 
-The next section turns from graphical output to the other major terminal extension: **mouse input**.
+## Summary
+
+The Kitty graphics protocol is a terminal-specific example of how graphical data can be transmitted and displayed beyond ordinary cell output.
+
+The protocol distinguishes the graphical resource from its placement, which means graphical output cannot always be treated as another sequence of characters inside the Screen Buffer.
+
+For the editor developed in this book, Kitty graphics remain a future platform capability. Their value is architectural: they demonstrate how "display an image" introduces capability detection, persistent terminal state, and protocol-specific behavior, all of which belong behind the Terminal Interface boundary.
+
+In the next section, we will turn from graphical output to the other major terminal extension: mouse input.

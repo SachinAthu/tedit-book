@@ -364,4 +364,12 @@ Keep capability knowledge at the platform boundary.
 
 This approach is particularly important for terminal graphics because graphical features tend to have greater variation between terminal environments than ordinary character-cell rendering.
 
-The next section examines the first major capability that goes beyond the cell model: **images in terminals**.
+## Summary
+
+Optional terminal capabilities such as true color, mouse input, and graphics cannot be assumed to exist. Before using one, the editor must determine whether it is available.
+
+Capability detection should live near the platform boundary rather than being scattered through the Core, and it must be paired with a fallback so that an unavailable capability degrades gracefully instead of compromising the editor.
+
+The general rule is to detect capability, use it when available, provide a fallback when practical, and keep capability knowledge at the platform boundary.
+
+In the next section, we will examine the first major capability that goes beyond the cell model: images in terminals.
