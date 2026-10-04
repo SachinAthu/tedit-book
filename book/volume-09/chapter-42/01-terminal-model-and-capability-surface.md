@@ -31,7 +31,7 @@ Terminal Emulator
 Screen
 ```
 
-The Screen Buffer describes the visible character cells. Each cell corresponds to a position on the terminal grid and can contain information such as a character and its visual attributes.
+The Screen Buffer describes the visible screen cells. Each cell corresponds to a position on the terminal grid and can contain information such as a character and its visual attributes.
 
 Conceptually:
 
@@ -121,7 +121,7 @@ Attributes
 Cursor movement
 ```
 
-This output operates on the terminal's character grid. The Screen Buffer describes that grid, and each visible position corresponds to a cell:
+This output operates on the terminal's character grid. The Screen Buffer describes that grid, and each visible position corresponds to a screen cell:
 
 ```text
 Screen Buffer
@@ -343,7 +343,7 @@ Keeping these concerns separate allows advanced terminal features to be added wi
 
 ## Summary
 
-The traditional terminal model gives the editor a predictable relationship between its logical state and its visible representation: the renderer builds a screen buffer of character cells, and the terminal emulator interprets those cells to construct the display. The terminal is a protocol endpoint, not a framebuffer the editor owns.
+The traditional terminal model gives the editor a predictable relationship between its logical state and its visible representation: the renderer builds a screen buffer of screen cells, and the terminal emulator interprets those cells to construct the display. The terminal is a protocol endpoint, not a framebuffer the editor owns.
 
 Modern terminals extend this model with true color, mouse events, images, and graphics protocols. These capabilities do not all belong to the core model—color still operates within the cell, mouse input is an input capability, and images carry graphical data that cells alone cannot represent. Terminal output therefore divides into cell-oriented and graphics-oriented forms.
 

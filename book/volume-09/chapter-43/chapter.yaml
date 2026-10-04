@@ -1,0 +1,18 @@
+chapter: 43
+title: Modern Text Editors: Architecture in the Real World
+volume: 9
+
+sections:
+  - Introduction —> 00-introduction.md
+  - 43.1 Why Study Existing Editors? —> 01-why-study-existing-editors.md
+  - 43.2 How to Compare an Editor —> 02-how-to-compare-an-editor.md
+  - 43.3  —> 03-.md
+  - 43.4  —> 04-.md
+  - 43.5  —> 05-.md
+  - 43.6  —> 06-.md
+  - 43.7  —> 07-.md
+  - 43.8  —> 08-.md
+  - 43.9  —> 09-.md
+  - 43.10  —> 10-.md
+
+  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md

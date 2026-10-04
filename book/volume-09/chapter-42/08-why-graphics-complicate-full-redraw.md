@@ -1,6 +1,6 @@
 # 42.8 Why Graphics Complicate Full Redraw
 
-The baseline renderer deliberately uses a simple rendering strategy: construct a complete visual frame and redraw the terminal. The Renderer reads the current Editor State, generates the complete frame, and does not modify the editor state (03-system-architecture).
+The baseline renderer deliberately uses a simple rendering strategy: construct a complete visual frame and redraw the terminal. The Renderer reads the current Editor State, generates the complete frame, and does not modify the editor state (Chapter 17, ADR-017).
 
 This works particularly well for ordinary terminal cells because the Screen Buffer represents the visible cell state. A new frame can replace the previous frame without requiring the renderer to understand the history of every individual screen change.
 
@@ -55,7 +55,7 @@ Now consider an image:
 +----------------------+
 ```
 
-The image may involve information that is not naturally represented by a ScreenCell. Instead, the terminal may maintain a graphical resource or graphical placement separately from the ordinary character-cell state:
+The image may involve information that is not naturally represented by a screen cell. Instead, the terminal may maintain a graphical resource or graphical placement separately from the ordinary character-cell state:
 
 ```text
 Image Resource
@@ -185,7 +185,7 @@ The exact order depends on the graphics mechanism and the desired visual result.
 
 ## Scrolling
 
-Scrolling provides another complication. The editor's Viewport determines which portion of the Document is visible; the existing architecture keeps the Viewport as part of the Editor State and the Renderer uses that state to construct the visible frame (03-system-architecture).
+Scrolling provides another complication. The editor's Viewport determines which portion of the Document is visible; the existing architecture keeps the Viewport as part of the Editor State and the Renderer uses that state to construct the visible frame (Chapter 20, ADR-019).
 
 For ordinary text:
 
@@ -215,7 +215,7 @@ The editor therefore needs a clear relationship between graphical objects and th
 
 ## Resizing
 
-Terminal resizing creates a similar problem. The Terminal Interface owns the terminal dimensions, while the Renderer uses the current Editor State to generate the visual frame (03-system-architecture).
+Terminal resizing creates a similar problem. The Terminal Interface owns the terminal dimensions, while the Renderer uses the current Editor State to generate the visual frame (Chapter 18, ADR-018).
 
 For ordinary text:
 
@@ -290,7 +290,7 @@ The Screen Buffer describes the cell-based frame. The graphics representation de
 
 ## Does This Mean Full Redraw Is Wrong?
 
-No. The existence of this complication does **not** invalidate the full-redraw decision. The baseline architecture was deliberately chosen because full redraw provides a simple and predictable rendering model. The project structure also explicitly requires that the Renderer never modify editor state and that the Document never depend on the Renderer (05-project-structure).
+No. The existence of this complication does **not** invalidate the full-redraw decision. The baseline architecture was deliberately chosen because full redraw provides a simple and predictable rendering model. The project structure also explicitly requires that the Renderer never modify editor state and that the Document never depend on the Renderer (Chapter 10, ADR-008).
 
 The important distinction is:
 
@@ -336,7 +336,7 @@ The second design is more complicated because it has more state and more synchro
 
 ## Why This Matters for Our Architecture
 
-The project deliberately favors low coupling, high cohesion, and one-way dependencies. The Renderer reads the Editor State, while the Core remains independent of platform-specific components (03-system-architecture).
+The project deliberately favors low coupling, high cohesion, and one-way dependencies. The Renderer reads the Editor State, while the Core remains independent of platform-specific components (Chapter 8, ADR-008).
 
 Terminal graphics reinforce why those boundaries matter. If graphics were allowed to leak into the Document or Editor State merely because the terminal can display images, the Core would become coupled to a presentation feature. Instead, the additional complexity remains near the rendering and platform boundary:
 

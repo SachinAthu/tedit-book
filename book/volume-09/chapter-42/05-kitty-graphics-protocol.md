@@ -161,7 +161,7 @@ This follows the existing architectural rule that terminal protocol details shou
 
 The Screen Buffer represents the completed visual frame for ordinary terminal-cell rendering, deliberately used to separate frame construction from terminal output and to keep rendering immediate-mode and predictable.
 
-Kitty graphics introduce an important boundary to that model. A graphical object cannot simply be represented as a ScreenCell, because its graphical data exists outside the normal cell representation. Therefore, an extended renderer could conceptually have:
+Kitty graphics introduce an important boundary to that model. A graphical object cannot simply be represented as a screen cell, because its graphical data exists outside the normal cell representation. Therefore, an extended renderer could conceptually have:
 
 ```text
 Editor State

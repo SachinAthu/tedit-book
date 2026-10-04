@@ -132,7 +132,7 @@ Column Offset
 Document Column
 ```
 
-This is not a new coordinate system invented specifically for mouse support. It is the existing viewport mapping applied to a new input source.
+This is not a new coordinate system invented specifically for mouse support. It is the existing viewport mapping (Chapter 20, ADR-019) applied to a new input source.
 
 ## Mapping to a Document Position
 
@@ -178,14 +178,15 @@ Terminal Column
 Document Column
 ```
 
-The Renderer is responsible for visual expansion, while the Cursor and Document operate in their established logical coordinate space.
+The Renderer is responsible for visual expansion (Chapter 14, ADR-014), while the Cursor and Document operate in their established logical coordinate space.
 
 ## Tabs Demonstrate the Difference
 
 Consider:
 
 ```text
-"    int"
+Document:  "\tint"      (one TAB character)
+Display:   "    int"    (expanded to four columns)
 ```
 
 The visible indentation may occupy several terminal columns even though the underlying document contains a TAB character. A mouse click is expressed in visual terminal coordinates, so the editor must determine which logical document position corresponds to that visual position:
@@ -253,7 +254,7 @@ Coordinate Mapping
         Editor Command
 ```
 
-The coordinate-mapping stage translates **where the user interacted** into a position meaningful to the editor. The resulting command might then be `MOVE_CURSOR_TO(row, column)`. The Command Engine remains responsible for executing the command and maintaining the appropriate state invariants.
+The coordinate-mapping stage translates **where the user interacted** into a position meaningful to the editor. The resulting command might then be `MOVE_CURSOR_TO(row, column)` (an illustrative future command name). The Command Engine remains responsible for executing the command and maintaining the appropriate state invariants.
 
 ## Coordinate Mapping and State Ownership
 
@@ -273,6 +274,8 @@ Validated Editor State
 ```
 
 The cursor remains the authoritative representation of the current editing position. This follows the established architectural rule that each piece of state should have a single owner.
+
+Where does the mapping itself live? It is an input-path responsibility, not a Document or Renderer responsibility. The Input Parser owns the raw mouse events, turning the terminal's mouse-reporting sequences into terminal coordinates just as it turns keyboard bytes into key events. A separate layout-aware mapping step then reads the Window geometry and Viewport offsets from Editor State — state owned under the multiple-buffer architecture (Chapter 34, ADR-027) — and translates the terminal coordinate into a logical Document position. That position is packaged into a command such as `MOVE_CURSOR_TO` and dispatched through the Input Engine to the Command Engine, exactly like any other command. The Document never sees a terminal coordinate, and the Renderer is never asked to interpret input.
 
 ## Coordinate Mapping and Rendering
 

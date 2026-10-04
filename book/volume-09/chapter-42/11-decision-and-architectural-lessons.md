@@ -21,7 +21,7 @@ Save Files
 Render the Editing Interface
 ```
 
-These capabilities do not require terminal graphics. The baseline rendering architecture is intentionally built around Editor State, Renderer, Screen Buffer, Terminal Interface, and Terminal, where the Screen Buffer represents the cell-based visual frame and the Renderer remains separate from the terminal-specific output mechanism. This architecture is sufficient for the baseline editor.
+These capabilities do not require terminal graphics. The baseline rendering architecture is intentionally built around Editor State, Renderer, Screen Buffer, Terminal Interface, and Terminal Emulator, where the Screen Buffer represents the cell-based visual frame and the Renderer remains separate from the terminal-specific output mechanism. This architecture is sufficient for the baseline editor.
 
 ## Required Versus Optional Capabilities
 

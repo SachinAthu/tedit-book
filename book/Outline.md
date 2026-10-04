@@ -594,7 +594,7 @@ This is where the book becomes much deeper than a typical tutorial.
 - Mouse
 - Kitty protocol
 
-## **Chapter 43 — Modern Editors**
+## **Chapter 43 — Modern Text Editors: Architecture in the Real World**
 
 How these editors are built:
 

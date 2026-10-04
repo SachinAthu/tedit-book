@@ -165,7 +165,7 @@ Input Engine
 SCROLL_VIEWPORT_UP
 ```
 
-The scrolling command remains an editor operation; the mouse is merely another way of triggering it. The same command could potentially be triggered by keyboard, mouse, or a future input method without changing the command's implementation. This follows directly from the input architecture (ADR-015), where input events are mapped to commands separately from command execution.
+The scrolling command remains an editor operation; the mouse is merely another way of triggering it. (`SCROLL_VIEWPORT_UP` is an illustrative command name, not part of the baseline command set.) The same command could potentially be triggered by keyboard, mouse, or a future input method without changing the command's implementation. This follows directly from the input architecture (ADR-015), where input events are mapped to commands separately from command execution.
 
 ## Mouse Input Does Not Require a New Editor Core
 

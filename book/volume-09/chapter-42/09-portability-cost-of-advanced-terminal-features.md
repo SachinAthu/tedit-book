@@ -80,7 +80,7 @@ Terminal Interface
    └── Fallback
 ```
 
-This follows the existing architectural rule that platform-specific behavior belongs at the platform boundary rather than inside the Core.
+This follows the existing architectural rule that platform-specific behavior belongs at the platform boundary rather than inside the Core (ADR-030).
 
 ## Capability Matrices
 
