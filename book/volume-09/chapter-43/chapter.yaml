@@ -6,13 +6,16 @@ sections:
   - Introduction —> 00-introduction.md
   - 43.1 Why Study Existing Editors? —> 01-why-study-existing-editors.md
   - 43.2 How to Compare an Editor —> 02-how-to-compare-an-editor.md
-  - 43.3  —> 03-.md
-  - 43.4  —> 04-.md
-  - 43.5  —> 05-.md
-  - 43.6  —> 06-.md
-  - 43.7  —> 07-.md
-  - 43.8  —> 08-.md
-  - 43.9  —> 09-.md
-  - 43.10  —> 10-.md
-
-  - Summary, Exercises, Next Chapter Preview —> 12-conclusion.md
+  - 43.3 Nano — Simplicity as an Architectural Choice —> 03-nano.md
+  - 43.4 Vim — Modal Editing and Command-Centric Architecture —> 04-vim.md
+  - 43.5 Neovim — Refactoring the Editor Around APIs —> 05-neovim.md
+  - 43.6 Emacs — The Editor as an Extensible Environment —> 06-emacs.md
+  - 43.7 Helix — A Modern Modal Architecture —> 07-helix.md
+  - 43.8 VS Code — The Editor as a Platform —> 08-vs-code.md
+  - 43.9 Sublime Text — Performance and Responsiveness —> 09-sublime-text.md
+  - 43.10 Zed — Modern Native Editor Architecture —> 10-zed.md
+  - 43.11 Architecture Comparison —> 11-architecture-comparison.md
+  - 43.12 What Real Editors Teach Us —> 12-what-real-editors-teach-us.md
+  - 43.13 Our Architecture in Context —> 13-our-architecture-in-context.md
+  - 43.14 What We Are Not Building —> 14-what-we-are-not-building.md
+  - Summary, Exercises, Next Chapter Preview —> 15-conclusion.md
