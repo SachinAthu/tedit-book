@@ -191,52 +191,6 @@ This reinforces an important distinction:
 
 A system can remain focused while still using sophisticated internal mechanisms where those mechanisms solve real requirements.
 
-## Comparison with Our Editor
-
-Our editor currently has a simpler conceptual model:
-
-```text
-Input
-  |
-  v
-Command
-  |
-  v
-Document
-  |
-  v
-Renderer
-```
-
-A more language-aware editor introduces additional processing:
-
-```text
-                 Input
-                   |
-                   v
-                Command
-                   |
-                   v
-               Document
-                   |
-          +--------+--------+
-          |                 |
-          v                 v
-       Renderer          Parser
-                              |
-                              v
-                         Syntax Tree
-                              |
-                    +---------+---------+
-                    |                   |
-                    v                   v
-              Highlighting       Language Tools
-```
-
-This is a useful architectural progression.
-
-The core editing model does not disappear. Instead, additional systems are attached to it to satisfy additional requirements.
-
 ## What Helix Teaches Us
 
 Helix demonstrates several important principles:
@@ -257,8 +211,6 @@ For our project, the most important lesson is that **advanced editor capabilitie
 
 ## Summary
 
-Helix demonstrates that a modern editor can be sophisticated without being maximally complex. Selections become a first-class editing concept, modal editing survives with a different command model, and structured parsing introduces a layer between the document and the user interface.
-
-The key lesson for our project is that advanced capabilities—structured understanding, language servers, highlighting—can be layered on top of a stable editing core without forcing the text-editing subsystem to understand every language-specific concern.
+Helix demonstrates that a modern editor can be sophisticated without being maximally complex: selections become a first-class editing concept, modal editing survives with a different command model, and structured parsing plus language servers layer on top of a stable editing core.
 
 The next section turns to VS Code, where the editor is no longer primarily a terminal application but one subsystem of a much larger development platform.

@@ -6,8 +6,6 @@ Nano is a terminal text editor designed around a relatively direct interaction m
 
 That makes Nano particularly relevant to our own project.
 
-Our editor is also intentionally designed as a **small terminal editor**, with simplicity, clarity, and educational value treated as architectural priorities. The project requirements explicitly prioritize a lightweight, understandable architecture rather than feature completeness. 02-software-requirements
-
 The comparison therefore gives us an opportunity to ask:
 
 > **How far can a text editor go without introducing the architectural complexity of a large extensible editor?**
@@ -110,34 +108,6 @@ This is one reason why mature editors often look very different from small educa
 
 They have accumulated requirements over time.
 
-## Nano and Our Editor
-
-The comparison with Nano helps reinforce several decisions in our own design.
-
-Our editor is intentionally built around a small set of core responsibilities:
-
-```text
-                  Editor State
-                       |
-       +---------------+---------------+
-       |               |               |
-     Input          Commands        Renderer
-       |               |               |
-       v               v               v
-   Input Model      Document       Screen Buffer
-                       |
-                       v
-                  File Manager
-```
-
-The objective is not to minimize the number of source files or functions.
-
-The objective is to keep **responsibility boundaries understandable**.
-
-For example, our Input Parser should not become responsible for modifying the Document. Our Renderer should not become responsible for editing text. The File Manager should not become responsible for cursor movement.
-
-These boundaries allow the implementation to remain simple without becoming unstructured.
-
 ## What Nano Teaches Us
 
 The important lesson from this case study is therefore not a particular implementation technique.
@@ -148,14 +118,10 @@ It is an architectural principle:
 
 A small editor can be professionally designed while remaining small.
 
-The quality of an architecture is determined by how well it satisfies its requirements, not by how many components it contains.
-
 This provides an important baseline for the editors we examine next.
 
 ## Summary
 
-Nano demonstrates that simplicity can be a deliberate, professional architectural choice. A small editor does not need the machinery of a large extensible platform, and its quality is judged by how well it satisfies its requirements rather than by how many components it contains.
-
-Simplicity also carries a cost: significant new capabilities can be harder to add later. The lesson is not to avoid sophistication, but to introduce complexity only when a requirement justifies it.
+Nano shows that simplicity can be a deliberate architectural choice—simple architecture is not the absence of architecture, but the presence of only the boundaries its requirements justify, and that simplicity carries the cost of harder future extensions.
 
 The next section examines Vim, where a modal, command-centric interaction model reshapes the editor's entire architecture.

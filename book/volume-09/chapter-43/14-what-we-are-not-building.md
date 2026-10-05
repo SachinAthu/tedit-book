@@ -22,28 +22,7 @@ We are building:
     implemented in C
 ```
 
-Its architecture is designed around that goal.
-
-We want a system whose major components can be understood as a complete whole:
-
-```text
-                    Editor State
-                         |
-          +--------------+--------------+
-          |              |              |
-        Input         Commands       Rendering
-          |              |              |
-          v              v              v
-       Parser       Command Engine   Screen Buffer
-                         |
-                         v
-                      Document
-                         |
-                         v
-                    File Manager
-```
-
-Each component exists because it has a meaningful responsibility.
+Its architecture is designed around that goal. Each component exists because it has a meaningful responsibility.
 
 The architecture should remain understandable enough that a reader can follow an operation from input to state change to rendering.
 
@@ -301,8 +280,6 @@ Each future capability can be evaluated independently.
 If one becomes necessary, we can introduce the architectural mechanisms required to support it.
 
 This is preferable to building all possible infrastructure in advance.
-
-The SRS explicitly leaves room for future extensions while keeping them outside the baseline implementation. 02-software-requirements
 
 ## The Boundary Before Volume X
 

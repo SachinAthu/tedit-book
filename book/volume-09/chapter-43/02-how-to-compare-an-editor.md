@@ -163,27 +163,7 @@ A small editor can keep much of its state in one central structure. A large edit
 
 The next question is how editor state becomes something visible to the user.
 
-For our terminal editor, the rendering pipeline was deliberately designed around a complete frame:
-
-```text
-Editor State
-     |
-     v
-Renderer
-     |
-     v
-Screen Buffer
-     |
-     v
-Terminal Output
-     |
-     v
-Terminal Emulator
-```
-
-Other editors may use very different rendering architectures.
-
-A graphical editor may have:
+Our terminal editor deliberately renders a complete frame through a screen buffer. Other editors may use very different rendering architectures. A graphical editor may have:
 
 ```text
 Editor State

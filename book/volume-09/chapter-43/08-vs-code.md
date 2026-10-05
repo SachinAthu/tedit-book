@@ -224,43 +224,6 @@ This allows the editor to coordinate with specialized systems that understand pr
 
 The architecture therefore becomes a composition of services rather than one enormous editor component.
 
-## The Difference in Scale
-
-It is useful to compare our editor directly with this model.
-
-Our baseline:
-
-```text
-             Editor
-                |
-       +--------+--------+
-       |        |       |
-     Input   Document Renderer
-                |
-             File I/O
-```
-
-A development environment:
-
-```text
-                    Workbench
-                       |
-       +---------------+---------------+
-       |               |               |
-    Editor          Services       Extensions
-       |               |               |
-       v               v               v
-  Text Model      Language Tools   Extension Host
-       |               |
-       +---------------+
-               |
-          Application
-```
-
-The second architecture is not simply a "better" version of the first.
-
-It solves a different problem.
-
 ## What VS Code Teaches Us
 
 VS Code demonstrates several important principles.
@@ -277,16 +240,8 @@ And finally:
 
 > **As requirements expand, architecture must expand with them.**
 
-Our editor deliberately does not require a workbench, extension host, language-service ecosystem, or multi-process application architecture.
-
-That is not because those techniques are unnecessary in general.
-
-It is because they solve problems outside the scope of our baseline system.
-
 ## Summary
 
-VS Code demonstrates what happens when the editor becomes one subsystem of a general-purpose development environment. The workbench surrounds editing with other UI surfaces, the text model becomes an independent shared abstraction, extensions are isolated behind process and API boundaries, and language services are external capabilities.
-
-None of this is a "better" version of our architecture; it solves a different problem. Our project builds an editor, while VS Code is closer to a development environment containing one, and our smaller scope is the reason we do not reproduce its machinery.
+VS Code demonstrates what happens when the editor becomes one subsystem of a general-purpose development environment: the workbench surrounds editing with other UI surfaces, the text model becomes an independent shared abstraction, extensions are isolated behind process and API boundaries, and language services are external capabilities.
 
 The next section examines Sublime Text, where performance and responsiveness become major architectural drivers.

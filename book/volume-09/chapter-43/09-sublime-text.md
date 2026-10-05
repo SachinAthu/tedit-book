@@ -299,49 +299,6 @@ Every additional mechanism creates additional failure modes.
 
 This is precisely why our earlier complexity discussions matter.
 
-## Sublime Text and Our Editor
-
-The contrast can be summarized as:
-
-```text
-Our Editor
-
-Priority:
-Understandability
-      |
-      v
-Simple architecture
-      |
-      v
-Full redraw
-      |
-      v
-Adequate performance
-```
-
-Whereas a performance-oriented editor may have:
-
-```text
-Priority:
-Responsiveness at scale
-      |
-      v
-Performance constraints
-      |
-      +---- Efficient text processing
-      +---- Efficient rendering
-      +---- Caching
-      +---- Asynchronous work
-      +---- Large-file handling
-      |
-      v
-More complex architecture
-```
-
-Neither approach is universally correct.
-
-The correct choice depends on the workload.
-
 ## What Sublime Text Teaches Us
 
 Sublime Text gives us several important architectural lessons.
@@ -356,12 +313,8 @@ Sublime Text gives us several important architectural lessons.
 
 **Finally, optimization should follow requirements and measurements rather than fashion.**
 
-For our editor, the deliberate choice of full redraw and relatively simple state management remains appropriate because the project's goal is to establish a clear, understandable architecture rather than reproduce the performance architecture of a mature commercial editor.
-
 ## Summary
 
-Sublime Text demonstrates that performance and responsiveness can be architectural requirements rather than final-stage optimizations. Large documents change the character of the problem, rendering becomes a major performance boundary, and asynchronous or incremental work can keep the interface responsive—at the cost of additional state and coordination.
-
-The lesson for our editor is that full-frame redraw and simple synchronous state management remain appropriate precisely because the project prioritizes clarity over the performance demands of a mature commercial editor. Optimization should follow requirements and measurements, not fashion.
+Sublime Text demonstrates that performance and responsiveness can be architectural requirements rather than final-stage optimizations: large documents change the character of the problem, rendering becomes a major performance boundary, and asynchronous or incremental work keeps the interface responsive at the cost of additional state and coordination.
 
 The next section examines Zed, which carries these performance ideas into a modern native, GPU-oriented architecture.

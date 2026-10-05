@@ -237,50 +237,12 @@ This illustrates a recurring principle throughout the book:
 
 An API is valuable when the flexibility it provides justifies that cost.
 
-## Neovim and Our Editor
+## What Neovim Teaches Us
 
-The comparison can be summarized like this:
-
-```text
-Our Editor
-
-Human
-  |
-  v
-Terminal
-  |
-  v
-Editor
-```
-
-versus a more extensible architecture:
-
-```text
-                 Editor
-                    |
-        +-----------+-----------+
-        |                       |
-     Terminal                  API
-        |                       |
-      Human              Plugins / Tools
-```
-
-Our architecture deliberately stops closer to the first model.
-
-That is not a limitation we accidentally inherited.
-
-It is a consequence of the project's scope.
-
-The SRS defines the baseline system as a small, single-document terminal editor and explicitly places advanced extensibility mechanisms outside the core implementation scope. 02-software-requirements
-
-Neovim therefore teaches us an important lesson without implying that our editor should become Neovim:
-
-> **When extensibility becomes a requirement, interfaces and APIs become architectural elements rather than optional conveniences.**
+Neovim teaches that when extensibility becomes a requirement, interfaces and APIs become architectural elements rather than optional conveniences.
 
 ## Summary
 
-Neovim demonstrates that an editor can be designed as a platform as well as an application. Once functionality is exposed through an API, that API becomes a stability boundary that other software depends on, and extensibility moves outward so the core need not contain every feature.
-
-That flexibility has a cost: each public boundary creates a contract that must be validated, maintained, and kept compatible. The principle is the same one seen throughout the book—abstraction reduces coupling, but maintaining abstractions has a cost, and APIs become architectural elements when extensibility becomes a requirement.
+Neovim demonstrates that an editor can be designed as a platform as well as an application: an API becomes a stability boundary that other software depends on, extensibility moves outward, and each public boundary adds a contract that must be validated and kept compatible.
 
 The next section examines Emacs, which takes this principle further by making extensibility and programmability central to the editor itself.

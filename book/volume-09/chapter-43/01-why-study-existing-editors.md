@@ -170,8 +170,6 @@ Once that question has been answered in the context of other real systems, we ar
 
 ## Summary
 
-This chapter is about understanding, not imitation. Different editors exist because different requirements produce different architectures, and the central lesson is that **architecture is shaped by requirements**.
+This section established the chapter's purpose—to study editors as architectural case studies rather than to copy them—and introduced the principle that architecture is shaped by requirements.
 
-We will therefore study each editor as an architectural case study, asking the same questions about organization, input, state, text representation, rendering, and extensibility. This lets us distinguish studying an architecture from copying an implementation, and it prepares us to answer the question **why is our editor designed this way** before we begin building it.
-
-In the next section, we establish the comparison framework that the rest of the chapter applies to each editor.
+In the next section, we define the comparison framework that the rest of the chapter applies to each editor.

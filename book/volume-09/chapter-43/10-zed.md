@@ -290,50 +290,6 @@ A developer may believe that a particular optimization will improve responsivene
 
 Actual measurements may show otherwise.
 
-## Zed and Our Editor
-
-The architectural difference can now be summarized:
-
-```text
-Our Editor
-
-Terminal
-   |
-   v
-Editor State
-   |
-   v
-Renderer
-   |
-   v
-ANSI Output
-   |
-   v
-Terminal Emulator
-```
-
-Zed operates closer to:
-
-```text
-                    Application
-                        |
-             +----------+----------+
-             |                     |
-            UI                   Editor
-             |                     |
-            GPU             +-------+-------+
-                            |       |       |
-                         Language Project  LSP
-                            |
-                         Async Work
-                            |
-                      Other Services
-```
-
-Our architecture deliberately minimizes these interactions.
-
-Zed deliberately embraces them because its requirements demand capabilities that our editor does not need.
-
 ## What Zed Teaches Us
 
 Zed brings together several architectural lessons.
@@ -352,41 +308,8 @@ And finally:
 
 > **A modern editor can become a complex system because its requirements demand complexity—not because complexity is inherently desirable.**
 
-This is the final distinction we need before comparing all of these editors together.
-
-Our editor deliberately occupies the opposite end of this spectrum:
-
-```text
-                    Complexity
-                        ^
-                        |
-              Zed       |       VS Code
-                        |
-          Emacs         |
-                        |
-       Neovim           |
-                        |
-          Vim           |
-                        |
-        Helix           |
-                        |
-        Sublime         |
-                        |
-         Nano           |
-                        |
-     Our Editor        |
-                        +-------------------->
-                         Scope / Requirements
-```
-
-The purpose of our project is not to move toward the upper-right corner.
-
-It is to demonstrate that **a small system can still have deliberate, professional architecture**.
-
 ## Summary
 
-Zed brings the chapter's themes together: performance as a whole-application architectural goal, GPU-oriented rendering, owning more of the stack, asynchronous execution that turns the editor into a concurrent system, layered language processing, and distributed collaboration.
-
-Each capability adds genuine architectural complexity—concurrency, synchronization, and location awareness—because Zed's requirements demand it. The distinction we need is not that Zed is "better," but that a modern editor becomes complex because its requirements demand complexity, not because complexity is inherently desirable.
+Zed brings the chapter's themes together: performance as a whole-application architectural goal, GPU-oriented rendering, owning more of the stack, asynchronous execution that turns the editor into a concurrent system, layered language processing, and distributed collaboration—each adding real complexity because Zed's requirements demand it.
 
 The next section brings all of these case studies together into a single comparison.

@@ -51,9 +51,7 @@ The project does not require:
 - multiple processes;
 - distributed state.
 
-The SRS explicitly excludes these capabilities from the baseline implementation. 02-software-requirements
-
-Therefore, introducing their architectural machinery would violate one of the central principles established throughout the book:
+Introducing their architectural machinery would therefore violate one of the central principles established throughout the book:
 
 > **Do not introduce complexity without a requirement that justifies it.**
 
@@ -290,8 +288,6 @@ Those editors have strong reasons to invest heavily in:
 
 Our editor does not have those same requirements.
 
-The project deliberately prioritizes clarity over advanced optimization. 02-software-requirements
-
 Therefore:
 
 ```text
@@ -425,8 +421,6 @@ With that comparison complete, **Chapter 43 has fulfilled its role**: it connect
 
 ## Summary
 
-Our architecture is deliberately small because our requirements are small. It is not a miniature Vim or VS Code, but it does borrow the principles that scale across larger systems: separation of concerns, centralized state, explicit ownership, stable abstractions, and controlled complexity.
-
-These boundaries also leave room for future growth through explicit decisions rather than uncontrolled coupling, and the simplicity itself serves the book's educational goal. We study real editors not to copy their architecture, but to understand the consequences of architectural choices.
+Our architecture is deliberately small because its requirements are small. It is not a miniature Vim or VS Code, but it borrows the principles that scale across larger systems, and its boundaries leave room for future growth through explicit decisions.
 
 The next and final section draws the boundary between what we are building and what we are deliberately leaving out.

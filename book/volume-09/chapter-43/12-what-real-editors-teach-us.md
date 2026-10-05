@@ -412,8 +412,6 @@ That principle explains why our editor can be intentionally small while still be
 
 ## Summary
 
-Across very different editors, the same principles recur: requirements drive architecture, complexity must be justified, good abstractions preserve future options, separation of responsibilities reduces coupling, more features create more state, performance can become architecture, extensibility changes the meaning of "core," and architecture should reflect clear ownership.
-
-The overriding principle is that good architecture matches structure to requirements while controlling complexity. We study existing systems not to copy them, but to ask what problem each mechanism solves and whether we share that problem.
+These editors converge on the same recurring principles—requirements drive architecture, complexity must be justified, good abstractions preserve future options, separation of responsibilities reduces coupling, and performance can become architecture—all summed up as matching structure to requirements while controlling complexity.
 
 The next section makes this comparison concrete by examining our own architecture in the context of these real-world systems.

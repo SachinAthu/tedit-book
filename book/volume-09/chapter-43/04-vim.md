@@ -125,48 +125,6 @@ It must support the interpretation of sequences and the relationships between op
 
 This is substantially more complex than the command vocabulary required by our baseline editor.
 
-## Comparison with Our Input Pipeline
-
-Our architecture deliberately separates three stages:
-
-```text
-Terminal Bytes
-      |
-      v
-Input Handler
-      |
-      v
-Input Parser
-      |
-      v
-Input Event
-      |
-      v
-Input Engine
-      |
-      v
-Command
-      |
-      v
-Command Engine
-```
-
-This separation allows the parser to answer:
-
-> What input event occurred?
-
-The Input Engine then answers:
-
-> Which command does this event represent?
-
-And the Command Engine answers:
-
-> What should happen when that command executes?
-
-This separation was deliberately chosen to prevent input processing from accumulating knowledge about the Document, Cursor, and other editor components. The Command Engine then provides a separate boundary between command interpretation and command execution. 07-adrs
-
-Vim demonstrates why this separation can become increasingly valuable as the interaction model grows more sophisticated.
-
 ## When Input Becomes a Language
 
 A useful way to think about Vim is that its command system begins to resemble a small language.
@@ -255,18 +213,10 @@ A modal command language requires:
 - more complex command execution;
 - more extensive testing of state transitions.
 
-None of this is inherently better or worse than the simpler interaction model of our editor.
-
-It is a consequence of the requirements.
-
-Our editor does not need Vim's command language, so reproducing its input architecture would add complexity without providing equivalent value.
-
-But studying Vim helps us understand **why our simpler Input Parser → Input Engine → Command Engine pipeline has been deliberately kept simple**.
+None of this is inherently better or worse than a simpler interaction model; it is a consequence of the requirements.
 
 ## Summary
 
-Vim demonstrates that the interaction model can shape the entire architecture of an editor. Modes turn input interpretation into a state-dependent problem, and commands, motions, and operators combine into a command language far richer than a simple mapping from keys to actions.
-
-That expressive power requires more state and more transitions to test, so our simpler Input Parser → Input Engine → Command Engine pipeline is a deliberate consequence of our simpler interaction requirements rather than a deficiency.
+Vim demonstrates that the interaction model can shape an editor's entire architecture: modes make input interpretation state-dependent, and commands, motions, and operators combine into a command language far richer than a simple key-to-action mapping, at the cost of more state and more transitions to test.
 
 The next section examines Neovim, which shows how an established modal editor can evolve into a more explicitly extensible and API-oriented architecture.

@@ -210,33 +210,6 @@ If the primary goal is to create a small, predictable editor, the first approach
 
 If the goal is to create an environment that users can continuously adapt and program, the second approach becomes much more attractive.
 
-## Emacs and Our Editor
-
-This comparison also clarifies why we should not accidentally turn our implementation into a miniature Emacs.
-
-Our project has a deliberately constrained scope. The SRS defines the baseline as a small terminal editor and explicitly excludes plugin systems and other advanced extensibility mechanisms from the initial implementation. 02-software-requirements
-
-That constraint is valuable.
-
-It allows us to implement the core concepts directly:
-
-```text
-Input
-  |
-  v
-Command
-  |
-  v
-Document
-  |
-  v
-Renderer
-```
-
-rather than first building an infrastructure capable of allowing arbitrary software to modify those components.
-
-This is an important distinction between **building an editor** and **building an editor platform**.
-
 ## What Emacs Teaches Us
 
 The central lesson from Emacs is:
@@ -245,16 +218,8 @@ The central lesson from Emacs is:
 
 Commands, modes, configuration, extension mechanisms, and programmable interfaces all become part of the system's fundamental design.
 
-This reinforces an idea that will appear repeatedly throughout the remaining case studies:
-
-> **Architectural complexity should correspond to real requirements.**
-
-Our editor does not need Emacs-level programmability, so we should not adopt Emacs-level architectural machinery merely because it exists.
-
 ## Summary
 
-Emacs demonstrates what happens when extensibility becomes a primary requirement: the meaning of "core" changes. Instead of containing most of the behavior, the core provides the mechanisms—commands, modes, hooks, and programmable interfaces—through which behavior is supplied and extended.
-
-That flexibility creates another layer of contracts and long-term compatibility obligations, which is exactly the kind of complexity our baseline editor intentionally avoids. The distinction is between building an editor and building an editor platform.
+Emacs demonstrates what happens when extensibility becomes a primary requirement: the meaning of "core" changes from containing most of the behavior to providing the mechanisms—commands, modes, hooks, and programmable interfaces—through which behavior is supplied and extended, along with another layer of contracts and compatibility obligations.
 
 The next section examines Helix, a modern modal editor that combines modal editing with structured parsing and language tooling.
