@@ -570,44 +570,81 @@ This is where the book becomes much deeper than a typical tutorial.
 
 ## **Chapter 39 — Plugin Architecture**
 
-- Interfaces
-- ABI
-- Dynamic loading
+- 39.1 Why Plugins Change the Architecture
+- 39.2 Plugin Boundaries
+- 39.3 Designing a Plugin Interface
+- 39.4 ABI — When Source Compatibility Is Not Enough
+- 39.5 Plugin Versioning and Compatibility
+- 39.6 Dynamic Loading
+- 39.7 Extending the Editor Safely
+- 39.8 Plugin Failure and Isolation
+- 39.9 Security Considerations
+- 39.10 A Minimal Plugin Architecture
+- 39.11 Design Alternatives and Trade-offs
+- 39.12 What Our Editor Would Need to Support Plugins
 
 ## **Chapter 40 — Language Server Protocol (LSP)**
 
-- Overview
-- Diagnostics
-- Completion
-- Hover
+- 40.1 Why Language Intelligence Matters
+- 40.2 What Is the Language Server Protocol?
+- 40.3 LSP Client and Language Server Architecture
+- 40.4 Starting and Managing a Language Server
+- 40.5 Document Synchronization
+- 40.6 Diagnostics
+- 40.7 Completion
+- 40.8 Hover Information
+- 40.9 Requests, Notifications, and Asynchronous Results
+- 40.10 LSP Integration Trade-offs and Boundary for Our Editor
 
 ## **Chapter 41 — Tree-sitter and Incremental Parsing**
 
-- Incremental parsing
-- Syntax trees
-- Highlighting
+- 41.1 Why Incremental Parsing Matters
+- 41.2 From Tokens to Syntax Trees
+- 41.3 What "Incremental" Really Means
+- 41.4 Tree-sitter as an Incremental Parser
+- 41.5 Parsing an Edit
+- 41.6 Syntax Tree Structure and Node Ranges
+- 41.7 Concrete Syntax Trees vs Abstract Syntax Trees
+- 41.8 Error Recovery and Incomplete Code
+- 41.9 Incremental Syntax Highlighting
+- 41.10 Beyond Highlighting - Structural Editor Features
+- 41.11 Tree-sitter and the Language Server
+- 41.12 Complexity and Performance
+- 41.13 Tree-sitter vs the Chapter 32 Baseline
+- 41.14 Why Our Baseline Does Not Adopt Tree-sitter
+- 41.15 Common Tree-sitter Integration Mistakes
+- 41.16 Design Trade-offs
 
 ## **Chapter 42 — Terminal Graphics**
 
-- True color
-- Images
-- Mouse
-- Kitty protocol
+- 42.1 The Terminal Model and Capability Surface
+- 42.2 True Color
+- 42.3 Terminal Capability Detection
+- 42.4 Images in Terminals
+- 42.5 The Kitty Graphics Protocol
+- 42.6 Mouse Input
+- 42.7 Mouse Coordinates and Editor Coordinates
+- 42.8 Why Graphics Complicate Full Redraw
+- 42.9 The Portability Cost of Advanced Terminal Features
+- 42.10 Security and Resource Considerations
+- 42.11 Decision and Architectural Lessons
 
 ## **Chapter 43 — Modern Text Editors: Architecture in the Real World**
 
-How these editors are built:
-
-- Nano
-- Vim
-- Neovim
-- Emacs
-- Helix
-- VS Code
-- Sublime Text
-- Zed
-
-Architecture comparison.
+- 43.1 Why Study Existing Editors?
+- 43.2 How to Compare an Editor
+- 43.3 Nano — Simplicity as an Architectural Choice
+- 43.4 Vim — Modal Editing and Command-Centric Architecture
+- 43.5 Neovim — Refactoring the Editor Around APIs
+- 43.6 Emacs — The Editor as an Extensible Environment
+- 43.7 Helix — A Modern Modal Architecture
+- 43.8 VS Code — The Editor as a Platform
+- 43.9 Sublime Text — Performance and Responsiveness
+- 43.10 Zed — Modern Native Editor Architecture
+- 43.11 Architecture Comparison
+- 43.12 What Real Editors Teach Us
+- 43.13 Our Architecture in Context
+- 43.14 What We Are Not Building
 
 ---
 

@@ -3181,6 +3181,22 @@ Volume IV, Chapter 19
 - Editor State
 - Dirty Flag
 
+## Modal Editing
+
+**Definition**
+
+The interaction model in which the meaning of a keyboard input depends on the editor's current mode, making input interpretation state-dependent. In a modal editor such as Vim, the current mode is part of the Editor State, and editing operations are composed from commands, motions, and operators to form a command language. Modal editing produces a compact, composable interaction model at the cost of additional mode state and more state transitions to test. Our baseline editor is deliberately non-modal: each input event maps directly to a command.
+
+**First Introduced**
+
+Volume IX, Chapter 43
+
+**Related Terms**
+
+- Editor State
+- Command
+- Input Engine
+
 ## Modifier Key
 
 **Definition**
@@ -4304,6 +4320,22 @@ Volume IV, Chapter 19
 - Viewport
 - Screen Cell
 - Renderer
+
+## Selection
+
+**Definition**
+
+The range of a Document defined by an anchor and an active position, treated as a first-class editing object rather than as a property of the Cursor. In a selection-oriented editor such as Helix, editing commands create or modify a selection and then apply an operation to it, so operations over a range are expressed naturally. Our baseline editor models a single Cursor and does not treat selections as a distinct editing object.
+
+**First Introduced**
+
+Volume IX, Chapter 43
+
+**Related Terms**
+
+- Cursor
+- Document
+- Source Range
 
 ## Separation of Concerns
 

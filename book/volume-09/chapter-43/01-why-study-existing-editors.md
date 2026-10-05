@@ -140,7 +140,7 @@ Suppose we discover that an existing editor uses a sophisticated text representa
 
 That does not automatically mean our editor should adopt it.
 
-We already established in Chapter 29 that a document representation is a design decision governed by workload, complexity, and requirements. Our project deliberately chooses a vector of lines because it provides a simple representation that maps naturally onto our editor's row-and-column model and line-oriented rendering. 07-adrs
+We already established in Chapter 29 that a document representation is a design decision governed by workload, complexity, and requirements. Our project deliberately chooses a vector of lines because it provides a simple representation that maps naturally onto our editor's row-and-column model and line-oriented rendering, as recorded in ADR-013.
 
 Similarly, discovering that a mature editor has a complex plugin system does not mean our baseline editor needs one.
 
@@ -154,7 +154,7 @@ This question will guide the remainder of the chapter.
 
 Chapter 43 also serves a final purpose before we enter Volume X.
 
-Volumes I–IX have deliberately separated **understanding** from **implementation**. The Book Bible establishes that the theory volumes should teach the concepts and architectural decisions before the implementation volume begins. 00-book-bible
+Volumes I–IX have deliberately separated **understanding** from **implementation**. The Book Bible establishes that the theory volumes should teach the concepts and architectural decisions before the implementation volume begins.
 
 By this point, the reader has studied individual mechanisms and architectural decisions in isolation.
 

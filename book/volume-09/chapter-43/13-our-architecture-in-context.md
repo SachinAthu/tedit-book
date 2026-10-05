@@ -10,7 +10,7 @@ It is to answer a more important question:
 
 The answer comes directly from our requirements.
 
-The SRS defines the project as a lightweight, single-document terminal editor whose architecture prioritizes simplicity, modularity, maintainability, and educational value over feature completeness and advanced optimization. 02-software-requirements
+The SRS defines the project as a lightweight, single-document terminal editor whose architecture prioritizes simplicity, modularity, maintainability, and educational value over feature completeness and advanced optimization.
 
 ## Our Architecture Is Deliberately Small
 
@@ -226,7 +226,7 @@ Editor
              +-- Document
 ```
 
-This is exactly the direction already established by ADR-027, which defines separate concepts for Document, Buffer, View, Window, and Tab and assigns their state to appropriate scopes. 07-adrs
+This is exactly the direction already established by ADR-027, which defines separate concepts for Document, Buffer, View, Window, and Tab and assigns their state to appropriate scopes.
 
 The important point is that the architecture can evolve **through explicit decisions** rather than through uncontrolled coupling.
 
@@ -333,7 +333,7 @@ It is the vehicle through which the reader learns:
 - debugging;
 - system design.
 
-The Book Bible explicitly defines the goal as enabling readers to understand the architecture and eventually implement the editor without simply copying an existing implementation. 00-book-bible
+The Book Bible explicitly defines the goal as enabling readers to understand the architecture and eventually implement the editor without simply copying an existing implementation.
 
 That makes simplicity particularly valuable.
 
@@ -374,7 +374,7 @@ If the requirements only justify Architecture B, then B is the more appropriate 
 
 Our project follows this principle.
 
-The early project structure already expresses the goal clearly: each module should have a clear responsibility so that the code remains understandable and extendable. Building a Terminal Editor
+The early project structure already expresses the goal clearly: each module should have a clear responsibility so that the code remains understandable and extendable.
 
 ## The Final Position
 
@@ -417,7 +417,7 @@ It is designed from the project's own requirements, while the case studies demon
 
 That is the real purpose of Chapter 43.
 
-With that comparison complete, **Chapter 43 has fulfilled its role**: it connects the architecture we designed theoretically with architectures used by real editors, without allowing those systems to dictate our design. The next volume can therefore move from **understanding and evaluating architecture** to **implementing our own architecture**. 01-outline
+With that comparison complete, **Chapter 43 has fulfilled its role**: it connects the architecture we designed theoretically with architectures used by real editors, without allowing those systems to dictate our design. The next volume can therefore move from **understanding and evaluating architecture** to **implementing our own architecture**.
 
 ## Summary
 

@@ -40,7 +40,7 @@ The second architecture is not automatically better.
 
 It exists because the system solves a larger problem.
 
-This principle is consistent with the project's own architectural decisions. The Book Bible establishes that architectural decisions should begin with the problem, examine possible solutions, and then justify the selected solution and its trade-offs. 00-book-bible
+This principle is consistent with the project's own architectural decisions. The Book Bible establishes that architectural decisions should begin with the problem, examine possible solutions, and then justify the selected solution and its trade-offs.
 
 ## 2. Complexity Should Be Justified
 
@@ -92,7 +92,7 @@ Therefore:
 
 This principle is visible in our own decisions.
 
-For example, the project deliberately chooses immediate-mode rendering and an application-side Screen Buffer rather than introducing retained-mode rendering and dirty-region tracking. The ADR explicitly accepts the reconstruction cost because the additional synchronization complexity is not justified for the baseline editor. 07-adrs
+For example, the project deliberately chooses immediate-mode rendering and an application-side Screen Buffer rather than introducing retained-mode rendering and dirty-region tracking. ADR-017 explicitly accepts the reconstruction cost because the additional synchronization complexity is not justified for the baseline editor.
 
 ## 3. Good Abstractions Preserve Future Options
 
@@ -124,7 +124,7 @@ Therefore, the representation could later change:
 
 The Command Engine, Cursor, and Renderer do not need to be redesigned merely because the internal representation changes.
 
-This is explicitly captured by ADR-013: the vector-of-lines representation is an implementation detail behind the Document abstraction, allowing alternatives to be introduced later without forcing higher-level components to understand their internals. 07-adrs
+This is explicitly captured by ADR-013: the vector-of-lines representation is an implementation detail behind the Document abstraction, allowing alternatives to be introduced later without forcing higher-level components to understand their internals.
 
 This is an important distinction:
 
@@ -167,7 +167,7 @@ This separation makes the system easier to reason about.
 
 It also makes individual components replaceable.
 
-The project structure follows the same principle: each module represents a clear responsibility rather than simply grouping files by programming-language type. 07-adrs
+The project structure follows the same principle: each module represents a clear responsibility rather than simply grouping files by programming-language type, as recorded in ADR-010.
 
 ## 5. More Features Create More State
 
@@ -247,7 +247,7 @@ Updated Frame
 
 The important lesson is not that our full-redraw renderer is inadequate.
 
-Our rendering ADR deliberately chose it because it keeps the rendering model predictable and avoids the additional synchronization required by retained or incremental rendering. 07-adrs
+ADR-017 deliberately chose it because it keeps the rendering model predictable and avoids the additional synchronization required by retained or incremental rendering.
 
 Instead:
 
@@ -364,7 +364,7 @@ Our project deliberately chooses:
 - full-frame redraw;
 - a small baseline feature set.
 
-These decisions are consistent with the project's stated priority of simplicity, readability, and educational value. ADR-013 explicitly records that the vector-of-lines choice favors these goals over more advanced optimization. 07-adrs
+These decisions are consistent with the project's stated priority of simplicity, readability, and educational value. ADR-013 explicitly records that the vector-of-lines choice favors these goals over more advanced optimization.
 
 The result is not intended to compete architecturally with VS Code or Zed.
 

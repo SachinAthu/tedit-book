@@ -92,7 +92,7 @@ The same algorithm can become noticeable.
 
 This is one reason performance-oriented editors pay particular attention to large files, long lines, indexing, syntax processing, rendering, and other potentially expensive operations.
 
-Sublime Text's own release history illustrates this focus: its developers have repeatedly documented performance work involving large files, long lines, rendering, syntax processing, indexing, and many simultaneous selections. [Sublime Text](https://www.sublimetext.com/download?utm_source=chatgpt.com)
+Sublime Text's own release history illustrates this focus: its developers have repeatedly documented performance work involving large files, long lines, rendering, syntax processing, indexing, and many simultaneous selections.
 
 The important lesson is not that we should reproduce those optimizations.
 
@@ -121,7 +121,7 @@ This is simple and appropriate for our project's requirements.
 
 A graphical editor operating at high resolution has a very different workload.
 
-Sublime Text has introduced GPU-based rendering and rendering optimizations; its developers describe using batching to take advantage of GPU parallelism, particularly for text glyph rendering. [Sublime Text](https://www.sublimetext.com/blog/?utm_source=chatgpt.com)
+Sublime Text has introduced GPU-based rendering and rendering optimizations; its developers describe using batching to take advantage of GPU parallelism, particularly for text glyph rendering.
 
 Conceptually:
 
@@ -234,7 +234,7 @@ A more sophisticated architecture may allow:
                          Disk I/O
 ```
 
-Sublime Text's current documentation notes that file saving is asynchronous, illustrating how an interactive editor can move potentially blocking work away from the immediate interaction path. [Sublime Text](https://www.sublimetext.com/download?utm_source=chatgpt.com)
+Sublime Text's current documentation notes that file saving is asynchronous, illustrating how an interactive editor can move potentially blocking work away from the immediate interaction path.
 
 This is a significant architectural step because asynchronous operations introduce additional concerns:
 

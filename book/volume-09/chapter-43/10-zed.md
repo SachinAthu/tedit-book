@@ -4,7 +4,7 @@ Zed provides a useful final case study because it brings together many of the ar
 
 It is therefore less useful to study Zed as simply "another modern editor." Its value is in seeing what happens when **performance and responsiveness become architectural goals across the entire application**.
 
-Zed's developers describe the editor as being built around a GPU-oriented application model, using their own Rust-based UI framework, GPUI, rather than building the application on a web stack. [Zed](https://zed.dev/blog/zed-1-0?utm_source=chatgpt.com)
+Zed's developers describe the editor as being built around a GPU-oriented application model, using their own Rust-based UI framework, GPUI, rather than building the application on a web stack.
 
 ## Architecture Around the Rendering System
 
@@ -12,7 +12,7 @@ A conventional desktop application might treat rendering as one subsystem among 
 
 Zed takes a much more integrated approach.
 
-Its development documentation identifies `gpui` as the GPU-accelerated UI framework underlying the application, while the `editor`, `project`, `workspace`, `language`, `lsp`, and other components are organized as separate crates. [Zed](https://zed.dev/docs/development?utm_source=chatgpt.com)
+Its development documentation identifies `gpui` as the GPU-accelerated UI framework underlying the application, while the `editor`, `project`, `workspace`, `language`, `lsp`, and other components are organized as separate crates.
 
 A simplified view is:
 
@@ -64,7 +64,7 @@ The architectural consequences are substantial.
 
 One of Zed's central architectural decisions was to build its own UI framework rather than depend entirely on an existing web-based application platform.
 
-The developers describe this as a deliberate attempt to remove limitations imposed by the underlying platform and to build the application around GPU rendering. [Zed](https://zed.dev/blog/zed-1-0?utm_source=chatgpt.com)
+The developers describe this as a deliberate attempt to remove limitations imposed by the underlying platform and to build the application around GPU rendering.
 
 Conceptually:
 
@@ -112,7 +112,7 @@ This is a recurring architectural trade-off:
 
 Responsiveness also affects how work is executed.
 
-Zed uses asynchronous Rust throughout its application architecture. Its engineering documentation describes background execution and asynchronous updates as part of the way the application performs work without unnecessarily blocking the interactive UI. [Zed](https://zed.dev/blog/zed-decoded-async-rust?utm_source=chatgpt.com)
+Zed uses asynchronous Rust throughout its application architecture. Its engineering documentation describes background execution and asynchronous updates as part of the way the application performs work without unnecessarily blocking the interactive UI.
 
 Conceptually:
 
@@ -200,7 +200,7 @@ These are architectural questions that become increasingly important as an edito
 
 Zed's architecture also illustrates the layered approach to language tooling discussed earlier.
 
-Its documentation identifies separate components for language processing and LSP communication. Zed uses Tree-sitter for syntax highlighting and structure-oriented features, while LSP provides semantic features such as completion, diagnostics, navigation, and refactoring. [Zed](https://zed.dev/docs/configuring-languages?highlight=inlay&utm_source=chatgpt.com)
+Its documentation identifies separate components for language processing and LSP communication. Zed uses Tree-sitter for syntax highlighting and structure-oriented features, while LSP provides semantic features such as completion, diagnostics, navigation, and refactoring.
 
 Conceptually:
 
@@ -231,7 +231,7 @@ Instead, different specialized systems contribute different forms of knowledge.
 
 Zed also supports collaborative editing, which introduces another category of architectural requirements.
 
-Its development documentation identifies dedicated collaboration and RPC components, while its remote-development architecture separates local UI responsibilities from work performed on a remote machine. [Zed](https://zed.dev/docs/development?utm_source=chatgpt.com)
+Its development documentation identifies dedicated collaboration and RPC components, while its remote-development architecture separates local UI responsibilities from work performed on a remote machine.
 
 A simplified collaborative architecture might look like:
 
@@ -278,9 +278,9 @@ Its document, editor state, renderer, and terminal all operate within one local 
 
 Another important lesson from Zed is that performance architecture must be measured rather than assumed.
 
-Zed maintains frame-time measurement facilities specifically for analyzing rendering performance. [Zed](https://zed.dev/docs/development?utm_source=chatgpt.com)
+Zed maintains frame-time measurement facilities specifically for analyzing rendering performance.
 
-Its developers have also documented real rendering-performance investigations in which frame behavior differed across hardware and graphics modes, followed by changes to synchronization and presentation behavior. [Zed](https://zed.dev/blog/120fps?utm_source=chatgpt.com)
+Its developers have also documented real rendering-performance investigations in which frame behavior differed across hardware and graphics modes, followed by changes to synchronization and presentation behavior.
 
 This illustrates an important engineering principle:
 
