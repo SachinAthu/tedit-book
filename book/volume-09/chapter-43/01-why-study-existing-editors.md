@@ -167,3 +167,11 @@ The goal is to make the reader better at answering the question:
 > **Why is our editor designed this way?**
 
 Once that question has been answered in the context of other real systems, we are ready to build it.
+
+## Summary
+
+This chapter is about understanding, not imitation. Different editors exist because different requirements produce different architectures, and the central lesson is that **architecture is shaped by requirements**.
+
+We will therefore study each editor as an architectural case study, asking the same questions about organization, input, state, text representation, rendering, and extensibility. This lets us distinguish studying an architecture from copying an implementation, and it prepares us to answer the question **why is our editor designed this way** before we begin building it.
+
+In the next section, we establish the comparison framework that the rest of the chapter applies to each editor.

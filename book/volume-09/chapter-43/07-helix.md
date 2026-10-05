@@ -255,4 +255,10 @@ Helix demonstrates several important principles:
 
 For our project, the most important lesson is that **advanced editor capabilities can be layered on top of a stable editing core**.
 
-That distinction will become even more important when we examine graphical editors such as VS Code, where the editor is no longer primarily a terminal application but a much larger application platform.
+## Summary
+
+Helix demonstrates that a modern editor can be sophisticated without being maximally complex. Selections become a first-class editing concept, modal editing survives with a different command model, and structured parsing introduces a layer between the document and the user interface.
+
+The key lesson for our project is that advanced capabilities—structured understanding, language servers, highlighting—can be layered on top of a stable editing core without forcing the text-editing subsystem to understand every language-specific concern.
+
+The next section turns to VS Code, where the editor is no longer primarily a terminal application but one subsystem of a much larger development platform.

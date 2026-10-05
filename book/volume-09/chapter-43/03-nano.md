@@ -152,4 +152,10 @@ The quality of an architecture is determined by how well it satisfies its requir
 
 This provides an important baseline for the editors we examine next.
 
-Vim introduces a substantially different interaction model. Its architecture demonstrates what happens when **commands, modes, motions, and composable editing operations** become central to the user experience.
+## Summary
+
+Nano demonstrates that simplicity can be a deliberate, professional architectural choice. A small editor does not need the machinery of a large extensible platform, and its quality is judged by how well it satisfies its requirements rather than by how many components it contains.
+
+Simplicity also carries a cost: significant new capabilities can be harder to add later. The lesson is not to avoid sophistication, but to introduce complexity only when a requirement justifies it.
+
+The next section examines Vim, where a modal, command-centric interaction model reshapes the editor's entire architecture.

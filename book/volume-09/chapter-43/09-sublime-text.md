@@ -358,4 +358,10 @@ Sublime Text gives us several important architectural lessons.
 
 For our editor, the deliberate choice of full redraw and relatively simple state management remains appropriate because the project's goal is to establish a clear, understandable architecture rather than reproduce the performance architecture of a mature commercial editor.
 
-The final case study, **Zed**, takes the performance discussion into a more modern direction by combining native application architecture, asynchronous processing, language tooling, and highly responsive rendering.
+## Summary
+
+Sublime Text demonstrates that performance and responsiveness can be architectural requirements rather than final-stage optimizations. Large documents change the character of the problem, rendering becomes a major performance boundary, and asynchronous or incremental work can keep the interface responsive—at the cost of additional state and coordination.
+
+The lesson for our editor is that full-frame redraw and simple synchronous state management remain appropriate precisely because the project prioritizes clarity over the performance demands of a mature commercial editor. Optimization should follow requirements and measurements, not fashion.
+
+The next section examines Zed, which carries these performance ideas into a modern native, GPU-oriented architecture.

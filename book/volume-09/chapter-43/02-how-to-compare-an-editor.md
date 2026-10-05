@@ -308,3 +308,11 @@ More importantly, it lets us distinguish between **features** and **architectura
 A feature tells us _what_ an editor does.
 
 Architecture helps us understand _how and why it can do it_.
+
+## Summary
+
+To compare editors meaningfully, we need a consistent framework that examines architecture rather than feature lists. That framework covers core architecture, input and interaction, document model, editor state, rendering, extensibility, language tooling, and performance.
+
+Using the same questions for each editor lets us distinguish a **feature**—what an editor does—from its **architectural consequences**—how and why it can do it. This framework now guides the individual case studies.
+
+In the next section, we apply this framework to our first case study, Nano, and ask how far an editor can go while deliberately remaining simple.

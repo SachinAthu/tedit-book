@@ -410,4 +410,10 @@ The editors examined in this chapter demonstrate a general principle that applie
 
 That principle explains why our editor can be intentionally small while still being professionally structured.
 
-The next section can now make this comparison concrete by examining **our own architecture in the context of these real-world systems**.
+## Summary
+
+Across very different editors, the same principles recur: requirements drive architecture, complexity must be justified, good abstractions preserve future options, separation of responsibilities reduces coupling, more features create more state, performance can become architecture, extensibility changes the meaning of "core," and architecture should reflect clear ownership.
+
+The overriding principle is that good architecture matches structure to requirements while controlling complexity. We study existing systems not to copy them, but to ask what problem each mechanism solves and whether we share that problem.
+
+The next section makes this comparison concrete by examining our own architecture in the context of these real-world systems.

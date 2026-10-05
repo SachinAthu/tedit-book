@@ -383,4 +383,10 @@ The purpose of our project is not to move toward the upper-right corner.
 
 It is to demonstrate that **a small system can still have deliberate, professional architecture**.
 
-The next section can now bring all of these case studies together and compare their architectural choices directly.
+## Summary
+
+Zed brings the chapter's themes together: performance as a whole-application architectural goal, GPU-oriented rendering, owning more of the stack, asynchronous execution that turns the editor into a concurrent system, layered language processing, and distributed collaboration.
+
+Each capability adds genuine architectural complexity—concurrency, synchronization, and location awareness—because Zed's requirements demand it. The distinction we need is not that Zed is "better," but that a modern editor becomes complex because its requirements demand complexity, not because complexity is inherently desirable.
+
+The next section brings all of these case studies together into a single comparison.

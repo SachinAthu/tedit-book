@@ -251,4 +251,10 @@ This reinforces an idea that will appear repeatedly throughout the remaining cas
 
 Our editor does not need Emacs-level programmability, so we should not adopt Emacs-level architectural machinery merely because it exists.
 
-The next case, **Helix**, provides a useful modern contrast. It combines a modal editing philosophy with modern language tooling and structured text understanding, showing how newer editors can build a sophisticated editing experience around concepts that did not exist in the same form in older editors.
+## Summary
+
+Emacs demonstrates what happens when extensibility becomes a primary requirement: the meaning of "core" changes. Instead of containing most of the behavior, the core provides the mechanisms—commands, modes, hooks, and programmable interfaces—through which behavior is supplied and extended.
+
+That flexibility creates another layer of contracts and long-term compatibility obligations, which is exactly the kind of complexity our baseline editor intentionally avoids. The distinction is between building an editor and building an editor platform.
+
+The next section examines Helix, a modern modal editor that combines modal editing with structured parsing and language tooling.

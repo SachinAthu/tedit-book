@@ -433,3 +433,11 @@ The first is not automatically more primitive.
 They are optimized for different goals.
 
 And this is exactly why architectural decisions must always be evaluated against **requirements, constraints, and expected workloads** rather than against the apparent sophistication of another system.
+
+## Summary
+
+The comparison is a conceptual map, not a ranking. The editors differ along consistent dimensions—interaction, document, rendering, extensibility, language tooling, and performance—and each difference traces back to a difference in requirements.
+
+The central conclusion is that there is no universally best text-editor architecture, only an architecture that is appropriate or inappropriate for a particular set of requirements. Our editor deliberately occupies a small part of that design space because its requirements are correspondingly small.
+
+The next section distills the recurring lessons these editors share.

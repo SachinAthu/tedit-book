@@ -277,4 +277,10 @@ Neovim therefore teaches us an important lesson without implying that our editor
 
 > **When extensibility becomes a requirement, interfaces and APIs become architectural elements rather than optional conveniences.**
 
-The next case study takes this principle even further. Instead of primarily extending an editor through an API, **Emacs makes extensibility and programmability central to the editor itself**.
+## Summary
+
+Neovim demonstrates that an editor can be designed as a platform as well as an application. Once functionality is exposed through an API, that API becomes a stability boundary that other software depends on, and extensibility moves outward so the core need not contain every feature.
+
+That flexibility has a cost: each public boundary creates a contract that must be validated, maintained, and kept compatible. The principle is the same one seen throughout the book—abstraction reduces coupling, but maintaining abstractions has a cost, and APIs become architectural elements when extensibility becomes a requirement.
+
+The next section examines Emacs, which takes this principle further by making extensibility and programmability central to the editor itself.

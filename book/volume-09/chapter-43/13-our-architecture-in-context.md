@@ -422,3 +422,11 @@ It is designed from the project's own requirements, while the case studies demon
 That is the real purpose of Chapter 43.
 
 With that comparison complete, **Chapter 43 has fulfilled its role**: it connects the architecture we designed theoretically with architectures used by real editors, without allowing those systems to dictate our design. The next volume can therefore move from **understanding and evaluating architecture** to **implementing our own architecture**. 01-outline
+
+## Summary
+
+Our architecture is deliberately small because our requirements are small. It is not a miniature Vim or VS Code, but it does borrow the principles that scale across larger systems: separation of concerns, centralized state, explicit ownership, stable abstractions, and controlled complexity.
+
+These boundaries also leave room for future growth through explicit decisions rather than uncontrolled coupling, and the simplicity itself serves the book's educational goal. We study real editors not to copy their architecture, but to understand the consequences of architectural choices.
+
+The next and final section draws the boundary between what we are building and what we are deliberately leaving out.

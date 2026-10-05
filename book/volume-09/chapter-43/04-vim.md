@@ -263,4 +263,10 @@ Our editor does not need Vim's command language, so reproducing its input archit
 
 But studying Vim helps us understand **why our simpler Input Parser → Input Engine → Command Engine pipeline has been deliberately kept simple**.
 
-The next case, Neovim, takes this idea further by showing how an established modal editor can evolve into a more explicitly extensible and API-oriented architecture.
+## Summary
+
+Vim demonstrates that the interaction model can shape the entire architecture of an editor. Modes turn input interpretation into a state-dependent problem, and commands, motions, and operators combine into a command language far richer than a simple mapping from keys to actions.
+
+That expressive power requires more state and more transitions to test, so our simpler Input Parser → Input Engine → Command Engine pipeline is a deliberate consequence of our simpler interaction requirements rather than a deficiency.
+
+The next section examines Neovim, which shows how an established modal editor can evolve into a more explicitly extensible and API-oriented architecture.

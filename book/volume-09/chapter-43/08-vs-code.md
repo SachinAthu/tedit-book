@@ -283,4 +283,10 @@ That is not because those techniques are unnecessary in general.
 
 It is because they solve problems outside the scope of our baseline system.
 
-The next case study, **Sublime Text**, gives us a different perspective: rather than focusing primarily on extensibility and platform architecture, we can examine how **performance and responsiveness** can become major architectural drivers.
+## Summary
+
+VS Code demonstrates what happens when the editor becomes one subsystem of a general-purpose development environment. The workbench surrounds editing with other UI surfaces, the text model becomes an independent shared abstraction, extensions are isolated behind process and API boundaries, and language services are external capabilities.
+
+None of this is a "better" version of our architecture; it solves a different problem. Our project builds an editor, while VS Code is closer to a development environment containing one, and our smaller scope is the reason we do not reproduce its machinery.
+
+The next section examines Sublime Text, where performance and responsiveness become major architectural drivers.
