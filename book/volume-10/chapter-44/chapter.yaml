@@ -1,0 +1,17 @@
+chapter: 44
+title: Volume X Preparation
+volume: 10
+
+sections:
+  - 44.1 From Theory to Implementation —> 01-from-theory-to-implementation.md
+  - 44.2 Setting Up the Development Workspace —> 02-setting-up-development-workspace.md
+  - 44.3 Creating the Implementation Repository —> 03-creating-implementation-repository.md
+  - 44.4 Initializing Git —> 04-initializing-git.md
+  - 44.5 Establishing the CMake Build —> 05-establishing-CMake-build.md
+  - 44.6 Compiler and Warning Policy —> 06-compiler-and-warning-policy.md
+  - 44.7 Development and Release Build Configurations —> 07-development-and-release-build-configurations.md
+  - 44.8 Establishing the Initial Project Structure —> 08-establishing-initial-project-structure.md
+  - 44.9 Establishing the Testing Baseline —> 09-establishing-testing-baseline.md
+  - 44.10 Implementation Documentation and Status Tracking —> 10-implementation-documentation-status-tracking.md
+  - 44.11 The Implementation Workflow —> 11-implementation-workflow.md
+  - 44.12 Establishing the Initial Implementation Baseline —> 12-establishing-initial-implementation-baseline.md

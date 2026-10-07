@@ -652,45 +652,116 @@ This is where the book becomes much deeper than a typical tutorial.
 
 This is the implementation volume.
 
-## **Chapter 44 — Milestone 1**
+## **Chapter 44 - Volume X Preparation**
 
-Initialize terminal
+Before starting Chapter 44 implementation, establish the implementation environment.
 
-## **Chapter 45 — Milestone 2**
+1. Implementation repository structure
+2. CMake/build configuration
+3. Compiler and warning policy
+4. Development and release builds
+5. Testing baseline
+6. Implementation workflow
+7. Git workflow
+8. Implementation status tracking
+9. Context management
+10. First milestone preparation
 
-Renderer
+Volume X — Building the Editor
 
-## **Chapter 46 — Milestone 3**
+## **Chapter 45 — Establishing the Runtime**
 
+Terminal initialization
+Raw mode
+Terminal cleanup
+Application lifecycle
+Minimal event loop
+
+## **Chapter 46 — Building the First Editable Screen**
+
+Editor state
+Document
 Cursor
+Basic renderer
+Screen output
+Cursor display
+First interactive editing loop
 
-## **Chapter 47 — Milestone 4**
+## **Chapter 47 — Editing Text**
 
-Insertion
+Character insertion
+Character deletion
+Cursor movement
+Line boundaries
+Dirty state
+Basic editing commands
 
-## **Chapter 48 — Milestone 5**
-
-Deletion
-
-## **Chapter 49 — Milestone 6**
+## **Chapter 48 — Working with Lines**
 
 Line splitting
+Line merging
+End-of-line behavior
+Cursor transitions
+Editing invariants
 
-## **Chapter 50 — Milestone 7**
+## **Chapter 49 — Navigating the Document**
 
+Vertical movement
+Preferred column
+Viewport
+Vertical scrolling
+Horizontal scrolling
+Cursor visibility
+
+## **Chapter 50 — Opening Files**
+
+File Manager
 File loading
+UTF-8 decoding
+Line-ending normalization
+Empty files
+Initial editor state
 
-## **Chapter 51 — Milestone 8**
+## **Chapter 51 — Saving Files**
 
-Saving
+Encoding
+File serialization
+Temporary files
+Atomic replacement
+Dirty flag
+Save errors
+Terminal/editor recovery
 
-## **Chapter 52 — Milestone 9**
+## **Chapter 52 — Completing the Editor Interface**
 
-Scrolling
+Input parsing
+Command dispatch
+Status Bar
+Message Bar
+Key bindings
+Filename/cursor information
+User-facing errors
 
-## **Chapter 53 — Milestone 10**
+## **Chapter 53 — Hardening the Editor**
 
-Final polish
+Invariants
+Boundary cases
+Failure paths
+Testing
+Debugging
+Sanitizers
+Terminal restoration
+Regression testing
+
+## **Chapter 54 — Final Integration and Release**
+
+Architecture review
+Module cleanup
+Portability checks
+Build configurations
+Packaging
+Documentation
+Final end-to-end validation
 
 ---
 
