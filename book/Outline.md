@@ -667,8 +667,6 @@ Before starting Chapter 44 implementation, establish the implementation environm
 9. Context management
 10. First milestone preparation
 
-Volume X — Building the Editor
-
 ## **Chapter 45 — Establishing the Runtime**
 
 Terminal initialization

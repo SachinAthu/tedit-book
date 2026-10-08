@@ -1,0 +1,13 @@
+chapter: 45
+title: Establishing the Runtime
+volume: 10
+
+sections:
+  - 45.1 Implementation Goal —> 01-implementation-goal.md
+  - 45.2 Terminal Module —> 02-terminal-module.md
+  - 45.3 Saving and Restoring Terminal State —> 03-saving-restoring-terminal-state.md
+  - 45.4 Enabling Raw Mode —> 04-enabling-raw-mode.md
+  - 45.5 Application Lifecycle —> 05-application-lifecycle.md
+  - 45.6 Minimal Event Loop —> 06-minimal-event-loop.md
+  - 45.7 Manual Verification —> 07-manual-verification.md
+  - 45.8 Resulting Project State —> 08-resulting-project-state.md
