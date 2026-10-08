@@ -2,7 +2,7 @@
 
 ## Book Bible (Project Constitution)
 
-**Version:** 1.0  
+**Version:** 2.0  
 **Status:** Active  
 **Applies to:** Every volume, chapter, diagram, example, and code sample.
 
@@ -14,7 +14,7 @@ This document defines the writing standards, educational philosophy, terminology
 
 Its purpose is to ensure the entire book feels as though it was written by a single author with a consistent teaching style and technical depth.
 
-Whenever a future chapter conflicts with this document, **this document takes precedence**.
+This document defines the global rules of the book. Where a rule is explicitly scoped to a particular volume, that scope takes precedence over a general rule. In particular, Volume X has an explicit implementation workflow defined below and in the Implementation Project Context.
 
 ---
 
@@ -78,7 +78,9 @@ No prior knowledge is assumed regarding:
 
 This book follows a strict philosophy:
 
-## Explain before implementing.
+## Explain before implementing — for Volumes I–IX.
+
+Volumes I–IX establish the concepts, architecture, algorithms, engineering practices, and design decisions required to build the editor.
 
 Every concept should answer:
 
@@ -88,7 +90,7 @@ Every concept should answer:
 4. Why was this solution chosen?
 5. What are the trade-offs?
 
-Only then should implementation begin.
+This explain-before-implementing rule governs the theory volumes. Volume X is the deliberate implementation phase and follows its own code-first construction workflow defined in Section 6.
 
 ---
 
@@ -105,25 +107,79 @@ Readers should understand:
 
 ---
 
-## Theory first.
+## Theory first — before Volume X.
 
 Volumes I–IX teach concepts.
 
-Volume X implements the editor.
+Volume X implements the editor using those previously established concepts and decisions.
 
-Readers should understand every architectural decision before writing code.
-
----
-
-## Every chapter should stand on its own.
-
-A reader opening any chapter should be able to understand it with minimal dependence on previous chapters.
-
-Cross-references are encouraged.
+Readers should understand the architectural decisions before implementation begins. Within Volume X, the goal is no longer to re-teach those concepts from first principles; the goal is to realize them as working source code and explain how the implementation satisfies the established design.
 
 ---
 
-# 6. Writing Style
+## Chapter independence depends on the volume.
+
+For Volumes I–IX, a reader opening any chapter should be able to understand it with minimal dependence on previous chapters. Cross-references are encouraged.
+
+Volume X is intentionally sequential. Its chapters are implementation milestones in one continuously evolving source tree. Each implementation chapter depends on the source state produced by previous implementation chapters. Repeating previously established theory merely to make an implementation chapter appear standalone should be avoided.
+
+---
+
+# 6. Volume X Implementation Rules
+
+Volume X is intentionally different from Volumes I–IX.
+
+Volumes I–IX establish the theory, architecture, algorithms, engineering practices, and design decisions required to build the editor. Volume X turns those decisions into one complete working terminal text editor.
+
+Therefore, Volume X follows a **code-first implementation workflow**:
+
+```text
+Implementation Goal
+        ↓
+New / Changed Files
+        ↓
+Complete Source Code
+        ↓
+Build
+        ↓
+Run
+        ↓
+Test
+        ↓
+Explain the Actual Code
+        ↓
+Review Architecture and Invariants
+        ↓
+Next Implementation Milestone
+```
+
+The implementation chapters must prioritize the actual source code over theoretical exposition.
+
+For each meaningful implementation milestone:
+
+1. Identify the implementation goal.
+2. Identify new and modified files.
+3. Provide complete contents of every new or modified source/header file.
+4. Keep the complete source state internally consistent.
+5. Build the project using its actual CMake configuration.
+6. Run or test the implemented behavior.
+7. Explain the actual source code that was presented.
+8. Connect the implementation to the established architecture and ADRs.
+9. Identify important invariants, ownership rules, and failure behavior.
+10. Record the resulting implementation state.
+11. Continue to the next milestone.
+
+Volume X must not become a second theory volume.
+
+Previously established concepts should normally be referenced rather than re-taught at length. Theory may be explained when it is necessary to understand an implementation, but implementation remains the primary activity.
+
+The source code produced throughout Volume X forms one continuous implementation. Chapters must not create unrelated disposable mini-editors or independent example programs.
+
+The detailed operational rules for Volume X are maintained in the **Implementation Project Context**, which governs the implementation workflow while remaining subordinate to the global book identity, terminology, architecture, coding standards, and established project decisions of this Book Bible.
+
+---
+
+# 7. Writing Style
 
 The writing style should resemble a university textbook combined with a professional software engineering handbook.
 
@@ -149,7 +205,7 @@ Never assume knowledge that has not yet been introduced.
 
 ---
 
-# 7. Explanation Strategy
+# 8. Explanation Strategy
 
 Every technical topic should follow this progression whenever applicable.
 
@@ -165,7 +221,7 @@ Every technical topic should follow this progression whenever applicable.
 
 ---
 
-# 8. Chapter Structure
+# 9. Chapter Structure
 
 Unless otherwise specified, every chapter should contain:
 
@@ -180,7 +236,7 @@ Unless otherwise specified, every chapter should contain:
 
 ---
 
-# 9. Diagram Standards
+# 10. Diagram Standards
 
 Diagrams should use ASCII whenever possible.
 
@@ -208,24 +264,27 @@ Every diagram should explain something—not merely decorate the page.
 
 ---
 
-# 10. Code Philosophy
+# 11. Code Philosophy
 
-Code exists to teach concepts.
-
-It is not the primary focus.
+For Volumes I–IX, code is primarily a teaching artifact. Code examples should illustrate the concept currently being taught without introducing unnecessary implementation complexity.
 
 Every code example should:
 
 - solve one problem
-- remain short
+- remain appropriately focused
 - be explained
 - avoid unnecessary abstraction
 
-Large code listings should be split into smaller pieces.
+For Volume X, this rule changes intentionally: source code is the primary implementation artifact. Complete source files should be shown when they are new or modified as part of an implementation milestone. Large source files must not be artificially split merely to make listings shorter. The reader must be able to reproduce the actual project state from the implementation chapter.
+
+The distinction is:
+
+- **Volumes I–IX:** code illustrates theory.
+- **Volume X:** code implements the editor.
 
 ---
 
-# 11. Programming Language
+# 12. Programming Language
 
 Primary language:
 
@@ -242,7 +301,7 @@ No C++ should appear unless explicitly discussed.
 
 ---
 
-# 12. Platform
+# 13. Platform
 
 Primary platform:
 
@@ -262,7 +321,7 @@ Platform-specific behavior should be clearly identified.
 
 ---
 
-# 13. Project Scope
+# 14. Project Scope
 
 The implementation targets a Nano-like editor.
 
@@ -281,7 +340,7 @@ Advanced features are discussed later.
 
 ---
 
-# 14. Terminology Standards
+# 15. Terminology Standards
 
 Always use the following terms consistently.
 
@@ -327,7 +386,7 @@ Terminology consistency is critical.
 
 ---
 
-# 15. Formatting Rules
+# 16. Formatting Rules
 
 Headings should follow:
 
@@ -345,7 +404,7 @@ Long explanations should be divided using subheadings.
 
 ---
 
-# 16. Callout Conventions
+# 17. Callout Conventions
 
 Use clearly distinguishable blocks.
 
@@ -371,11 +430,9 @@ Professional design discussion.
 
 ---
 
-# 17. Engineering Philosophy
+# 18. Engineering Philosophy
 
-Whenever a design decision is introduced:
-
-Explain:
+Whenever a design decision is introduced, explain:
 
 - Why
 - Alternatives
@@ -384,26 +441,30 @@ Explain:
 - Memory implications
 - Simplicity
 
-Never present implementation without discussing design decisions.
+In Volumes I–IX, this normally means explaining the design before implementation.
+
+In Volume X, design explanations should be connected to the actual source code being implemented. Do not replace implementation with theoretical discussion when real C code is the appropriate artifact.
 
 ---
 
-# 18. Architecture Philosophy
+# 19. Architecture Philosophy
 
-Architecture before implementation.
+Architecture comes before implementation at the project level.
 
-Readers should first understand:
+Volumes I–IX establish:
 
 - responsibilities
 - module boundaries
 - ownership
 - dependencies
 
-Implementation comes afterwards.
+Volume X implements that established architecture.
+
+During Volume X, architectural explanations should normally be tied to the implementation milestone and actual source code. Previously established architecture should be referenced rather than re-taught unless the implementation exposes a genuine architectural issue requiring review.
 
 ---
 
-# 19. Complexity Discussions
+# 20. Complexity Discussions
 
 Whenever algorithms are introduced:
 
@@ -425,7 +486,7 @@ Focus on practical engineering.
 
 ---
 
-# 20. Progressive Learning
+# 21. Progressive Learning
 
 Concepts should be introduced in increasing complexity.
 
@@ -451,7 +512,7 @@ Readers should never encounter advanced concepts before mastering simpler ones.
 
 ---
 
-# 21. Code Standards
+# 22. Code Standards
 
 Use:
 
@@ -471,7 +532,7 @@ Avoid macros unless necessary.
 
 ---
 
-# 22. Examples
+# 23. Examples
 
 Examples should progress:
 
@@ -489,7 +550,7 @@ Avoid overwhelming readers with complex examples immediately.
 
 ---
 
-# 23. Exercises
+# 24. Exercises
 
 Where appropriate, exercises should include:
 
@@ -505,7 +566,7 @@ Exercises should reinforce understanding—not introduce new material.
 
 ---
 
-# 24. Architecture Decision Records (ADRs)
+# 25. Architecture Decision Records (ADRs)
 
 Major project decisions should be documented.
 
@@ -539,7 +600,7 @@ Simpler implementation.
 
 ---
 
-# 25. Cross References
+# 26. Cross References
 
 When a chapter builds on previous material, reference it.
 
@@ -551,7 +612,7 @@ Avoid repeating entire explanations.
 
 ---
 
-# 26. Volume Philosophy
+# 27. Volume Philosophy
 
 Volumes should build naturally.
 
@@ -613,11 +674,11 @@ Volume X
 
 Implementation
 
-Theory always precedes implementation.
+Volumes I–IX establish the theory and design required for implementation. Volume X is the deliberate construction phase. Therefore, theory precedes implementation at the book level, while the chapters of Volume X follow a code-first implementation workflow.
 
 ---
 
-# 27. Definition of Success
+# 28. Definition of Success
 
 The book succeeds if readers can:
 
@@ -632,7 +693,7 @@ The goal is independent understanding—not dependency on the book.
 
 ---
 
-# 28. Future Revisions
+# 29. Future Revisions
 
 This document may evolve during writing.
 
@@ -643,6 +704,8 @@ However:
 - architecture decisions should remain stable
 
 Changes should improve consistency rather than alter direction.
+
+The theory-first philosophy of Volumes I–IX and the code-first implementation philosophy of Volume X are both intentional and should remain distinct.
 
 ---
 
