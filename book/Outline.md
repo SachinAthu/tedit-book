@@ -652,38 +652,43 @@ This is where the book becomes much deeper than a typical tutorial.
 
 This is the implementation volume.
 
-## **Chapter 44 - Volume X Preparation**
+## **Chapter 44 — Volume X Preparation**
 
-Before starting Chapter 44 implementation, establish the implementation environment.
-
-1. Implementation repository structure
-2. CMake/build configuration
-3. Compiler and warning policy
-4. Development and release builds
-5. Testing baseline
-6. Implementation workflow
-7. Git workflow
-8. Implementation status tracking
-9. Context management
-10. First milestone preparation
+- 44.1 From Theory to Implementation
+- 44.2 Setting Up the Development Workspace
+- 44.3 Creating the Implementation Repository
+- 44.4 Initializing Git
+- 44.5 Establishing the CMake Build
+- 44.6 Compiler and Warning Policy
+- 44.7 Development and Release Build Configurations
+- 44.8 Establishing the Initial Project Structure
+- 44.9 Establishing the Testing Baseline
+- 44.10 Implementation Documentation and Status Tracking
+- 44.11 The Implementation Workflow
+- 44.12 Establishing the Initial Implementation Baseline
 
 ## **Chapter 45 — Establishing the Runtime**
 
-Terminal initialization
-Raw mode
-Terminal cleanup
-Application lifecycle
-Minimal event loop
+- 45.1 Implementation Goal
+- 45.2 Terminal Module
+- 45.3 Saving and Restoring Terminal State
+- 45.4 Enabling Raw Mode
+- 45.5 Application Lifecycle
+- 45.6 Minimal Event Loop
+- 45.7 Manual Verification
+- 45.8 Resulting Project State
 
 ## **Chapter 46 — Building the First Editable Screen**
 
-Editor state
-Document
-Cursor
-Basic renderer
-Screen output
-Cursor display
-First interactive editing loop
+- 46.1 Implementation Goal
+- 46.2 Implementing the Document
+- 46.3 Implementing the Cursor
+- 46.4 Implementing Editor State
+- 46.5 Implementing the Screen Buffer
+- 46.6 Implementing the Renderer
+- 46.7 Integrating the First Editable Screen
+- 46.8 Implementing the First Interactive Editing Loop
+- 46.9 Build, Runtime Verification, and Integration Review
 
 ## **Chapter 47 — Editing Text**
 

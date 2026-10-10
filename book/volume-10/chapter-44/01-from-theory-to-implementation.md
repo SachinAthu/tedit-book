@@ -1,5 +1,9 @@
 # 44.1 From Theory to Implementation
 
+> **Note**
+>
+> The source code presented throughout this book is illustrative and is not complete. It may omit details or contain inaccuracies, and it should not be treated as a finished, buildable implementation. For the complete source code, including detailed comments, refer to the project repository at https://github.com/SachinAthu/tedit.
+
 The preceding volumes established the editor before we wrote it.
 
 We studied terminal behavior, input processing, text representation, cursor movement, rendering, scrolling, file handling, search, undo and redo, configuration, multiple editing contexts, testing, debugging, portability, and other engineering concerns. Along the way, architectural decisions were recorded and refined through the Software Requirements Specification, architecture documentation, runtime model, project structure, coding standards, and Architecture Decision Records.

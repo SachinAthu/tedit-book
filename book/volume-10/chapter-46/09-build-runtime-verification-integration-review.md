@@ -1,0 +1,133 @@
+# 46.9 Build, Runtime Verification, and Integration Review
+
+The first interactive editing loop is now connected to the Document, Cursor, Editor State, Screen Buffer, and Renderer. We have also implemented output batching in the Renderer.
+
+This section verifies that the integrated implementation remains buildable, behaves correctly in the terminal, and preserves the architectural boundaries established in earlier chapters.
+
+## Current Project Structure
+
+No new source files are required for this verification stage.
+
+The relevant implementation should now resemble:
+
+```
+src/
+├── main.c
+├── terminal/
+│   ├── terminal.c
+│   └── terminal.h
+├── document/
+│   ├── document.c
+│   └── document.h
+├── cursor/
+│   ├── cursor.c
+│   └── cursor.h
+├── state/
+│   ├── editor_state.c
+│   └── editor_state.h
+└── renderer/
+    ├── renderer.c
+    ├── renderer.h
+    ├── screen_buffer.c
+    └── screen_buffer.h
+```
+
+The existing `CMakeLists.txt` and smoke-test configuration should remain intact.
+
+## Build Verification
+
+From the project root, run:
+
+```
+cmake -S . -B build
+cmake --build build
+```
+
+Then execute the existing automated test suite:
+
+```
+ctest --test-dir build --output-on-failure
+```
+
+The build verifies that the modules, headers, function declarations, and implementation agree. The test suite checks the behavior covered by the project's existing automated tests.
+
+A successful build alone does not establish that interactive rendering behaves correctly; terminal behavior still requires manual verification.
+
+## Manual Runtime Verification
+
+Launch the editor using your existing executable command. For the `tedit` target, this will typically be:
+
+```
+./build/tedit
+```
+
+Run the following checks.
+
+### Verification checklist
+
+0 of 12 checked
+
+Startup and rendering
+
+The editor starts in the expected terminal screen.
+
+The initial document is empty and the text cursor is positioned correctly.
+
+Typing printable ASCII characters displays them in the correct order.
+
+The visible text cursor follows successful character insertion.
+
+Renderer and output batching
+
+Repeated typing updates the screen without visible rendering artifacts.
+
+The mouse pointer and terminal text cursor behave as expected in Windows Terminal under WSL.
+
+The Renderer reuses its output buffer across successive frames.
+
+Longer typing sequences continue to render correctly.
+
+Termination and recovery
+
+Ctrl-Q exits the editor.
+
+Terminal settings are restored after normal exit.
+
+The shell accepts input normally after the editor exits.
+
+The existing EOF test still exits cleanly.
+
+Reset checklist
+
+For EOF, remember that the editor runs in raw mode, so `Ctrl-D` normally arrives as an input byte rather than causing `read()` to return zero. You can test the EOF path separately by launching the program with standard input redirected from `/dev/null`.
+
+## Integration Invariants
+
+The following invariants should hold after integration:
+
+```
+Document owns the text.
+
+Cursor represents a valid logical position.
+
+Editor State remains the central source of truth.
+
+Screen Buffer represents the current visible frame.
+
+Renderer reads Editor State but does not modify it.
+
+Rendering does not modify Document contents.
+
+A failed initialization or rendering operation
+reaches the application cleanup path.
+
+Terminal settings are restored before normal exit.
+```
+
+The last two invariants are especially important because the editor temporarily changes terminal behavior and performs output operations that can fail.
+
+## 46.9.6 — Completion Criteria
+
+Section 46.9 is complete when the current implementation builds, the existing tests pass, and the manual checks confirm the expected behavior.
+
+Once verification is complete, the remaining work in Chapter 46 is to record the resulting project state: implemented capabilities, deliberate limitations, architectural boundaries, and the starting point for Chapter 47 — Editing Text.

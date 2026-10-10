@@ -49,8 +49,14 @@ typedef struct {
 } TerminalState;
 
 bool terminal_init(TerminalState *terminal);
+
 bool terminal_enable_raw_mode(TerminalState *terminal);
+
 void terminal_restore(TerminalState *terminal);
+
+bool terminal_enter_alternate_screen(TerminalState *terminal);
+
+void terminal_leave_alternate_screen(TerminalState *terminal);
 
 #endif
 ```
@@ -251,6 +257,7 @@ The complete file at this point is:
 ```c
 #include "terminal.h"
 
+#include <errno.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -313,6 +320,28 @@ void terminal_restore(TerminalState *terminal)
     );
 
     terminal->raw_mode_enabled = false;
+}
+
+bool terminal_enter_alternate_screen(TerminalState *terminal)
+{
+    if (!terminal_write_all("\x1b[?1049h", 8))
+    {
+        return false;
+    }
+
+    terminal->alternate_screen_enabled = true;
+    return true;
+}
+
+void terminal_leave_alternate_screen(TerminalState *terminal)
+{
+    if (!terminal->alternate_screen_enabled)
+    {
+        return;
+    }
+
+    (void)terminal_write_all("\x1b[?1049l", 8);
+    terminal->alternate_screen_enabled = false;
 }
 ```
 

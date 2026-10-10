@@ -1,0 +1,14 @@
+chapter: 46
+title: Building the First Editable Screen
+volume: 10
+
+sections:
+  - 46.1 Implementation Goal —> 01-implementation-goal.md
+  - 46.2 Implementing the Document —> 02-implementing-document.md
+  - 46.3 Implementing the Cursor —> 03-implementing-cursor.md
+  - 46.4 Implementing Editor State —> 04-implementing-editor-state.md
+  - 46.5 Implementing the Screen Buffer —> 05-implementing-screen-buffer.md
+  - 46.6 Implementing the Renderer —> 06-implementing-renderer.md
+  - 46.7 Integrating the First Editable Screen —> 07-integrating-first-editable-screen.md
+  - 46.8 Implementing the First Interactive Editing Loop —> 08-implementing-first-interactive-editing-loop.md
+  - 46.9 Build, Runtime Verification, and Integration Review —> 09-build-runtime-verification-integration-review.md

@@ -223,6 +223,12 @@ int main(void)
         return 1;
     }
 
+    if (!terminal_enter_alternate_screen(&terminal))
+    {
+        terminal_restore(&terminal);
+        return 1;
+    }
+
     application_event_loop();
 
     terminal_restore(&terminal);
