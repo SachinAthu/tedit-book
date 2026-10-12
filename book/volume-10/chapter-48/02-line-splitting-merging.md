@@ -349,6 +349,8 @@ The core assertions should verify these cases:
 
 For every test, destroy the Document or Editor State after the assertions so allocated buffers are released.
 
+### Complete `tests/test_editing.c`
+
 ```c
 #include "document/document.h"
 #include "cursor/cursor.h"

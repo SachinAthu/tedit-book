@@ -3,5 +3,7 @@ title: Navigating the Document
 volume: 10
 
 sections:
-  - 49.1  —> 01-.md
-  - 49.2  —> 02-.md
+  - 49.1 Implementing Vertical Cursor Movement —> 01-vertical-cursor-movement.md
+  - 49.2 Integrating Vertical Movement into the Event Loop —> 02-integrating-vertical-movement-event-loop.md
+  - 49.3 Implementing the Viewport and Scrolling —> 03-viewport-scrolling.md
+  - 49.4 Navigating the Document —> 04-navigating-document.md
