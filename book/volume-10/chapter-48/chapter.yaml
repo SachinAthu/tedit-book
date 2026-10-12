@@ -1,0 +1,8 @@
+chapter: 48
+title: Working with Lines
+volume: 10
+
+sections:
+  - 48.1 Implementation Goal —> 01-implementation-goal.md
+  - 48.2 Implementing Line Splitting and Merging —> 02-line-splitting-merging.md
+  - 48.3 Verifying Line-Editing Behavior —> 03-verifying-line-editing-behavior.md

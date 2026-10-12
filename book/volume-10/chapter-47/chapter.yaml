@@ -3,4 +3,12 @@ title: Editing Text
 volume: 10
 
 sections:
-  - 47.1 —> 01-.md
+  - 47.1 Implementation Goal
+  - 47.2 Project Changes
+  - 47.3 Complete Source Code
+  - 47.4 Build and Test
+  - 47.5 Explanation of the Implementation
+  - 47.6 Invariants
+  - 47.7 Testing
+  - 47.8 What We Have Now
+  - 47.9 Next Step
