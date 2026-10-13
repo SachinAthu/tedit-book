@@ -413,4 +413,6 @@ Working Terminal Editor
 
 The implementation environment is now ready.
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-44-complete.
+
 **Chapter 45 begins the construction of the editor itself.**

@@ -254,4 +254,6 @@ The project now has a **minimal but functioning terminal application runtime**.
 
 The next chapter can therefore build the first visible editor behavior on top of this runtime rather than continuing to modify the terminal foundation.
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-45-complete.
+
 **Next section: 45.13 Git Commit — Recording the Runtime Milestone**

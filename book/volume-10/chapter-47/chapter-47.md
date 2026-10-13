@@ -1064,4 +1064,6 @@ The editor can insert printable ASCII characters, move left and right within a l
 
 ## 47.9 Next Step
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-47-complete.
+
 **Chapter 48 — Working with Lines** will implement line splitting, line merging, end-of-line behavior, and Cursor transitions across logical line boundaries.

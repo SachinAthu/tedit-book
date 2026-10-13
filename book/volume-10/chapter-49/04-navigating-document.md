@@ -58,4 +58,6 @@ The editor now supports:
 
 Known limitations remain: input is printable ASCII only, tab expansion and Unicode display-width mapping are not implemented, and terminal resizing is not handled by this milestone.
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-49-complete.
+
 Next milestone: Chapter 50 — Opening Files. This will build on the existing Document, Editor State, and event loop to load file contents into the editor.

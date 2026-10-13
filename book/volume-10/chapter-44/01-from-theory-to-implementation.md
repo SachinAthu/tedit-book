@@ -3,6 +3,7 @@
 > **Note**
 >
 > The source code presented throughout this book is illustrative and is not complete. It may omit details or contain inaccuracies, and it should not be treated as a finished, buildable implementation. For the complete source code, including detailed comments, refer to the project repository at https://github.com/SachinAthu/tedit.
+> You can find completed code for each chapter in the relevent branch.
 
 The preceding volumes established the editor before we wrote it.
 

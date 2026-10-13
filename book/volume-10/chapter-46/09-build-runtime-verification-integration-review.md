@@ -126,8 +126,10 @@ Terminal settings are restored before normal exit.
 
 The last two invariants are especially important because the editor temporarily changes terminal behavior and performs output operations that can fail.
 
-## 46.9.6 — Completion Criteria
+## Completion Criteria
 
 Section 46.9 is complete when the current implementation builds, the existing tests pass, and the manual checks confirm the expected behavior.
+
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-46-complete.
 
 Once verification is complete, the remaining work in Chapter 46 is to record the resulting project state: implemented capabilities, deliberate limitations, architectural boundaries, and the starting point for Chapter 47 — Editing Text.

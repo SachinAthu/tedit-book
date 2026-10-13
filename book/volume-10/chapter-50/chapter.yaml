@@ -1,0 +1,13 @@
+chapter: 50
+title: Opening Files
+volume: 10
+
+sections:
+  - 50.1 Implementation Goal —> 01-implementation-goal.md
+  - 50.2 Define the File Manager Interface —> 02-define-file-manager-interface.md
+  - 50.3 Refactor the Document to Store Unicode Code Points —> 03-refactor-document-unicode.md
+  - 50.4 Update the Screen Buffer and Renderer for Code Points —> 04-update-screen-buffer-renderer.md
+  - 50.5 Implement the File Manager —> 05-implement-file-manager.md
+  - 50.6 Integrate File Loading into Editor State —> 06-integrate-file-loading.md
+  - 50.7 Handling Zero-Line Documents Safely —> 07-handling-zero-line-documents-safely.md
+  - 50.8 Loading a File During Application Initialization —> 08-loading-file-initialization.md

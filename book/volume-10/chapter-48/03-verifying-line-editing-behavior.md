@@ -49,4 +49,6 @@ Check these editing sequences manually:
 
 These checks validate the interactive input path as well as the Document operations. Automated tests alone do not confirm terminal key delivery or rendering behavior.
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-48-complete.
+
 Chapter 48 verification status: the build and automated tests pass. Interactive terminal checks remain to be performed in the target environment. Vertical Cursor navigation, viewport adjustments, and file saving are outside this section's scope.
