@@ -704,9 +704,9 @@ static bool renderer_write_cursor_position(
 From the repository root:
 
 ```
-cmake -S . -B build
-cmake --build build -j2
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug -j2
+ctest --test-dir build/debug --output-on-failure
 ```
 
 The existing `smoke` and `editing` tests should continue to pass after applying the Document and Renderer changes consistently.
@@ -714,7 +714,7 @@ The existing `smoke` and `editing` tests should continue to pass after applying 
 To run the editor, use:
 
 ```
-./build/tedit
+./build/debug/tedit
 ```
 
 The program should still accept the existing ASCII input, navigate the Document, and redraw the screen. The new UTF-8 encoding path is now available for code points stored in the Screen Buffer, but file-loading integration and Unicode display-width behavior still require separate verification.

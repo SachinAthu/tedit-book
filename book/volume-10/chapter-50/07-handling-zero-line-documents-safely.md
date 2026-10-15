@@ -112,9 +112,9 @@ Add tests for these cases before moving on to application startup integration.
 Run the existing build and tests, plus the new regression tests:
 
 ```
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ```
 
 These are the verification commands for you to run against your current working tree; I have not verified this milestone against your latest source files.

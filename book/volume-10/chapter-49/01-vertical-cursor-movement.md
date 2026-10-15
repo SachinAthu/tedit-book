@@ -355,9 +355,9 @@ The existing test functions and their calls must remain in place.
 Run these commands from the implementation repository root:
 
 ```
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ```
 
 The updated implementation was built and tested in the extracted project.

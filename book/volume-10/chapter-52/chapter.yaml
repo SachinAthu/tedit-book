@@ -1,0 +1,13 @@
+chapter: 52
+title: Completing the Editor Interface
+volume: 10
+
+sections:
+  - 52.1 Implementation Goal and Repository Baseline —> 01-implementation-goal-repository-baseline.md
+  - 52.2 Implementing the Status Bar —> 02-implementing-status-bar.md
+  - 52.3 Implementing the Message Bar —> 03-implementing-message-bar.md
+  - 52.4 Implementing the Input Parser —> 04-implementing-input-parser.md
+  - 52.5 Implementing the Input Engine and Command Dispatch —> 05-implementing-input-engine-command-dispatch.md
+  - 52.6 Integration Review and Key-Binding Boundary —> 06-integration-review-key-binding-boundary.md
+  - 52.7 Filename Entry and Save As —> 07-filename-entry-save-as.md
+  - 52.8 Interface Refinement and Unsaved-Changes Confirmation —> 08-interface-refinement-unsaved-changes-confirmation.md

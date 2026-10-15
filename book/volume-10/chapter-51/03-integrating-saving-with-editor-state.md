@@ -20,7 +20,7 @@ Added `tests/test_file_save.c` and registered the `file_save` test in `CMakeList
 
 ## Updated files
 
-### editor_state.h
+### `src/state/editor_state.h`
 
 ```c
 
@@ -75,7 +75,7 @@ void editor_state_destroy(EditorState *state);
 #endif
 ```
 
-### editor_state.c
+### `src/state/editor_state.c`
 
 ```c
 

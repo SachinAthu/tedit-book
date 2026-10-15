@@ -106,9 +106,9 @@ The pseudo-terminal check used a small terminal, entered text across multiple li
 Run the tests yourself with:
 
 ```
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ```
 
 ## Current implementation boundary

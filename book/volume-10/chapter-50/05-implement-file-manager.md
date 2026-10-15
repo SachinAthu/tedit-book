@@ -652,9 +652,9 @@ add_test(NAME file COMMAND test_file)
 Run these commands from the repository root:
 
 ```
-cmake -S . -B build
-cmake --build build -j2
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug -j2
+ctest --test-dir build/debug --output-on-failure
 ```
 
 The expected registered tests are:

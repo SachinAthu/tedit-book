@@ -1017,9 +1017,9 @@ int main(void)
 Run these commands from the repository root:
 
 ```sh
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ./build/tedit
 ```
 

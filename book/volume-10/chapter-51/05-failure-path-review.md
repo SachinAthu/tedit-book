@@ -10,7 +10,7 @@ Completed the final failure-path review for the current file-saving workflow.
 
 ## Updated files
 
-### test_file_save.c
+### `tests/test_file_save.c`
 
 ```c
 

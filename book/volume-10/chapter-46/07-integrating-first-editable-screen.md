@@ -219,8 +219,8 @@ Keep the existing `src/main.c` and `src/terminal/terminal.c` entries. Do not cre
 Build from the repository root using the project's existing CMake build directory:
 
 ```
-cmake -S . -B build
-cmake --build build
+cmake -S . -B build/debug
+cmake --build build/debug
 ```
 
 If compilation succeeds, launch the executable using the target name already defined in your CMake configuration. The current project notes identify the application target as `tedit`, but verify the generated executable path in your repository rather than assuming it.

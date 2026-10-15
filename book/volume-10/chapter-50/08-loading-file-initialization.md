@@ -169,22 +169,22 @@ Keep the existing `exit_status` behavior: it remains nonzero when initialization
 From the repository root, run:
 
 ```
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ```
 
 Then launch the editor in these ways:
 
 ```
 # Start a new document
-./build/tedit
+./build/debug/tedit
 
 # Open an existing text file
-./build/tedit notes.txt
+./build/debug/tedit notes.txt
 
 # Try opening a nonexistent file
-./build/tedit missing.txt
+./build/debug/tedit missing.txt
 ```
 
 Verify the following cases:

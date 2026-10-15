@@ -136,9 +136,9 @@ The implementation adds tests in `tests/test_editing.c` for the following cases:
 Run the build and test suite from the project root:
 
 ```
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ```
 
 Build successful

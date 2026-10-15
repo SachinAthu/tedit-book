@@ -517,9 +517,9 @@ Important: the Document refactor alone does not complete Unicode rendering. The 
 From the repository root, run:
 
 ```
-cmake -S . -B build
-cmake --build build -j2
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug -j2
+ctest --test-dir build/debug --output-on-failure
 ```
 
 The existing editing tests should continue to pass once the Screen Buffer and Renderer interfaces have been updated consistently. Do not treat a successful build as proof that Unicode rendering works: verify that separately with a test containing at least one multibyte code point.

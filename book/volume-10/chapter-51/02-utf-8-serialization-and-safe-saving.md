@@ -564,36 +564,10 @@ int main(void)
 Run these commands from the repository root:
 
 ```
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build/debug
+cmake --build build/debug
+ctest --test-dir build/debug --output-on-failure
 ```
-
-## Verification passed
-
-Linux/POSIX build of the Chapter 51, Section 51.2 snapshot
-
-Build
-
-Passed
-
-`smoke`
-
-Passed
-
-`editing`
-
-Passed
-
-`file`
-
-Passed
-
-`file_save`
-
-Passed
-
-These tests were executed against the modified source, not merely specified as future commands. They do not yet simulate every operating-system write, close, or rename failure.
 
 ## Implementation review
 

@@ -9,7 +9,7 @@
 
 ## Updated files
 
-### main.c
+### `src/main.c`
 
 ```c
 

@@ -407,8 +407,8 @@ cleanup:
 Build the project using your existing CMake configuration:
 
 ```
-cmake -S . -B build
-cmake --build build
+cmake -S . -B build/debug
+cmake --build build/debug
 ```
 
 Then launch the editor using your existing executable command.

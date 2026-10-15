@@ -39,14 +39,14 @@ The existing `CMakeLists.txt` and smoke-test configuration should remain intact.
 From the project root, run:
 
 ```
-cmake -S . -B build
-cmake --build build
+cmake -S . -B build/debug
+cmake --build build/debug
 ```
 
 Then execute the existing automated test suite:
 
 ```
-ctest --test-dir build --output-on-failure
+ctest --test-dir build/debug --output-on-failure
 ```
 
 The build verifies that the modules, headers, function declarations, and implementation agree. The test suite checks the behavior covered by the project's existing automated tests.
