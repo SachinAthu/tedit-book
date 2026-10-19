@@ -214,4 +214,6 @@ int main(void)
 
 The next implementation milestone is the Status Bar and Message Bar. We will implement them in line with the existing architecture, then connect save success and failure feedback through the Renderer rather than writing status text directly from `main.c`.
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-52-complete.
+
 Save As and unnamed-file saving remain unimplemented; they should not be introduced unless required by the project specification.

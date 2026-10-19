@@ -650,7 +650,7 @@ This is where the book becomes much deeper than a typical tutorial.
 
 # **Volume X — Building Our Editor**
 
-This is the implementation volume.
+This is the implementation volume. Each chapter extends the same implementation repository and preserves the architecture and decisions established in Volumes I–IX.
 
 ## **Chapter 44 — Volume X Preparation**
 
@@ -692,79 +692,89 @@ This is the implementation volume.
 
 ## **Chapter 47 — Editing Text**
 
-Character insertion
-Character deletion
-Cursor movement
-Line boundaries
-Dirty state
-Basic editing commands
+Character insertion, Backspace deletion, basic cursor movement, Dirty Flag updates, and basic editing commands.
 
 ## **Chapter 48 — Working with Lines**
 
-Line splitting
-Line merging
-End-of-line behavior
-Cursor transitions
-Editing invariants
+Line splitting and merging, end-of-line behavior, cursor transitions, and editing invariants.
 
 ## **Chapter 49 — Navigating the Document**
 
-Vertical movement
-Preferred column
-Viewport
-Vertical scrolling
-Horizontal scrolling
-Cursor visibility
+Arrow-key movement, preferred column, Viewport behavior, vertical and horizontal scrolling, and cursor visibility.
 
 ## **Chapter 50 — Opening Files**
 
-File Manager
-File loading
-UTF-8 decoding
-Line-ending normalization
-Empty files
-Initial editor state
+File Manager, file loading, UTF-8 decoding, line-ending normalization, empty files, and initial Editor State.
 
 ## **Chapter 51 — Saving Files**
 
-Encoding
-File serialization
-Temporary files
-Atomic replacement
-Dirty flag
-Save errors
-Terminal/editor recovery
+UTF-8 encoding, file serialization, temporary files, atomic replacement, Dirty Flag handling, save errors, and recovery after file-operation failures.
 
 ## **Chapter 52 — Completing the Editor Interface**
 
-Input parsing
-Command dispatch
-Status Bar
-Message Bar
-Key bindings
-Filename/cursor information
-User-facing errors
+- 52.1 Implementation Goal and Repository Baseline
+- 52.2 Implementing the Status Bar
+- 52.3 Implementing the Message Bar
+- 52.4 Implementing the Input Parser
+- 52.5 Implementing the Input Engine and Command Dispatch
+- 52.6 Integration Review and Key-Binding Boundary
+- 52.7 Filename Entry and Save As for Unnamed Documents
+- 52.8 Interface Refinement and Unsaved-Changes Confirmation
 
-## **Chapter 53 — Hardening the Editor**
+The chapter completes the basic interface and command pipeline. A separate Save As command for already-named documents is intentionally out of scope for the baseline editor.
 
-Invariants
-Boundary cases
-Failure paths
-Testing
-Debugging
-Sanitizers
-Terminal restoration
-Regression testing
+## **Chapter 53 — Completing Keyboard Editing and Navigation**
 
-## **Chapter 54 — Final Integration and Release**
+This follow-up chapter closes the remaining baseline gaps in keyboard-driven editing and navigation before hardening begins.
 
-Architecture review
-Module cleanup
-Portability checks
-Build configurations
-Packaging
-Documentation
-Final end-to-end validation
+- 53.1 Implementation Goal and Remaining Gaps
+- 53.2 Terminal Sequences for Additional Keys
+- 53.3 Home and End Navigation
+- 53.4 Delete-Key Editing
+- 53.5 Page Up and Page Down Navigation
+- 53.6 Tab Insertion and Configured Tab Width
+- 53.7 UTF-8 Keyboard Input and Character-Boundary Editing
+- 53.8 Logical Cursor Positions and Visual Display Columns
+- 53.9 Input Engine and Command Engine Integration
+- 53.10 Boundary, Regression, and Pseudo-Terminal Tests
+- 53.11 Resulting Implementation State
+
+This chapter must preserve the established distinction between logical Document positions and visual terminal columns. Tab expansion belongs to the Renderer/display-coordinate model, while editing operations act on logical characters. Delete and cursor movement must not operate on arbitrary UTF-8 bytes. The chapter should implement only the established baseline behavior, not add unrelated editing features.
+
+## **Chapter 54 — Hardening the Editor**
+
+- 54.1 Hardening Goals and Verification Strategy
+- 54.2 Document, Cursor, and Viewport Invariants
+- 54.3 Boundary Conditions for Editing and Navigation
+- 54.4 Allocation and File-Operation Failure Paths
+- 54.5 Assertions and Debug Builds
+- 54.6 Sanitizer Builds and Memory-Safety Checks
+- 54.7 Input Parser Malformed-Sequence Handling
+- 54.8 Terminal Restoration and Interrupted Execution
+- 54.9 Terminal Resize Handling and Viewport Recalculation
+- 54.10 Diagnostic Logging to log.txt
+  - Record lifecycle events: initialization, startup, cleanup, and shutdown.
+  - Record parsed input events and recognized commands.
+  - Record important state transitions, including Dirty Flag changes.
+  - Record file-open and file-save attempts, results, and errors.
+  - Record frame-generation failures and terminal-output errors.
+  - Record allocation failures, invalid state, and other recoverable failures.
+  - Keep logging diagnostic and separate from the Renderer and terminal UI; logging must not change normal editor behavior.
+- 54.11 Regression and End-to-End Testing
+- 54.12 Known Limitations and Hardening Review
+  Hardening verifies the completed baseline rather than introducing an unrelated feature set. Terminal resizing is included here as runtime robustness work: dimensions, Screen Buffer allocation, reserved interface rows, and cursor visibility must remain consistent after a resize. Diagnostic logging provides a simple log.txt record of important execution events and failures to support debugging without flooding the log with document contents or every low-level operation.
+
+## **Chapter 55 — Final Integration and Release**
+
+- 55.1 Architecture and Dependency Review
+- 55.2 Module and Interface Cleanup
+- 55.3 Portability Checks
+- 55.4 Debug and Release Build Configurations
+- 55.5 Clean Build and Reproducibility Checks
+- 55.6 Packaging and Release Artifacts
+- 55.7 User and Developer Documentation
+- 55.8 Final End-to-End Validation
+- 55.9 Final Implementation Status
 
 ---
 

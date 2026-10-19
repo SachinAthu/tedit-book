@@ -3290,4 +3290,6 @@ Pseudo-terminal integration checks also passed for filename editing with Left/Ri
 
 ## Current state
 
-Chapter 52 interface refinement is complete. Next: **Chapter 53 — Hardening**.
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-52-complete.
+
+Chapter 52 interface refinement is complete. Next: **Chapter 53 — Completing Keyboard Editing and Navigation**.

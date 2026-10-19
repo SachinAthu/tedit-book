@@ -43,7 +43,7 @@ For this milestone, mappings remain fixed in `input_engine_translate()` in `src/
 
 Unknown or incomplete CSI sequences are currently ignored by the Input Parser and produce no command. An unknown `InputEventType` is rejected by the Input Engine as an invalid internal value. An unknown `EditorCommandType` is rejected by the Command Engine.
 
-## 4. Complete updated test source
+## 4. Complete updated source
 
 ### `tests/test_input_engine.c`
 
