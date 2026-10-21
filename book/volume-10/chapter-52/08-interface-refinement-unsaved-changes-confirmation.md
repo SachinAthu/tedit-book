@@ -3264,18 +3264,18 @@ No separate Save As command for already-associated documents was added.
 Debug build:
 
 ```sh
-cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
-cmake --build build-debug -j2
-ctest --test-dir build-debug --output-on-failure
+cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+cmake --build build/debug -j2
+ctest --test-dir build/debug --output-on-failure
 ```
 
 Warning-clean build:
 
 ```sh
-cmake -S . -B build-warnings -DCMAKE_BUILD_TYPE=Debug \
+cmake -S . -B build/warnings -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_C_FLAGS='-Wall -Wextra -Wpedantic -Werror'
-cmake --build build-warnings -j2
-ctest --test-dir build-warnings --output-on-failure
+cmake --build build/warnings -j2
+ctest --test-dir build/warnings --output-on-failure
 ```
 
 Both builds passed all eight CTest targets: `smoke`, `editing`, `file`, `file_save`, `input_parser`, `input_engine`, `command_engine`, and `input_pipeline`.

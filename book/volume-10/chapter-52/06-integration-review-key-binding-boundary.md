@@ -190,9 +190,9 @@ The existing `test_input_engine` target remains registered; its source was expan
 Run from the repository root:
 
 ```sh
-cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
-cmake --build build-debug -j2
-ctest --test-dir build-debug --output-on-failure
+cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+cmake --build build/debug -j2
+ctest --test-dir build/debug --output-on-failure
 
 cmake -S . -B build/werror -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_C_FLAGS='-Wall -Wextra -Wpedantic -Werror'

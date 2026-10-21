@@ -394,4 +394,6 @@ int main(void)
 
 The keyboard integration remains consistent with the project architecture. Terminal parsing and key mapping remain separate from command execution, page movement receives visible page height from the Event Loop, and commands unsupported in filename-entry mode are ignored rather than modifying the Document or prompt text.
 
+> Complete code for this chapter can be found in the relevent branch in the Github repository at https://github.com/SachinAthu/tedit/tree/chapter-53-complete.
+
 Next: **Chapter 53.10 — Boundary, Regression, and Pseudo-Terminal Tests.**

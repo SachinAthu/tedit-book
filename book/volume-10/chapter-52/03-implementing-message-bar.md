@@ -2035,9 +2035,9 @@ int main(void)
 From the repository root:
 
 ```sh
-cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
-cmake --build build-debug -j2
-ctest --test-dir build-debug --output-on-failure
+cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+cmake --build build/debug -j2
+ctest --test-dir build/debug --output-on-failure
 ```
 
 Expected CTest result: all four targets pass: `smoke`, `editing`, `file`, and `file_save`.
@@ -2045,10 +2045,10 @@ Expected CTest result: all four targets pass: `smoke`, `editing`, `file`, and `f
 A warning-clean build was also checked:
 
 ```sh
-cmake -S . -B build-warnings \
+cmake -S . -B build/warnings \
   -DCMAKE_C_FLAGS='-Wall -Wextra -Wpedantic -Werror' \
   -DCMAKE_BUILD_TYPE=Debug
-cmake --build build-warnings -j2
+cmake --build build/warnings -j2
 ```
 
 ## Manual pseudo-terminal checks

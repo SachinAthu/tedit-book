@@ -1,0 +1,13 @@
+chapter: 54
+title: Hardening the Editor
+volume: 10
+
+sections:
+  - 54.1 Establishing the Hardening Build —> 01-establishing-hardening-build.md
+  - 54.2 Document, Cursor, and Viewport Invariants —> 02-document-cursor-viewport-invariants.md
+  - 54.3 Allocation and File-Operation Failures —> 03-allocation-file-operation-failures.md
+  - 54.4 Assertions and Debug Diagnostics —> 04-assertions-debug-diagnostics.md
+  - 54.5 Malformed Input and Parser Recovery —> 05-malformed-input-parser-recovery.md
+  - 54.6 Terminal Restoration and Resize Handling —> 06-terminal-restoration-resize-handling.md
+  - 54.7 Interactive Failure-Path Verification and Final Hardening Review —> 07-interactive-failure-path-verification-final-hardening-review.md
+  - 54.8 Follow Up - Logging module —> 08-follow-up-logging-module.md
