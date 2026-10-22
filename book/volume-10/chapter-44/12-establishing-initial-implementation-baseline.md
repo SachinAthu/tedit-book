@@ -71,7 +71,6 @@ terminal-editor/
 │   ├── terminal/
 │   └── viewport/
 │
-├── include/
 ├── tests/
 ├── docs/
 ├── implementation/

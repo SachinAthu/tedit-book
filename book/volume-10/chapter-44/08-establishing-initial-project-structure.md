@@ -60,7 +60,6 @@ terminal-editor/
 │   ├── terminal/
 │   └── viewport/
 │
-├── include/
 ├── tests/
 ├── docs/
 ├── CMakeLists.txt
@@ -339,7 +338,6 @@ terminal-editor/
 │   ├── terminal/
 │   └── viewport/
 │
-├── include/
 ├── tests/
 ├── docs/
 │

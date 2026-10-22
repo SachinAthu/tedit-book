@@ -100,7 +100,6 @@ Untracked files:
     CMakeLists.txt
     README.md
     src/
-    include/
     tests/
     docs/
 ```

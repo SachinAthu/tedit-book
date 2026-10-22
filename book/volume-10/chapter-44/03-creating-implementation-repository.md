@@ -62,7 +62,6 @@ A suitable initial structure is therefore:
 ```text
 terminal-editor/
 ├── src/
-├── include/
 ├── tests/
 ├── docs/
 ├── CMakeLists.txt
@@ -126,7 +125,6 @@ A typical project may therefore contain:
 ```text
 terminal-editor/
 ├── src/
-├── include/
 ├── tests/
 ├── docs/
 ├── CMakeLists.txt

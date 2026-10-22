@@ -3,4 +3,12 @@ title: Final Integration and Release
 volume: 10
 
 sections:
-  - 55.1  —> 01-.md
+  - 55.1 Architecture and Dependency Review —> 01-architecture-dependency-review.md
+  - 55.2 Module and Interface Cleanup —> 02-module-interface-cleanup.md
+  - 55.3 Portability Checks —> 03-portability-checks.md
+  - 55.4 Debug and Release Build Configurations —> 04-debug-release-build-configurations.md
+  - 55.5 Clean Build and Reproducibility Checks —> 05-clean-build-reproducibility-checks.md
+  - 55.6 Packaging, Checksums, and Release Publication —> 06-packaging-release-artifacts.md
+  - 55.7 User and Developer Documentation —> 07-user-developer-documentation.md
+  - 55.8 Final End-to-End Validation —> 08-final-end-to-end-validation.md
+  - 55.9 Final Implementation Status —> 09-final-implementation-status.md

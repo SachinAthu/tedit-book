@@ -99,7 +99,6 @@ A source release might therefore contain:
 ```text
 editor-1.0.0/
 ├── src/
-├── include/
 ├── tests/
 ├── CMakeLists.txt
 ├── documentation/
@@ -227,7 +226,6 @@ A source artifact might instead contain:
 
 ```text
 src/
-include/
 tests/
 CMakeLists.txt
 documentation/

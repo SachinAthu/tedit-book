@@ -57,7 +57,6 @@ Conceptually:
 terminal-editor/
 ├── CMakeLists.txt
 ├── src/
-├── include/
 ├── tests/
 └── docs/
 ```
@@ -155,7 +154,6 @@ For example:
 ```text
 terminal-editor/
 ├── src/
-├── include/
 ├── tests/
 ├── docs/
 ├── CMakeLists.txt

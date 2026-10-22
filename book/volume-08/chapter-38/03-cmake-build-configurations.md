@@ -96,7 +96,6 @@ For example:
 editor/
 ├── CMakeLists.txt
 ├── src/
-├── include/
 ├── tests/
 └── ...
 
@@ -110,7 +109,6 @@ Rather than placing generated files directly alongside source files:
 editor/
 ├── CMakeLists.txt
 ├── src/
-├── include/
 ├── tests/
 ├── CMakeCache.txt
 ├── generated files...
@@ -145,7 +143,6 @@ A practical project layout might therefore look like:
 project/
 ├── CMakeLists.txt
 ├── src/
-├── include/
 ├── tests/
 │
 └── build/
@@ -384,7 +381,6 @@ The source repository should contain things such as:
 ```text
 CMakeLists.txt
 src/
-include/
 tests/
 docs/
 ```

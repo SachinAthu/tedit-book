@@ -78,7 +78,6 @@ A typical arrangement is:
 ```text
 editor/
 ├── src/
-├── include/
 ├── tests/
 ├── docs/
 ├── CMakeLists.txt
