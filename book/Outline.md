@@ -692,23 +692,47 @@ This is the implementation volume. Each chapter extends the same implementation 
 
 ## **Chapter 47 — Editing Text**
 
-Character insertion, Backspace deletion, basic cursor movement, Dirty Flag updates, and basic editing commands.
+- 47.1 Implementation Goal
+- 47.2 Project Changes
+- 47.3 Complete Source Code
+- 47.4 Build and Test
+- 47.5 Explanation of the Implementation
+- 47.6 Invariants
+- 47.7 Testing
+- 47.8 What We Have Now
+- 47.9 Next Step
 
 ## **Chapter 48 — Working with Lines**
 
-Line splitting and merging, end-of-line behavior, cursor transitions, and editing invariants.
+- 48.1 Implementation Goal
+- 48.2 Implementing Line Splitting and Merging
+- 48.3 Verifying Line-Editing Behavior
 
 ## **Chapter 49 — Navigating the Document**
 
-Arrow-key movement, preferred column, Viewport behavior, vertical and horizontal scrolling, and cursor visibility.
+- 49.1 Implementing Vertical Cursor Movement
+- 49.2 Integrating Vertical Movement into the Event Loop
+- 49.3 Implementing the Viewport and Scrolling
+- 49.4 Testing Navigation and Viewport Invariants
 
 ## **Chapter 50 — Opening Files**
 
-File Manager, file loading, UTF-8 decoding, line-ending normalization, empty files, and initial Editor State.
+- 50.1 Implementation Goal
+- 50.2 Define the File Manager Interface
+- 50.3 Refactor the Document to Store Unicode Code Points
+- 50.4 Update the Screen Buffer and Renderer for Code Points
+- 50.5 Implement the File Manager
+- 50.6 Integrate File Loading into Editor State
+- 50.7 Handling Zero-Line Documents Safely
+- 50.8 Loading a File During Application Initialization
 
 ## **Chapter 51 — Saving Files**
 
-UTF-8 encoding, file serialization, temporary files, atomic replacement, Dirty Flag handling, save errors, and recovery after file-operation failures.
+- 51.1 Implementation Goal
+- 51.2 Implementing UTF-8 Serialization and Safe Saving
+- 51.3 Integrating Saving with Editor State
+- 51.4 Integrating Saving with the Event Loop
+- 51.5 Failure-Path Review
 
 ## **Chapter 52 — Completing the Editor Interface**
 
@@ -718,7 +742,7 @@ UTF-8 encoding, file serialization, temporary files, atomic replacement, Dirty F
 - 52.4 Implementing the Input Parser
 - 52.5 Implementing the Input Engine and Command Dispatch
 - 52.6 Integration Review and Key-Binding Boundary
-- 52.7 Filename Entry and Save As for Unnamed Documents
+- 52.7 Filename Entry and Save As
 - 52.8 Interface Refinement and Unsaved-Changes Confirmation
 
 The chapter completes the basic interface and command pipeline. A separate Save As command for already-named documents is intentionally out of scope for the baseline editor.
@@ -736,33 +760,22 @@ This follow-up chapter closes the remaining baseline gaps in keyboard-driven edi
 - 53.7 UTF-8 Keyboard Input and Character-Boundary Editing
 - 53.8 Logical Cursor Positions and Visual Display Columns
 - 53.9 Input Engine and Command Engine Integration
-- 53.10 Boundary, Regression, and Pseudo-Terminal Tests
-- 53.11 Resulting Implementation State
+- 53.10 Follow-Up — Status Bar and Vertical Navigation
 
 This chapter must preserve the established distinction between logical Document positions and visual terminal columns. Tab expansion belongs to the Renderer/display-coordinate model, while editing operations act on logical characters. Delete and cursor movement must not operate on arbitrary UTF-8 bytes. The chapter should implement only the established baseline behavior, not add unrelated editing features.
 
 ## **Chapter 54 — Hardening the Editor**
 
-- 54.1 Hardening Goals and Verification Strategy
+- 54.1 Establishing the Hardening Build
 - 54.2 Document, Cursor, and Viewport Invariants
-- 54.3 Boundary Conditions for Editing and Navigation
-- 54.4 Allocation and File-Operation Failure Paths
-- 54.5 Assertions and Debug Builds
-- 54.6 Sanitizer Builds and Memory-Safety Checks
-- 54.7 Input Parser Malformed-Sequence Handling
-- 54.8 Terminal Restoration and Interrupted Execution
-- 54.9 Terminal Resize Handling and Viewport Recalculation
-- 54.10 Diagnostic Logging to log.txt
-  - Record lifecycle events: initialization, startup, cleanup, and shutdown.
-  - Record parsed input events and recognized commands.
-  - Record important state transitions, including Dirty Flag changes.
-  - Record file-open and file-save attempts, results, and errors.
-  - Record frame-generation failures and terminal-output errors.
-  - Record allocation failures, invalid state, and other recoverable failures.
-  - Keep logging diagnostic and separate from the Renderer and terminal UI; logging must not change normal editor behavior.
-- 54.11 Regression and End-to-End Testing
-- 54.12 Known Limitations and Hardening Review
-  Hardening verifies the completed baseline rather than introducing an unrelated feature set. Terminal resizing is included here as runtime robustness work: dimensions, Screen Buffer allocation, reserved interface rows, and cursor visibility must remain consistent after a resize. Diagnostic logging provides a simple log.txt record of important execution events and failures to support debugging without flooding the log with document contents or every low-level operation.
+- 54.3 Allocation and File-Operation Failures
+- 54.4 Assertions and Debug Diagnostics
+- 54.5 Malformed Input and Parser Recovery
+- 54.6 Terminal Restoration and Resize Handling
+- 54.7 Interactive Failure-Path Verification and Final Hardening Review
+- 54.8 Follow-Up — Logging Module
+
+Hardening verifies the completed baseline rather than introducing an unrelated feature set. Terminal resizing is included here as runtime robustness work: dimensions, Screen Buffer allocation, reserved interface rows, and cursor visibility must remain consistent after a resize. Diagnostic logging provides a simple log.txt record of important execution events and failures to support debugging without flooding the log with document contents or every low-level operation.
 
 ## **Chapter 55 — Final Integration and Release**
 
@@ -771,7 +784,7 @@ This chapter must preserve the established distinction between logical Document 
 - 55.3 Portability Checks
 - 55.4 Debug and Release Build Configurations
 - 55.5 Clean Build and Reproducibility Checks
-- 55.6 Packaging and Release Artifacts
+- 55.6 Packaging, Checksums, and Release Publication
 - 55.7 User and Developer Documentation
 - 55.8 Final End-to-End Validation
 - 55.9 Final Implementation Status
