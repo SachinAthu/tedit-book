@@ -7,52 +7,25 @@ The project follows a module-oriented directory structure.
 Each module owns its own directory containing both its public interface (`.h`) and implementation (`.c`).
 
 ```text
-editor/
-│
-├── command/
-│   ├── command.h
-│   └── command.c
-│
-├── cursor/
-│   ├── cursor.h
-│   └── cursor.c
-│
-├── document/
-│   ├── document.h
-│   └── document.c
-│
-├── file/
-│   ├── file.h
-│   └── file.c
-│
-├── input/
-│   ├── input.h
-│   └── input.c
-│
-├── renderer/
-│   ├── renderer.h
-│   └── renderer.c
-│
-├── state/
-│   ├── state.h
-│   └── state.c
-│
-├── terminal/
-│   ├── terminal.h
-│   └── terminal.c
-│
-├── viewport/
-│   ├── viewport.h
-│   └── viewport.c
-│
-├── common/
-│   |── common.h
-│   └── common.c
-│
-├── tests/
+text-editor/
 ├── docs/
-├── main.c
+├── src/
+│   ├── command/
+│   ├── common/
+│   ├── cursor/
+│   ├── diagnostics/
+│   ├── document/
+│   ├── file/
+│   ├── input/
+│   ├── renderer/
+│   ├── state/
+│   ├── terminal/
+│   ├── text/
+│   ├── viewport/
+│   └── main.c
+├── tests/
 ├── CMakeLists.txt
+├── LICENSE
 └── README.md
 ```
 
@@ -86,6 +59,7 @@ Rules:
 - Modules depend only on the interfaces they require.
 - Renderer never modifies editor state.
 - Document never depends on Renderer.
+- Cursor and Renderer share display-width calculations through `text/text_layout`; Cursor never depends on Renderer.
 - File Manager never depends on Renderer.
 - Input never depends on File Manager.
 
